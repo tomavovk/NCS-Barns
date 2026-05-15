@@ -296,7 +296,6 @@
                 justify-content: space-between;
                 padding-bottom: 20px;
                 margin-bottom: 24px;
-                border-bottom: 1px solid var(--color-border);
             }
 
             .nav-mega-eyebrow {
@@ -322,20 +321,11 @@
             .nav-mega-cols {
                 display: grid;
                 grid-template-columns: 1fr 1fr 1fr 1fr auto;
-                gap: 0;
+                gap: 0 48px;
             }
 
             .nav-mega-col {
-                padding-right: 32px;
-                margin-right: 0;
-                border-right: 1px solid var(--color-border);
-                padding-left: 0;
-            }
-            .nav-mega-col + .nav-mega-col {
-                padding-left: 32px;
-            }
-            .nav-mega-col:last-of-type {
-                border-right: none;
+                padding: 0;
             }
 
             .nav-mega-col-title {
@@ -372,7 +362,6 @@
 
             /* CTA panel */
             .nav-mega-cta {
-                padding-left: 32px;
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-end;
