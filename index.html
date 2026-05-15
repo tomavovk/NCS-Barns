@@ -439,6 +439,36 @@
                 grid-template-columns: 1fr 1fr auto;
             }
 
+            /* Sub-section label inside a column */
+            .nav-mega-col-subtitle {
+                font-size: 10.5px;
+                font-weight: 700;
+                letter-spacing: 0.9px;
+                text-transform: uppercase;
+                color: var(--color-gray);
+                padding: 0 10px;
+                margin-top: 18px;
+                margin-bottom: 8px;
+            }
+
+            /* Indented sub-link */
+            .nav-mega-link--sub {
+                padding-left: 20px;
+                font-size: 13.5px;
+                color: var(--color-gray);
+            }
+            .nav-mega-link--sub:hover {
+                background: var(--color-bg-hover);
+                color: var(--color-burgundy);
+            }
+
+            /* Thin divider inside a column */
+            .nav-mega-col-divider {
+                height: 1px;
+                background: var(--color-border);
+                margin: 12px 10px;
+            }
+
             /* ─────────────────────────────────────────
                PAGE PLACEHOLDER
             ───────────────────────────────────────── */
@@ -677,6 +707,9 @@
                                             <li data-comment="nav-mega-li-testimonials">
                                                 <a href="#" class="nav-mega-link" data-comment="nav-mega-link-testimonials">Testimonials</a>
                                             </li>
+                                            <li data-comment="nav-mega-li-gallery">
+                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-gallery">Gallery</a>
+                                            </li>
                                         </ul>
                                     </div>
 
@@ -738,21 +771,28 @@
 
                                 <div class="nav-mega-cols nav-mega-cols--buying" data-comment="nav-mega-buying-cols">
 
-                                    <!-- Financial -->
+                                    <!-- Credit -->
                                     <div class="nav-mega-col" data-comment="nav-mega-col-financial">
-                                        <p class="nav-mega-col-title" data-comment="nav-mega-col-title-financial">Financial</p>
+                                        <p class="nav-mega-col-title" data-comment="nav-mega-col-title-financial">Financing</p>
                                         <ul class="nav-mega-list" data-comment="nav-mega-list-financial">
                                             <li data-comment="nav-mega-li-rto">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-rto">Rent-To-Own</a>
+                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-rto">Rent-To-Own Program</a>
                                             </li>
+                                        </ul>
+                                        <div class="nav-mega-col-divider" data-comment="nav-mega-divider-credit"></div>
+                                        <p class="nav-mega-col-subtitle" data-comment="nav-mega-col-subtitle-credit">Credit</p>
+                                        <ul class="nav-mega-list" data-comment="nav-mega-list-credit">
                                             <li data-comment="nav-mega-li-ncu">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-ncu">Northern Credit Union</a>
+                                                <a href="#" class="nav-mega-link nav-mega-link--sub" data-comment="nav-mega-link-ncu">Northern Credit Union ↗</a>
                                             </li>
                                             <li data-comment="nav-mega-li-byf">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-byf">Back Yard Finance</a>
+                                                <a href="#" class="nav-mega-link nav-mega-link--sub" data-comment="nav-mega-link-byf">Back Yard Finance ↗</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-uf">
+                                                <a href="#" class="nav-mega-link nav-mega-link--sub" data-comment="nav-mega-link-uf">Upgrade Finance ↗</a>
                                             </li>
                                             <li data-comment="nav-mega-li-jmoney">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-jmoney">J-Money Financing</a>
+                                                <a href="#" class="nav-mega-link nav-mega-link--sub" data-comment="nav-mega-link-jmoney">J-Money Financing</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -772,6 +812,12 @@
                                             </li>
                                             <li data-comment="nav-mega-li-warranty">
                                                 <a href="#" class="nav-mega-link" data-comment="nav-mega-link-warranty">Warranty</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-warranty-shed">
+                                                <a href="#" class="nav-mega-link nav-mega-link--sub" data-comment="nav-mega-link-warranty-shed">Shed Warranty Information</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-warranty-poly">
+                                                <a href="#" class="nav-mega-link nav-mega-link--sub" data-comment="nav-mega-link-warranty-poly">Poly Furniture Warranty</a>
                                             </li>
                                         </ul>
                                     </div>
