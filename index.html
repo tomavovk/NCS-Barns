@@ -102,54 +102,16 @@
             .nav-logo {
                 display: flex;
                 align-items: center;
-                gap: 10px;
                 text-decoration: none;
                 flex-shrink: 0;
                 margin-right: 36px;
             }
 
-            .nav-logo-mark {
-                width: 38px;
-                height: 38px;
-                background: var(--color-burgundy);
-                border-radius: 8px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-shrink: 0;
-            }
-
-            .nav-logo-mark svg {
-                width: 21px;
-                height: 21px;
-                fill: none;
-                stroke: #fff;
-                stroke-width: 2;
-                stroke-linecap: round;
-                stroke-linejoin: round;
-            }
-
-            .nav-logo-text {
-                display: flex;
-                flex-direction: column;
-                line-height: 1;
-            }
-
-            .nav-logo-name {
-                font-family: var(--font-ui);
-                font-size: 15.5px;
-                font-weight: 800;
-                color: var(--color-dark);
-                letter-spacing: -0.6px;
-            }
-
-            .nav-logo-tagline {
-                font-size: 10px;
-                font-weight: 500;
-                color: var(--color-gray-light);
-                letter-spacing: 0.9px;
-                text-transform: uppercase;
-                margin-top: 3px;
+            .nav-logo-img {
+                height: 40px;
+                width: auto;
+                display: block;
+                filter: invert(1);
             }
 
             /* ─────────────────────────────────────────
@@ -568,16 +530,11 @@
 
                 <!-- Logo -->
                 <a href="#" class="nav-logo" data-comment="nav-logo">
-                    <div class="nav-logo-mark" data-comment="nav-logo-mark">
-                        <svg viewBox="0 0 24 24" data-comment="nav-logo-icon">
-                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                            <polyline points="9 22 9 12 15 12 15 22"/>
-                        </svg>
-                    </div>
-                    <div class="nav-logo-text" data-comment="nav-logo-text">
-                        <span class="nav-logo-name" data-comment="nav-logo-name">NCS Barns</span>
-                        <span class="nav-logo-tagline" data-comment="nav-logo-tagline">North Country Storage</span>
-                    </div>
+                    <img
+                        src="assets/Logo.png"
+                        alt="NCS Barns"
+                        class="nav-logo-img"
+                        data-comment="nav-logo-img" />
                 </a>
 
                 <!-- ── Main links ── -->
