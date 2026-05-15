@@ -286,7 +286,16 @@
             .nav-mega-inner {
                 max-width: var(--max-width);
                 margin: 0 auto;
-                padding: 28px var(--page-px) 32px;
+                padding: 0 0 0 var(--page-px);
+                display: flex;
+                align-items: stretch;
+                gap: 48px;
+            }
+
+            .nav-mega-body {
+                flex: 1;
+                padding: 28px 0 32px;
+                min-width: 0;
             }
 
             /* Mega header row */
@@ -320,7 +329,7 @@
             /* Columns layout */
             .nav-mega-cols {
                 display: grid;
-                grid-template-columns: 1fr 1fr 1fr 1fr auto;
+                grid-template-columns: 1fr 1fr 1fr 1fr;
                 gap: 0 48px;
             }
 
@@ -460,11 +469,11 @@
                MEGA MENU COLUMN VARIANTS
             ───────────────────────────────────────── */
             .nav-mega-cols--about {
-                grid-template-columns: 1fr 1fr 1fr auto;
+                grid-template-columns: 1fr 1fr 1fr;
             }
 
             .nav-mega-cols--buying {
-                grid-template-columns: 1fr 1fr auto;
+                grid-template-columns: 1fr 1fr;
             }
 
             /* Sub-section label inside a column */
@@ -605,6 +614,7 @@
                         <div class="nav-mega" data-comment="nav-mega-products">
                             <div class="nav-mega-inner" data-comment="nav-mega-products-inner">
 
+                                <div class="nav-mega-body" data-comment="nav-mega-products-body">
                                 <div class="nav-mega-header" data-comment="nav-mega-header">
                                     <span class="nav-mega-eyebrow" data-comment="nav-mega-eyebrow">
                                         Explore NCS Barns
@@ -687,6 +697,9 @@
                                         </ul>
                                     </div>
 
+                                </div><!-- /nav-mega-cols -->
+                                </div><!-- /nav-mega-body -->
+
                                     <!-- CTA -->
                                     <div class="nav-mega-cta" data-comment="nav-mega-cta" style="background-image: url('assets/Shed%20(for%20navigation).jpg');">
                                         <div class="nav-mega-cta-content" data-comment="nav-mega-cta-content">
@@ -703,7 +716,6 @@
                                         </div>
                                     </div>
 
-                                </div><!-- /nav-mega-cols -->
                             </div><!-- /nav-mega-inner -->
                         </div><!-- /nav-mega -->
                     </li>
@@ -717,6 +729,7 @@
                         <div class="nav-mega" data-comment="nav-mega-about">
                             <div class="nav-mega-inner" data-comment="nav-mega-about-inner">
 
+                                <div class="nav-mega-body" data-comment="nav-mega-about-body">
                                 <div class="nav-mega-header" data-comment="nav-mega-about-header">
                                     <span class="nav-mega-eyebrow" data-comment="nav-mega-about-eyebrow">
                                         About NCS Barns
@@ -765,6 +778,9 @@
                                         </ul>
                                     </div>
 
+                                </div><!-- /nav-mega-about-cols -->
+                                </div><!-- /nav-mega-about-body -->
+
                                     <!-- CTA -->
                                     <div class="nav-mega-cta" data-comment="nav-mega-about-cta">
                                         <div class="nav-mega-cta-content" data-comment="nav-mega-about-cta-content">
@@ -774,13 +790,12 @@
                                             <a href="#" class="btn-cta-card" data-comment="nav-mega-about-cta-btn">
                                                 <svg viewBox="0 0 24 24" data-comment="nav-mega-about-cta-btn-icon">
                                                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l1.64-1.64a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-                                            </svg>
+                                                </svg>
                                                 Contact Us
                                             </a>
                                         </div>
                                     </div>
 
-                                </div><!-- /nav-mega-about-cols -->
                             </div><!-- /nav-mega-about-inner -->
                         </div><!-- /nav-mega-about -->
                     </li>
@@ -794,6 +809,7 @@
                         <div class="nav-mega" data-comment="nav-mega-buying">
                             <div class="nav-mega-inner" data-comment="nav-mega-buying-inner">
 
+                                <div class="nav-mega-body" data-comment="nav-mega-buying-body">
                                 <div class="nav-mega-header" data-comment="nav-mega-buying-header">
                                     <span class="nav-mega-eyebrow" data-comment="nav-mega-buying-eyebrow">
                                         How to Buy
@@ -844,6 +860,9 @@
                                         </ul>
                                     </div>
 
+                                </div><!-- /nav-mega-buying-cols -->
+                                </div><!-- /nav-mega-buying-body -->
+
                                     <!-- CTA -->
                                     <div class="nav-mega-cta" data-comment="nav-mega-buying-cta">
                                         <div class="nav-mega-cta-content" data-comment="nav-mega-buying-cta-content">
@@ -860,7 +879,6 @@
                                         </div>
                                     </div>
 
-                                </div><!-- /nav-mega-buying-cols -->
                             </div><!-- /nav-mega-buying-inner -->
                         </div><!-- /nav-mega-buying -->
                     </li>
