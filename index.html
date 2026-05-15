@@ -8,7 +8,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Baskerville:wght@700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
             rel="stylesheet" />
 
         <style>
@@ -33,8 +33,7 @@
                 --color-bg-menu:        #FAFAF8;
 
                 /* Typography */
-                --font-ui:   'Inter', sans-serif;
-                --font-logo: 'Libre Baskerville', serif;
+                --font-ui: 'Inter', sans-serif;
 
                 /* Layout */
                 --nav-height: 72px;
@@ -137,11 +136,11 @@
             }
 
             .nav-logo-name {
-                font-family: var(--font-logo);
-                font-size: 17px;
-                font-weight: 700;
+                font-family: var(--font-ui);
+                font-size: 15.5px;
+                font-weight: 800;
                 color: var(--color-dark);
-                letter-spacing: -0.3px;
+                letter-spacing: -0.6px;
             }
 
             .nav-logo-tagline {
@@ -343,10 +342,11 @@
             }
 
             .nav-mega-eyebrow {
-                font-family: var(--font-logo);
-                font-size: 19px;
-                font-weight: 700;
+                font-family: var(--font-ui);
+                font-size: 18px;
+                font-weight: 800;
                 color: var(--color-dark);
+                letter-spacing: -0.4px;
                 display: flex;
                 align-items: center;
                 gap: 10px;
@@ -507,12 +507,12 @@
             }
 
             .page-ph-heading {
-                font-family: var(--font-logo);
+                font-family: var(--font-ui);
                 font-size: clamp(40px, 5.5vw, 72px);
-                font-weight: 700;
+                font-weight: 800;
                 color: var(--color-dark);
-                line-height: 1.08;
-                letter-spacing: -1.5px;
+                line-height: 1.06;
+                letter-spacing: -2px;
                 margin-bottom: 24px;
             }
 
@@ -919,8 +919,8 @@
                 <div class="token-chip" data-comment="token-chip-font-ui">
                     Inter · UI font
                 </div>
-                <div class="token-chip" data-comment="token-chip-font-logo">
-                    Libre Baskerville · Logo / headings
+                <div class="token-chip" data-comment="token-chip-font-display">
+                    Inter 800 · Display / headings
                 </div>
             </div>
         </main>
