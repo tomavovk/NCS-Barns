@@ -164,19 +164,6 @@
                 color: var(--color-burgundy);
             }
 
-            /* Chevron */
-            .chevron {
-                width: 14px;
-                height: 14px;
-                flex-shrink: 0;
-                transition: transform var(--t-fast);
-                stroke: currentColor;
-                opacity: 0.55;
-            }
-            .nav-item.is-open > .nav-trigger .chevron {
-                transform: rotate(180deg);
-                opacity: 1;
-            }
 
             /* ─────────────────────────────────────────
                RIGHT CONTROLS
@@ -554,9 +541,6 @@
                     <li class="nav-item" id="navProducts" data-comment="nav-item-products">
                         <button class="nav-trigger" data-comment="nav-trigger-products">
                             Products
-                            <svg class="chevron" data-comment="nav-chevron-products" viewBox="0 0 16 16" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="4 6 8 10 12 6"/>
-                            </svg>
                         </button>
 
                         <!-- Mega menu -->
@@ -669,9 +653,6 @@
                     <li class="nav-item" id="navAbout" data-comment="nav-item-about">
                         <button class="nav-trigger" data-comment="nav-trigger-about">
                             About
-                            <svg class="chevron" data-comment="nav-chevron-about" viewBox="0 0 16 16" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="4 6 8 10 12 6"/>
-                            </svg>
                         </button>
 
                         <div class="nav-mega" data-comment="nav-mega-about">
@@ -743,9 +724,6 @@
                     <li class="nav-item" id="navBuying" data-comment="nav-item-buying">
                         <button class="nav-trigger" data-comment="nav-trigger-buying">
                             Buying Process
-                            <svg class="chevron" data-comment="nav-chevron-buying" viewBox="0 0 16 16" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="4 6 8 10 12 6"/>
-                            </svg>
                         </button>
 
                         <div class="nav-mega" data-comment="nav-mega-buying">
@@ -917,20 +895,30 @@
                 active = null;
             }
 
-            navItems.forEach(item => {
-                const trigger = item.querySelector('.nav-trigger');
-                if (!trigger || trigger.tagName === 'A') return;
+            let closeTimer = null;
 
-                trigger.addEventListener('click', e => {
-                    e.stopPropagation();
-                    item.classList.contains('is-open') ? close(item) : open(item);
+            navItems.forEach(item => {
+                if (!item.querySelector('.nav-trigger') || item.querySelector('.nav-trigger').tagName === 'A') return;
+
+                item.addEventListener('mouseenter', () => {
+                    clearTimeout(closeTimer);
+                    open(item);
+                });
+
+                item.addEventListener('mouseleave', () => {
+                    closeTimer = setTimeout(closeAll, 120);
                 });
             });
 
-            backdrop.addEventListener('click', closeAll);
-            document.addEventListener('click', e => {
-                if (!e.target.closest('.nav-item')) closeAll();
+            // Keep menu open when cursor moves into the mega panel
+            document.querySelectorAll('.nav-mega').forEach(panel => {
+                panel.addEventListener('mouseenter', () => clearTimeout(closeTimer));
+                panel.addEventListener('mouseleave', () => {
+                    closeTimer = setTimeout(closeAll, 120);
+                });
             });
+
+            backdrop.addEventListener('mouseenter', closeAll);
             document.addEventListener('keydown', e => {
                 if (e.key === 'Escape') closeAll();
             });
