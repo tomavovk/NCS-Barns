@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>NCS Barns — Navigation</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Baskerville:wght@700&display=swap"
+            rel="stylesheet" />
+
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            :root {
+                /* Colors */
+                --color-burgundy:       #8B1A2A;
+                --color-burgundy-dark:  #6D1420;
+                --color-dark:           #1C1F24;
+                --color-gray:           #52575F;
+                --color-gray-light:     #9EA4AD;
+                --color-border:         #E6E2DD;
+                --color-bg:             #FFFFFF;
+                --color-bg-hover:       #F4F1EE;
+                --color-bg-menu:        #FAFAF8;
+
+                /* Typography */
+                --font-ui:   'Inter', sans-serif;
+                --font-logo: 'Libre Baskerville', serif;
+
+                /* Layout */
+                --nav-height: 72px;
+                --max-width:  1440px;
+                --page-px:    40px;
+
+                /* Transitions */
+                --t-fast: 0.15s ease;
+                --t-med:  0.22s ease;
+            }
+
+            body {
+                font-family: var(--font-ui);
+                background: var(--color-bg);
+                color: var(--color-dark);
+                min-height: 200vh; /* scroll room for sticky demo */
+            }
+
+            /* ─────────────────────────────────────────
+               BACKDROP
+            ───────────────────────────────────────── */
+            [data-comment="nav-backdrop"] {
+                position: fixed;
+                inset: 0;
+                top: var(--nav-height);
+                background: rgba(20, 18, 16, 0.18);
+                backdrop-filter: blur(2px);
+                -webkit-backdrop-filter: blur(2px);
+                z-index: 998;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity var(--t-med), visibility var(--t-med);
+            }
+            [data-comment="nav-backdrop"].is-open {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            /* ─────────────────────────────────────────
+               NAV ROOT
+            ───────────────────────────────────────── */
+            [data-comment="nav-root"] {
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+                background: var(--color-bg);
+                border-bottom: 1px solid var(--color-border);
+                transition: box-shadow var(--t-med);
+            }
+            [data-comment="nav-root"].is-scrolled {
+                box-shadow: 0 2px 20px rgba(0, 0, 0, 0.07);
+            }
+
+            .nav-inner {
+                max-width: var(--max-width);
+                margin: 0 auto;
+                padding: 0 var(--page-px);
+                height: var(--nav-height);
+                display: flex;
+                align-items: center;
+            }
+
+            /* ─────────────────────────────────────────
+               LOGO
+            ───────────────────────────────────────── */
+            .nav-logo {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                text-decoration: none;
+                flex-shrink: 0;
+                margin-right: 36px;
+            }
+
+            .nav-logo-mark {
+                width: 38px;
+                height: 38px;
+                background: var(--color-burgundy);
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+
+            .nav-logo-mark svg {
+                width: 21px;
+                height: 21px;
+                fill: none;
+                stroke: #fff;
+                stroke-width: 2;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+            }
+
+            .nav-logo-text {
+                display: flex;
+                flex-direction: column;
+                line-height: 1;
+            }
+
+            .nav-logo-name {
+                font-family: var(--font-logo);
+                font-size: 17px;
+                font-weight: 700;
+                color: var(--color-dark);
+                letter-spacing: -0.3px;
+            }
+
+            .nav-logo-tagline {
+                font-size: 10px;
+                font-weight: 500;
+                color: var(--color-gray-light);
+                letter-spacing: 0.9px;
+                text-transform: uppercase;
+                margin-top: 3px;
+            }
+
+            /* ─────────────────────────────────────────
+               MAIN LINK LIST
+            ───────────────────────────────────────── */
+            .nav-links {
+                display: flex;
+                align-items: center;
+                list-style: none;
+                gap: 2px;
+                flex: 1;
+            }
+
+            .nav-item {
+                position: static; /* mega menu uses fixed, dropdowns use absolute */
+            }
+
+            /* Shared trigger style */
+            .nav-trigger {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                padding: 8px 13px;
+                border: none;
+                background: none;
+                cursor: pointer;
+                font-family: var(--font-ui);
+                font-size: 14.5px;
+                font-weight: 500;
+                color: var(--color-dark);
+                border-radius: 8px;
+                transition: background var(--t-fast), color var(--t-fast);
+                white-space: nowrap;
+                text-decoration: none;
+                line-height: 1;
+            }
+
+            .nav-trigger:hover,
+            .nav-item.is-open > .nav-trigger {
+                background: var(--color-bg-hover);
+                color: var(--color-burgundy);
+            }
+
+            /* Chevron */
+            .chevron {
+                width: 14px;
+                height: 14px;
+                flex-shrink: 0;
+                transition: transform var(--t-fast);
+                stroke: currentColor;
+                opacity: 0.55;
+            }
+            .nav-item.is-open > .nav-trigger .chevron {
+                transform: rotate(180deg);
+                opacity: 1;
+            }
+
+            /* ─────────────────────────────────────────
+               RIGHT CONTROLS
+            ───────────────────────────────────────── */
+            .nav-right {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                margin-left: auto;
+            }
+
+            /* Search field */
+            .nav-search {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                background: var(--color-bg-hover);
+                border: 1.5px solid transparent;
+                border-radius: 9px;
+                padding: 7px 13px;
+                transition: border-color var(--t-fast), background var(--t-fast);
+                width: 196px;
+            }
+            .nav-search:focus-within {
+                border-color: var(--color-burgundy);
+                background: var(--color-bg);
+            }
+
+            .nav-search-icon {
+                width: 15px;
+                height: 15px;
+                flex-shrink: 0;
+                stroke: var(--color-gray);
+                stroke-width: 2;
+                fill: none;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                transition: stroke var(--t-fast);
+            }
+            .nav-search:focus-within .nav-search-icon {
+                stroke: var(--color-burgundy);
+            }
+
+            .nav-search-input {
+                border: none;
+                background: none;
+                outline: none;
+                font-family: var(--font-ui);
+                font-size: 13.5px;
+                color: var(--color-dark);
+                width: 100%;
+            }
+            .nav-search-input::placeholder {
+                color: var(--color-gray-light);
+            }
+
+            /* Icon buttons */
+            .nav-icon-btn {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 40px;
+                height: 40px;
+                border: none;
+                background: none;
+                cursor: pointer;
+                border-radius: 9px;
+                color: var(--color-dark);
+                transition: background var(--t-fast), color var(--t-fast);
+            }
+            .nav-icon-btn:hover {
+                background: var(--color-bg-hover);
+                color: var(--color-burgundy);
+            }
+            .nav-icon-btn svg {
+                width: 20px;
+                height: 20px;
+                stroke: currentColor;
+                stroke-width: 1.8;
+                fill: none;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+            }
+
+            .nav-cart-badge {
+                position: absolute;
+                top: 7px;
+                right: 7px;
+                width: 7px;
+                height: 7px;
+                background: var(--color-burgundy);
+                border-radius: 50%;
+                border: 1.5px solid var(--color-bg);
+            }
+
+            /* ─────────────────────────────────────────
+               MEGA MENU — PRODUCTS
+            ───────────────────────────────────────── */
+            .nav-mega {
+                position: fixed;
+                top: var(--nav-height);
+                left: 0;
+                right: 0;
+                z-index: 999;
+                background: var(--color-bg);
+                border-bottom: 1px solid var(--color-border);
+                box-shadow: 0 12px 48px rgba(0, 0, 0, 0.09), 0 2px 8px rgba(0, 0, 0, 0.04);
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+                transition: opacity var(--t-med), visibility var(--t-med);
+            }
+            .nav-item.is-open > .nav-mega {
+                opacity: 1;
+                visibility: visible;
+                pointer-events: all;
+            }
+
+            .nav-mega-inner {
+                max-width: var(--max-width);
+                margin: 0 auto;
+                padding: 28px var(--page-px) 32px;
+            }
+
+            /* Mega header row */
+            .nav-mega-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding-bottom: 20px;
+                margin-bottom: 24px;
+                border-bottom: 1px solid var(--color-border);
+            }
+
+            .nav-mega-eyebrow {
+                font-family: var(--font-logo);
+                font-size: 19px;
+                font-weight: 700;
+                color: var(--color-dark);
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .nav-mega-eyebrow-arrow {
+                color: var(--color-burgundy);
+                font-family: var(--font-ui);
+                font-size: 20px;
+                font-weight: 300;
+                letter-spacing: -1px;
+            }
+
+            /* Columns layout */
+            .nav-mega-cols {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr 1fr auto;
+                gap: 0;
+            }
+
+            .nav-mega-col {
+                padding-right: 32px;
+                margin-right: 0;
+                border-right: 1px solid var(--color-border);
+                padding-left: 0;
+            }
+            .nav-mega-col + .nav-mega-col {
+                padding-left: 32px;
+            }
+            .nav-mega-col:last-of-type {
+                border-right: none;
+            }
+
+            .nav-mega-col-title {
+                font-size: 10.5px;
+                font-weight: 700;
+                letter-spacing: 0.9px;
+                text-transform: uppercase;
+                color: var(--color-gray);
+                margin-bottom: 12px;
+            }
+
+            .nav-mega-list {
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                gap: 1px;
+            }
+
+            .nav-mega-link {
+                display: block;
+                padding: 7px 10px;
+                border-radius: 7px;
+                font-size: 14px;
+                font-weight: 500;
+                color: var(--color-dark);
+                text-decoration: none;
+                transition: background var(--t-fast), color var(--t-fast);
+                white-space: nowrap;
+            }
+            .nav-mega-link:hover {
+                background: var(--color-bg-hover);
+                color: var(--color-burgundy);
+            }
+
+            /* CTA panel */
+            .nav-mega-cta {
+                padding-left: 32px;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                min-width: 208px;
+            }
+
+            .nav-mega-cta-label {
+                font-size: 10.5px;
+                font-weight: 700;
+                letter-spacing: 0.9px;
+                text-transform: uppercase;
+                color: var(--color-gray);
+                margin-bottom: 12px;
+            }
+
+            .btn-customize {
+                display: inline-flex;
+                align-items: center;
+                gap: 9px;
+                background: var(--color-burgundy);
+                color: #fff;
+                padding: 13px 18px;
+                border-radius: 10px;
+                font-family: var(--font-ui);
+                font-size: 14px;
+                font-weight: 600;
+                text-decoration: none;
+                border: none;
+                cursor: pointer;
+                transition: background var(--t-fast), transform var(--t-fast);
+                white-space: nowrap;
+            }
+            .btn-customize:hover {
+                background: var(--color-burgundy-dark);
+                transform: translateY(-1px);
+            }
+            .btn-customize svg {
+                width: 16px;
+                height: 16px;
+                stroke: currentColor;
+                stroke-width: 2;
+                fill: none;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                flex-shrink: 0;
+            }
+
+            .nav-mega-cta-note {
+                font-size: 12px;
+                color: var(--color-gray-light);
+                margin-top: 9px;
+                line-height: 1.5;
+                max-width: 176px;
+            }
+
+            /* ─────────────────────────────────────────
+               SIMPLE DROPDOWN — shared shell
+            ───────────────────────────────────────── */
+            .nav-dropdown {
+                position: absolute;
+                top: calc(100% + 10px);
+                left: 50%;
+                transform: translateX(-50%) translateY(-6px);
+                background: var(--color-bg);
+                border: 1px solid var(--color-border);
+                border-radius: 14px;
+                box-shadow: 0 8px 40px rgba(0, 0, 0, 0.10), 0 2px 8px rgba(0, 0, 0, 0.04);
+                z-index: 999;
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+                transition: opacity var(--t-med), transform var(--t-med), visibility var(--t-med);
+            }
+            .nav-item.is-open > .nav-dropdown {
+                opacity: 1;
+                visibility: visible;
+                pointer-events: all;
+                transform: translateX(-50%) translateY(0);
+            }
+
+            /* ─── About dropdown ─── */
+            .nav-about-panel {
+                padding: 8px;
+                min-width: 224px;
+            }
+
+            .nav-about-list {
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                gap: 1px;
+            }
+
+            .nav-about-link {
+                display: block;
+                padding: 9px 12px;
+                border-radius: 8px;
+                font-size: 14px;
+                font-weight: 500;
+                color: var(--color-dark);
+                text-decoration: none;
+                transition: background var(--t-fast), color var(--t-fast);
+            }
+            .nav-about-link:hover {
+                background: var(--color-bg-hover);
+                color: var(--color-burgundy);
+            }
+
+            /* ─── Buying Process dropdown ─── */
+            .nav-bp-panel {
+                padding: 16px;
+                min-width: 268px;
+            }
+
+            .nav-bp-section-label {
+                font-size: 10.5px;
+                font-weight: 700;
+                letter-spacing: 0.9px;
+                text-transform: uppercase;
+                color: var(--color-gray);
+                padding: 0 8px;
+                margin-bottom: 6px;
+            }
+
+            .nav-bp-list {
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                gap: 1px;
+            }
+
+            .nav-bp-link {
+                display: block;
+                padding: 8px 12px;
+                border-radius: 8px;
+                font-size: 14px;
+                font-weight: 500;
+                color: var(--color-dark);
+                text-decoration: none;
+                transition: background var(--t-fast), color var(--t-fast);
+            }
+            .nav-bp-link:hover {
+                background: var(--color-bg-hover);
+                color: var(--color-burgundy);
+            }
+
+            .nav-bp-link--sub {
+                padding-left: 22px;
+                font-size: 13.5px;
+                font-weight: 400;
+                color: var(--color-gray);
+            }
+            .nav-bp-link--sub:hover {
+                background: var(--color-bg-hover);
+                color: var(--color-burgundy);
+            }
+
+            .nav-bp-divider {
+                height: 1px;
+                background: var(--color-border);
+                margin: 10px 0;
+            }
+
+            /* ─────────────────────────────────────────
+               PAGE PLACEHOLDER
+            ───────────────────────────────────────── */
+            .page-placeholder {
+                max-width: var(--max-width);
+                margin: 0 auto;
+                padding: 88px var(--page-px) 64px;
+            }
+
+            .page-ph-tag {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                background: var(--color-bg-hover);
+                border: 1px solid var(--color-border);
+                border-radius: 100px;
+                padding: 5px 14px;
+                font-size: 11.5px;
+                font-weight: 600;
+                color: var(--color-burgundy);
+                letter-spacing: 0.5px;
+                text-transform: uppercase;
+                margin-bottom: 28px;
+            }
+
+            .page-ph-heading {
+                font-family: var(--font-logo);
+                font-size: clamp(40px, 5.5vw, 72px);
+                font-weight: 700;
+                color: var(--color-dark);
+                line-height: 1.08;
+                letter-spacing: -1.5px;
+                margin-bottom: 24px;
+            }
+
+            .page-ph-heading em {
+                color: var(--color-burgundy);
+                font-style: normal;
+            }
+
+            .page-ph-body {
+                font-size: 17px;
+                color: var(--color-gray);
+                max-width: 520px;
+                line-height: 1.65;
+                margin-bottom: 40px;
+            }
+
+            .page-ph-tokens {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .token-chip {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                border: 1px solid var(--color-border);
+                border-radius: 8px;
+                padding: 8px 14px;
+                font-size: 12.5px;
+                font-weight: 500;
+                color: var(--color-gray);
+            }
+
+            .token-swatch {
+                width: 14px;
+                height: 14px;
+                border-radius: 4px;
+                flex-shrink: 0;
+            }
+        </style>
+    </head>
+    <body>
+
+        <!-- ── BACKDROP ── -->
+        <div data-comment="nav-backdrop" id="navBackdrop"></div>
+
+        <!-- ════════════════════════════════
+             HEADER / NAV
+        ════════════════════════════════ -->
+        <header data-comment="nav-root" id="navRoot">
+            <div class="nav-inner" data-comment="nav-inner">
+
+                <!-- Logo -->
+                <a href="#" class="nav-logo" data-comment="nav-logo">
+                    <div class="nav-logo-mark" data-comment="nav-logo-mark">
+                        <svg viewBox="0 0 24 24" data-comment="nav-logo-icon">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                            <polyline points="9 22 9 12 15 12 15 22"/>
+                        </svg>
+                    </div>
+                    <div class="nav-logo-text" data-comment="nav-logo-text">
+                        <span class="nav-logo-name" data-comment="nav-logo-name">NCS Barns</span>
+                        <span class="nav-logo-tagline" data-comment="nav-logo-tagline">North Country Storage</span>
+                    </div>
+                </a>
+
+                <!-- ── Main links ── -->
+                <ul class="nav-links" data-comment="nav-links">
+
+                    <!-- PRODUCTS -->
+                    <li class="nav-item" id="navProducts" data-comment="nav-item-products">
+                        <button class="nav-trigger" data-comment="nav-trigger-products">
+                            Products
+                            <svg class="chevron" data-comment="nav-chevron-products" viewBox="0 0 16 16" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="4 6 8 10 12 6"/>
+                            </svg>
+                        </button>
+
+                        <!-- Mega menu -->
+                        <div class="nav-mega" data-comment="nav-mega-products">
+                            <div class="nav-mega-inner" data-comment="nav-mega-products-inner">
+
+                                <div class="nav-mega-header" data-comment="nav-mega-header">
+                                    <span class="nav-mega-eyebrow" data-comment="nav-mega-eyebrow">
+                                        Explore NCS Barns
+                                        <span class="nav-mega-eyebrow-arrow" data-comment="nav-mega-eyebrow-arrow">→</span>
+                                    </span>
+                                </div>
+
+                                <div class="nav-mega-cols" data-comment="nav-mega-cols">
+
+                                    <!-- Structures -->
+                                    <div class="nav-mega-col" data-comment="nav-mega-col-structures">
+                                        <p class="nav-mega-col-title" data-comment="nav-mega-col-title-structures">Structures</p>
+                                        <ul class="nav-mega-list" data-comment="nav-mega-list-structures">
+                                            <li data-comment="nav-mega-li-sheds">
+                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-sheds">Sheds</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-gazebos">
+                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-gazebos">Gazebos / Pergolas / Pavilions</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-hunting">
+                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-hunting">Hunting Blinds</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-play">
+                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-play">Play Structures</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-animal">
+                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-animal">Animal Structures</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-rentals">
+                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-rentals">Returned Rentals</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Furniture -->
+                                    <div class="nav-mega-col" data-comment="nav-mega-col-furniture">
+                                        <p class="nav-mega-col-title" data-comment="nav-mega-col-title-furniture">Furniture</p>
+                                        <ul class="nav-mega-list" data-comment="nav-mega-list-furniture">
+                                            <li data-comment="nav-mega-li-indoor">
+                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-indoor">Indoor Furniture</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-outdoor">
+                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-outdoor">Outdoor Furniture</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-decor">
+                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-decor">Decor & More</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Homes & Garages -->
+                                    <div class="nav-mega-col" data-comment="nav-mega-col-homes">
+                                        <p class="nav-mega-col-title" data-comment="nav-mega-col-title-homes">Homes & Garages</p>
+                                        <ul class="nav-mega-list" data-comment="nav-mega-list-homes">
+                                            <li data-comment="nav-mega-li-custom-homes">
+                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-custom-homes">Custom Homes</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-modular-homes">
+                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-modular-homes">Modular Homes</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-garages">
+                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-garages">Garages</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Options -->
+                                    <div class="nav-mega-col" data-comment="nav-mega-col-options">
+                                        <p class="nav-mega-col-title" data-comment="nav-mega-col-title-options">Options</p>
+                                        <ul class="nav-mega-list" data-comment="nav-mega-list-options">
+                                            <li data-comment="nav-mega-li-colors">
+                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-colors">Colors</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-log-cabin">
+                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-log-cabin">Log Cabin Options</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-shed-options">
+                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-shed-options">Additional Shed Options</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- CTA -->
+                                    <div class="nav-mega-cta" data-comment="nav-mega-cta">
+                                        <p class="nav-mega-cta-label" data-comment="nav-mega-cta-label">Build yours</p>
+                                        <a href="#" class="btn-customize" data-comment="nav-mega-cta-btn">
+                                            <svg viewBox="0 0 24 24" data-comment="nav-mega-cta-btn-icon">
+                                                <rect x="3" y="3" width="7" height="7"/>
+                                                <rect x="14" y="3" width="7" height="7"/>
+                                                <rect x="3" y="14" width="7" height="7"/>
+                                                <path d="M14 17h7m-3.5-3.5v7"/>
+                                            </svg>
+                                            Customize Shed
+                                        </a>
+                                        <p class="nav-mega-cta-note" data-comment="nav-mega-cta-note">Design your own shed in our interactive 3D configurator</p>
+                                    </div>
+
+                                </div><!-- /nav-mega-cols -->
+                            </div><!-- /nav-mega-inner -->
+                        </div><!-- /nav-mega -->
+                    </li>
+
+                    <!-- ABOUT -->
+                    <li class="nav-item" id="navAbout" data-comment="nav-item-about">
+                        <button class="nav-trigger" data-comment="nav-trigger-about">
+                            About
+                            <svg class="chevron" data-comment="nav-chevron-about" viewBox="0 0 16 16" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="4 6 8 10 12 6"/>
+                            </svg>
+                        </button>
+
+                        <div class="nav-dropdown" data-comment="nav-dropdown-about">
+                            <div class="nav-about-panel" data-comment="nav-about-panel">
+                                <ul class="nav-about-list" data-comment="nav-about-list">
+                                    <li data-comment="nav-about-li-company">
+                                        <a href="#" class="nav-about-link" data-comment="nav-about-link-company">About Company</a>
+                                    </li>
+                                    <li data-comment="nav-about-li-locations">
+                                        <a href="#" class="nav-about-link" data-comment="nav-about-link-locations">Working Time & Locations</a>
+                                    </li>
+                                    <li data-comment="nav-about-li-service-area">
+                                        <a href="#" class="nav-about-link" data-comment="nav-about-link-service-area">Service Area</a>
+                                    </li>
+                                    <li data-comment="nav-about-li-delivery">
+                                        <a href="#" class="nav-about-link" data-comment="nav-about-link-delivery">Delivery & Relocation</a>
+                                    </li>
+                                    <li data-comment="nav-about-li-testimonials">
+                                        <a href="#" class="nav-about-link" data-comment="nav-about-link-testimonials">Testimonials</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- BUYING PROCESS -->
+                    <li class="nav-item" id="navBuying" data-comment="nav-item-buying">
+                        <button class="nav-trigger" data-comment="nav-trigger-buying">
+                            Buying Process
+                            <svg class="chevron" data-comment="nav-chevron-buying" viewBox="0 0 16 16" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="4 6 8 10 12 6"/>
+                            </svg>
+                        </button>
+
+                        <div class="nav-dropdown" data-comment="nav-dropdown-buying">
+                            <div class="nav-bp-panel" data-comment="nav-bp-panel">
+
+                                <!-- Financial group -->
+                                <p class="nav-bp-section-label" data-comment="nav-bp-label-financial">Financial</p>
+                                <ul class="nav-bp-list" data-comment="nav-bp-list-financial">
+                                    <li data-comment="nav-bp-li-rto">
+                                        <a href="#" class="nav-bp-link nav-bp-link--sub" data-comment="nav-bp-link-rto">Rent-To-Own</a>
+                                    </li>
+                                    <li data-comment="nav-bp-li-ncu">
+                                        <a href="#" class="nav-bp-link nav-bp-link--sub" data-comment="nav-bp-link-ncu">Northern Credit Union</a>
+                                    </li>
+                                    <li data-comment="nav-bp-li-byf">
+                                        <a href="#" class="nav-bp-link nav-bp-link--sub" data-comment="nav-bp-link-byf">Back Yard Finance</a>
+                                    </li>
+                                    <li data-comment="nav-bp-li-jmoney">
+                                        <a href="#" class="nav-bp-link nav-bp-link--sub" data-comment="nav-bp-link-jmoney">J-Money Financing</a>
+                                    </li>
+                                </ul>
+
+                                <div class="nav-bp-divider" data-comment="nav-bp-divider"></div>
+
+                                <!-- Standalone items -->
+                                <ul class="nav-bp-list" data-comment="nav-bp-list-other">
+                                    <li data-comment="nav-bp-li-dealers">
+                                        <a href="#" class="nav-bp-link" data-comment="nav-bp-link-dealers">Dealers</a>
+                                    </li>
+                                    <li data-comment="nav-bp-li-site-prep">
+                                        <a href="#" class="nav-bp-link" data-comment="nav-bp-link-site-prep">Site Preparation</a>
+                                    </li>
+                                    <li data-comment="nav-bp-li-delivery">
+                                        <a href="#" class="nav-bp-link" data-comment="nav-bp-link-delivery">Delivery</a>
+                                    </li>
+                                    <li data-comment="nav-bp-li-warranty">
+                                        <a href="#" class="nav-bp-link" data-comment="nav-bp-link-warranty">Warranty</a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- CONTACT -->
+                    <li class="nav-item" data-comment="nav-item-contact">
+                        <a href="#" class="nav-trigger" data-comment="nav-link-contact">Contact</a>
+                    </li>
+
+                </ul><!-- /nav-links -->
+
+                <!-- ── Right side ── -->
+                <div class="nav-right" data-comment="nav-right">
+
+                    <div class="nav-search" data-comment="nav-search">
+                        <svg class="nav-search-icon" data-comment="nav-search-icon" viewBox="0 0 24 24">
+                            <circle cx="11" cy="11" r="8"/>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                        </svg>
+                        <input
+                            type="text"
+                            class="nav-search-input"
+                            placeholder="Search products…"
+                            data-comment="nav-search-input" />
+                    </div>
+
+                    <button class="nav-icon-btn" data-comment="nav-cart-btn" title="Cart">
+                        <svg viewBox="0 0 24 24" data-comment="nav-cart-icon">
+                            <circle cx="9" cy="21" r="1"/>
+                            <circle cx="20" cy="21" r="1"/>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                        </svg>
+                        <span class="nav-cart-badge" data-comment="nav-cart-badge"></span>
+                    </button>
+
+                    <button class="nav-icon-btn" data-comment="nav-account-btn" title="My Account">
+                        <svg viewBox="0 0 24 24" data-comment="nav-account-icon">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </button>
+
+                </div><!-- /nav-right -->
+
+            </div><!-- /nav-inner -->
+        </header>
+
+        <!-- ════════════════════════════════
+             PAGE PLACEHOLDER
+        ════════════════════════════════ -->
+        <main class="page-placeholder" data-comment="page-placeholder">
+            <div class="page-ph-tag" data-comment="page-ph-tag">Navigation preview</div>
+            <h1 class="page-ph-heading" data-comment="page-ph-heading">
+                Built for the<br><em>North Country.</em>
+            </h1>
+            <p class="page-ph-body" data-comment="page-ph-body">
+                Click or hover the navigation items above to explore the menu structure. The page below represents the eventual hero section content.
+            </p>
+            <div class="page-ph-tokens" data-comment="page-ph-tokens">
+                <div class="token-chip" data-comment="token-chip-burgundy">
+                    <span class="token-swatch" data-comment="token-swatch-burgundy" style="background:#8B1A2A;"></span>
+                    Burgundy · #8B1A2A
+                </div>
+                <div class="token-chip" data-comment="token-chip-dark">
+                    <span class="token-swatch" data-comment="token-swatch-dark" style="background:#1C1F24;"></span>
+                    Dark · #1C1F24
+                </div>
+                <div class="token-chip" data-comment="token-chip-white">
+                    <span class="token-swatch" data-comment="token-swatch-white" style="background:#FFFFFF; border:1px solid #E6E2DD;"></span>
+                    White · #FFFFFF
+                </div>
+                <div class="token-chip" data-comment="token-chip-font-ui">
+                    Inter · UI font
+                </div>
+                <div class="token-chip" data-comment="token-chip-font-logo">
+                    Libre Baskerville · Logo / headings
+                </div>
+            </div>
+        </main>
+
+        <script>
+            const navItems  = document.querySelectorAll('.nav-item');
+            const backdrop  = document.getElementById('navBackdrop');
+            const navRoot   = document.getElementById('navRoot');
+            let   active    = null;
+
+            function open(item) {
+                if (active && active !== item) close(active);
+                item.classList.add('is-open');
+                backdrop.classList.add('is-open');
+                active = item;
+            }
+
+            function close(item) {
+                item.classList.remove('is-open');
+                backdrop.classList.remove('is-open');
+                active = null;
+            }
+
+            function closeAll() {
+                navItems.forEach(i => i.classList.remove('is-open'));
+                backdrop.classList.remove('is-open');
+                active = null;
+            }
+
+            navItems.forEach(item => {
+                const trigger = item.querySelector('.nav-trigger');
+                if (!trigger || trigger.tagName === 'A') return;
+
+                trigger.addEventListener('click', e => {
+                    e.stopPropagation();
+                    item.classList.contains('is-open') ? close(item) : open(item);
+                });
+            });
+
+            backdrop.addEventListener('click', closeAll);
+            document.addEventListener('click', e => {
+                if (!e.target.closest('.nav-item')) closeAll();
+            });
+            document.addEventListener('keydown', e => {
+                if (e.key === 'Escape') closeAll();
+            });
+
+            // Sticky shadow
+            window.addEventListener('scroll', () => {
+                navRoot.classList.toggle('is-scrolled', window.scrollY > 4);
+            }, { passive: true });
+        </script>
+
+    </body>
+</html>
