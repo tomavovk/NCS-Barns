@@ -10,6 +10,12 @@
         <link
             href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
             rel="stylesheet" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+            rel="stylesheet" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+        <script src="nav.js" defer></script>
 
         <style>
             *,
@@ -25,10 +31,10 @@
                 --color-burgundy:       #8B1A2A;
                 --color-burgundy-dark:  #6D1420;
                 --color-dark:           #1C1F24;
-                --color-gray:           #52575F;
-                --color-gray-light:     #9EA4AD;
+                --color-gray:           #514C4A;
+                --color-gray-light:     #9A9390;
                 --color-border:         #E6E2DD;
-                --color-bg:             #FFFFFF;
+                --color-bg:             #F8F6F4;
                 --color-bg-hover:       #F4F1EE;
                 --color-bg-menu:        #FAFAF8;
 
@@ -49,971 +55,1944 @@
                 font-family: var(--font-ui);
                 background: var(--color-bg);
                 color: var(--color-dark);
-                min-height: 200vh; /* scroll room for sticky demo */
             }
+
+            /* nav styles are in nav.js */
 
             /* ─────────────────────────────────────────
-               BACKDROP
+               GLOBAL PAGE UTILITIES
             ───────────────────────────────────────── */
-            [data-comment="nav-backdrop"] {
-                position: fixed;
-                inset: 0;
-                top: var(--nav-height);
-                background: rgba(20, 18, 16, 0.18);
-                backdrop-filter: blur(2px);
-                -webkit-backdrop-filter: blur(2px);
-                z-index: 998;
-                opacity: 0;
-                visibility: hidden;
-                transition: opacity var(--t-med), visibility var(--t-med);
-            }
-            [data-comment="nav-backdrop"].is-open {
-                opacity: 1;
-                visibility: visible;
-            }
-
-            /* ─────────────────────────────────────────
-               NAV ROOT
-            ───────────────────────────────────────── */
-            [data-comment="nav-root"] {
-                position: sticky;
-                top: 0;
-                z-index: 1000;
-                background: var(--color-bg);
-                border-bottom: 1px solid var(--color-border);
-                transition: box-shadow var(--t-med);
-            }
-            [data-comment="nav-root"].is-scrolled {
-                box-shadow: 0 2px 20px rgba(0, 0, 0, 0.07);
-            }
-
-            .nav-inner {
+            .section-inner {
                 max-width: var(--max-width);
                 margin: 0 auto;
                 padding: 0 var(--page-px);
-                height: var(--nav-height);
-                display: flex;
-                align-items: center;
             }
-
-            /* ─────────────────────────────────────────
-               LOGO
-            ───────────────────────────────────────── */
-            .nav-logo {
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                text-decoration: none;
-                flex-shrink: 0;
-                margin-right: 36px;
-            }
-
-            .nav-logo-img {
-                height: 40px;
-                width: auto;
-                display: block;
-                filter: invert(1);
-            }
-
-            .nav-logo-name {
-                font-size: 15.5px;
-                font-weight: 800;
-                color: var(--color-dark);
-                letter-spacing: -0.5px;
-                white-space: nowrap;
-            }
-
-            /* ─────────────────────────────────────────
-               MAIN LINK LIST
-            ───────────────────────────────────────── */
-            .nav-links {
-                display: flex;
-                align-items: center;
-                list-style: none;
-                gap: 2px;
-                flex: 1;
-            }
-
-            .nav-item {
-                position: static; /* mega menu uses fixed, dropdowns use absolute */
-            }
-
-            /* Shared trigger style */
-            .nav-trigger {
-                display: inline-flex;
-                align-items: center;
-                gap: 5px;
-                padding: 8px 13px;
-                border: none;
-                background: none;
-                cursor: pointer;
-                font-family: var(--font-ui);
-                font-size: 14.5px;
-                font-weight: 500;
-                color: var(--color-dark);
-                border-radius: 8px;
-                transition: background var(--t-fast), color var(--t-fast);
-                white-space: nowrap;
-                text-decoration: none;
-                line-height: 1;
-            }
-
-            .nav-trigger:hover,
-            .nav-item.is-open > .nav-trigger {
-                background: var(--color-bg-hover);
-                color: var(--color-burgundy);
-            }
-
-
-            /* ─────────────────────────────────────────
-               RIGHT CONTROLS
-            ───────────────────────────────────────── */
-            .nav-right {
-                display: flex;
-                align-items: center;
-                gap: 6px;
-                margin-left: auto;
-            }
-
-            /* Search field */
-            .nav-search {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                background: var(--color-bg-hover);
-                border: 1.5px solid transparent;
-                border-radius: 9px;
-                padding: 7px 13px;
-                transition: border-color var(--t-fast), background var(--t-fast);
-                width: 196px;
-            }
-            .nav-search:focus-within {
-                border-color: var(--color-burgundy);
-                background: var(--color-bg);
-            }
-
-            .nav-search-icon {
-                width: 15px;
-                height: 15px;
-                flex-shrink: 0;
-                stroke: var(--color-gray);
-                stroke-width: 2;
-                fill: none;
-                stroke-linecap: round;
-                stroke-linejoin: round;
-                transition: stroke var(--t-fast);
-            }
-            .nav-search:focus-within .nav-search-icon {
-                stroke: var(--color-burgundy);
-            }
-
-            .nav-search-input {
-                border: none;
-                background: none;
-                outline: none;
-                font-family: var(--font-ui);
-                font-size: 13.5px;
-                color: var(--color-dark);
-                width: 100%;
-            }
-            .nav-search-input::placeholder {
-                color: var(--color-gray-light);
-            }
-
-            /* Icon buttons */
-            .nav-icon-btn {
-                position: relative;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 40px;
-                height: 40px;
-                border: none;
-                background: none;
-                cursor: pointer;
-                border-radius: 9px;
-                color: var(--color-dark);
-                transition: background var(--t-fast), color var(--t-fast);
-            }
-            .nav-icon-btn:hover {
-                background: var(--color-bg-hover);
-                color: var(--color-burgundy);
-            }
-            .nav-icon-btn svg {
-                width: 20px;
-                height: 20px;
-                stroke: currentColor;
-                stroke-width: 1.8;
-                fill: none;
-                stroke-linecap: round;
-                stroke-linejoin: round;
-            }
-
-            .nav-cart-badge {
-                position: absolute;
-                top: 7px;
-                right: 7px;
-                width: 7px;
-                height: 7px;
-                background: var(--color-burgundy);
-                border-radius: 50%;
-                border: 1.5px solid var(--color-bg);
-            }
-
-            /* ─────────────────────────────────────────
-               MEGA MENU — PRODUCTS
-            ───────────────────────────────────────── */
-            .nav-mega {
-                position: fixed;
-                top: var(--nav-height);
-                left: 0;
-                right: 0;
-                z-index: 999;
-                background: var(--color-bg);
-                border-bottom: 1px solid var(--color-border);
-                box-shadow: 0 12px 48px rgba(0, 0, 0, 0.09), 0 2px 8px rgba(0, 0, 0, 0.04);
-                opacity: 0;
-                visibility: hidden;
-                pointer-events: none;
-                transition: opacity var(--t-med), visibility var(--t-med);
-            }
-            .nav-item.is-open > .nav-mega {
-                opacity: 1;
-                visibility: visible;
-                pointer-events: all;
-            }
-
-            .nav-mega-inner {
-                max-width: var(--max-width);
-                margin: 0 auto;
-                padding: 0 0 0 var(--page-px);
-                display: flex;
-                align-items: stretch;
-                gap: 48px;
-            }
-
-            .nav-mega-body {
-                flex: 1;
-                padding: 28px 0 32px;
-                min-width: 0;
-            }
-
-            /* Mega header row */
-            .nav-mega-header {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                padding-bottom: 20px;
-                margin-bottom: 24px;
-                border-bottom: 1px solid var(--color-border);
-            }
-
-            .nav-mega-eyebrow {
-                font-family: var(--font-ui);
-                font-size: 18px;
-                font-weight: 800;
-                color: var(--color-dark);
-                letter-spacing: -0.4px;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            }
-
-            .nav-mega-eyebrow-arrow {
-                color: var(--color-burgundy);
-                font-family: var(--font-ui);
-                font-size: 20px;
-                font-weight: 300;
-                letter-spacing: -1px;
-            }
-
-            /* Columns layout */
-            .nav-mega-cols {
-                display: grid;
-                grid-template-columns: 1fr 1fr 1fr 1fr;
-                gap: 0 48px;
-            }
-
-            .nav-mega-col {
-                padding: 0;
-            }
-
-            .nav-mega-col-title {
-                font-size: 10.5px;
+            .section-eyebrow {
+                font-size: 11px;
                 font-weight: 700;
-                letter-spacing: 0.9px;
+                letter-spacing: 1.2px;
                 text-transform: uppercase;
-                color: var(--color-gray-light);
-                padding-left: 10px;
+                color: var(--color-burgundy);
                 margin-bottom: 12px;
             }
-
-            .nav-mega-list {
-                list-style: none;
-                display: flex;
-                flex-direction: column;
-                gap: 6px;
-            }
-
-            .nav-mega-link {
-                display: block;
-                padding: 7px 10px;
-                border-radius: 7px;
-                font-size: 14px;
-                font-weight: 500;
+            .section-heading {
+                font-size: clamp(28px, 3vw, 40px);
+                font-weight: 600;
                 color: var(--color-dark);
+                letter-spacing: -0.5px;
+                line-height: 1.1;
+            }
+            .btn-primary,
+            .btn-outline,
+            .btn-outline-white {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 12px 22px;
+                border-radius: 10px;
+                font-family: var(--font-ui);
+                font-size: 14px;
+                font-weight: 600;
+                letter-spacing: -0.1px;
                 text-decoration: none;
-                transition: background var(--t-fast), color var(--t-fast);
+                cursor: pointer;
                 white-space: nowrap;
             }
-            .nav-mega-link:hover {
-                background: var(--color-bg-hover);
-                color: var(--color-burgundy);
+            .btn-primary {
+                background: var(--color-burgundy);
+                color: #fff;
+                border: none;
+                transition: background var(--t-fast), transform var(--t-fast);
             }
+            .btn-primary:hover { background: var(--color-burgundy-dark); transform: translateY(-1px); }
+            .nav-customize-btn { padding: 8px 14px; font-size: 13px; border-radius: 8px; }
+            .btn-outline {
+                background: transparent;
+                color: var(--color-dark);
+                border: 1.5px solid var(--color-border);
+                transition: border-color var(--t-fast), background var(--t-fast);
+            }
+            .btn-outline:hover { border-color: var(--color-dark); background: var(--color-bg-hover); }
+            .btn-outline-white {
+                background: rgba(255,255,255,0.1);
+                color: #fff;
+                border: 1.5px solid rgba(255,255,255,0.35);
+                backdrop-filter: blur(8px);
+                transition: border-color var(--t-fast), background var(--t-fast);
+            }
+            .btn-outline-white:hover { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.18); }
 
-            /* ── CTA card ── */
-            .nav-mega-cta {
-                width: 232px;
-                flex-shrink: 0;
-                border-radius: 14px;
-                overflow: hidden;
+            /* ─────────────────────────────────────────
+               HERO
+            ───────────────────────────────────────── */
+            .hero-stats-wrap { display: flex; flex-direction: column; height: 900px; }
+            .hero-section { padding: 32px var(--page-px) 0; flex: 1; min-height: 0; display: flex; flex-direction: column; }
+            .hero-wrap {
                 position: relative;
-                background-color: var(--color-dark);
-                background-size: cover;
-                background-position: center;
-                display: flex;
-                flex-direction: column;
-                justify-content: flex-end;
-                padding: 20px;
-                align-self: stretch;
+                border-radius: 20px;
+                overflow: hidden;
+                flex: 1;
+                min-height: 0;
             }
-
-            /* dark gradient so text is always readable */
-            .nav-mega-cta::before {
-                content: '';
+            .hero-bg-img {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+            .hero-overlay {
                 position: absolute;
                 inset: 0;
                 background: linear-gradient(
                     to top,
-                    rgba(10, 8, 8, 0.82) 0%,
-                    rgba(10, 8, 8, 0.30) 60%,
-                    transparent 100%
+                    rgba(8,6,6,0.88) 0%,
+                    rgba(8,6,6,0.45) 45%,
+                    rgba(8,6,6,0.18) 100%
                 );
-                border-radius: inherit;
             }
-
-            .nav-mega-cta-content {
-                position: relative;
-                z-index: 1;
+            .hero-content {
+                position: absolute;
+                bottom: 0; left: 0; right: 0;
+                padding: 52px;
                 display: flex;
-                flex-direction: column;
-                gap: 6px;
+                align-items: flex-end;
+                justify-content: space-between;
+                gap: 40px;
             }
-
-            .nav-mega-cta-label {
-                font-size: 10px;
-                font-weight: 700;
-                letter-spacing: 1px;
-                text-transform: uppercase;
-                color: rgba(255,255,255,0.55);
-            }
-
-            .nav-mega-cta-heading {
-                font-size: 16px;
-                font-weight: 700;
+            .hero-left { flex: 1; min-width: 0; }
+            .hero-heading {
+                font-size: clamp(36px, 4.5vw, 62px);
+                font-weight: 600;
                 color: #fff;
-                letter-spacing: -0.3px;
-                line-height: 1.2;
+                letter-spacing: -2.5px;
+                line-height: 1.04;
+                margin-bottom: 18px;
             }
-
-            .nav-mega-cta-note {
-                font-size: 12px;
-                color: rgba(255,255,255,0.55);
-                line-height: 1.45;
+            .hero-sub {
+                font-size: 16px;
+                color: rgba(255,255,255,0.72);
+                max-width: 440px;
+                line-height: 1.6;
+                margin-bottom: 28px;
             }
-
-            .btn-cta-card {
+            .hero-ctas { display: flex; gap: 12px; }
+            .hero-right { flex-shrink: 0; }
+            .hero-cats { list-style: none; display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+            .hero-cat-link {
                 display: inline-flex;
                 align-items: center;
-                gap: 7px;
-                margin-top: 12px;
-                background: #fff;
-                color: var(--color-dark);
-                padding: 10px 16px;
+                gap: 6px;
+                padding: 6px 14px;
                 border-radius: 8px;
+                background: rgba(255,255,255,0.08);
+                border: 1.5px solid rgba(255,255,255,0.22);
+                backdrop-filter: blur(8px);
+                color: rgba(255,255,255,0.75);
+                text-decoration: none;
                 font-family: var(--font-ui);
                 font-size: 13px;
                 font-weight: 600;
-                text-decoration: none;
-                border: none;
-                cursor: pointer;
-                width: fit-content;
-                transition: opacity var(--t-fast), transform var(--t-fast);
-                white-space: nowrap;
+                letter-spacing: -0.1px;
+                transition: border-color var(--t-fast), background var(--t-fast), color var(--t-fast);
             }
-            .btn-cta-card:hover {
-                opacity: 0.9;
-                transform: translateY(-1px);
+            .hero-cat-link:hover {
+                border-color: rgba(255,255,255,0.55);
+                background: rgba(255,255,255,0.16);
+                color: #fff;
             }
-            .btn-cta-card svg {
-                width: 14px;
-                height: 14px;
-                stroke: currentColor;
-                stroke-width: 2;
-                fill: none;
-                stroke-linecap: round;
-                stroke-linejoin: round;
-                flex-shrink: 0;
-            }
+            .hero-cat-arrow { font-size: 14px; line-height: 1; }
 
             /* ─────────────────────────────────────────
-               MEGA MENU COLUMN VARIANTS
+               STATS ROW
             ───────────────────────────────────────── */
-            .nav-mega-cols--about {
-                grid-template-columns: 1fr 1fr 1fr;
-            }
-
-            .nav-mega-cols--buying {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            /* Sub-section label inside a column */
-            .nav-mega-col-subtitle {
-                font-size: 10.5px;
-                font-weight: 700;
-                letter-spacing: 0.9px;
-                text-transform: uppercase;
-                color: var(--color-gray-light);
-                padding-left: 10px;
-                margin-top: 18px;
-                margin-bottom: 8px;
-            }
-
-            /* Indented sub-link */
-            .nav-mega-link--sub {
-                padding-left: 12px;
-                font-size: 13.5px;
-                color: var(--color-gray);
-            }
-            .nav-mega-link--sub:hover {
-                background: var(--color-bg-hover);
-                color: var(--color-burgundy);
-            }
-
-            /* Thin divider inside a column */
-            .nav-mega-col-divider {
-                height: 1px;
-                background: var(--color-border);
-                margin: 12px 10px;
-            }
-
-            /* ─────────────────────────────────────────
-               PAGE PLACEHOLDER
-            ───────────────────────────────────────── */
-            .page-placeholder {
+            .stats-section { background: var(--color-bg); padding: 12px var(--page-px) 96px; }
+            .stats-inner {
                 max-width: var(--max-width);
                 margin: 0 auto;
-                padding: 88px var(--page-px) 64px;
+                display: grid;
+                grid-template-columns: repeat(4,1fr);
+                gap: 12px;
             }
-
-            .page-ph-tag {
-                display: inline-flex;
-                align-items: center;
-                gap: 6px;
-                background: var(--color-bg-hover);
-                border: 1px solid var(--color-border);
-                border-radius: 100px;
-                padding: 5px 14px;
-                font-size: 11.5px;
+            .stat-item {
+                padding: 28px 36px;
+                background: #F2EFEC;
+                border-radius: 14px;
+            }
+            .stat-item:first-child { }
+            .stat-value {
+                font-size: clamp(28px, 2.8vw, 40px);
                 font-weight: 600;
                 color: var(--color-burgundy);
-                letter-spacing: 0.5px;
-                text-transform: uppercase;
-                margin-bottom: 28px;
+                letter-spacing: -1px;
+                line-height: 1;
+                margin-bottom: 8px;
+            }
+            .stat-label {
+                font-size: 14px;
+                font-weight: 400;
+                letter-spacing: 0;
+                text-transform: none;
+                color: #7A7371;
             }
 
-            .page-ph-heading {
-                font-family: var(--font-ui);
-                font-size: clamp(40px, 5.5vw, 72px);
-                font-weight: 800;
-                color: var(--color-dark);
-                line-height: 1.06;
-                letter-spacing: -2px;
-                margin-bottom: 24px;
-            }
-
-            .page-ph-heading em {
-                color: var(--color-burgundy);
-                font-style: normal;
-            }
-
-            .page-ph-body {
-                font-size: 17px;
-                color: var(--color-gray);
-                max-width: 520px;
-                line-height: 1.65;
+            /* ─────────────────────────────────────────
+               UPCOMING EVENTS
+            ───────────────────────────────────────── */
+            .events-section { padding: 96px 0; overflow: hidden; background: var(--color-bg-hover); }
+            .events-header {
+                max-width: var(--max-width);
+                margin: 0 auto;
+                padding: 0 var(--page-px);
+                display: flex;
+                align-items: flex-end;
+                justify-content: space-between;
                 margin-bottom: 40px;
             }
-
-            .page-ph-tokens {
+            .carousel-controls { display: flex; gap: 8px; }
+            .carousel-btn {
+                width: 42px; height: 42px;
+                border: none;
+                border-radius: 10px;
+                background: #fff;
+                cursor: pointer;
                 display: flex;
-                flex-wrap: wrap;
-                gap: 10px;
+                align-items: center;
+                justify-content: center;
+                transition: background var(--t-fast);
+                flex-shrink: 0;
             }
+            .carousel-btn:hover { background: var(--color-bg-hover); }
+            .carousel-btn svg { width: 17px; height: 17px; stroke: var(--color-dark); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+            .events-track-outer { max-width: var(--max-width); margin: -20px auto; padding-left: var(--page-px); padding-top: 20px; padding-bottom: 20px; }
+            .events-track { display: flex; gap: 20px; transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94); will-change: transform; }
+            .event-card {
+                flex-shrink: 0;
+                width: 424px;
+                height: 300px;
+                border-radius: 16px;
+                overflow: hidden;
+                background: #fff;
+                cursor: pointer;
+                transition: box-shadow var(--t-med), transform var(--t-med);
+            }
+            .event-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
+            .event-card-body { padding: 24px; display: flex; flex-direction: column; height: 100%; box-sizing: border-box; }
+            .event-card-top { }
+            .event-card-bottom { margin-top: auto; }
+            .event-title { font-size: clamp(20px, 1.8vw, 28px); font-weight: 600; color: var(--color-dark); margin-bottom: 0; line-height: 1.1; letter-spacing: -0.5px; }
+            .event-tag {
+                display: inline-block;
+                font-size: 11px; font-weight: 600; letter-spacing: 0.4px;
+                text-transform: uppercase;
+                color: var(--color-burgundy);
+                background: rgba(139,26,42,0.08);
+                padding: 4px 10px;
+                border-radius: 8px;
+                margin-bottom: 24px;
+            }
+            .event-tag--open-house { color: #1E6B3C; background: rgba(30,107,60,0.09); }
+            .event-tag--workshop { color: #1A4F8B; background: rgba(26,79,139,0.09); }
+            .event-card--open-house { background: #fff; }
+            .event-card--workshop { background: #fff; }
+            .event-card--sale { background: #fff; }
+            .event-card--open-house .event-title { color: var(--color-dark); }
+            .event-card--workshop .event-title { color: var(--color-dark); }
+            .event-card--sale .event-title { color: var(--color-dark); }
 
-            .token-chip {
+            .event-meta { font-size: 13px; color: var(--color-gray); display: flex; align-items: center; gap: 6px; margin-bottom: 5px; }
+            .event-meta svg { width: 13px; height: 13px; stroke: var(--color-gray-light); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+            /* Event modal */
+            .ev-overlay {
+                position: fixed; inset: 0;
+                background: rgba(10,8,8,0.55);
+                backdrop-filter: blur(4px);
+                -webkit-backdrop-filter: blur(4px);
+                z-index: 2000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 24px;
+                opacity: 0; visibility: hidden;
+                transition: opacity var(--t-med), visibility var(--t-med);
+            }
+            .ev-overlay.is-open { opacity: 1; visibility: visible; }
+            .ev-modal {
+                background: var(--color-bg);
+                border-radius: 20px;
+                overflow: hidden;
+                width: 100%;
+                max-width: 520px;
+                box-shadow: 0 32px 80px rgba(0,0,0,0.2);
+                transform: scale(0.96) translateY(8px);
+                transition: transform var(--t-med);
+            }
+            .ev-overlay.is-open .ev-modal { transform: scale(1) translateY(0); }
+            .ev-modal-visual { height: 200px; position: relative; display: flex; align-items: flex-end; padding: 20px; }
+            .ev-modal-visual-badge {
+                background: #fff;
+                border-radius: 10px;
+                padding: 10px 16px;
+                display: flex;
+                align-items: baseline;
+                gap: 6px;
+            }
+            .ev-modal-visual-month { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--color-burgundy); }
+            .ev-modal-visual-day { font-size: 32px; font-weight: 800; color: var(--color-dark); line-height: 1; }
+            .ev-modal-close {
+                position: absolute; top: 16px; right: 16px;
+                width: 32px; height: 32px;
+                border: none; border-radius: 50%;
+                background: rgba(255,255,255,0.9);
+                cursor: pointer;
+                font-size: 18px;
+                display: flex; align-items: center; justify-content: center;
+                color: var(--color-dark);
+                transition: background var(--t-fast);
+            }
+            .ev-modal-close:hover { background: #fff; }
+            .ev-modal-body { padding: 24px 28px 28px; }
+            .ev-modal-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--color-burgundy); margin-bottom: 8px; display: inline-block; padding: 4px 10px; border-radius: 8px; background: rgba(139,26,42,0.08); }
+            .ev-modal-tag--open-house { color: #1E6B3C; background: rgba(30,107,60,0.09); }
+            .ev-modal-tag--workshop { color: #1A4F8B; background: rgba(26,79,139,0.09); }
+            .ev-modal-tag--sale { color: var(--color-burgundy); background: rgba(139,26,42,0.08); }
+            .ev-modal-title { font-size: 22px; font-weight: 600; color: var(--color-dark); letter-spacing: -0.3px; margin-bottom: 10px; line-height: 1.2; }
+            .ev-modal-desc { font-size: 14px; color: var(--color-gray); line-height: 1.65; margin-bottom: 18px; }
+            .ev-modal-info { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+            .ev-modal-row { font-size: 14px; color: var(--color-gray); display: flex; align-items: center; gap: 8px; }
+            .ev-modal-row svg { width: 15px; height: 15px; stroke: var(--color-gray-light); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+            .ev-modal-highlights { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+            .ev-modal-pill {
+                font-size: 13px; font-weight: 500;
+                color: var(--color-dark);
+                background: var(--color-bg-hover);
+                border: 1px solid var(--color-border);
+                border-radius: 8px;
+                padding: 5px 13px;
+            }
+            .ev-modal-actions { display: flex; gap: 10px; }
+
+            /* ─────────────────────────────────────────
+               QUOTE MODAL
+            ───────────────────────────────────────── */
+            .quote-overlay {
+                position: fixed; inset: 0;
+                background: rgba(10,8,8,0.55);
+                backdrop-filter: blur(4px);
+                -webkit-backdrop-filter: blur(4px);
+                z-index: 2000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 24px;
+                opacity: 0; visibility: hidden;
+                transition: opacity var(--t-med), visibility var(--t-med);
+            }
+            .quote-overlay.is-open { opacity: 1; visibility: visible; }
+            .quote-modal {
+                background: #fff;
+                border-radius: 20px;
+                overflow: hidden;
+                width: 100%;
+                max-width: 560px;
+                max-height: 90vh;
+                overflow-y: auto;
+                box-shadow: 0 32px 80px rgba(0,0,0,0.2);
+                transform: scale(0.96) translateY(8px);
+                transition: transform var(--t-med);
+            }
+            .quote-overlay.is-open .quote-modal { transform: scale(1) translateY(0); }
+            .quote-modal-header {
+                padding: 28px 28px 0;
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+                gap: 16px;
+            }
+            .quote-modal-title {
+                font-size: 22px;
+                font-weight: 600;
+                color: var(--color-dark);
+                letter-spacing: -0.4px;
+                line-height: 1.2;
+                margin-bottom: 4px;
+            }
+            .quote-modal-sub {
+                font-size: 14px;
+                color: var(--color-gray);
+                line-height: 1.5;
+            }
+            .quote-modal-close {
+                flex-shrink: 0;
+                width: 32px; height: 32px;
+                border: none; border-radius: 50%;
+                background: var(--color-bg-hover);
+                cursor: pointer;
+                font-size: 16px;
+                display: flex; align-items: center; justify-content: center;
+                color: var(--color-gray);
+                transition: background var(--t-fast), color var(--t-fast);
+            }
+            .quote-modal-close:hover { background: var(--color-border); color: var(--color-dark); }
+            .quote-form {
+                padding: 24px 28px 28px;
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+            .quote-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+            .quote-field { display: flex; flex-direction: column; gap: 6px; }
+            .quote-label {
+                font-size: 13px;
+                font-weight: 600;
+                color: var(--color-dark);
+                letter-spacing: -0.1px;
+            }
+            .quote-input,
+            .quote-select,
+            .quote-textarea {
+                font-family: var(--font-ui);
+                font-size: 14px;
+                font-weight: 400;
+                color: var(--color-dark);
+                background: var(--color-bg);
+                border: 1.5px solid var(--color-border);
+                border-radius: 10px;
+                padding: 11px 14px;
+                outline: none;
+                transition: border-color var(--t-fast), box-shadow var(--t-fast);
+                width: 100%;
+                appearance: none;
+                -webkit-appearance: none;
+            }
+            .quote-input::placeholder,
+            .quote-textarea::placeholder { color: var(--color-gray-light); }
+            .quote-input:focus,
+            .quote-select:focus,
+            .quote-textarea:focus {
+                border-color: var(--color-burgundy);
+                box-shadow: 0 0 0 3px rgba(139,26,42,0.1);
+            }
+            .quote-select-wrap { position: relative; }
+            .quote-select-wrap i {
+                position: absolute;
+                right: 12px; top: 50%;
+                transform: translateY(-50%);
+                color: var(--color-gray-light);
+                font-size: 16px;
+                pointer-events: none;
+            }
+            .quote-textarea { resize: vertical; min-height: 96px; line-height: 1.5; }
+            .quote-divider { height: 1px; background: var(--color-border); margin: 4px 0; }
+            .quote-form-footer {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+            }
+            .quote-form-note {
+                font-size: 12px;
+                color: var(--color-gray-light);
+                line-height: 1.4;
+            }
+            .quote-submit {
+                flex-shrink: 0;
+            }
+            .quote-success {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 48px 28px;
+                gap: 12px;
+            }
+            .quote-success-icon {
+                width: 52px; height: 52px;
+                background: rgba(139,26,42,0.08);
+                border-radius: 50%;
+                display: flex; align-items: center; justify-content: center;
+                color: var(--color-burgundy);
+                font-size: 24px;
+                margin-bottom: 4px;
+            }
+            .quote-success-title { font-size: 20px; font-weight: 600; color: var(--color-dark); letter-spacing: -0.3px; }
+            .quote-success-sub { font-size: 14px; color: var(--color-gray); line-height: 1.6; max-width: 340px; }
+
+            /* ─────────────────────────────────────────
+               PRODUCTS
+            ───────────────────────────────────────── */
+            .products-section { padding: 128px 0 148px; }
+            .products-header { margin-bottom: 48px; }
+            .products-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; }
+            .prod-card {
+                display: flex;
+                flex-direction: column;
+                cursor: pointer;
+            }
+            .prod-card-visual {
+                aspect-ratio: 1 / 1;
+                border-radius: 14px;
+                overflow: hidden;
+                margin-bottom: 18px;
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .prod-card-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+            .prod-card-icon { font-size: 64px; line-height: 1; position: relative; z-index: 1; }
+            .prod-card-hover {
+                position: absolute; inset: 0;
+                background: rgba(0,0,0,0.28);
+                backdrop-filter: blur(3px);
+                -webkit-backdrop-filter: blur(3px);
+                display: flex; align-items: center; justify-content: center;
+                opacity: 0;
+                transition: opacity var(--t-med);
+            }
+            .prod-card:hover .prod-card-hover { opacity: 1; }
+            .prod-hover-btn {
                 display: inline-flex;
                 align-items: center;
                 gap: 8px;
-                border: 1px solid var(--color-border);
-                border-radius: 8px;
-                padding: 8px 14px;
-                font-size: 12.5px;
-                font-weight: 500;
-                color: var(--color-gray);
+                background: #fff;
+                color: var(--color-dark);
+                padding: 12px 22px;
+                border-radius: 10px;
+                font-family: var(--font-ui);
+                font-size: 14px;
+                font-weight: 600;
+                letter-spacing: -0.1px;
+                text-decoration: none;
+                border: none;
+                cursor: pointer;
+            }
+            .prod-card-title { font-size: 20px; font-weight: 600; color: var(--color-dark); margin-bottom: 8px; letter-spacing: -0.2px; }
+            .prod-card-desc { font-size: 14px; color: var(--color-gray-light); line-height: 1.6; margin-bottom: 18px; flex: 1; }
+            .prod-card-link {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 14px;
+                font-weight: 600;
+                color: var(--color-dark);
+                text-decoration: none;
+                transition: color var(--t-fast);
+            }
+            .prod-card-link svg { width: 15px; height: 15px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform var(--t-fast); }
+            .prod-card-link:hover { color: var(--color-burgundy); }
+            .prod-card-link:hover svg { transform: translate(2px,-2px); }
+
+            /* ─────────────────────────────────────────
+               ABOUT
+            ───────────────────────────────────────── */
+            .about-section { padding: 140px 0; background: var(--color-bg-hover); }
+            .about-inner { display: grid; grid-template-columns: 1fr 460px; gap: 32px; align-items: stretch; }
+            .about-video-side { display: flex; align-items: flex-end; justify-content: flex-end; }
+            .about-eyebrow { margin-bottom: 12px; }
+            .about-heading { font-size: clamp(34px, 3.5vw, 52px); font-weight: 600; color: var(--color-dark); letter-spacing: -0.8px; line-height: 1.1; margin-bottom: 20px; }
+            .about-body { font-size: 16px; color: var(--color-gray); line-height: 1.7; margin-bottom: 80px; }
+            .about-highlights { display: flex; flex-direction: column; gap: 14px; margin-bottom: 36px; }
+            .about-highlight-item { display: flex; align-items: flex-start; gap: 12px; }
+            .about-highlight-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-burgundy); flex-shrink: 0; margin-top: 7px; }
+            .about-highlight-text { font-size: 15px; color: var(--color-dark); font-weight: 500; line-height: 1.5; }
+            .about-video-card {
+                width: 460px;
+                flex-shrink: 0;
+                background: #fff;
+                border-radius: 18px;
+                padding: 4px;
+                box-shadow: 0 20px 48px rgba(0,0,0,0.18);
+            }
+            .about-video-wrap {
+                border-radius: 12px;
+                overflow: hidden;
+                width: 100%;
+                aspect-ratio: 16 / 9;
+                background: var(--color-dark);
+                position: relative;
+                display: block;
+                text-decoration: none;
+            }
+            .about-video-wrap iframe { width: 100%; height: 100%; display: block; border: none; }
+            .about-video-thumb {
+                width: 100%; height: 100%;
+                object-fit: cover;
+                display: block;
+                transition: transform 0.4s ease, filter 0.4s ease;
+                filter: brightness(0.5);
+            }
+            .about-video-wrap:hover .about-video-thumb { transform: scale(1.03); filter: brightness(0.4); }
+            .about-video-play {
+                position: absolute;
+                inset: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .about-video-play-btn {
+                width: 48px; height: 48px;
+                background: rgba(255,255,255,0.92);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: transform var(--t-med), background var(--t-med);
+            }
+            .about-video-wrap:hover .about-video-play-btn {
+                transform: scale(1.1);
+                background: #fff;
+            }
+            .about-video-play-btn i {
+                font-size: 18px;
+                color: var(--color-dark);
+                margin-left: 2px;
             }
 
-            .token-swatch {
-                width: 14px;
-                height: 14px;
-                border-radius: 4px;
+            /* ─────────────────────────────────────────
+               SOCIAL / TIKTOK
+            ───────────────────────────────────────── */
+            .social-section { padding: 96px 0; overflow: hidden; }
+            .social-header { margin-bottom: 40px; }
+            .social-handle { font-size: 14px; color: var(--color-gray); margin-top: 6px; }
+            .tiktok-track-outer { max-width: var(--max-width); margin: 0 auto; padding-left: var(--page-px); }
+            .tiktok-track { display: flex; gap: 16px; transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94); will-change: transform; }
+            .tiktok-card {
                 flex-shrink: 0;
+                width: 300px;
+                height: 532px;
+                border-radius: 14px;
+                overflow: hidden;
+                background: #000;
+                border: 1px solid var(--color-border);
+                position: relative;
             }
+            .tiktok-card::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                z-index: 1;
+            }
+            .tiktok-card iframe { width: 100%; height: 100%; border: none; display: block; }
+
+            /* ─────────────────────────────────────────
+               LOCATION & CONTACT
+            ───────────────────────────────────────── */
+            .location-section { padding: 140px 0; background: var(--color-bg-hover); }
+            .location-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: stretch; }
+            .location-info { display: flex; flex-direction: column; gap: 0; }
+            .location-eyebrow { margin-bottom: 12px; }
+            .location-heading { font-size: clamp(28px, 2.8vw, 38px); font-weight: 600; color: var(--color-dark); letter-spacing: -0.5px; margin-bottom: 10px; line-height: 1.15; }
+            .location-hours-block { margin-top: 32px; margin-bottom: 32px; }
+            .location-block-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--color-gray-light); margin-bottom: 10px; }
+            .location-hours-row { font-size: 14px; color: var(--color-dark); margin-bottom: 4px; }
+            .location-cards { display: flex; flex-direction: column; gap: 14px; }
+            .location-card {
+                border-radius: 12px;
+                padding: 16px 18px;
+                background: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 16px;
+            }
+            .location-card-name { font-size: 14px; font-weight: 700; color: var(--color-dark); margin-bottom: 3px; display: flex; align-items: center; gap: 6px; }
+            .location-card-name i { font-size: 15px; color: var(--color-burgundy); font-weight: 400; }
+            .location-card-addr { font-size: 13px; color: var(--color-gray); margin-bottom: 2px; }
+            .location-card-phone { font-size: 13px; color: var(--color-gray); }
+            .location-card-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 14px;
+                font-weight: 600;
+                color: var(--color-dark);
+                text-decoration: none;
+                flex-shrink: 0;
+                white-space: nowrap;
+                transition: color var(--t-fast);
+            }
+            .location-card-btn svg { width: 15px; height: 15px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform var(--t-fast); }
+            .location-card-btn:hover { color: var(--color-burgundy); }
+            .location-card-btn:hover svg { transform: translate(2px,-2px); }
+            .location-map-wrap {
+                border-radius: 18px;
+                overflow: hidden;
+                min-height: 300px;
+                height: 100%;
+                background: #e8e4df;
+                position: sticky;
+                top: calc(var(--nav-height) + 24px);
+            }
+            #location-map { width: 100%; height: 100%; min-height: 300px; }
+
+            /* ─────────────────────────────────────────
+               REVIEWS
+            ───────────────────────────────────────── */
+            .homes-cta-section { padding: 48px var(--page-px); background: var(--color-bg-hover); }
+            .homes-cta { position: relative; height: 800px; background: #C8C3BC url('assets/CTA.png') center/cover no-repeat; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 20px; }
+            .homes-cta-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.32) 0%, rgba(0,0,0,0.58) 100%); }
+            .homes-cta-content { position: relative; z-index: 1; text-align: center; color: #fff; max-width: 680px; padding: 0 var(--page-px); }
+            .homes-cta-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.65); margin-bottom: 20px; }
+            .homes-cta-heading { font-size: clamp(36px, 5vw, 60px); font-weight: 800; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 20px; }
+            .homes-cta-sub { font-size: 18px; color: rgba(255,255,255,0.75); line-height: 1.6; margin-bottom: 40px; }
+            .reviews-section { padding: 160px var(--page-px); background: #F4F1EE; text-align: center; }
+            .reviews-inner { max-width: 780px; margin: 0 auto; }
+            .reviews-stars { display: flex; justify-content: center; gap: 4px; margin-bottom: 28px; }
+            .reviews-stars svg { width: 22px; height: 22px; fill: #F59E0B; stroke: none; }
+            .review-quote {
+                font-size: clamp(20px, 2.4vw, 28px);
+                font-weight: 400;
+                color: var(--color-dark);
+                line-height: 1.55;
+                margin-bottom: 36px;
+            }
+            .review-quote strong { font-weight: 700; }
+            .review-author { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 40px; }
+            .review-avatar {
+                width: 38px; height: 38px;
+                border-radius: 8px;
+                background: var(--color-dark);
+                display: flex; align-items: center; justify-content: center;
+                font-size: 17px; color: rgba(255,255,255,0.7);
+            }
+            .review-author-name { font-size: 15px; font-weight: 700; color: var(--color-dark); text-align: left; }
+            .review-author-loc { font-size: 13px; color: var(--color-gray); text-align: left; }
+
+            /* ─────────────────────────────────────────
+               FOOTER
+            ───────────────────────────────────────── */
+            .footer-root { background: #000; color: #fff; padding: 72px var(--page-px) 40px; }
+            .footer-inner { max-width: var(--max-width); margin: 0 auto; }
+            .footer-top { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr 1.4fr; gap: 48px; padding-bottom: 52px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 52px; }
+            .footer-brand-logo { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; text-decoration: none; margin-bottom: 16px; }
+            .footer-brand-logo img { width: 60%; height: auto; filter: brightness(0) invert(1); }
+            .footer-brand-name { font-size: 16px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+            .footer-brand-desc { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.65; max-width: 220px; }
+            .footer-col-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 18px; }
+            .footer-links { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+            .footer-links a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-links a:hover { color: #fff; }
+            .footer-contact-item { font-size: 14px; color: rgba(255,255,255,0.65); margin-bottom: 10px; display: flex; align-items: flex-start; gap: 8px; }
+            .footer-contact-item svg { width: 15px; height: 15px; stroke: rgba(255,255,255,0.35); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; margin-top: 1px; }
+            .footer-contact-item a { color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-contact-item a:hover { color: #fff; }
+            .footer-locations { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 32px; }
+            .footer-loc-name { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+            .footer-loc-addr { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.55; margin-bottom: 8px; }
+            .footer-loc-phone { font-size: 13px; color: rgba(255,255,255,0.45); }
+            .footer-loc-link { font-size: 13px; font-weight: 600; color: var(--color-burgundy); text-decoration: none; transition: color var(--t-fast); }
+            .footer-loc-link:hover { color: #fff; }
+            .footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+            .footer-copy-row { display: flex; align-items: center; gap: 20px; }
+            .footer-copy { font-size: 13px; color: rgba(255,255,255,0.35); }
+            .footer-legal-link { font-size: 13px; color: rgba(255,255,255,0.35); text-decoration: none; transition: color var(--t-fast); }
+            .footer-legal-link:hover { color: rgba(255,255,255,0.7); }
+            .footer-socials { display: flex; gap: 10px; }
+            .footer-social-btn {
+                width: 38px; height: 38px;
+                border-radius: 9px;
+                border: 1px solid rgba(255,255,255,0.15);
+                display: flex; align-items: center; justify-content: center;
+                text-decoration: none;
+                transition: border-color var(--t-fast), background var(--t-fast);
+            }
+            .footer-social-btn:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.08); }
+            .footer-social-btn svg { width: 17px; height: 17px; fill: rgba(255,255,255,0.6); }
+            .footer-social-btn i { font-size: 17px; color: rgba(255,255,255,0.6); }
+
+
+            /* ─────────────────────────────────────────
+               RESPONSIVE — TABLET  md: 768px
+            ───────────────────────────────────────── */
+            @media (max-width: 1024px) { /* lg */
+                :root { --page-px: 24px; }
+
+                /* Stats */
+                .stats-inner { grid-template-columns: repeat(2,1fr); gap: 12px; }
+                .stat-item { padding: 20px 28px; }
+
+                /* Products */
+                .products-grid { grid-template-columns: repeat(2,1fr); gap: 20px; }
+
+                /* About */
+                .about-inner { grid-template-columns: 1fr; gap: 40px; }
+                .about-video-side { order: -1; min-height: 0; }
+                .about-video-card { width: 100%; }
+                .about-video-wrap { width: 100%; }
+
+                /* Location */
+                .location-inner { grid-template-columns: 1fr; gap: 40px; }
+                .location-map-wrap { position: static; height: 320px; }
+
+                /* Footer top */
+                .footer-top { grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+                .footer-top > div:first-child { grid-column: 1 / -1; }
+            }
+
+            @media (max-width: 768px) { /* md */
+                :root { --page-px: 20px; --nav-height: 64px; }
+
+                /* Hero */
+                .hero-wrap { height: auto; min-height: 480px; max-height: none; }
+                .hero-content { flex-direction: column; align-items: flex-start; padding: 28px 28px 32px; gap: 24px; }
+                .hero-right { display: none; }
+                .hero-heading { font-size: clamp(28px, 7vw, 44px); letter-spacing: -1.5px; }
+                .hero-sub { font-size: 15px; margin-bottom: 22px; }
+                .hero-ctas { flex-wrap: wrap; gap: 10px; }
+
+                /* Stats */
+                .stats-section { padding: 12px var(--page-px) 40px; }
+                .stats-inner { grid-template-columns: repeat(2,1fr); gap: 10px; }
+                .stat-item { padding: 18px 20px; }
+
+                /* Typography */
+                .section-heading { font-size: 22px; }
+                .about-heading { font-size: 24px; }
+                .location-heading { font-size: 22px; }
+
+                /* Events section */
+                .events-section { padding: 64px 0; }
+                .events-header { flex-direction: row; align-items: center; }
+
+                /* Products */
+                .products-section { padding: 64px 0; }
+                .products-grid { grid-template-columns: repeat(2,1fr); gap: 16px; }
+                .prod-card-title { font-size: 16px; }
+                .prod-card-desc { font-size: 13px; }
+
+                /* About */
+                .about-section { padding: 64px 0; }
+                .about-body { font-size: 15px; }
+
+                /* Social */
+                .social-section { padding: 64px 0; }
+
+                /* Location */
+                .location-section { padding: 64px 0; }
+                .location-heading { font-size: 28px; }
+                .location-map-wrap { height: 260px; }
+
+                /* Reviews */
+                .reviews-section { padding: 72px var(--page-px); }
+                .review-quote { font-size: 18px; }
+
+                /* Footer */
+                .footer-top { grid-template-columns: 1fr 1fr; gap: 28px; }
+                .footer-top > div:first-child { grid-column: 1 / -1; }
+                .footer-locations { grid-template-columns: 1fr; gap: 20px; }
+                .footer-bottom { flex-direction: column; align-items: flex-start; gap: 16px; }
+
+            }
+
+            @media (max-width: 640px) { /* sm */
+                :root { --page-px: 16px; }
+
+                /* Hero */
+                .hero-section { padding: 8px var(--page-px) 0; }
+                .hero-wrap { border-radius: 14px; min-height: 420px; }
+                .hero-content { padding: 24px 20px 28px; }
+                .hero-heading { font-size: clamp(26px, 8vw, 38px); }
+                .hero-sub { display: none; }
+                .btn-primary, .btn-outline, .btn-outline-white { padding: 11px 18px; font-size: 14px; }
+
+                /* Stats 1-col */
+                .stats-inner { grid-template-columns: 1fr; gap: 8px; }
+                .stat-item { padding: 16px 20px; }
+                .stat-value { font-size: 28px; }
+
+                /* Typography */
+                .section-heading { font-size: 20px; }
+                .about-heading { font-size: 22px; }
+                .location-heading { font-size: 20px; }
+
+                /* Events track */
+                .event-card { width: calc(100vw - 48px); }
+
+                /* Products 1-col */
+                .products-grid { grid-template-columns: 1fr; }
+
+                /* Footer */
+                .footer-root { padding: 48px var(--page-px) 32px; }
+                .footer-top { grid-template-columns: 1fr; gap: 24px; }
+                .footer-brand-desc { max-width: none; }
+
+                /* Event modal */
+                .ev-modal { border-radius: 14px; }
+                .ev-modal-body { padding: 20px 20px 24px; }
+            }
+            .section-subtext { font-size: 15px; color: var(--color-gray-light); line-height: 1.6; margin-top: 8px; max-width: 520px; }
+            .ev-sale-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 22px; }
+            .ev-sale-card { background: var(--color-bg); border: 1px solid var(--color-border); border-radius: 10px; padding: 12px 14px; }
+            .ev-sale-card-name { font-size: 13px; font-weight: 500; color: var(--color-dark); margin-bottom: 4px; }
+            .ev-sale-card-price { font-size: 16px; font-weight: 700; color: var(--color-burgundy); letter-spacing: -0.3px; }
         </style>
     </head>
     <body>
+        <ncs-nav></ncs-nav>
 
-        <!-- ── BACKDROP ── -->
-        <div data-comment="nav-backdrop" id="navBackdrop"></div>
+        <main data-comment="main-content">
+
+            <!-- ════════════════════════════════
+                 HERO
+            ════════════════════════════════ -->
+            <div class="hero-stats-wrap" data-comment="hero-stats-wrap">
+            <section class="hero-section" data-comment="hero-section">
+                <div class="hero-wrap" data-comment="hero-wrap">
+                    <img src="assets/Hero image.png?v=2" alt="NCS Barns" class="hero-bg-img" data-comment="hero-bg-img" />
+                    <div class="hero-overlay" data-comment="hero-overlay"></div>
+                    <div class="hero-content" data-comment="hero-content">
+                        <div class="hero-left" data-comment="hero-left">
+                            <h1 class="hero-heading" data-comment="hero-heading">Handcrafted Structures<br>for the North Country</h1>
+                            <p class="hero-sub" data-comment="hero-sub">Quality-built sheds, gazebos, homes & more — family owned since 1993, proudly serving New York State from three locations.</p>
+                            <div class="hero-ctas" data-comment="hero-ctas">
+                                <a href="#" class="btn-primary" data-comment="hero-cta-shop"><i class="ri-store-2-line"></i> Shop Products</a>
+                                <a href="#" class="btn-outline-white" data-comment="hero-cta-quote">Get a Quote <i class="ri-arrow-right-line"></i></a>
+                            </div>
+                        </div>
+                        <div class="hero-right" data-comment="hero-right">
+                            <ul class="hero-cats" data-comment="hero-cats">
+                                <li data-comment="hero-cat-li-sheds"><a href="#" class="hero-cat-link" data-comment="hero-cat-link-sheds">Sheds <i class="ri-arrow-right-up-line hero-cat-arrow" data-comment="hero-cat-arrow-sheds"></i></a></li>
+                                <li data-comment="hero-cat-li-gazebos"><a href="#" class="hero-cat-link" data-comment="hero-cat-link-gazebos">Gazebos &amp; Pergolas <i class="ri-arrow-right-up-line hero-cat-arrow" data-comment="hero-cat-arrow-gazebos"></i></a></li>
+                                <li data-comment="hero-cat-li-homes"><a href="#" class="hero-cat-link" data-comment="hero-cat-link-homes">Homes &amp; Garages <i class="ri-arrow-right-up-line hero-cat-arrow" data-comment="hero-cat-arrow-homes"></i></a></li>
+                                <li data-comment="hero-cat-li-furniture"><a href="#" class="hero-cat-link" data-comment="hero-cat-link-furniture">Outdoor Furniture <i class="ri-arrow-right-up-line hero-cat-arrow" data-comment="hero-cat-arrow-furniture"></i></a></li>
+                                <li data-comment="hero-cat-li-play"><a href="#" class="hero-cat-link" data-comment="hero-cat-link-play">Play Structures <i class="ri-arrow-right-up-line hero-cat-arrow" data-comment="hero-cat-arrow-play"></i></a></li>
+                                <li data-comment="hero-cat-li-animal"><a href="#" class="hero-cat-link" data-comment="hero-cat-link-animal">Animal Structures <i class="ri-arrow-right-up-line hero-cat-arrow" data-comment="hero-cat-arrow-animal"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ════════════════════════════════
+                 STATS
+            ════════════════════════════════ -->
+            <section class="stats-section" data-comment="stats-section">
+                <div class="stats-inner" data-comment="stats-inner">
+                    <div class="stat-item" data-comment="stat-item-customers">
+                        <div class="stat-value" data-comment="stat-value-customers">200,000+</div>
+                        <div class="stat-label" data-comment="stat-label-customers">Customers Served</div>
+                    </div>
+                    <div class="stat-item" data-comment="stat-item-years">
+                        <div class="stat-value" data-comment="stat-value-years">30+</div>
+                        <div class="stat-label" data-comment="stat-label-years">Years in Business</div>
+                    </div>
+                    <div class="stat-item" data-comment="stat-item-products">
+                        <div class="stat-value" data-comment="stat-value-products">5,000+</div>
+                        <div class="stat-label" data-comment="stat-label-products">Curated Products</div>
+                    </div>
+                    <div class="stat-item" data-comment="stat-item-categories">
+                        <div class="stat-value" data-comment="stat-value-categories">40+</div>
+                        <div class="stat-label" data-comment="stat-label-categories">Product Categories</div>
+                    </div>
+                </div>
+            </section>
+            </div>
+
+            <!-- ════════════════════════════════
+                 UPCOMING EVENTS
+            ════════════════════════════════ -->
+            <section class="events-section" data-comment="events-section">
+                <div class="events-header" data-comment="events-header">
+                    <div data-comment="events-header-text">
+                        <p class="section-eyebrow" data-comment="events-eyebrow">What's On</p>
+                        <h2 class="section-heading" data-comment="events-heading">Upcoming Events</h2>
+                        <p class="section-subtext" data-comment="events-subtext">Browse upcoming open houses, sale events & workshops at our three New York locations.</p>
+                    </div>
+                    <div class="carousel-controls" data-comment="events-controls">
+                        <button class="carousel-btn" id="eventsPrev" data-comment="events-prev-btn" aria-label="Previous">
+                            <svg viewBox="0 0 24 24" data-comment="events-prev-icon"><polyline points="15 18 9 12 15 6"/></svg>
+                        </button>
+                        <button class="carousel-btn" id="eventsNext" data-comment="events-next-btn" aria-label="Next">
+                            <svg viewBox="0 0 24 24" data-comment="events-next-icon"><polyline points="9 18 15 12 9 6"/></svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="events-track-outer" data-comment="events-track-outer">
+                    <div class="events-track" id="eventsTrack" data-comment="events-track">
+
+                        <!-- Card 1: Open House -->
+                        <div class="event-card event-card--open-house" data-comment="event-card-1" data-event="1">
+                            <div class="event-card-body" data-comment="event-card-1-body">
+                                <div class="event-card-top" data-comment="event-card-1-top">
+                                    <span class="event-tag event-tag--open-house" data-comment="event-card-1-tag">Open House</span>
+                                    <h3 class="event-title" data-comment="event-card-1-title">Aloha Open House</h3>
+                                </div>
+                                <div class="event-card-bottom" data-comment="event-card-1-bottom">
+                                    <div class="event-meta" data-comment="event-card-1-time">
+                                        <svg viewBox="0 0 24 24" data-comment="event-card-1-time-icon"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                        9AM – 4PM · May 30, 2026
+                                    </div>
+                                    <div class="event-meta" data-comment="event-card-1-loc">
+                                        <svg viewBox="0 0 24 24" data-comment="event-card-1-loc-icon"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                        Pulaski, NY
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Spring Sale -->
+                        <div class="event-card event-card--sale" data-comment="event-card-2" data-event="2">
+                            <div class="event-card-body" data-comment="event-card-2-body">
+                                <div class="event-card-top" data-comment="event-card-2-top">
+                                    <span class="event-tag event-tag--sale" data-comment="event-card-2-tag">Sale Event</span>
+                                    <h3 class="event-title" data-comment="event-card-2-title">Spring Sale</h3>
+                                </div>
+                                <div class="event-card-bottom" data-comment="event-card-2-bottom">
+                                    <div class="event-meta" data-comment="event-card-2-time">
+                                        <svg viewBox="0 0 24 24" data-comment="event-card-2-time-icon"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                        During store hours · May 31, 2026
+                                    </div>
+                                    <div class="event-meta" data-comment="event-card-2-loc">
+                                        <svg viewBox="0 0 24 24" data-comment="event-card-2-loc-icon"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                        Philadelphia, NY
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Log Home Workshop (mock) -->
+                        <div class="event-card event-card--workshop" data-comment="event-card-3" data-event="3">
+                            <div class="event-card-body" data-comment="event-card-3-body">
+                                <div class="event-card-top" data-comment="event-card-3-top">
+                                    <span class="event-tag event-tag--workshop" data-comment="event-card-3-tag">Workshop</span>
+                                    <h3 class="event-title" data-comment="event-card-3-title">Log Home Workshop</h3>
+                                </div>
+                                <div class="event-card-bottom" data-comment="event-card-3-bottom">
+                                    <div class="event-meta" data-comment="event-card-3-time">
+                                        <svg viewBox="0 0 24 24" data-comment="event-card-3-time-icon"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                        10AM – 3PM · Aug 15, 2026
+                                    </div>
+                                    <div class="event-meta" data-comment="event-card-3-loc">
+                                        <svg viewBox="0 0 24 24" data-comment="event-card-3-loc-icon"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                        Philadelphia, NY
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 4: Fall Open House (mock) -->
+                        <div class="event-card event-card--open-house" data-comment="event-card-4" data-event="4">
+                            <div class="event-card-body" data-comment="event-card-4-body">
+                                <div class="event-card-top" data-comment="event-card-4-top">
+                                    <span class="event-tag event-tag--open-house" data-comment="event-card-4-tag">Open House</span>
+                                    <h3 class="event-title" data-comment="event-card-4-title">Fall Open House</h3>
+                                </div>
+                                <div class="event-card-bottom" data-comment="event-card-4-bottom">
+                                    <div class="event-meta" data-comment="event-card-4-time">
+                                        <svg viewBox="0 0 24 24" data-comment="event-card-4-time-icon"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                        9AM – 3PM · Sep 19, 2026
+                                    </div>
+                                    <div class="event-meta" data-comment="event-card-4-loc">
+                                        <svg viewBox="0 0 24 24" data-comment="event-card-4-loc-icon"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                        Yorkville, NY
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- /events-track -->
+                </div>
+            </section>
+
+            <!-- ════════════════════════════════
+                 PRODUCTS
+            ════════════════════════════════ -->
+            <section class="products-section" data-comment="products-section">
+                <div class="section-inner" data-comment="products-inner">
+                    <div class="products-header" data-comment="products-header">
+                        <p class="section-eyebrow" data-comment="products-eyebrow">What We Build</p>
+                        <h2 class="section-heading" data-comment="products-heading">Explore Our Products</h2>
+                        <p class="section-subtext" data-comment="products-subtext">From handcrafted sheds to log homes — quality-built structures for every need and budget.</p>
+                    </div>
+                    <div class="products-grid" data-comment="products-grid">
+
+                        <div class="prod-card" data-comment="prod-card-sheds">
+                            <div class="prod-card-visual" data-comment="prod-card-sheds-visual">
+                                <img src="assets/Products/Visual Sheds.png" alt="Sheds" class="prod-card-img" data-comment="prod-card-sheds-img">
+                                <div class="prod-card-hover" data-comment="prod-card-sheds-hover">
+                                    <a href="#" class="prod-hover-btn" data-comment="prod-card-sheds-hover-btn">Shop Sheds</a>
+                                </div>
+                            </div>
+                            <h3 class="prod-card-title" data-comment="prod-card-sheds-title">Sheds</h3>
+                            <p class="prod-card-desc" data-comment="prod-card-sheds-desc">Classic barn-style and utility sheds built to last — fully customizable in size, color, and finish.</p>
+                            <a href="#" class="prod-card-link" data-comment="prod-card-sheds-link">
+                                View all sheds
+                                <svg viewBox="0 0 24 24" data-comment="prod-card-sheds-link-icon"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                            </a>
+                        </div>
+
+                        <div class="prod-card" data-comment="prod-card-blinds">
+                            <div class="prod-card-visual" data-comment="prod-card-blinds-visual">
+                                <img src="assets/Products/Visual Hunting Blinds.png" alt="Hunting Blinds" class="prod-card-img" data-comment="prod-card-blinds-img">
+                                <div class="prod-card-hover" data-comment="prod-card-blinds-hover">
+                                    <a href="#" class="prod-hover-btn" data-comment="prod-card-blinds-hover-btn">Shop Blinds</a>
+                                </div>
+                            </div>
+                            <h3 class="prod-card-title" data-comment="prod-card-blinds-title">Hunting Blinds</h3>
+                            <p class="prod-card-desc" data-comment="prod-card-blinds-desc">Durable, weather-resistant hunting blinds designed for the outdoors of Northern New York.</p>
+                            <a href="#" class="prod-card-link" data-comment="prod-card-blinds-link">
+                                View all blinds
+                                <svg viewBox="0 0 24 24" data-comment="prod-card-blinds-link-icon"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                            </a>
+                        </div>
+
+                        <div class="prod-card" data-comment="prod-card-gazebos">
+                            <div class="prod-card-visual" data-comment="prod-card-gazebos-visual">
+                                <img src="assets/Products/Visual Gazebos & Pergolas.png" alt="Gazebos & Pergolas" class="prod-card-img" data-comment="prod-card-gazebos-img">
+                                <div class="prod-card-hover" data-comment="prod-card-gazebos-hover">
+                                    <a href="#" class="prod-hover-btn" data-comment="prod-card-gazebos-hover-btn">Shop Gazebos</a>
+                                </div>
+                            </div>
+                            <h3 class="prod-card-title" data-comment="prod-card-gazebos-title">Gazebos &amp; Pergolas</h3>
+                            <p class="prod-card-desc" data-comment="prod-card-gazebos-desc">Beautiful outdoor structures that transform any backyard — from intimate pergolas to grand pavilions.</p>
+                            <a href="#" class="prod-card-link" data-comment="prod-card-gazebos-link">
+                                View all gazebos
+                                <svg viewBox="0 0 24 24" data-comment="prod-card-gazebos-link-icon"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                            </a>
+                        </div>
+
+                        <div class="prod-card" data-comment="prod-card-play">
+                            <div class="prod-card-visual" data-comment="prod-card-play-visual">
+                                <img src="assets/Products/Visual Play Structures.png" alt="Play Structures" class="prod-card-img" data-comment="prod-card-play-img">
+                                <div class="prod-card-hover" data-comment="prod-card-play-hover">
+                                    <a href="#" class="prod-hover-btn" data-comment="prod-card-play-hover-btn">Shop Playsets</a>
+                                </div>
+                            </div>
+                            <h3 class="prod-card-title" data-comment="prod-card-play-title">Play Structures</h3>
+                            <p class="prod-card-desc" data-comment="prod-card-play-desc">Handcrafted playsets and adventure structures that bring joy to kids of all ages.</p>
+                            <a href="#" class="prod-card-link" data-comment="prod-card-play-link">
+                                View all playsets
+                                <svg viewBox="0 0 24 24" data-comment="prod-card-play-link-icon"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                            </a>
+                        </div>
+
+                        <div class="prod-card" data-comment="prod-card-animal">
+                            <div class="prod-card-visual" data-comment="prod-card-animal-visual">
+                                <img src="assets/Products/Visual Animal Structures.png" alt="Animal Structures" class="prod-card-img" data-comment="prod-card-animal-img">
+                                <div class="prod-card-hover" data-comment="prod-card-animal-hover">
+                                    <a href="#" class="prod-hover-btn" data-comment="prod-card-animal-hover-btn">Shop Animal Structures</a>
+                                </div>
+                            </div>
+                            <h3 class="prod-card-title" data-comment="prod-card-animal-title">Animal Structures</h3>
+                            <p class="prod-card-desc" data-comment="prod-card-animal-desc">Coops, hutches, and custom animal shelters — durable structures built for livestock and small animals.</p>
+                            <a href="#" class="prod-card-link" data-comment="prod-card-animal-link">
+                                View all animal structures
+                                <svg viewBox="0 0 24 24" data-comment="prod-card-animal-link-icon"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                            </a>
+                        </div>
+
+                        <div class="prod-card" data-comment="prod-card-rentals">
+                            <div class="prod-card-visual" data-comment="prod-card-rentals-visual">
+                                <img src="assets/Products/Visual Returned Rentals.png" alt="Returned Rentals" class="prod-card-img" data-comment="prod-card-rentals-img">
+                                <div class="prod-card-hover" data-comment="prod-card-rentals-hover">
+                                    <a href="#" class="prod-hover-btn" data-comment="prod-card-rentals-hover-btn">Shop Returned Rentals</a>
+                                </div>
+                            </div>
+                            <h3 class="prod-card-title" data-comment="prod-card-rentals-title">Returned Rentals</h3>
+                            <p class="prod-card-desc" data-comment="prod-card-rentals-desc">Quality rent-to-own structures returned in great condition — available at discounted prices.</p>
+                            <a href="#" class="prod-card-link" data-comment="prod-card-rentals-link">
+                                View all returned rentals
+                                <svg viewBox="0 0 24 24" data-comment="prod-card-rentals-link-icon"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                            </a>
+                        </div>
+
+                        <div class="prod-card" data-comment="prod-card-furniture">
+                            <div class="prod-card-visual" data-comment="prod-card-furniture-visual">
+                                <img src="assets/Products/Furniture.png" alt="Furniture" class="prod-card-img" data-comment="prod-card-furniture-img">
+                                <div class="prod-card-hover" data-comment="prod-card-furniture-hover">
+                                    <a href="#" class="prod-hover-btn" data-comment="prod-card-furniture-hover-btn">Shop Furniture</a>
+                                </div>
+                            </div>
+                            <h3 class="prod-card-title" data-comment="prod-card-furniture-title">Furniture</h3>
+                            <p class="prod-card-desc" data-comment="prod-card-furniture-desc">Handcrafted Amish furniture from Lancaster County, PA — built to last for generations.</p>
+                            <a href="#" class="prod-card-link" data-comment="prod-card-furniture-link">
+                                View all furniture
+                                <svg viewBox="0 0 24 24" data-comment="prod-card-furniture-link-icon"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                            </a>
+                        </div>
+
+                        <div class="prod-card" data-comment="prod-card-homes">
+                            <div class="prod-card-visual" data-comment="prod-card-homes-visual">
+                                <img src="assets/Products/Homes & Garages.png" alt="Homes & Garages" class="prod-card-img" data-comment="prod-card-homes-img">
+                                <div class="prod-card-hover" data-comment="prod-card-homes-hover">
+                                    <a href="#" class="prod-hover-btn" data-comment="prod-card-homes-hover-btn">Shop Homes &amp; Garages</a>
+                                </div>
+                            </div>
+                            <h3 class="prod-card-title" data-comment="prod-card-homes-title">Homes &amp; Garages</h3>
+                            <p class="prod-card-desc" data-comment="prod-card-homes-desc">Custom-built homes and garages designed for the way you live — crafted to your specifications.</p>
+                            <a href="#" class="prod-card-link" data-comment="prod-card-homes-link">
+                                View all homes &amp; garages
+                                <svg viewBox="0 0 24 24" data-comment="prod-card-homes-link-icon"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- ════════════════════════════════
+                 ABOUT
+            ════════════════════════════════ -->
+            <section class="about-section" data-comment="about-section">
+                <div class="section-inner" data-comment="about-inner-wrap">
+                    <div class="about-inner" data-comment="about-inner">
+                        <div class="about-text" data-comment="about-text">
+                            <p class="section-eyebrow about-eyebrow" data-comment="about-eyebrow">Our Story</p>
+                            <h2 class="about-heading" data-comment="about-heading">30+ Years of Quality, Built for the North Country</h2>
+                            <p class="about-body" data-comment="about-body">Since 1993, North Country Storage Barns has been a family-owned operation dedicated to quality-built structures. Luke, Titus, and Reuben Martin still own and operate the business — serving customers across New York State and beyond. Our furniture and gifts are handcrafted by Amish craftsmen in Lancaster County, PA.</p>
+                            <div class="about-highlights" data-comment="about-highlights">
+                                <div class="about-highlight-item" data-comment="about-highlight-1">
+                                    <div class="about-highlight-dot" data-comment="about-highlight-dot-1"></div>
+                                    <span class="about-highlight-text" data-comment="about-highlight-text-1">Three locations across New York State</span>
+                                </div>
+                                <div class="about-highlight-item" data-comment="about-highlight-2">
+                                    <div class="about-highlight-dot" data-comment="about-highlight-dot-2"></div>
+                                    <span class="about-highlight-text" data-comment="about-highlight-text-2">Amish-crafted furniture from Lancaster County, PA</span>
+                                </div>
+                                <div class="about-highlight-item" data-comment="about-highlight-3">
+                                    <div class="about-highlight-dot" data-comment="about-highlight-dot-3"></div>
+                                    <span class="about-highlight-text" data-comment="about-highlight-text-3">Rent-to-own available through Rent A Structure LLC</span>
+                                </div>
+                            </div>
+                            <a href="#" class="btn-primary" data-comment="about-cta">Learn About Us</a>
+                        </div>
+                        <div class="about-video-side" data-comment="about-video-side">
+                            <div class="about-video-card" data-comment="about-video-card">
+                                <a href="https://www.youtube.com/watch?v=mftCWEujvQc" target="_blank" rel="noopener" class="about-video-wrap" data-comment="about-video-wrap">
+                                    <img
+                                        src="https://img.youtube.com/vi/mftCWEujvQc/maxresdefault.jpg"
+                                        alt="North Country Storage Barns — Watch on YouTube"
+                                        class="about-video-thumb"
+                                        data-comment="about-video-thumb" />
+                                    <div class="about-video-play" data-comment="about-video-play">
+                                        <div class="about-video-play-btn" data-comment="about-video-play-btn">
+                                            <i class="ri-play-fill" data-comment="about-video-play-icon"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ════════════════════════════════
+                 SOCIAL / TIKTOK
+            ════════════════════════════════ -->
+            <section class="social-section" data-comment="social-section">
+                <div class="section-inner social-header" data-comment="social-header">
+                    <div style="display:flex;align-items:flex-end;justify-content:space-between;" data-comment="social-header-row">
+                        <div data-comment="social-header-text">
+                            <p class="section-eyebrow" data-comment="social-eyebrow">Follow Along</p>
+                            <h2 class="section-heading" data-comment="social-heading">We're on TikTok</h2>
+                            <p class="section-subtext" data-comment="social-subtext">Build time-lapses, customer reveals, and behind-the-scenes — follow us @ncsbarns.</p>
+                        </div>
+                        <div class="carousel-controls" data-comment="tiktok-controls">
+                            <button class="carousel-btn" id="tiktokPrev" data-comment="tiktok-prev-btn" aria-label="Previous">
+                                <svg viewBox="0 0 24 24" data-comment="tiktok-prev-icon"><polyline points="15 18 9 12 15 6"/></svg>
+                            </button>
+                            <button class="carousel-btn" id="tiktokNext" data-comment="tiktok-next-btn" aria-label="Next">
+                                <svg viewBox="0 0 24 24" data-comment="tiktok-next-icon"><polyline points="9 18 15 12 9 6"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="tiktok-track-outer" data-comment="tiktok-track-outer">
+                    <div class="tiktok-track" id="tiktokTrack" data-comment="tiktok-track">
+                        <div class="tiktok-card" data-comment="tiktok-card-1"><iframe src="https://www.tiktok.com/embed/v2/7197131480861003054" allowfullscreen allow="encrypted-media" data-comment="tiktok-iframe-1"></iframe></div>
+                        <div class="tiktok-card" data-comment="tiktok-card-2"><iframe src="https://www.tiktok.com/embed/v2/7187453308339064107" allowfullscreen allow="encrypted-media" data-comment="tiktok-iframe-2"></iframe></div>
+                        <div class="tiktok-card" data-comment="tiktok-card-3"><iframe src="https://www.tiktok.com/embed/v2/7637230279563742478" allowfullscreen allow="encrypted-media" data-comment="tiktok-iframe-3"></iframe></div>
+                        <div class="tiktok-card" data-comment="tiktok-card-4"><iframe src="https://www.tiktok.com/embed/v2/7631563360508693774" allowfullscreen allow="encrypted-media" data-comment="tiktok-iframe-4"></iframe></div>
+                        <div class="tiktok-card" data-comment="tiktok-card-5"><iframe src="https://www.tiktok.com/embed/v2/7631259387264339213" allowfullscreen allow="encrypted-media" data-comment="tiktok-iframe-5"></iframe></div>
+                        <div class="tiktok-card" data-comment="tiktok-card-6"><iframe src="https://www.tiktok.com/embed/v2/7627164661841988878" allowfullscreen allow="encrypted-media" data-comment="tiktok-iframe-6"></iframe></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ════════════════════════════════
+                 LOCATION & CONTACT
+            ════════════════════════════════ -->
+            <section class="location-section" data-comment="location-section">
+                <div class="section-inner" data-comment="location-inner-wrap">
+                    <div class="location-inner" data-comment="location-inner">
+                        <div class="location-info" data-comment="location-info">
+                            <p class="section-eyebrow location-eyebrow" data-comment="location-eyebrow">Find Us</p>
+                            <h2 class="location-heading" data-comment="location-heading">Three Locations Across New York</h2>
+                            <p class="section-subtext" data-comment="location-subtext">Visit Pulaski, Philadelphia, or Yorkville — our team is ready to walk you through the lot.</p>
+                            <div class="location-hours-block" data-comment="location-hours-block">
+                                <p class="location-block-label" data-comment="location-hours-label">Hours</p>
+                                <p class="location-hours-row" data-comment="location-hours-weekday">Mon – Fri: 8:30AM – 4:30PM</p>
+                                <p class="location-hours-row" data-comment="location-hours-sat">Saturday: 9AM – 2PM</p>
+                                <p class="location-hours-row" data-comment="location-hours-sun">Sunday: Closed</p>
+                            </div>
+                            <p class="location-block-label" data-comment="location-stores-label">Our Stores</p>
+                            <div class="location-cards" data-comment="location-cards">
+                                <div class="location-card" data-comment="location-card-philadelphia">
+                                    <div data-comment="location-card-philadelphia-info">
+                                        <div class="location-card-name" data-comment="location-card-philadelphia-name"><i class="ri-map-pin-2-line"></i>Philadelphia</div>
+                                        <div class="location-card-addr" data-comment="location-card-philadelphia-addr">32660 US Route 11, Philadelphia, NY</div>
+                                        <div class="location-card-phone" data-comment="location-card-philadelphia-phone">(315) 642-0209</div>
+                                    </div>
+                                    <a href="https://maps.google.com/?q=32660+US+Route+11+Philadelphia+NY" target="_blank" class="location-card-btn" data-comment="location-card-philadelphia-btn">Directions<svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+                                </div>
+                                <div class="location-card" data-comment="location-card-yorkville">
+                                    <div data-comment="location-card-yorkville-info">
+                                        <div class="location-card-name" data-comment="location-card-yorkville-name"><i class="ri-map-pin-2-line"></i>Yorkville</div>
+                                        <div class="location-card-addr" data-comment="location-card-yorkville-addr">317 Oriskany Blvd, Yorkville, NY</div>
+                                        <div class="location-card-phone" data-comment="location-card-yorkville-phone">(315) 793-0726</div>
+                                    </div>
+                                    <a href="https://maps.google.com/?q=317+Oriskany+Blvd+Yorkville+NY" target="_blank" class="location-card-btn" data-comment="location-card-yorkville-btn">Directions<svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+                                </div>
+                                <div class="location-card" data-comment="location-card-sandycreek">
+                                    <div data-comment="location-card-sandycreek-info">
+                                        <div class="location-card-name" data-comment="location-card-sandycreek-name"><i class="ri-map-pin-2-line"></i>Sandy Creek</div>
+                                        <div class="location-card-addr" data-comment="location-card-sandycreek-addr">5780 US Route 11, Pulaski, NY</div>
+                                        <div class="location-card-phone" data-comment="location-card-sandycreek-phone">(315) 387-2092</div>
+                                    </div>
+                                    <a href="https://maps.google.com/?q=5780+US+Route+11+Pulaski+NY" target="_blank" class="location-card-btn" data-comment="location-card-sandycreek-btn">Directions<svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="location-map-wrap" data-comment="location-map-wrap">
+                            <div id="location-map" data-comment="location-map"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ════════════════════════════════
+                 FULLSCREEN PHOTO PLACEHOLDER
+            ════════════════════════════════ -->
+            <div class="homes-cta-section" data-comment="homes-cta-section">
+            <section class="homes-cta" data-comment="homes-cta">
+                <div class="homes-cta-overlay" data-comment="homes-cta-overlay"></div>
+                <div class="homes-cta-content" data-comment="homes-cta-content">
+                    <p class="homes-cta-eyebrow" data-comment="homes-cta-eyebrow">Now Available</p>
+                    <h2 class="homes-cta-heading" data-comment="homes-cta-heading">Custom Built Homes &amp; Garages</h2>
+                    <p class="homes-cta-sub" data-comment="homes-cta-sub">From cozy cabins to full-size garages — we build to your specs, on your lot, with the same craftsmanship we've delivered for over 30 years.</p>
+                    <a href="#" class="btn-primary" data-comment="homes-cta-btn"><i class="ri-arrow-right-line"></i> Explore More</a>
+                </div>
+            </section>
+            </div>
+
+            <!-- ════════════════════════════════
+                 REVIEWS
+            ════════════════════════════════ -->
+            <section class="reviews-section" data-comment="reviews-section">
+                <div class="reviews-inner" data-comment="reviews-inner">
+                    <div class="reviews-stars" data-comment="reviews-stars">
+                        <svg viewBox="0 0 24 24" data-comment="reviews-star-1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24" data-comment="reviews-star-2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24" data-comment="reviews-star-3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24" data-comment="reviews-star-4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24" data-comment="reviews-star-5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <blockquote class="review-quote" data-comment="review-quote">
+                        <strong>North Country Storage Barns built us the perfect shed</strong> — quality craftsmanship, fair price, and delivered right on time. The Martin family really stands behind their work. We couldn't be happier!
+                    </blockquote>
+                    <div class="review-author" data-comment="review-author">
+                        <div class="review-avatar" data-comment="review-avatar"><svg viewBox="0 0 24 24" data-comment="review-avatar-icon" style="width:18px;height:18px;stroke:rgba(255,255,255,0.7);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                        <div data-comment="review-author-info">
+                            <div class="review-author-name" data-comment="review-author-name">Sarah M.</div>
+                            <div class="review-author-loc" data-comment="review-author-loc">Watertown, NY</div>
+                        </div>
+                    </div>
+                    <a href="reviews.html" class="btn-outline" data-comment="reviews-view-all-btn">View All Reviews</a>
+                </div>
+            </section>
+
+        </main>
 
         <!-- ════════════════════════════════
-             HEADER / NAV
+             FOOTER
         ════════════════════════════════ -->
-        <header data-comment="nav-root" id="navRoot">
-            <div class="nav-inner" data-comment="nav-inner">
+        <footer class="footer-root" data-comment="footer-root">
+            <div class="footer-inner" data-comment="footer-inner">
+                <div class="footer-top" data-comment="footer-top">
+                    <div data-comment="footer-brand">
+                        <a href="#" class="footer-brand-logo" data-comment="footer-brand-logo">
+                            <img src="assets/Logo.png" alt="NCS Barns" data-comment="footer-brand-img" />
+                            <span class="footer-brand-name" data-comment="footer-brand-name">NCS Barns</span>
+                        </a>
+                        <p class="footer-brand-desc" data-comment="footer-brand-desc">Handcrafted quality structures for the North Country — family owned &amp; operated since 1993.</p>
+                    </div>
+                    <div data-comment="footer-col-products">
+                        <p class="footer-col-label" data-comment="footer-col-products-label">Products</p>
+                        <ul class="footer-links" data-comment="footer-links-products">
+                            <li data-comment="footer-link-li-sheds"><a href="#" data-comment="footer-link-sheds">Sheds</a></li>
+                            <li data-comment="footer-link-li-gazebos"><a href="#" data-comment="footer-link-gazebos">Gazebos &amp; Pergolas</a></li>
+                            <li data-comment="footer-link-li-hunting"><a href="#" data-comment="footer-link-hunting">Hunting Blinds</a></li>
+                            <li data-comment="footer-link-li-play"><a href="#" data-comment="footer-link-play">Play Structures</a></li>
+                            <li data-comment="footer-link-li-furniture"><a href="#" data-comment="footer-link-furniture">Furniture</a></li>
+                            <li data-comment="footer-link-li-homes"><a href="#" data-comment="footer-link-homes">Homes &amp; Garages</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="footer-col-company">
+                        <p class="footer-col-label" data-comment="footer-col-company-label">Company</p>
+                        <ul class="footer-links" data-comment="footer-links-company">
+                            <li data-comment="footer-link-li-about"><a href="#" data-comment="footer-link-about">About Us</a></li>
+                            <li data-comment="footer-link-li-testimonials"><a href="#" data-comment="footer-link-testimonials">Testimonials</a></li>
+                            <li data-comment="footer-link-li-gallery"><a href="gallery.html" data-comment="footer-link-gallery">Gallery</a></li>
+                            <li data-comment="footer-link-li-delivery"><a href="#" data-comment="footer-link-delivery">Delivery &amp; Relocation</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="footer-col-buying">
+                        <p class="footer-col-label" data-comment="footer-col-buying-label">Buying Process</p>
+                        <ul class="footer-links" data-comment="footer-links-buying">
+                            <li data-comment="footer-link-li-rto"><a href="#" data-comment="footer-link-rto">Rent-To-Own</a></li>
+                            <li data-comment="footer-link-li-financing"><a href="#" data-comment="footer-link-financing">Financing Options</a></li>
+                            <li data-comment="footer-link-li-siteprep"><a href="#" data-comment="footer-link-siteprep">Site Preparation</a></li>
+                            <li data-comment="footer-link-li-warranty"><a href="#" data-comment="footer-link-warranty">Warranty</a></li>
+                            <li data-comment="footer-link-li-dealers"><a href="#" data-comment="footer-link-dealers">Dealers</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="footer-col-contact">
+                        <p class="footer-col-label" data-comment="footer-col-contact-label">Contact</p>
+                        <div class="footer-contact-item" data-comment="footer-contact-phone">
+                            <svg viewBox="0 0 24 24" data-comment="footer-contact-phone-icon"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l1.64-1.64a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <a href="tel:3156420209" data-comment="footer-contact-phone-link">(315) 642-0209</a>
+                        </div>
+                        <div class="footer-contact-item" data-comment="footer-contact-email">
+                            <svg viewBox="0 0 24 24" data-comment="footer-contact-email-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            <a href="mailto:sales@ncsbarns.com" data-comment="footer-contact-email-link">sales@ncsbarns.com</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-locations" data-comment="footer-locations">
+                    <div data-comment="footer-loc-philadelphia">
+                        <p class="footer-loc-name" data-comment="footer-loc-philadelphia-name">Philadelphia</p>
+                        <p class="footer-loc-addr" data-comment="footer-loc-philadelphia-addr">32660 US Route 11<br>Philadelphia, NY 13673</p>
+                        <p class="footer-loc-phone" data-comment="footer-loc-philadelphia-phone">(315) 642-0209</p>
+                    </div>
+                    <div data-comment="footer-loc-yorkville">
+                        <p class="footer-loc-name" data-comment="footer-loc-yorkville-name">Yorkville</p>
+                        <p class="footer-loc-addr" data-comment="footer-loc-yorkville-addr">317 Oriskany Blvd<br>Yorkville, NY</p>
+                        <p class="footer-loc-phone" data-comment="footer-loc-yorkville-phone">(315) 793-0726</p>
+                    </div>
+                    <div data-comment="footer-loc-sandycreek">
+                        <p class="footer-loc-name" data-comment="footer-loc-sandycreek-name">Sandy Creek</p>
+                        <p class="footer-loc-addr" data-comment="footer-loc-sandycreek-addr">5780 US Route 11<br>Pulaski, NY 13142</p>
+                        <p class="footer-loc-phone" data-comment="footer-loc-sandycreek-phone">(315) 387-2092</p>
+                    </div>
+                </div>
+                <div class="footer-bottom" data-comment="footer-bottom">
+                    <div class="footer-copy-row" data-comment="footer-copy-row">
+                        <p class="footer-copy" data-comment="footer-copy">&copy; 2026 North Country Storage Barns. All rights reserved.</p>
+                        <a href="#" class="footer-legal-link" data-comment="footer-link-privacy">Privacy Policy</a>
+                        <a href="#" class="footer-legal-link" data-comment="footer-link-terms">Terms &amp; Conditions</a>
+                    </div>
+                    <div class="footer-socials" data-comment="footer-socials">
+                        <a href="https://www.tiktok.com/@northcountrystoragebarns" target="_blank" class="footer-social-btn" data-comment="footer-social-tiktok" aria-label="TikTok">
+                            <i class="ri-tiktok-fill" data-comment="footer-social-tiktok-icon"></i>
+                        </a>
+                        <a href="https://www.facebook.com/ifyouneedmeillbeinmyshed/" target="_blank" class="footer-social-btn" data-comment="footer-social-facebook" aria-label="Facebook">
+                            <i class="ri-facebook-fill" data-comment="footer-social-facebook-icon"></i>
+                        </a>
+                        <a href="https://www.instagram.com/northcountrystoragebarns/" target="_blank" class="footer-social-btn" data-comment="footer-social-instagram" aria-label="Instagram">
+                            <i class="ri-instagram-fill" data-comment="footer-social-instagram-icon"></i>
+                        </a>
+                        <a href="https://www.google.com/search?q=north+country+storage+barns+philadelphia+new+york&rlz=1C1CHBF_enUS990US990&sxsrf=APq-WBvgbN4lkGpurvdy_piiMIEgkOmMNA:1648127552780&ei=QG48YtiqL-bb0PEPqqmayAY&gs_ssp=eJwNxcENwjAMAEDxRWIHf3jXtoICHYEtHNe0iJKAE0S7fXufO566sSP6VnozYcNDf8YlqA6cguJDr_GGscclSkjCghc2ZqNwp1y8TaDll5uvUFtxGQ2SeK7wmZ6zDDbvC2T7w1r8tQGBNiI4&oq=north+country+storage+barns+Phil&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQARgAMgsILhCABBDHARCvATIGCAAQFhAeMgYIABAWEB46BwgjELADECc6BwgAEEcQsAM6CggAEEcQsAMQyQM6CAgAEJIDELADOhIILhDHARCjAhDIAxCwAxBDGAE6EgguEMcBEK8BEMgDELADEEMYAToFCAAQgAQ6CgguEMcBEK8BEENKBAhBGABKBAhGGABQjwVYuxFg5CFoAXABeACAAX-IAcYEkgEDMC41mAEAoAEByAEMwAEB2gEECAEYCA&sclient=gws-wiz-serp" target="_blank" class="footer-social-btn" data-comment="footer-social-google" aria-label="Google">
+                            <i class="ri-google-fill" data-comment="footer-social-google-icon"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
 
-                <!-- Logo -->
-                <a href="#" class="nav-logo" data-comment="nav-logo">
-                    <img
-                        src="assets/Logo.png"
-                        alt="NCS Barns"
-                        class="nav-logo-img"
-                        data-comment="nav-logo-img" />
-                    <span class="nav-logo-name" data-comment="nav-logo-name">NCS Barns</span>
-                </a>
+        <!-- ════════════════════════════════
+             EVENT MODAL
+        ════════════════════════════════ -->
+        <div class="ev-overlay" id="evOverlay" data-comment="event-modal-overlay">
+            <div class="ev-modal" data-comment="event-modal">
+                <div class="ev-modal-visual" id="evModalVisual" data-comment="event-modal-visual">
+                    <button class="ev-modal-close" id="evModalClose" data-comment="event-modal-close-btn">&#x2715;</button>
+                    <div class="ev-modal-visual-badge" data-comment="event-modal-date-badge">
+                        <span class="ev-modal-visual-month" id="evModalMonth" data-comment="event-modal-month"></span>
+                        <span class="ev-modal-visual-day" id="evModalDay" data-comment="event-modal-day"></span>
+                    </div>
+                </div>
+                <div class="ev-modal-body" data-comment="event-modal-body">
+                    <p class="ev-modal-tag" id="evModalTag" data-comment="event-modal-tag"></p>
+                    <h2 class="ev-modal-title" id="evModalTitle" data-comment="event-modal-title"></h2>
+                    <p class="ev-modal-desc" id="evModalDesc" data-comment="event-modal-desc"></p>
+                    <div class="ev-modal-info" id="evModalInfo" data-comment="event-modal-info"></div>
+                    <div class="ev-modal-highlights" id="evModalHighlights" data-comment="event-modal-highlights"></div>
+                    <div class="ev-modal-actions" id="evModalActions" data-comment="event-modal-actions"></div>
+                </div>
+            </div>
+        </div>
 
-                <!-- ── Main links ── -->
-                <ul class="nav-links" data-comment="nav-links">
-
-                    <!-- PRODUCTS -->
-                    <li class="nav-item" id="navProducts" data-comment="nav-item-products">
-                        <button class="nav-trigger" data-comment="nav-trigger-products">
-                            Products
+        <!-- QUOTE MODAL -->
+        <div class="quote-overlay" id="quoteOverlay" data-comment="quote-modal-overlay">
+            <div class="quote-modal" data-comment="quote-modal">
+                <div class="quote-modal-header" data-comment="quote-modal-header">
+                    <div>
+                        <p class="quote-modal-title" data-comment="quote-modal-title">Get a Free Quote</p>
+                        <p class="quote-modal-sub" data-comment="quote-modal-sub">We'll get back to you within 1 business day.</p>
+                    </div>
+                    <button class="quote-modal-close" id="quoteModalClose" data-comment="quote-modal-close">
+                        <i class="ri-close-line"></i>
+                    </button>
+                </div>
+                <form class="quote-form" id="quoteForm" data-comment="quote-form" novalidate>
+                    <div class="quote-form-row" data-comment="quote-form-row-name-phone">
+                        <div class="quote-field" data-comment="quote-field-name">
+                            <label class="quote-label" for="quoteName" data-comment="quote-label-name">Full Name</label>
+                            <input class="quote-input" id="quoteName" type="text" placeholder="Jane Smith" autocomplete="name" data-comment="quote-input-name" />
+                        </div>
+                        <div class="quote-field" data-comment="quote-field-phone">
+                            <label class="quote-label" for="quotePhone" data-comment="quote-label-phone">Phone</label>
+                            <input class="quote-input" id="quotePhone" type="tel" placeholder="(315) 000-0000" autocomplete="tel" data-comment="quote-input-phone" />
+                        </div>
+                    </div>
+                    <div class="quote-field" data-comment="quote-field-email">
+                        <label class="quote-label" for="quoteEmail" data-comment="quote-label-email">Email</label>
+                        <input class="quote-input" id="quoteEmail" type="email" placeholder="jane@example.com" autocomplete="email" data-comment="quote-input-email" />
+                    </div>
+                    <div class="quote-form-row" data-comment="quote-form-row-product-location">
+                        <div class="quote-field" data-comment="quote-field-product">
+                            <label class="quote-label" for="quoteProduct" data-comment="quote-label-product">Interested In</label>
+                            <div class="quote-select-wrap" data-comment="quote-select-wrap-product">
+                                <select class="quote-select" id="quoteProduct" data-comment="quote-select-product">
+                                    <option value="" disabled selected>Select a product</option>
+                                    <option value="sheds">Sheds</option>
+                                    <option value="hunting-blinds">Hunting Blinds</option>
+                                    <option value="gazebos">Gazebos &amp; Pergolas</option>
+                                    <option value="homes-garages">Homes &amp; Garages</option>
+                                    <option value="outdoor-furniture">Outdoor Furniture</option>
+                                    <option value="play-structures">Play Structures</option>
+                                    <option value="animal-structures">Animal Structures</option>
+                                    <option value="other">Other / Not Sure</option>
+                                </select>
+                                <i class="ri-arrow-down-s-line"></i>
+                            </div>
+                        </div>
+                        <div class="quote-field" data-comment="quote-field-location">
+                            <label class="quote-label" for="quoteLocation" data-comment="quote-label-location">Nearest Location</label>
+                            <div class="quote-select-wrap" data-comment="quote-select-wrap-location">
+                                <select class="quote-select" id="quoteLocation" data-comment="quote-select-location">
+                                    <option value="" disabled selected>Select a store</option>
+                                    <option value="philadelphia">Philadelphia, NY</option>
+                                    <option value="yorkville">Yorkville, NY</option>
+                                    <option value="sandy-creek">Sandy Creek, NY</option>
+                                    <option value="no-preference">No preference</option>
+                                </select>
+                                <i class="ri-arrow-down-s-line"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="quote-field" data-comment="quote-field-message">
+                        <label class="quote-label" for="quoteMessage" data-comment="quote-label-message">Additional Details <span style="font-weight:400;color:var(--color-gray-light)">(optional)</span></label>
+                        <textarea class="quote-textarea" id="quoteMessage" placeholder="Size, color, specific features, timeline…" data-comment="quote-textarea-message"></textarea>
+                    </div>
+                    <div class="quote-divider" data-comment="quote-divider"></div>
+                    <div class="quote-form-footer" data-comment="quote-form-footer">
+                        <p class="quote-form-note" data-comment="quote-form-note">We'll never share your info.<br>No spam, ever.</p>
+                        <button type="submit" class="btn-primary quote-submit" data-comment="quote-submit-btn">
+                            <i class="ri-send-plane-line"></i> Send Request
                         </button>
+                    </div>
+                </form>
+                <div class="quote-success" id="quoteSuccess" data-comment="quote-success">
+                    <div class="quote-success-icon" data-comment="quote-success-icon"><i class="ri-check-line"></i></div>
+                    <p class="quote-success-title" data-comment="quote-success-title">Request Sent!</p>
+                    <p class="quote-success-sub" data-comment="quote-success-sub">Thank you! A member of our team will reach out within 1 business day.</p>
+                    <a href="#" class="btn-outline" id="quoteSuccessClose" data-comment="quote-success-close-btn">Close</a>
+                </div>
+            </div>
+        </div>
 
-                        <!-- Mega menu -->
-                        <div class="nav-mega" data-comment="nav-mega-products">
-                            <div class="nav-mega-inner" data-comment="nav-mega-products-inner">
+        <script>
+            /* ─────────────────────────────────────────
+               SEARCH DROPDOWN
+            ───────────────────────────────────────── */
+            const PRODUCTS = [
+                { id: 1,  name: 'Classic Barn Shed 10×12',       category: 'Sheds',            price: 4800,  sale: null,  icon: '🏚️' },
+                { id: 2,  name: 'Lofted Barn Cabin 12×24',       category: 'Structures',       price: 12500, sale: 10800, icon: '🏠' },
+                { id: 3,  name: 'Dutch Barn Gazebo 12×16',       category: 'Gazebos',          price: 6200,  sale: null,  icon: '⛺' },
+                { id: 4,  name: 'Hunting Blind Pro',              category: 'Hunting Blinds',   price: 2800,  sale: null,  icon: '🎯' },
+                { id: 5,  name: 'Modular Log Home 24×48',        category: 'Homes & Garages',  price: 45000, sale: 38500, icon: '🏡' },
+                { id: 6,  name: 'Outdoor Adirondack Set',        category: 'Outdoor Furniture',price: 890,   sale: null,  icon: '🪑' },
+                { id: 7,  name: 'Adventure Playground Structure',category: 'Play Structures',  price: 3200,  sale: null,  icon: '🛝' },
+                { id: 8,  name: 'Premium Chicken Coop',          category: 'Animal Structures',price: 1400,  sale: 1100,  icon: '🐔' },
+                { id: 9,  name: 'Garden Storage Shed 8×10',      category: 'Sheds',            price: 3200,  sale: null,  icon: '🏚️' },
+                { id: 10, name: 'Two-Car Garage 24×24',          category: 'Homes & Garages',  price: 18000, sale: null,  icon: '🚗' },
+                { id: 11, name: 'Pergola Kit 12×12',             category: 'Gazebos',          price: 4200,  sale: 3600,  icon: '⛺' },
+                { id: 12, name: 'Indoor Dining Set — Oak',       category: 'Indoor Furniture', price: 1200,  sale: null,  icon: '🪵' },
+                { id: 13, name: 'Saltbox Storage Barn',          category: 'Sheds',            price: 5400,  sale: null,  icon: '🏚️' },
+                { id: 14, name: 'Log Cabin Kit 16×20',           category: 'Structures',       price: 22000, sale: 18500, icon: '🏠' },
+                { id: 15, name: 'Rabbit & Small Animal Hutch',   category: 'Animal Structures',price: 680,   sale: null,  icon: '🐰' },
+            ];
 
-                                <div class="nav-mega-body" data-comment="nav-mega-products-body">
-                                <div class="nav-mega-header" data-comment="nav-mega-header">
-                                    <span class="nav-mega-eyebrow" data-comment="nav-mega-eyebrow">
-                                        Explore NCS Barns
-                                    </span>
+            const HISTORY_KEY = 'ncs_search_history';
+
+            function getHistory() {
+                try { return JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; }
+                catch { return []; }
+            }
+
+            function addToHistory(q) {
+                if (!q.trim()) return;
+                const h = getHistory().filter(x => x.toLowerCase() !== q.toLowerCase());
+                h.unshift(q.trim());
+                localStorage.setItem(HISTORY_KEY, JSON.stringify(h.slice(0, 6)));
+            }
+
+            function fmt(n) {
+                return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            }
+
+            function renderHistory(container) {
+                const items = getHistory();
+                if (!items.length) {
+                    container.innerHTML = '';
+                    return;
+                }
+                container.innerHTML = `
+                    <p class="sd-section-label" data-comment="search-history-label">Your search history:</p>
+                    <ul class="sd-history-list" data-comment="search-history-list">
+                        ${items.map((q, i) => `
+                        <li data-comment="search-history-item-${i+1}">
+                            <a class="sd-history-item" href="search.html?q=${encodeURIComponent(q)}" data-comment="search-history-link-${i+1}" onclick="addToHistory('${q.replace(/'/g, "\\'")}')">
+                                <span class="sd-history-item-text" data-comment="search-history-text-${i+1}">${q}</span>
+                                <svg class="sd-history-arrow" data-comment="search-history-arrow-${i+1}" viewBox="0 0 24 24">
+                                    <line x1="7" y1="17" x2="17" y2="7"/>
+                                    <polyline points="7 7 17 7 17 17"/>
+                                </svg>
+                            </a>
+                        </li>`).join('')}
+                    </ul>`;
+            }
+
+            function renderResults(container, results, query) {
+                if (!results.length) {
+                    container.innerHTML = `
+                        <div class="sd-empty" data-comment="search-no-results">
+                            <p class="sd-empty-text" data-comment="search-no-results-text">No results for <strong>"${query}"</strong></p>
+                        </div>`;
+                    return;
+                }
+                container.innerHTML = `
+                    <ul class="sd-results-list" data-comment="search-results-list">
+                        ${results.slice(0, 4).map((p, i) => `
+                        <li data-comment="search-result-item-${i+1}">
+                            <a class="sd-result-item" href="search.html?q=${encodeURIComponent(query)}" data-comment="search-result-link-${i+1}" onclick="addToHistory('${query.replace(/'/g, "\\'")}')">
+                                <div class="sd-result-thumb" data-comment="search-result-thumb-${i+1}">
+                                    <span class="sd-result-thumb-placeholder" data-comment="search-result-icon-${i+1}">${p.icon}</span>
                                 </div>
-
-                                <div class="nav-mega-cols" data-comment="nav-mega-cols">
-
-                                    <!-- Structures -->
-                                    <div class="nav-mega-col" data-comment="nav-mega-col-structures">
-                                        <p class="nav-mega-col-title" data-comment="nav-mega-col-title-structures">Structures</p>
-                                        <ul class="nav-mega-list" data-comment="nav-mega-list-structures">
-                                            <li data-comment="nav-mega-li-sheds">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-sheds">Sheds</a>
-                                            </li>
-                                            <li data-comment="nav-mega-li-gazebos">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-gazebos">Gazebos / Pergolas / Pavilions</a>
-                                            </li>
-                                            <li data-comment="nav-mega-li-hunting">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-hunting">Hunting Blinds</a>
-                                            </li>
-                                            <li data-comment="nav-mega-li-play">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-play">Play Structures</a>
-                                            </li>
-                                            <li data-comment="nav-mega-li-animal">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-animal">Animal Structures</a>
-                                            </li>
-                                            <li data-comment="nav-mega-li-rentals">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-rentals">Returned Rentals</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <!-- Furniture -->
-                                    <div class="nav-mega-col" data-comment="nav-mega-col-furniture">
-                                        <p class="nav-mega-col-title" data-comment="nav-mega-col-title-furniture">Furniture</p>
-                                        <ul class="nav-mega-list" data-comment="nav-mega-list-furniture">
-                                            <li data-comment="nav-mega-li-indoor">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-indoor">Indoor Furniture</a>
-                                            </li>
-                                            <li data-comment="nav-mega-li-outdoor">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-outdoor">Outdoor Furniture</a>
-                                            </li>
-                                            <li data-comment="nav-mega-li-decor">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-decor">Decor & More</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <!-- Homes & Garages -->
-                                    <div class="nav-mega-col" data-comment="nav-mega-col-homes">
-                                        <p class="nav-mega-col-title" data-comment="nav-mega-col-title-homes">Homes & Garages</p>
-                                        <ul class="nav-mega-list" data-comment="nav-mega-list-homes">
-                                            <li data-comment="nav-mega-li-custom-homes">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-custom-homes">Custom Built Homes</a>
-                                            </li>
-                                            <li data-comment="nav-mega-li-modular-homes">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-modular-homes">Modular Log Homes</a>
-                                            </li>
-                                            <li data-comment="nav-mega-li-garages">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-garages">Garages</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <!-- Options -->
-                                    <div class="nav-mega-col" data-comment="nav-mega-col-options">
-                                        <p class="nav-mega-col-title" data-comment="nav-mega-col-title-options">Options</p>
-                                        <ul class="nav-mega-list" data-comment="nav-mega-list-options">
-                                            <li data-comment="nav-mega-li-colors">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-colors">Colors</a>
-                                            </li>
-                                            <li data-comment="nav-mega-li-log-cabin">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-log-cabin">Log Cabin Options</a>
-                                            </li>
-                                            <li data-comment="nav-mega-li-shed-options">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-shed-options">Additional Shed Options</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                </div><!-- /nav-mega-cols -->
-                                </div><!-- /nav-mega-body -->
-
-                                    <!-- CTA -->
-                                    <div class="nav-mega-cta" data-comment="nav-mega-cta" style="background-image: url('assets/Shed%20(for%20navigation).jpg');">
-                                        <div class="nav-mega-cta-content" data-comment="nav-mega-cta-content">
-                                            <p class="nav-mega-cta-label" data-comment="nav-mega-cta-label">Build yours</p>
-                                            <p class="nav-mega-cta-heading" data-comment="nav-mega-cta-heading">Design Your Own Shed</p>
-                                            <p class="nav-mega-cta-note" data-comment="nav-mega-cta-note">Interactive 3D configurator with AR preview</p>
-                                            <a href="#" class="btn-cta-card" data-comment="nav-mega-cta-btn">
-                                                <svg viewBox="0 0 24 24" data-comment="nav-mega-cta-btn-icon">
-                                                    <polyline points="5 12 12 5 19 12"/>
-                                                    <line x1="12" y1="5" x2="12" y2="19"/>
-                                                </svg>
-                                                Customize Shed
-                                            </a>
-                                        </div>
-                                    </div>
-
-                            </div><!-- /nav-mega-inner -->
-                        </div><!-- /nav-mega -->
-                    </li>
-
-                    <!-- ABOUT -->
-                    <li class="nav-item" id="navAbout" data-comment="nav-item-about">
-                        <button class="nav-trigger" data-comment="nav-trigger-about">
-                            About
-                        </button>
-
-                        <div class="nav-mega" data-comment="nav-mega-about">
-                            <div class="nav-mega-inner" data-comment="nav-mega-about-inner">
-
-                                <div class="nav-mega-body" data-comment="nav-mega-about-body">
-                                <div class="nav-mega-header" data-comment="nav-mega-about-header">
-                                    <span class="nav-mega-eyebrow" data-comment="nav-mega-about-eyebrow">
-                                        About NCS Barns
-                                    </span>
+                                <div class="sd-result-info" data-comment="search-result-info-${i+1}">
+                                    <p class="sd-result-name" data-comment="search-result-name-${i+1}">${p.name}</p>
+                                    <p class="sd-result-cat" data-comment="search-result-cat-${i+1}">${p.category}</p>
                                 </div>
-
-                                <div class="nav-mega-cols nav-mega-cols--about" data-comment="nav-mega-about-cols">
-
-                                    <!-- Company -->
-                                    <div class="nav-mega-col" data-comment="nav-mega-col-company">
-                                        <p class="nav-mega-col-title" data-comment="nav-mega-col-title-company">Company</p>
-                                        <ul class="nav-mega-list" data-comment="nav-mega-list-company">
-                                            <li data-comment="nav-mega-li-about-company">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-about-company">About Company</a>
-                                            </li>
-                                            <li data-comment="nav-mega-li-testimonials">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-testimonials">Testimonials</a>
-                                            </li>
-                                            <li data-comment="nav-mega-li-gallery">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-gallery">Gallery</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <!-- Visit Us -->
-                                    <div class="nav-mega-col" data-comment="nav-mega-col-visit">
-                                        <p class="nav-mega-col-title" data-comment="nav-mega-col-title-visit">Visit Us</p>
-                                        <ul class="nav-mega-list" data-comment="nav-mega-list-visit">
-                                            <li data-comment="nav-mega-li-locations">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-locations">Working Time & Locations</a>
-                                            </li>
-                                            <li data-comment="nav-mega-li-service-area">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-service-area">Service Area</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <!-- Services -->
-                                    <div class="nav-mega-col" data-comment="nav-mega-col-services">
-                                        <p class="nav-mega-col-title" data-comment="nav-mega-col-title-services">Services</p>
-                                        <ul class="nav-mega-list" data-comment="nav-mega-list-services">
-                                            <li data-comment="nav-mega-li-delivery-reloc">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-delivery-reloc">Delivery & Relocation</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                </div><!-- /nav-mega-about-cols -->
-                                </div><!-- /nav-mega-about-body -->
-
-                                    <!-- CTA -->
-                                    <div class="nav-mega-cta" data-comment="nav-mega-about-cta">
-                                        <div class="nav-mega-cta-content" data-comment="nav-mega-about-cta-content">
-                                            <p class="nav-mega-cta-label" data-comment="nav-mega-about-cta-label">Locations</p>
-                                            <p class="nav-mega-cta-heading" data-comment="nav-mega-about-cta-heading">Visit Us Today</p>
-                                            <p class="nav-mega-cta-note" data-comment="nav-mega-about-cta-note">3 locations across New York State</p>
-                                            <a href="#" class="btn-cta-card" data-comment="nav-mega-about-cta-btn">
-                                                <svg viewBox="0 0 24 24" data-comment="nav-mega-about-cta-btn-icon">
-                                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l1.64-1.64a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-                                                </svg>
-                                                Contact Us
-                                            </a>
-                                        </div>
-                                    </div>
-
-                            </div><!-- /nav-mega-about-inner -->
-                        </div><!-- /nav-mega-about -->
-                    </li>
-
-                    <!-- BUYING PROCESS -->
-                    <li class="nav-item" id="navBuying" data-comment="nav-item-buying">
-                        <button class="nav-trigger" data-comment="nav-trigger-buying">
-                            Buying Process
-                        </button>
-
-                        <div class="nav-mega" data-comment="nav-mega-buying">
-                            <div class="nav-mega-inner" data-comment="nav-mega-buying-inner">
-
-                                <div class="nav-mega-body" data-comment="nav-mega-buying-body">
-                                <div class="nav-mega-header" data-comment="nav-mega-buying-header">
-                                    <span class="nav-mega-eyebrow" data-comment="nav-mega-buying-eyebrow">
-                                        How to Buy
-                                    </span>
+                                <div class="sd-result-prices" data-comment="search-result-prices-${i+1}">
+                                    ${p.sale ? `<span class="sd-result-price-old" data-comment="search-result-price-old-${i+1}">${fmt(p.price)}</span>` : ''}
+                                    <span class="sd-result-price${p.sale ? ' is-sale' : ''}" data-comment="search-result-price-${i+1}">${fmt(p.sale || p.price)}</span>
                                 </div>
+                            </a>
+                        </li>`).join('')}
+                    </ul>`;
+            }
 
-                                <div class="nav-mega-cols nav-mega-cols--buying" data-comment="nav-mega-buying-cols">
+            function openDropdown() {
+                sdDropdown.classList.add('is-open');
+                closeAll();
+            }
 
-                                    <!-- Financing -->
-                                    <div class="nav-mega-col" data-comment="nav-mega-col-financial">
-                                        <p class="nav-mega-col-title" data-comment="nav-mega-col-title-financial">Financing</p>
-                                        <ul class="nav-mega-list" data-comment="nav-mega-list-financial">
-                                            <li data-comment="nav-mega-li-rto">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-rto">Rent-To-Own Program</a>
-                                            </li>
-                                            <li data-comment="nav-mega-li-ncu">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-ncu">Northern Credit Union ↗</a>
-                                            </li>
-                                            <li data-comment="nav-mega-li-byf">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-byf">Back Yard Finance ↗</a>
-                                            </li>
-                                            <li data-comment="nav-mega-li-uf">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-uf">Upgrade Finance ↗</a>
-                                            </li>
-                                            <li data-comment="nav-mega-li-jmoney">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-jmoney">J-Money Financing</a>
-                                            </li>
-                                        </ul>
-                                    </div>
+            function closeDropdown() {
+                sdDropdown.classList.remove('is-open');
+            }
 
-                                    <!-- Process -->
-                                    <div class="nav-mega-col" data-comment="nav-mega-col-process">
-                                        <p class="nav-mega-col-title" data-comment="nav-mega-col-title-process">Process</p>
-                                        <ul class="nav-mega-list" data-comment="nav-mega-list-process">
-                                            <li data-comment="nav-mega-li-dealers">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-dealers">Dealers</a>
-                                            </li>
-                                            <li data-comment="nav-mega-li-site-prep">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-site-prep">Site Preparation</a>
-                                            </li>
-                                            <li data-comment="nav-mega-li-delivery">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-delivery">Delivery</a>
-                                            </li>
-                                            <li data-comment="nav-mega-li-warranty">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-warranty">Warranty</a>
-                                            </li>
-                                        </ul>
-                                    </div>
+            function handleQuery(query) {
+                if (!query.trim()) {
+                    renderHistory(sdBody);
+                    const f = sdDropdown.querySelector('.sd-footer');
+                    if (f) f.remove();
+                    return;
+                }
+                const q = query.toLowerCase();
+                const results = PRODUCTS.filter(p =>
+                    p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q)
+                );
+                renderResults(sdBody, results, query);
+                ensureFooter(query, results.length);
+            }
 
-                                </div><!-- /nav-mega-buying-cols -->
-                                </div><!-- /nav-mega-buying-body -->
-
-                                    <!-- CTA -->
-                                    <div class="nav-mega-cta" data-comment="nav-mega-buying-cta">
-                                        <div class="nav-mega-cta-content" data-comment="nav-mega-buying-cta-content">
-                                            <p class="nav-mega-cta-label" data-comment="nav-mega-buying-cta-label">Financing</p>
-                                            <p class="nav-mega-cta-heading" data-comment="nav-mega-buying-cta-heading">Start Today</p>
-                                            <p class="nav-mega-cta-note" data-comment="nav-mega-buying-cta-note">Rent-to-own from 24 to 60 months — no large upfront cost</p>
-                                            <a href="#" class="btn-cta-card" data-comment="nav-mega-buying-cta-btn">
-                                                <svg viewBox="0 0 24 24" data-comment="nav-mega-buying-cta-btn-icon">
-                                                    <line x1="12" y1="5" x2="12" y2="19"/>
-                                                    <line x1="5" y1="12" x2="19" y2="12"/>
-                                                </svg>
-                                                Get a Quote
-                                            </a>
-                                        </div>
-                                    </div>
-
-                            </div><!-- /nav-mega-buying-inner -->
-                        </div><!-- /nav-mega-buying -->
-                    </li>
-
-                    <!-- CONTACT -->
-                    <li class="nav-item" data-comment="nav-item-contact">
-                        <a href="#" class="nav-trigger" data-comment="nav-link-contact">Contact</a>
-                    </li>
-
-                </ul><!-- /nav-links -->
-
-                <!-- ── Right side ── -->
-                <div class="nav-right" data-comment="nav-right">
-
-                    <div class="nav-search" data-comment="nav-search">
-                        <svg class="nav-search-icon" data-comment="nav-search-icon" viewBox="0 0 24 24">
+            function ensureFooter(query, count) {
+                let footer = sdDropdown.querySelector('.sd-footer');
+                if (!footer) {
+                    footer = document.createElement('div');
+                    footer.className = 'sd-footer';
+                    footer.setAttribute('data-comment', 'search-dropdown-footer');
+                    sdDropdown.appendChild(footer);
+                }
+                footer.innerHTML = `
+                    <a class="sd-show-all" href="search.html?q=${encodeURIComponent(query)}" data-comment="search-show-all" onclick="addToHistory('${query.replace(/'/g, "\\'")}')">
+                        <svg viewBox="0 0 24 24" data-comment="search-show-all-icon">
                             <circle cx="11" cy="11" r="8"/>
                             <line x1="21" y1="21" x2="16.65" y2="16.65"/>
                         </svg>
-                        <input
-                            type="text"
-                            class="nav-search-input"
-                            placeholder="Search products…"
-                            data-comment="nav-search-input" />
+                        Show all results
+                    </a>`;
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                const navInput   = document.getElementById('navSearchInput');
+                const sdDropdown = document.getElementById('searchDropdown');
+                const sdBody     = document.getElementById('sdBody');
+                if (!navInput || !sdDropdown || !sdBody) return;
+
+                navInput.addEventListener('focus', () => {
+                    handleQuery(navInput.value);
+                    openDropdown();
+                });
+
+                navInput.addEventListener('input', () => {
+                    handleQuery(navInput.value);
+                });
+
+                navInput.addEventListener('keydown', e => {
+                    if (e.key === 'Enter' && navInput.value.trim()) {
+                        addToHistory(navInput.value.trim());
+                        window.location.href = 'search.html?q=' + encodeURIComponent(navInput.value.trim());
+                    }
+                    if (e.key === 'Escape') closeDropdown();
+                });
+
+                sdDropdown.addEventListener('mousedown', e => e.stopPropagation());
+
+                document.addEventListener('mousedown', e => {
+                    const wrap = document.querySelector('.nav-search-wrap');
+                    if (wrap && !wrap.contains(e.target)) closeDropdown();
+                });
+            });
+
+            /* ─────────────────────────────────────────
+               EVENTS DATA
+            ───────────────────────────────────────── */
+            const EVENTS_DATA = {
+                1: {
+                    type: 'Open House', tagClass: 'ev-modal-tag--open-house',
+                    title: 'Aloha Open House',
+                    desc: 'Join us at our Pulaski location for a fun-filled open house. Tour our display models, enjoy pulled pork, enter raffles, and take advantage of huge one-day discounts on sheds, gazebos, and more.',
+                    month: 'May', day: '30',
+                    time: 'May 30, 2026 · 9AM – 4PM',
+                    address: '5780 US Route 11, Pulaski, NY 13142',
+                    phone: '(315) 387-2092',
+                    highlights: ['Pulled Pork', 'Raffles', 'Huge Discounts', '& More'],
+                    bg: 'linear-gradient(135deg,#E8F4EE 0%,#D0E8D9 100%)',
+                    cta: null,
+                },
+                2: {
+                    type: 'Sale Event', tagClass: 'ev-modal-tag--sale',
+                    title: 'Spring Sale',
+                    desc: 'Limited-time pricing on our most popular structures. Visit our Philadelphia showroom during regular store hours to walk the lot and speak with a sales rep before these deals are gone.',
+                    month: 'May', day: '31',
+                    time: 'Ends May 31, 2026 · During store hours',
+                    address: '32660 US Route 11, Philadelphia, NY 13673',
+                    phone: '(315) 642-0209',
+                    highlights: [
+                        { name: '10×12 Cottage', price: '$6,450' },
+                        { name: '16×40 Cottage Garage', price: '$19,000' },
+                        { name: '14×24 Highwall', price: '$7,700' },
+                        { name: 'Camper Play Set', price: '$7,800' },
+                    ],
+                    saleItems: true,
+                    bg: 'linear-gradient(135deg,#F8EDED 0%,#F0D8DA 100%)',
+                    cta: 'Shop Sale Items',
+                },
+                3: {
+                    type: 'Workshop', tagClass: 'ev-modal-tag--workshop',
+                    title: 'Log Home Workshop',
+                    desc: 'A hands-on workshop at our Philadelphia location exploring log home construction. Meet our design team, tour cabin display models, and book a free custom build consultation on the spot.',
+                    month: 'Aug', day: '15',
+                    time: 'Aug 15, 2026 · 10AM – 3PM',
+                    address: '32660 US Route 11, Philadelphia, NY 13673',
+                    phone: '(315) 642-0209',
+                    highlights: ['Tour cabin display models', 'Meet our design team', 'Custom build consultations', 'Refreshments provided'],
+                    bg: 'linear-gradient(135deg,#E8EFF8 0%,#D0DCF0 100%)',
+                    cta: null,
+                },
+                4: {
+                    type: 'Open House', tagClass: 'ev-modal-tag--open-house',
+                    title: 'Fall Open House',
+                    desc: 'Kick off the fall season at our Yorkville showroom. See our latest structures, catch live build demos, preview new outdoor furniture collections, and enjoy seasonal discounts available that day only.',
+                    month: 'Sep', day: '19',
+                    time: 'Sep 19, 2026 · 9AM – 3PM',
+                    address: '317 Oriskany Blvd, Yorkville, NY',
+                    phone: '(315) 793-0726',
+                    highlights: ['Seasonal discounts', 'Live demos', 'Fall furniture preview', 'Family-friendly activities'],
+                    bg: 'linear-gradient(135deg,#E8F4EE 0%,#D0E8D9 100%)',
+                    cta: null,
+                },
+            };
+
+            /* ─────────────────────────────────────────
+               EVENTS CAROUSEL
+            ───────────────────────────────────────── */
+            (function() {
+                const track  = document.getElementById('eventsTrack');
+                const prev   = document.getElementById('eventsPrev');
+                const next   = document.getElementById('eventsNext');
+                if (!track) return;
+                const cards  = track.querySelectorAll('.event-card');
+                const cardW  = () => cards[0].offsetWidth + 20;
+                let idx = 0;
+                const max = () => Math.max(0, cards.length - Math.floor(track.parentElement.offsetWidth / cardW()));
+
+                function go(n) {
+                    idx = Math.max(0, Math.min(n, max()));
+                    track.style.transform = `translateX(-${idx * cardW()}px)`;
+                }
+
+                prev.addEventListener('click', () => go(idx - 1));
+                next.addEventListener('click', () => go(idx + 1));
+
+                cards.forEach(card => {
+                    card.addEventListener('click', () => openEventModal(parseInt(card.dataset.event)));
+                });
+            })();
+
+            /* ─────────────────────────────────────────
+               EVENT MODAL
+            ───────────────────────────────────────── */
+            const evOverlay = document.getElementById('evOverlay');
+            const evModalClose = document.getElementById('evModalClose');
+
+            function openEventModal(id) {
+                const ev = EVENTS_DATA[id];
+                if (!ev) return;
+                document.getElementById('evModalVisual').style.background = ev.bg;
+                document.getElementById('evModalMonth').textContent = ev.month;
+                document.getElementById('evModalDay').textContent = ev.day;
+                const tagEl = document.getElementById('evModalTag');
+                tagEl.textContent = ev.type;
+                tagEl.className = 'ev-modal-tag ' + (ev.tagClass || '');
+                document.getElementById('evModalTitle').textContent = ev.title;
+                document.getElementById('evModalDesc').textContent = ev.desc || '';
+                document.getElementById('evModalInfo').innerHTML = `
+                    <div class="ev-modal-row" data-comment="ev-modal-row-time">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        ${ev.time}
                     </div>
+                    <div class="ev-modal-row" data-comment="ev-modal-row-addr">
+                        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        ${ev.address}
+                    </div>
+                    <div class="ev-modal-row" data-comment="ev-modal-row-phone">
+                        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l1.64-1.64a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        ${ev.phone}
+                    </div>`;
+                if (ev.saleItems) {
+                    document.getElementById('evModalHighlights').innerHTML =
+                        `<div class="ev-sale-grid" data-comment="ev-sale-grid">` +
+                        ev.highlights.map(h => `<div class="ev-sale-card" data-comment="ev-sale-card"><div class="ev-sale-card-name">${h.name}</div><div class="ev-sale-card-price">Now ${h.price}</div></div>`).join('') +
+                        `</div>`;
+                } else {
+                    document.getElementById('evModalHighlights').innerHTML =
+                        ev.highlights.map(h => `<span class="ev-modal-pill" data-comment="ev-modal-pill">${h}</span>`).join('');
+                }
+                document.getElementById('evModalActions').innerHTML =
+                    (ev.cta ? `<a href="#" class="btn-primary" data-comment="ev-modal-cta-primary">${ev.cta}</a>` : '') +
+                    `<a href="tel:${ev.phone.replace(/\D/g,'')}" class="${ev.cta ? 'btn-outline' : 'btn-primary'}" data-comment="ev-modal-contact-btn">Call Us</a>`;
+                evOverlay.classList.add('is-open');
+                document.body.style.overflow = 'hidden';
+            }
 
-                    <button class="nav-icon-btn" data-comment="nav-cart-btn" title="Cart">
-                        <svg viewBox="0 0 24 24" data-comment="nav-cart-icon">
-                            <circle cx="9" cy="21" r="1"/>
-                            <circle cx="20" cy="21" r="1"/>
-                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-                        </svg>
-                        <span class="nav-cart-badge" data-comment="nav-cart-badge"></span>
-                    </button>
+            function closeEventModal() {
+                evOverlay.classList.remove('is-open');
+                document.body.style.overflow = '';
+            }
 
-                    <button class="nav-icon-btn" data-comment="nav-account-btn" title="My Account">
-                        <svg viewBox="0 0 24 24" data-comment="nav-account-icon">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                            <circle cx="12" cy="7" r="4"/>
-                        </svg>
-                    </button>
+            evModalClose.addEventListener('click', closeEventModal);
+            evOverlay.addEventListener('click', e => { if (e.target === evOverlay) closeEventModal(); });
+            document.addEventListener('keydown', e => { if (e.key === 'Escape') closeEventModal(); });
 
-                </div><!-- /nav-right -->
+            /* ─────────────────────────────────────────
+               TIKTOK CAROUSEL
+            ───────────────────────────────────────── */
+            (function() {
+                const track = document.getElementById('tiktokTrack');
+                const prev  = document.getElementById('tiktokPrev');
+                const next  = document.getElementById('tiktokNext');
+                if (!track) return;
+                const cards = track.querySelectorAll('.tiktok-card');
+                const cardW = () => cards[0].offsetWidth + 16;
+                let idx = 0;
+                const max = () => Math.max(0, cards.length - Math.floor(track.parentElement.offsetWidth / cardW()));
 
-            </div><!-- /nav-inner -->
-        </header>
+                function go(n) {
+                    idx = Math.max(0, Math.min(n, max()));
+                    track.style.transform = `translateX(-${idx * cardW()}px)`;
+                }
 
-        <!-- ════════════════════════════════
-             PAGE PLACEHOLDER
-        ════════════════════════════════ -->
-        <main class="page-placeholder" data-comment="page-placeholder">
-            <div class="page-ph-tag" data-comment="page-ph-tag">Navigation preview</div>
-            <h1 class="page-ph-heading" data-comment="page-ph-heading">
-                Built for the<br><em>North Country.</em>
-            </h1>
-            <p class="page-ph-body" data-comment="page-ph-body">
-                Click or hover the navigation items above to explore the menu structure. The page below represents the eventual hero section content.
-            </p>
-            <div class="page-ph-tokens" data-comment="page-ph-tokens">
-                <div class="token-chip" data-comment="token-chip-burgundy">
-                    <span class="token-swatch" data-comment="token-swatch-burgundy" style="background:#8B1A2A;"></span>
-                    Burgundy · #8B1A2A
-                </div>
-                <div class="token-chip" data-comment="token-chip-dark">
-                    <span class="token-swatch" data-comment="token-swatch-dark" style="background:#1C1F24;"></span>
-                    Dark · #1C1F24
-                </div>
-                <div class="token-chip" data-comment="token-chip-white">
-                    <span class="token-swatch" data-comment="token-swatch-white" style="background:#FFFFFF; border:1px solid #E6E2DD;"></span>
-                    White · #FFFFFF
-                </div>
-                <div class="token-chip" data-comment="token-chip-font-ui">
-                    Inter · UI font
-                </div>
-                <div class="token-chip" data-comment="token-chip-font-display">
-                    Inter 800 · Display / headings
-                </div>
-            </div>
-        </main>
+                prev.addEventListener('click', () => go(idx - 1));
+                next.addEventListener('click', () => go(idx + 1));
+            })();
+
+            /* ─────────────────────────────────────────
+               QUOTE MODAL
+            ───────────────────────────────────────── */
+            (function () {
+                const overlay   = document.getElementById('quoteOverlay');
+                const closeBtn  = document.getElementById('quoteModalClose');
+                const form      = document.getElementById('quoteForm');
+                const success   = document.getElementById('quoteSuccess');
+                const successClose = document.getElementById('quoteSuccessClose');
+                const triggers  = document.querySelectorAll('[data-comment="hero-cta-quote"], [data-comment="nav-mega-cta-quote"]');
+
+                function open()  { overlay.classList.add('is-open'); document.body.style.overflow = 'hidden'; }
+                function close() { overlay.classList.remove('is-open'); document.body.style.overflow = ''; }
+
+                triggers.forEach(el => el.addEventListener('click', e => { e.preventDefault(); open(); }));
+                closeBtn.addEventListener('click', close);
+                successClose.addEventListener('click', e => { e.preventDefault(); close(); });
+                overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+                document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+
+                form.addEventListener('submit', e => {
+                    e.preventDefault();
+                    form.style.display = 'none';
+                    success.style.display = 'flex';
+                });
+            })();
+        </script>
 
         <script>
-            const navItems  = document.querySelectorAll('.nav-item');
-            const backdrop  = document.getElementById('navBackdrop');
-            const navRoot   = document.getElementById('navRoot');
-            let   active    = null;
+            (function () {
+                const map = L.map('location-map', { zoomControl: false, scrollWheelZoom: false })
+                    .setView([43.72, -75.72], 9);
 
-            function open(item) {
-                if (active && active !== item) close(active);
-                item.classList.add('is-open');
-                backdrop.classList.add('is-open');
-                active = item;
-            }
+                L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
+                    subdomains: 'abcd',
+                    maxZoom: 19
+                }).addTo(map);
 
-            function close(item) {
-                item.classList.remove('is-open');
-                backdrop.classList.remove('is-open');
-                active = null;
-            }
+                L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-            function closeAll() {
-                navItems.forEach(i => i.classList.remove('is-open'));
-                backdrop.classList.remove('is-open');
-                active = null;
-            }
-
-            let closeTimer = null;
-
-            navItems.forEach(item => {
-                if (!item.querySelector('.nav-trigger') || item.querySelector('.nav-trigger').tagName === 'A') return;
-
-                item.addEventListener('mouseenter', () => {
-                    clearTimeout(closeTimer);
-                    open(item);
+                const icon = L.divIcon({
+                    className: '',
+                    html: '<div style="width:14px;height:14px;background:#8B1A2A;border:2px solid #fff;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,0.3)"></div>',
+                    iconSize: [14, 14],
+                    iconAnchor: [7, 7]
                 });
 
-                item.addEventListener('mouseleave', () => {
-                    closeTimer = setTimeout(closeAll, 120);
+                const locations = [
+                    { latlng: [43.966, -75.743], name: 'Philadelphia', addr: '32660 US Route 11' },
+                    { latlng: [43.115, -75.278], name: 'Yorkville',     addr: '317 Oriskany Blvd' },
+                    { latlng: [43.567, -76.128], name: 'Sandy Creek',   addr: '5780 US Route 11, Pulaski' }
+                ];
+
+                locations.forEach(({ latlng, name, addr }) => {
+                    L.marker(latlng, { icon })
+                        .addTo(map)
+                        .bindPopup(`<strong>${name}</strong><br>${addr}`);
                 });
-            });
+            })();
 
-            // Keep menu open when cursor moves into the mega panel
-            document.querySelectorAll('.nav-mega').forEach(panel => {
-                panel.addEventListener('mouseenter', () => clearTimeout(closeTimer));
-                panel.addEventListener('mouseleave', () => {
-                    closeTimer = setTimeout(closeAll, 120);
-                });
-            });
-
-            backdrop.addEventListener('mouseenter', closeAll);
-            document.addEventListener('keydown', e => {
-                if (e.key === 'Escape') closeAll();
-            });
-
-            // Sticky shadow
-            window.addEventListener('scroll', () => {
-                navRoot.classList.toggle('is-scrolled', window.scrollY > 4);
-            }, { passive: true });
         </script>
 
     </body>
