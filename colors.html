@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>NCS Barns — Paint Colors</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+            rel="stylesheet" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+            rel="stylesheet" />
+        <script src="nav.js" defer></script>
+
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            :root {
+                --color-burgundy:      #8B1A2A;
+                --color-burgundy-dark: #6D1420;
+                --color-dark:          #1C1F24;
+                --color-gray:          #52575F;
+                --color-gray-light:    #9EA4AD;
+                --color-border:        #E6E2DD;
+                --color-bg:            #F8F6F4;
+                --color-bg-warm:       #FAF3E8;
+                --color-bg-hover:      #F4F1EE;
+                --color-bg-menu:       #FAFAF8;
+
+                --font-ui: 'Inter', sans-serif;
+
+                --nav-height: 72px;
+                --max-width:  1440px;
+                --page-px:    40px;
+
+                --t-fast: 0.15s ease;
+                --t-med:  0.22s ease;
+            }
+
+            body {
+                font-family: var(--font-ui);
+                background: var(--color-bg);
+                color: var(--color-dark);
+            }
+
+            .page-inner {
+                max-width: var(--max-width);
+                margin: 0 auto;
+                padding: 0 var(--page-px);
+            }
+
+            /* ─────────────────────────────────────────
+               BREADCRUMB
+            ───────────────────────────────────────── */
+            .cl-breadcrumb-bar {
+                background: #fff;
+                border-bottom: 1px solid var(--color-border);
+                padding: 14px 0;
+            }
+            .cl-breadcrumb {
+                display: flex; align-items: center; gap: 6px;
+                font-size: 13px; color: var(--color-gray-light);
+            }
+            .cl-breadcrumb a {
+                color: var(--color-gray-light); text-decoration: none;
+                transition: color var(--t-fast);
+            }
+            .cl-breadcrumb a:hover { color: var(--color-burgundy); }
+            .cl-breadcrumb-sep { font-size: 11px; opacity: 0.6; }
+            .cl-breadcrumb-current { color: var(--color-dark); font-weight: 500; }
+
+            /* ─────────────────────────────────────────
+               PAGE HEADER
+            ───────────────────────────────────────── */
+            .cl-header {
+                background: #fff;
+                padding: 44px 0 48px;
+            }
+            .cl-header-title {
+                font-size: clamp(28px, 3vw, 42px);
+                font-weight: 800;
+                color: var(--color-dark);
+                letter-spacing: -1px;
+                text-transform: uppercase;
+                margin-bottom: 20px;
+            }
+            .cl-header-divider {
+                width: 80px;
+                height: 3px;
+                background: var(--color-border);
+                border-radius: 2px;
+                margin-bottom: 24px;
+            }
+            .cl-header-note {
+                font-size: 14px;
+                font-style: italic;
+                color: var(--color-gray);
+            }
+
+            /* ─────────────────────────────────────────
+               COLOR CONTENT AREA
+            ───────────────────────────────────────── */
+            .cl-content {
+                background: var(--color-bg-warm);
+                padding: 64px 0 80px;
+            }
+
+            /* ─────────────────────────────────────────
+               COLOR GROUP
+            ───────────────────────────────────────── */
+            .cl-group {
+                margin-bottom: 64px;
+            }
+            .cl-group:last-child { margin-bottom: 0; }
+
+            .cl-group-title {
+                font-size: 18px;
+                font-weight: 700;
+                color: var(--color-dark);
+                letter-spacing: -0.3px;
+                margin-bottom: 28px;
+            }
+
+            .cl-grid {
+                display: grid;
+                grid-template-columns: repeat(6, 1fr);
+                gap: 20px 20px;
+            }
+
+            /* ─────────────────────────────────────────
+               COLOR CARD
+            ───────────────────────────────────────── */
+            .cl-card {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .cl-swatch {
+                aspect-ratio: 4 / 3;
+                border-radius: 8px;
+                border: 1px solid rgba(0,0,0,0.07);
+                background: var(--c, #ccc);
+                /* placeholder ready — swap background-image when photo available */
+                background-size: cover;
+                background-position: center;
+                transition: transform var(--t-fast), box-shadow var(--t-fast);
+                cursor: default;
+            }
+            .cl-swatch:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(0,0,0,0.10);
+            }
+
+            /* white swatch needs a visible border */
+            .cl-swatch.is-light {
+                border-color: var(--color-border);
+            }
+
+            .cl-color-name {
+                font-size: 13px;
+                font-weight: 500;
+                color: var(--color-dark);
+                line-height: 1.3;
+            }
+
+            /* ─────────────────────────────────────────
+               FOOTER (matches other pages)
+            ───────────────────────────────────────── */
+            .footer-root { background: #000; color: #fff; padding: 72px var(--page-px) 40px; }
+            .footer-inner { max-width: var(--max-width); margin: 0 auto; }
+            .footer-top { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr 1.4fr; gap: 48px; padding-bottom: 52px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 52px; }
+            .footer-brand-logo { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; text-decoration: none; margin-bottom: 16px; }
+            .footer-brand-logo img { width: 60%; height: auto; filter: brightness(0) invert(1); }
+            .footer-brand-name { font-size: 16px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+            .footer-brand-desc { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.65; max-width: 220px; }
+            .footer-col-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 18px; }
+            .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+            .footer-links a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-links a:hover { color: #fff; }
+            .footer-contact-item { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+            .footer-contact-item svg { width: 15px; height: 15px; flex-shrink: 0; stroke: rgba(255,255,255,0.4); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+            .footer-contact-item a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-contact-item a:hover { color: #fff; }
+            .footer-locations { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 32px; }
+            .footer-loc-name { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.8); margin-bottom: 6px; }
+            .footer-loc-addr { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.6; margin-bottom: 4px; }
+            .footer-loc-phone { font-size: 13px; color: rgba(255,255,255,0.4); }
+            .footer-bottom { display: flex; align-items: center; justify-content: space-between; }
+            .footer-copy-row { display: flex; align-items: center; gap: 24px; }
+            .footer-copy { font-size: 12px; color: rgba(255,255,255,0.3); }
+            .footer-legal-link { font-size: 12px; color: rgba(255,255,255,0.3); text-decoration: none; transition: color var(--t-fast); }
+            .footer-legal-link:hover { color: rgba(255,255,255,0.6); }
+            .footer-socials { display: flex; gap: 8px; }
+            .footer-social-btn { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.5); font-size: 16px; text-decoration: none; transition: background var(--t-fast), color var(--t-fast); }
+            .footer-social-btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
+
+            /* ─────────────────────────────────────────
+               RESPONSIVE
+            ───────────────────────────────────────── */
+            @media (max-width: 1280px) {
+                .cl-grid { grid-template-columns: repeat(5, 1fr); }
+            }
+            @media (max-width: 1024px) {
+                .cl-grid { grid-template-columns: repeat(4, 1fr); }
+                .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+                .footer-top > div:first-child { grid-column: 1/-1; }
+            }
+            @media (max-width: 768px) {
+                :root { --page-px: 24px; }
+                .cl-grid { grid-template-columns: repeat(3, 1fr); }
+                .footer-locations { grid-template-columns: 1fr; gap: 20px; }
+                .footer-bottom { flex-direction: column; align-items: flex-start; gap: 16px; }
+            }
+            @media (max-width: 639px) {
+                :root { --page-px: 16px; }
+                .cl-grid { grid-template-columns: repeat(2, 1fr); }
+                .footer-top { grid-template-columns: 1fr; }
+            }
+        </style>
+    </head>
+    <body>
+
+        <ncs-nav></ncs-nav>
+
+        <!-- ════════════════════════════════
+             BREADCRUMB
+        ════════════════════════════════ -->
+        <div class="cl-breadcrumb-bar" data-comment="cl-breadcrumb-bar">
+            <div class="page-inner" data-comment="cl-breadcrumb-inner">
+                <nav class="cl-breadcrumb" data-comment="cl-breadcrumb" aria-label="Breadcrumb">
+                    <a href="index.html" data-comment="cl-bc-home">Home</a>
+                    <span class="cl-breadcrumb-sep" data-comment="cl-bc-sep">›</span>
+                    <span class="cl-breadcrumb-current" data-comment="cl-bc-current">Paint Colors</span>
+                </nav>
+            </div>
+        </div>
+
+        <!-- ════════════════════════════════
+             PAGE HEADER
+        ════════════════════════════════ -->
+        <section class="cl-header" data-comment="cl-header-section">
+            <div class="page-inner" data-comment="cl-header-inner">
+                <h1 class="cl-header-title" data-comment="cl-header-title">Paint Colors</h1>
+                <div class="cl-header-divider" data-comment="cl-header-divider"></div>
+                <p class="cl-header-note" data-comment="cl-header-note">*Colors may vary from actual color.</p>
+            </div>
+        </section>
+
+        <!-- ════════════════════════════════
+             COLOR GROUPS
+        ════════════════════════════════ -->
+        <section class="cl-content" data-comment="cl-content-section">
+            <div class="page-inner" data-comment="cl-content-inner">
+
+                <!-- ── Paint Colors ── -->
+                <div class="cl-group" data-comment="cl-group-paint">
+                    <h2 class="cl-group-title" data-comment="cl-group-paint-title">Paint Colors</h2>
+                    <div class="cl-grid" data-comment="cl-group-paint-grid">
+
+                        <div class="cl-card" data-comment="cl-paint-1">
+                            <div class="cl-swatch" style="--c:#C8B89A;" data-comment="cl-paint-1-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-paint-1-name">Beige</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-paint-2">
+                            <div class="cl-swatch" style="--c:#6F8E9A;" data-comment="cl-paint-2-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-paint-2-name">Belmont Blue</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-paint-3">
+                            <div class="cl-swatch" style="--c:#0D0D0D;" data-comment="cl-paint-3-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-paint-3-name">Black</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-paint-4">
+                            <div class="cl-swatch" style="--c:#7A3520;" data-comment="cl-paint-4-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-paint-4-name">Mission Brown</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-paint-5">
+                            <div class="cl-swatch" style="--c:#3D2E1E;" data-comment="cl-paint-5-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-paint-5-name">Dark Brown</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-paint-6">
+                            <div class="cl-swatch" style="--c:#4A4F4A;" data-comment="cl-paint-6-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-paint-6-name">Dark Gray</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-paint-7">
+                            <div class="cl-swatch" style="--c:#1E3D2F;" data-comment="cl-paint-7-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-paint-7-name">Hunter Green</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-paint-8">
+                            <div class="cl-swatch" style="--c:#8A7E6A;" data-comment="cl-paint-8-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-paint-8-name">Taupe</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-paint-9">
+                            <div class="cl-swatch" style="--c:#3A4050;" data-comment="cl-paint-9-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-paint-9-name">Charcoal Blue</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-paint-10">
+                            <div class="cl-swatch" style="--c:#8B2020;" data-comment="cl-paint-10-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-paint-10-name">Barn Red</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-paint-11">
+                            <div class="cl-swatch" style="--c:#677055;" data-comment="cl-paint-11-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-paint-11-name">Sage Green</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-paint-12">
+                            <div class="cl-swatch" style="--c:#9A9E98;" data-comment="cl-paint-12-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-paint-12-name">Light Gray</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ── Vinyl Colors ── -->
+                <div class="cl-group" data-comment="cl-group-vinyl">
+                    <h2 class="cl-group-title" data-comment="cl-group-vinyl-title">Vinyl Colors</h2>
+                    <div class="cl-grid" data-comment="cl-group-vinyl-grid">
+
+                        <div class="cl-card" data-comment="cl-vinyl-1">
+                            <div class="cl-swatch is-light" style="--c:#EEF2E8;" data-comment="cl-vinyl-1-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-vinyl-1-name">Antique Ivory</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-vinyl-2">
+                            <div class="cl-swatch is-light" style="--c:#E8E4D8;" data-comment="cl-vinyl-2-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-vinyl-2-name">Classic Linen</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-vinyl-3">
+                            <div class="cl-swatch" style="--c:#9A9A9A;" data-comment="cl-vinyl-3-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-vinyl-3-name">Slate Gray</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-vinyl-4">
+                            <div class="cl-swatch" style="--c:#A89870;" data-comment="cl-vinyl-4-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-vinyl-4-name">Khaki</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-vinyl-5">
+                            <div class="cl-swatch is-light" style="--c:#B4B8B4;" data-comment="cl-vinyl-5-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-vinyl-5-name">Heritage Gray</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-vinyl-6">
+                            <div class="cl-swatch" style="--c:#9FAE88;" data-comment="cl-vinyl-6-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-vinyl-6-name">Sage</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-vinyl-7">
+                            <div class="cl-swatch is-light" style="--c:#C8BC9E;" data-comment="cl-vinyl-7-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-vinyl-7-name">Sandstone</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-vinyl-8">
+                            <div class="cl-swatch" style="--c:#7A9EA8;" data-comment="cl-vinyl-8-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-vinyl-8-name">Slate Blue</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-vinyl-9">
+                            <div class="cl-swatch is-light" style="--c:#FFFFFF;" data-comment="cl-vinyl-9-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-vinyl-9-name">White</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ── Aluminum Trim Colors ── -->
+                <div class="cl-group" data-comment="cl-group-trim">
+                    <h2 class="cl-group-title" data-comment="cl-group-trim-title">Aluminum Trim Colors</h2>
+                    <div class="cl-grid" data-comment="cl-group-trim-grid">
+
+                        <div class="cl-card" data-comment="cl-trim-1">
+                            <div class="cl-swatch" style="--c:#A04040;" data-comment="cl-trim-1-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-trim-1-name">Barn Red</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-trim-2">
+                            <div class="cl-swatch" style="--c:#0D0D0D;" data-comment="cl-trim-2-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-trim-2-name">Black</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-trim-3">
+                            <div class="cl-swatch" style="--c:#6A6860;" data-comment="cl-trim-3-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-trim-3-name">Charcoal Gray</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-trim-4">
+                            <div class="cl-swatch is-light" style="--c:#C0C8C0;" data-comment="cl-trim-4-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-trim-4-name">Heritage Gray</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-trim-5">
+                            <div class="cl-swatch" style="--c:#1E4830;" data-comment="cl-trim-5-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-trim-5-name">Hunter Green</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-trim-6">
+                            <div class="cl-swatch is-light" style="--c:#E8ECCA;" data-comment="cl-trim-6-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-trim-6-name">Ivory</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-trim-7">
+                            <div class="cl-swatch" style="--c:#8A8060;" data-comment="cl-trim-7-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-trim-7-name">Khaki</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-trim-8">
+                            <div class="cl-swatch is-light" style="--c:#EEE8D8;" data-comment="cl-trim-8-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-trim-8-name">Linen</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-trim-9">
+                            <div class="cl-swatch" style="--c:#4A7880;" data-comment="cl-trim-9-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-trim-9-name">Ocean Blue</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-trim-10">
+                            <div class="cl-swatch" style="--c:#4A2018;" data-comment="cl-trim-10-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-trim-10-name">Royal Brown</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-trim-11">
+                            <div class="cl-swatch is-light" style="--c:#C8BC9E;" data-comment="cl-trim-11-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-trim-11-name">Sandstone</span>
+                        </div>
+                        <div class="cl-card" data-comment="cl-trim-12">
+                            <div class="cl-swatch is-light" style="--c:#FFFFFF;" data-comment="cl-trim-12-swatch"></div>
+                            <span class="cl-color-name" data-comment="cl-trim-12-name">White</span>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ════════════════════════════════
+             FOOTER
+        ════════════════════════════════ -->
+        <footer class="footer-root" data-comment="cl-footer-root">
+            <div class="footer-inner" data-comment="cl-footer-inner">
+                <div class="footer-top" data-comment="cl-footer-top">
+                    <div data-comment="cl-footer-brand">
+                        <a href="index.html" class="footer-brand-logo" data-comment="cl-footer-brand-logo">
+                            <img src="assets/Logo.png" alt="NCS Barns" data-comment="cl-footer-brand-img" />
+                            <span class="footer-brand-name" data-comment="cl-footer-brand-name">NCS Barns</span>
+                        </a>
+                        <p class="footer-brand-desc" data-comment="cl-footer-brand-desc">Handcrafted quality structures for the North Country — family owned &amp; operated since 1993.</p>
+                    </div>
+                    <div data-comment="cl-footer-col-products">
+                        <p class="footer-col-label" data-comment="cl-footer-products-label">Products</p>
+                        <ul class="footer-links" data-comment="cl-footer-products-links">
+                            <li data-comment="cl-fli-sheds"><a href="catalog.html?category=Sheds" data-comment="cl-fl-sheds">Sheds</a></li>
+                            <li data-comment="cl-fli-gazebos"><a href="catalog.html?category=Gazebos" data-comment="cl-fl-gazebos">Gazebos &amp; Pergolas</a></li>
+                            <li data-comment="cl-fli-hunting"><a href="catalog.html?category=Hunting+Blinds" data-comment="cl-fl-hunting">Hunting Blinds</a></li>
+                            <li data-comment="cl-fli-play"><a href="catalog.html?category=Play+Structures" data-comment="cl-fl-play">Play Structures</a></li>
+                            <li data-comment="cl-fli-furniture"><a href="catalog.html?category=Outdoor+Furniture" data-comment="cl-fl-furniture">Furniture</a></li>
+                            <li data-comment="cl-fli-homes"><a href="catalog.html?category=Custom+Homes" data-comment="cl-fl-homes">Homes &amp; Garages</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="cl-footer-col-company">
+                        <p class="footer-col-label" data-comment="cl-footer-company-label">Company</p>
+                        <ul class="footer-links" data-comment="cl-footer-company-links">
+                            <li data-comment="cl-fli-about"><a href="#" data-comment="cl-fl-about">About Us</a></li>
+                            <li data-comment="cl-fli-testimonials"><a href="#" data-comment="cl-fl-testimonials">Testimonials</a></li>
+                            <li data-comment="cl-fli-gallery"><a href="gallery.html" data-comment="cl-fl-gallery">Gallery</a></li>
+                            <li data-comment="cl-fli-delivery"><a href="delivery.html" data-comment="cl-fl-delivery">Delivery &amp; Relocation</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="cl-footer-col-buying">
+                        <p class="footer-col-label" data-comment="cl-footer-buying-label">Buying Process</p>
+                        <ul class="footer-links" data-comment="cl-footer-buying-links">
+                            <li data-comment="cl-fli-rto"><a href="#" data-comment="cl-fl-rto">Rent-To-Own</a></li>
+                            <li data-comment="cl-fli-financing"><a href="#" data-comment="cl-fl-financing">Financing Options</a></li>
+                            <li data-comment="cl-fli-siteprep"><a href="#" data-comment="cl-fl-siteprep">Site Preparation</a></li>
+                            <li data-comment="cl-fli-warranty"><a href="#" data-comment="cl-fl-warranty">Warranty</a></li>
+                            <li data-comment="cl-fli-dealers"><a href="#" data-comment="cl-fl-dealers">Dealers</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="cl-footer-col-contact">
+                        <p class="footer-col-label" data-comment="cl-footer-contact-label">Contact</p>
+                        <div class="footer-contact-item" data-comment="cl-footer-phone">
+                            <svg viewBox="0 0 24 24" data-comment="cl-footer-phone-icon"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l1.64-1.64a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <a href="tel:3156420209" data-comment="cl-footer-phone-link">(315) 642-0209</a>
+                        </div>
+                        <div class="footer-contact-item" data-comment="cl-footer-email">
+                            <svg viewBox="0 0 24 24" data-comment="cl-footer-email-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            <a href="mailto:sales@ncsbarns.com" data-comment="cl-footer-email-link">sales@ncsbarns.com</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-locations" data-comment="cl-footer-locations">
+                    <div data-comment="cl-footer-loc-phila">
+                        <p class="footer-loc-name" data-comment="cl-footer-loc-phila-name">Philadelphia</p>
+                        <p class="footer-loc-addr" data-comment="cl-footer-loc-phila-addr">32660 US Route 11<br>Philadelphia, NY 13673</p>
+                        <p class="footer-loc-phone" data-comment="cl-footer-loc-phila-phone">(315) 642-0209</p>
+                    </div>
+                    <div data-comment="cl-footer-loc-york">
+                        <p class="footer-loc-name" data-comment="cl-footer-loc-york-name">Yorkville</p>
+                        <p class="footer-loc-addr" data-comment="cl-footer-loc-york-addr">317 Oriskany Blvd<br>Yorkville, NY</p>
+                        <p class="footer-loc-phone" data-comment="cl-footer-loc-york-phone">(315) 793-0726</p>
+                    </div>
+                    <div data-comment="cl-footer-loc-sandy">
+                        <p class="footer-loc-name" data-comment="cl-footer-loc-sandy-name">Sandy Creek</p>
+                        <p class="footer-loc-addr" data-comment="cl-footer-loc-sandy-addr">5780 US Route 11<br>Pulaski, NY 13142</p>
+                        <p class="footer-loc-phone" data-comment="cl-footer-loc-sandy-phone">(315) 387-2092</p>
+                    </div>
+                </div>
+                <div class="footer-bottom" data-comment="cl-footer-bottom">
+                    <div class="footer-copy-row" data-comment="cl-footer-copy-row">
+                        <p class="footer-copy" data-comment="cl-footer-copy">&copy; 2026 North Country Storage Barns. All rights reserved.</p>
+                        <a href="#" class="footer-legal-link" data-comment="cl-footer-privacy">Privacy Policy</a>
+                        <a href="#" class="footer-legal-link" data-comment="cl-footer-terms">Terms &amp; Conditions</a>
+                    </div>
+                    <div class="footer-socials" data-comment="cl-footer-socials">
+                        <a href="https://www.tiktok.com/@northcountrystoragebarns" target="_blank" class="footer-social-btn" data-comment="cl-footer-tiktok" aria-label="TikTok"><i class="ri-tiktok-fill" data-comment="cl-footer-tiktok-icon"></i></a>
+                        <a href="https://www.facebook.com/ifyouneedmeillbeinmyshed/" target="_blank" class="footer-social-btn" data-comment="cl-footer-facebook" aria-label="Facebook"><i class="ri-facebook-fill" data-comment="cl-footer-facebook-icon"></i></a>
+                        <a href="https://www.instagram.com/northcountrystoragebarns/" target="_blank" class="footer-social-btn" data-comment="cl-footer-instagram" aria-label="Instagram"><i class="ri-instagram-fill" data-comment="cl-footer-instagram-icon"></i></a>
+                        <a href="#" class="footer-social-btn" data-comment="cl-footer-google" aria-label="Google"><i class="ri-google-fill" data-comment="cl-footer-google-icon"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </body>
+</html>

@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>NCS Barns — Products</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+            rel="stylesheet" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+            rel="stylesheet" />
+        <script src="nav.js" defer></script>
+
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            :root {
+                --color-burgundy:      #8B1A2A;
+                --color-burgundy-dark: #6D1420;
+                --color-dark:          #1C1F24;
+                --color-gray:          #52575F;
+                --color-gray-light:    #9EA4AD;
+                --color-border:        #E6E2DD;
+                --color-bg:            #F8F6F4;
+                --color-bg-hover:      #F4F1EE;
+                --color-bg-menu:       #FAFAF8;
+
+                --font-ui: 'Inter', sans-serif;
+
+                --nav-height: 72px;
+                --max-width:  1440px;
+                --page-px:    40px;
+
+                --t-fast: 0.15s ease;
+                --t-med:  0.22s ease;
+            }
+
+            body {
+                font-family: var(--font-ui);
+                background: var(--color-bg);
+                color: var(--color-dark);
+            }
+
+            /* ─────────────────────────────────────────
+               GLOBAL UTILITIES
+            ───────────────────────────────────────── */
+            .page-inner {
+                max-width: var(--max-width);
+                margin: 0 auto;
+                padding: 0 var(--page-px);
+            }
+
+            .btn-primary {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                padding: 11px 20px;
+                border-radius: 9px;
+                font-family: var(--font-ui);
+                font-size: 13.5px;
+                font-weight: 600;
+                background: var(--color-burgundy);
+                color: #fff;
+                border: none;
+                cursor: pointer;
+                text-decoration: none;
+                transition: background var(--t-fast), transform var(--t-fast);
+                white-space: nowrap;
+            }
+            .btn-primary:hover { background: var(--color-burgundy-dark); transform: translateY(-1px); }
+
+            /* ─────────────────────────────────────────
+               PAGE HEADER
+            ───────────────────────────────────────── */
+            .cat-header {
+                background: #fff;
+                border-bottom: 1px solid var(--color-border);
+                padding: 26px 0 22px;
+            }
+
+            .cat-breadcrumb {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                margin-bottom: 10px;
+                font-size: 13px;
+                color: var(--color-gray-light);
+            }
+            .cat-breadcrumb a {
+                color: var(--color-gray-light);
+                text-decoration: none;
+                transition: color var(--t-fast);
+            }
+            .cat-breadcrumb a:hover { color: var(--color-burgundy); }
+            .cat-breadcrumb-sep { font-size: 11px; opacity: 0.6; }
+            .cat-breadcrumb-current { color: var(--color-dark); font-weight: 500; }
+
+            .cat-title {
+                font-size: clamp(22px, 2.5vw, 32px);
+                font-weight: 700;
+                color: var(--color-dark);
+                letter-spacing: -0.6px;
+                margin-bottom: 4px;
+            }
+
+            .cat-subtitle {
+                font-size: 14px;
+                color: var(--color-gray-light);
+            }
+
+            /* ─────────────────────────────────────────
+               BODY LAYOUT  (sidebar + main)
+            ───────────────────────────────────────── */
+            .cat-body {
+                padding: 32px 0 80px;
+            }
+
+            .cat-layout {
+                display: flex;
+                gap: 28px;
+                align-items: flex-start;
+            }
+
+            /* ─────────────────────────────────────────
+               SIDEBAR
+            ───────────────────────────────────────── */
+            .cat-sidebar {
+                width: 248px;
+                flex-shrink: 0;
+                position: sticky;
+                top: calc(var(--nav-height) + 20px);
+            }
+
+            .sidebar-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 14px;
+            }
+            .sidebar-header-label {
+                font-size: 13px;
+                font-weight: 700;
+                color: var(--color-dark);
+                letter-spacing: 0.2px;
+            }
+            .sidebar-clear-btn {
+                font-size: 12px;
+                font-weight: 500;
+                color: var(--color-burgundy);
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 0;
+                opacity: 0.8;
+                transition: opacity var(--t-fast);
+            }
+            .sidebar-clear-btn:hover { opacity: 1; }
+
+            /* Filter group card */
+            .filter-group {
+                background: #fff;
+                border: 1.5px solid var(--color-border);
+                border-radius: 12px;
+                margin-bottom: 8px;
+                overflow: hidden;
+            }
+
+            .filter-group-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 13px 15px;
+                cursor: pointer;
+                user-select: none;
+                transition: background var(--t-fast);
+            }
+            .filter-group-header:hover { background: var(--color-bg-hover); }
+
+            .filter-group-title {
+                font-size: 13px;
+                font-weight: 600;
+                color: var(--color-dark);
+            }
+
+            .fg-chevron {
+                width: 15px;
+                height: 15px;
+                stroke: var(--color-gray-light);
+                stroke-width: 2;
+                fill: none;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                flex-shrink: 0;
+                transition: transform var(--t-fast);
+            }
+            .filter-group.is-open .fg-chevron { transform: rotate(180deg); }
+
+            .filter-group-body {
+                padding: 2px 15px 13px;
+                display: none;
+            }
+            .filter-group.is-open .filter-group-body { display: block; }
+
+            /* Checkboxes */
+            .filter-check-list {
+                display: flex;
+                flex-direction: column;
+                gap: 7px;
+            }
+
+            .filter-check-item {
+                display: flex;
+                align-items: center;
+                gap: 9px;
+                cursor: pointer;
+            }
+            .filter-check-item input[type="checkbox"] {
+                width: 15px;
+                height: 15px;
+                border-radius: 4px;
+                accent-color: var(--color-burgundy);
+                cursor: pointer;
+                flex-shrink: 0;
+            }
+            .filter-check-label {
+                font-size: 13px;
+                color: var(--color-gray);
+                line-height: 1.3;
+                cursor: pointer;
+                transition: color var(--t-fast);
+            }
+            .filter-check-item:hover .filter-check-label { color: var(--color-dark); }
+
+            /* Price inputs */
+            .price-inputs {
+                display: flex;
+                gap: 8px;
+                align-items: center;
+                margin-top: 2px;
+            }
+            .price-input-wrap { flex: 1; position: relative; }
+            .price-input-symbol {
+                position: absolute;
+                left: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 12px;
+                color: var(--color-gray-light);
+                pointer-events: none;
+            }
+            .price-input {
+                width: 100%;
+                padding: 8px 8px 8px 20px;
+                border: 1.5px solid var(--color-border);
+                border-radius: 8px;
+                font-family: var(--font-ui);
+                font-size: 13px;
+                color: var(--color-dark);
+                background: var(--color-bg);
+                outline: none;
+                transition: border-color var(--t-fast);
+            }
+            .price-input:focus { border-color: var(--color-burgundy); }
+            .price-range-dash {
+                font-size: 13px;
+                color: var(--color-gray-light);
+                flex-shrink: 0;
+            }
+
+            /* ─────────────────────────────────────────
+               MAIN AREA
+            ───────────────────────────────────────── */
+            .cat-main { flex: 1; min-width: 0; }
+
+            /* Toolbar */
+            .cat-toolbar {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 16px;
+                margin-bottom: 20px;
+            }
+
+            .toolbar-count {
+                font-size: 14px;
+                color: var(--color-gray);
+            }
+            .toolbar-count strong { color: var(--color-dark); font-weight: 600; }
+
+            .toolbar-right {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .sort-wrap { position: relative; }
+            .sort-select {
+                appearance: none;
+                background: #fff;
+                border: 1.5px solid var(--color-border);
+                border-radius: 8px;
+                padding: 8px 32px 8px 12px;
+                font-family: var(--font-ui);
+                font-size: 13px;
+                color: var(--color-dark);
+                cursor: pointer;
+                outline: none;
+                transition: border-color var(--t-fast);
+            }
+            .sort-select:focus { border-color: var(--color-burgundy); }
+            .sort-chevron {
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                pointer-events: none;
+                width: 14px;
+                height: 14px;
+                stroke: var(--color-gray-light);
+                stroke-width: 2;
+                fill: none;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+            }
+
+            .view-btns { display: flex; gap: 2px; }
+            .view-btn {
+                width: 34px;
+                height: 34px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: 1.5px solid var(--color-border);
+                border-radius: 7px;
+                background: #fff;
+                cursor: pointer;
+                color: var(--color-gray-light);
+                transition: all var(--t-fast);
+                font-size: 16px;
+            }
+            .view-btn.is-active { border-color: var(--color-dark); color: var(--color-dark); background: var(--color-bg-hover); }
+            .view-btn:hover:not(.is-active) { background: var(--color-bg-hover); }
+
+            /* Active filter chips */
+            .active-chips {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 6px;
+                margin-bottom: 20px;
+                min-height: 0;
+            }
+            .active-chip {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                padding: 5px 8px 5px 11px;
+                background: #fff;
+                border: 1.5px solid var(--color-border);
+                border-radius: 100px;
+                font-size: 12px;
+                font-weight: 500;
+                color: var(--color-dark);
+            }
+            .active-chip-x {
+                background: none;
+                border: none;
+                cursor: pointer;
+                color: var(--color-gray-light);
+                font-size: 15px;
+                padding: 0;
+                line-height: 1;
+                display: flex;
+                align-items: center;
+                transition: color var(--t-fast);
+            }
+            .active-chip-x:hover { color: var(--color-dark); }
+
+            /* ─────────────────────────────────────────
+               PRODUCT GRID & CARDS
+            ───────────────────────────────────────── */
+            .cat-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+
+            .pc-card {
+                display: flex;
+                flex-direction: column;
+                background: #fff;
+                border: 1.5px solid var(--color-border);
+                border-radius: 14px;
+                overflow: hidden;
+                cursor: pointer;
+                transition: border-color var(--t-fast), box-shadow var(--t-fast), transform var(--t-fast);
+            }
+            .pc-card:hover {
+                border-color: #ccc;
+                box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+                transform: translateY(-2px);
+            }
+
+            .pc-card-img-wrap {
+                position: relative;
+                aspect-ratio: 4/3;
+                overflow: hidden;
+                background: var(--color-bg-hover);
+            }
+            .pc-card-img-wrap img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+                transition: transform 0.35s ease;
+            }
+            .pc-card:hover .pc-card-img-wrap img { transform: scale(1.04); }
+
+            .pc-badge {
+                position: absolute;
+                top: 11px;
+                left: 11px;
+                padding: 4px 9px;
+                border-radius: 6px;
+                font-size: 10px;
+                font-weight: 700;
+                letter-spacing: 0.4px;
+                text-transform: uppercase;
+                color: #fff;
+                background: var(--color-burgundy);
+            }
+            .pc-badge--gray { background: #52575F; }
+
+            .pc-card-body {
+                padding: 15px 16px 16px;
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+            }
+            .pc-card-cat {
+                font-size: 10.5px;
+                font-weight: 500;
+                color: var(--color-gray-light);
+                text-transform: uppercase;
+                letter-spacing: 0.6px;
+                margin-bottom: 5px;
+            }
+            .pc-card-name {
+                font-size: 14.5px;
+                font-weight: 600;
+                color: var(--color-dark);
+                line-height: 1.3;
+                margin-bottom: 11px;
+                flex: 1;
+            }
+            .pc-price-row {
+                display: flex;
+                align-items: baseline;
+                gap: 7px;
+                margin-bottom: 13px;
+            }
+            .pc-price {
+                font-size: 18px;
+                font-weight: 700;
+                color: var(--color-dark);
+                letter-spacing: -0.3px;
+            }
+            .pc-price.is-sale { color: var(--color-burgundy); }
+            .pc-price-old {
+                font-size: 13px;
+                color: var(--color-gray-light);
+                text-decoration: line-through;
+            }
+
+            .pc-card-btn {
+                display: block;
+                width: 100%;
+                padding: 10px 16px;
+                background: var(--color-burgundy);
+                color: #fff;
+                border: none;
+                border-radius: 8px;
+                font-family: var(--font-ui);
+                font-size: 13px;
+                font-weight: 600;
+                cursor: pointer;
+                text-align: center;
+                text-decoration: none;
+                transition: background var(--t-fast);
+            }
+            .pc-card-btn:hover { background: var(--color-burgundy-dark); }
+
+            /* Empty state */
+            .cat-empty {
+                grid-column: 1 / -1;
+                text-align: center;
+                padding: 72px 20px;
+            }
+            .cat-empty-icon {
+                font-size: 44px;
+                color: var(--color-border);
+                margin-bottom: 14px;
+                line-height: 1;
+            }
+            .cat-empty-title {
+                font-size: 18px;
+                font-weight: 600;
+                color: var(--color-dark);
+                margin-bottom: 8px;
+            }
+            .cat-empty-sub {
+                font-size: 14px;
+                color: var(--color-gray-light);
+                margin-bottom: 24px;
+            }
+
+            /* ─────────────────────────────────────────
+               FOOTER
+            ───────────────────────────────────────── */
+            .footer-root { background: #000; color: #fff; padding: 72px var(--page-px) 40px; }
+            .footer-inner { max-width: var(--max-width); margin: 0 auto; }
+            .footer-top { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr 1.4fr; gap: 48px; padding-bottom: 52px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 52px; }
+            .footer-brand-logo { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; text-decoration: none; margin-bottom: 16px; }
+            .footer-brand-logo img { width: 60%; height: auto; filter: brightness(0) invert(1); }
+            .footer-brand-name { font-size: 16px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+            .footer-brand-desc { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.65; max-width: 220px; }
+            .footer-col-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 18px; }
+            .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+            .footer-links a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-links a:hover { color: #fff; }
+            .footer-contact-item { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+            .footer-contact-item svg { width: 15px; height: 15px; stroke: rgba(255,255,255,0.35); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+            .footer-contact-item a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-contact-item a:hover { color: #fff; }
+            .footer-locations { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 32px; }
+            .footer-loc-name { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+            .footer-loc-addr { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.55; margin-bottom: 8px; }
+            .footer-loc-phone { font-size: 13px; color: rgba(255,255,255,0.45); }
+            .footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+            .footer-copy-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+            .footer-copy { font-size: 13px; color: rgba(255,255,255,0.3); }
+            .footer-legal-link { font-size: 13px; color: rgba(255,255,255,0.3); text-decoration: none; transition: color var(--t-fast); }
+            .footer-legal-link:hover { color: #fff; }
+            .footer-socials { display: flex; gap: 10px; }
+            .footer-social-btn { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid rgba(255,255,255,0.15); text-decoration: none; transition: border-color var(--t-fast), background var(--t-fast); }
+            .footer-social-btn:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.08); }
+            .footer-social-btn i { font-size: 17px; color: rgba(255,255,255,0.6); }
+
+            /* ─────────────────────────────────────────
+               RESPONSIVE
+            ───────────────────────────────────────── */
+            @media (min-width: 1280px) { /* xl — 4 cols */
+                .cat-grid { grid-template-columns: repeat(4, 1fr); }
+            }
+
+            @media (max-width: 1100px) {
+                .cat-layout { gap: 20px; }
+                .cat-sidebar { width: 220px; }
+            }
+
+            @media (max-width: 1024px) { /* lg — sidebar goes on top */
+                .cat-layout { flex-direction: column; }
+                .cat-sidebar { width: 100%; position: static; top: auto; }
+                .sidebar-filters-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+                .filter-group { margin-bottom: 0; }
+                .cat-grid { grid-template-columns: repeat(3, 1fr); }
+            }
+
+            @media (max-width: 768px) {
+                :root { --page-px: 24px; }
+                .cat-grid { grid-template-columns: repeat(2, 1fr); }
+                .sidebar-filters-grid { grid-template-columns: repeat(2, 1fr); }
+                .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+                .footer-top > div:first-child { grid-column: 1/-1; }
+                .footer-locations { grid-template-columns: 1fr; gap: 20px; }
+                .footer-bottom { flex-direction: column; align-items: flex-start; gap: 16px; }
+            }
+
+            @media (max-width: 639px) { /* mobile — 1 col */
+                :root { --page-px: 16px; }
+                .cat-grid { grid-template-columns: 1fr; }
+                .sidebar-filters-grid { grid-template-columns: 1fr; }
+                .cat-toolbar { flex-wrap: wrap; }
+                .footer-top { grid-template-columns: 1fr; }
+            }
+        </style>
+    </head>
+    <body>
+
+        <ncs-nav></ncs-nav>
+
+        <!-- ════════════════════════════════
+             PAGE HEADER
+        ════════════════════════════════ -->
+        <div class="cat-header" data-comment="cat-header">
+            <div class="page-inner" data-comment="cat-header-inner">
+                <nav class="cat-breadcrumb" data-comment="cat-breadcrumb" aria-label="Breadcrumb">
+                    <a href="index.html" data-comment="cat-breadcrumb-home">Home</a>
+                    <span class="cat-breadcrumb-sep" data-comment="cat-breadcrumb-sep1">›</span>
+                    <a href="catalog.html" data-comment="cat-breadcrumb-products">Products</a>
+                    <span class="cat-breadcrumb-sep" id="breadcrumbSep2" data-comment="cat-breadcrumb-sep2" style="display:none">›</span>
+                    <span class="cat-breadcrumb-current" id="breadcrumbCurrent" data-comment="cat-breadcrumb-current"></span>
+                </nav>
+                <h1 class="cat-title" id="catTitle" data-comment="cat-title">All Products</h1>
+                <p class="cat-subtitle" id="catSubtitle" data-comment="cat-subtitle">Browse our full catalog</p>
+            </div>
+        </div>
+
+        <!-- ════════════════════════════════
+             BODY  (sidebar + main)
+        ════════════════════════════════ -->
+        <div class="cat-body" data-comment="cat-body">
+            <div class="page-inner cat-layout" data-comment="cat-layout">
+
+                <!-- ── SIDEBAR ── -->
+                <aside class="cat-sidebar" data-comment="cat-sidebar">
+
+                    <div class="sidebar-header" data-comment="sidebar-header">
+                        <span class="sidebar-header-label" data-comment="sidebar-header-label">Filters</span>
+                        <button class="sidebar-clear-btn" id="clearAllBtn" data-comment="sidebar-clear-btn">Clear all</button>
+                    </div>
+
+                    <div class="sidebar-filters-grid" data-comment="sidebar-filters-grid">
+
+                        <!-- Style -->
+                        <div class="filter-group is-open" data-comment="fg-style">
+                            <div class="filter-group-header" data-comment="fg-style-header" onclick="toggleGroup(this)">
+                                <span class="filter-group-title" data-comment="fg-style-title">Style</span>
+                                <svg class="fg-chevron" data-comment="fg-style-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                            </div>
+                            <div class="filter-group-body" data-comment="fg-style-body">
+                                <div class="filter-check-list" id="styleList" data-comment="fg-style-list">
+                                    <!-- filled by JS -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Size -->
+                        <div class="filter-group is-open" data-comment="fg-size">
+                            <div class="filter-group-header" data-comment="fg-size-header" onclick="toggleGroup(this)">
+                                <span class="filter-group-title" data-comment="fg-size-title">Size</span>
+                                <svg class="fg-chevron" data-comment="fg-size-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                            </div>
+                            <div class="filter-group-body" data-comment="fg-size-body">
+                                <div class="filter-check-list" data-comment="fg-size-list">
+                                    <label class="filter-check-item" data-comment="fg-size-small">
+                                        <input type="checkbox" data-filter="size" value="Small" onchange="applyFilters()" data-comment="fg-size-small-cb" />
+                                        <span class="filter-check-label" data-comment="fg-size-small-label">Small (up to 10×12)</span>
+                                    </label>
+                                    <label class="filter-check-item" data-comment="fg-size-medium">
+                                        <input type="checkbox" data-filter="size" value="Medium" onchange="applyFilters()" data-comment="fg-size-medium-cb" />
+                                        <span class="filter-check-label" data-comment="fg-size-medium-label">Medium (10×16–12×20)</span>
+                                    </label>
+                                    <label class="filter-check-item" data-comment="fg-size-large">
+                                        <input type="checkbox" data-filter="size" value="Large" onchange="applyFilters()" data-comment="fg-size-large-cb" />
+                                        <span class="filter-check-label" data-comment="fg-size-large-label">Large (14×24+)</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Price -->
+                        <div class="filter-group is-open" data-comment="fg-price">
+                            <div class="filter-group-header" data-comment="fg-price-header" onclick="toggleGroup(this)">
+                                <span class="filter-group-title" data-comment="fg-price-title">Price Range</span>
+                                <svg class="fg-chevron" data-comment="fg-price-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                            </div>
+                            <div class="filter-group-body" data-comment="fg-price-body">
+                                <div class="price-inputs" data-comment="price-inputs">
+                                    <div class="price-input-wrap" data-comment="price-min-wrap">
+                                        <span class="price-input-symbol" data-comment="price-min-sym">$</span>
+                                        <input type="number" class="price-input" id="priceMin" placeholder="Min" min="0" onchange="applyFilters()" data-comment="price-min-input" />
+                                    </div>
+                                    <span class="price-range-dash" data-comment="price-range-dash">–</span>
+                                    <div class="price-input-wrap" data-comment="price-max-wrap">
+                                        <span class="price-input-symbol" data-comment="price-max-sym">$</span>
+                                        <input type="number" class="price-input" id="priceMax" placeholder="Max" min="0" onchange="applyFilters()" data-comment="price-max-input" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Availability -->
+                        <div class="filter-group is-open" data-comment="fg-avail">
+                            <div class="filter-group-header" data-comment="fg-avail-header" onclick="toggleGroup(this)">
+                                <span class="filter-group-title" data-comment="fg-avail-title">Availability</span>
+                                <svg class="fg-chevron" data-comment="fg-avail-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                            </div>
+                            <div class="filter-group-body" data-comment="fg-avail-body">
+                                <div class="filter-check-list" data-comment="fg-avail-list">
+                                    <label class="filter-check-item" data-comment="fg-avail-instock">
+                                        <input type="checkbox" data-filter="avail" value="instock" onchange="applyFilters()" data-comment="fg-avail-instock-cb" />
+                                        <span class="filter-check-label" data-comment="fg-avail-instock-label">In Stock</span>
+                                    </label>
+                                    <label class="filter-check-item" data-comment="fg-avail-rto">
+                                        <input type="checkbox" data-filter="avail" value="rto" onchange="applyFilters()" data-comment="fg-avail-rto-cb" />
+                                        <span class="filter-check-label" data-comment="fg-avail-rto-label">Rent-to-Own Available</span>
+                                    </label>
+                                    <label class="filter-check-item" data-comment="fg-avail-sale">
+                                        <input type="checkbox" data-filter="avail" value="sale" onchange="applyFilters()" data-comment="fg-avail-sale-cb" />
+                                        <span class="filter-check-label" data-comment="fg-avail-sale-label">On Sale</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- /sidebar-filters-grid -->
+                </aside>
+
+                <!-- ── MAIN ── -->
+                <main class="cat-main" data-comment="cat-main">
+
+                    <!-- Toolbar -->
+                    <div class="cat-toolbar" data-comment="cat-toolbar">
+                        <p class="toolbar-count" id="toolbarCount" data-comment="toolbar-count">
+                            Showing <strong>0</strong> products
+                        </p>
+                        <div class="toolbar-right" data-comment="toolbar-right">
+                            <div class="sort-wrap" data-comment="sort-wrap">
+                                <select class="sort-select" id="sortSelect" onchange="applyFilters()" data-comment="sort-select">
+                                    <option value="featured">Featured</option>
+                                    <option value="price-asc">Price: Low to High</option>
+                                    <option value="price-desc">Price: High to Low</option>
+                                    <option value="name-asc">Name: A–Z</option>
+                                </select>
+                                <svg class="sort-chevron" data-comment="sort-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                            </div>
+                            <div class="view-btns" data-comment="view-btns">
+                                <button class="view-btn is-active" id="btnGrid" data-comment="view-btn-grid" title="Grid" onclick="setView('grid')">
+                                    <i class="ri-grid-line"></i>
+                                </button>
+                                <button class="view-btn" id="btnList" data-comment="view-btn-list" title="List" onclick="setView('list')">
+                                    <i class="ri-list-unordered"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Active filter chips -->
+                    <div class="active-chips" id="activeChips" data-comment="active-chips"></div>
+
+                    <!-- Grid -->
+                    <div class="cat-grid" id="catGrid" data-comment="cat-grid">
+                        <!-- populated by JS -->
+                    </div>
+
+                </main>
+
+            </div><!-- /cat-layout -->
+        </div><!-- /cat-body -->
+
+        <!-- ════════════════════════════════
+             FOOTER
+        ════════════════════════════════ -->
+        <footer class="footer-root" data-comment="cat-footer-root">
+            <div class="footer-inner" data-comment="cat-footer-inner">
+                <div class="footer-top" data-comment="cat-footer-top">
+                    <div data-comment="cat-footer-brand">
+                        <a href="index.html" class="footer-brand-logo" data-comment="cat-footer-brand-logo">
+                            <img src="assets/Logo.png" alt="NCS Barns" data-comment="cat-footer-brand-img" />
+                            <span class="footer-brand-name" data-comment="cat-footer-brand-name">NCS Barns</span>
+                        </a>
+                        <p class="footer-brand-desc" data-comment="cat-footer-brand-desc">Handcrafted quality structures for the North Country — family owned &amp; operated since 1993.</p>
+                    </div>
+                    <div data-comment="cat-footer-col-products">
+                        <p class="footer-col-label" data-comment="cat-footer-products-label">Products</p>
+                        <ul class="footer-links" data-comment="cat-footer-products-links">
+                            <li data-comment="cat-fli-sheds"><a href="catalog.html?category=Sheds" data-comment="cat-fl-sheds">Sheds</a></li>
+                            <li data-comment="cat-fli-gazebos"><a href="catalog.html?category=Gazebos" data-comment="cat-fl-gazebos">Gazebos &amp; Pergolas</a></li>
+                            <li data-comment="cat-fli-hunting"><a href="catalog.html?category=Hunting+Blinds" data-comment="cat-fl-hunting">Hunting Blinds</a></li>
+                            <li data-comment="cat-fli-play"><a href="catalog.html?category=Play+Structures" data-comment="cat-fl-play">Play Structures</a></li>
+                            <li data-comment="cat-fli-furniture"><a href="catalog.html?category=Outdoor+Furniture" data-comment="cat-fl-furniture">Furniture</a></li>
+                            <li data-comment="cat-fli-homes"><a href="catalog.html?category=Custom+Homes" data-comment="cat-fl-homes">Homes &amp; Garages</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="cat-footer-col-company">
+                        <p class="footer-col-label" data-comment="cat-footer-company-label">Company</p>
+                        <ul class="footer-links" data-comment="cat-footer-company-links">
+                            <li data-comment="cat-fli-about"><a href="#" data-comment="cat-fl-about">About Us</a></li>
+                            <li data-comment="cat-fli-testimonials"><a href="#" data-comment="cat-fl-testimonials">Testimonials</a></li>
+                            <li data-comment="cat-fli-gallery"><a href="gallery.html" data-comment="cat-fl-gallery">Gallery</a></li>
+                            <li data-comment="cat-fli-delivery"><a href="#" data-comment="cat-fl-delivery">Delivery &amp; Relocation</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="cat-footer-col-buying">
+                        <p class="footer-col-label" data-comment="cat-footer-buying-label">Buying Process</p>
+                        <ul class="footer-links" data-comment="cat-footer-buying-links">
+                            <li data-comment="cat-fli-rto"><a href="#" data-comment="cat-fl-rto">Rent-To-Own</a></li>
+                            <li data-comment="cat-fli-financing"><a href="#" data-comment="cat-fl-financing">Financing Options</a></li>
+                            <li data-comment="cat-fli-siteprep"><a href="#" data-comment="cat-fl-siteprep">Site Preparation</a></li>
+                            <li data-comment="cat-fli-warranty"><a href="#" data-comment="cat-fl-warranty">Warranty</a></li>
+                            <li data-comment="cat-fli-dealers"><a href="#" data-comment="cat-fl-dealers">Dealers</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="cat-footer-col-contact">
+                        <p class="footer-col-label" data-comment="cat-footer-contact-label">Contact</p>
+                        <div class="footer-contact-item" data-comment="cat-footer-phone">
+                            <svg viewBox="0 0 24 24" data-comment="cat-footer-phone-icon"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l1.64-1.64a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <a href="tel:3156420209" data-comment="cat-footer-phone-link">(315) 642-0209</a>
+                        </div>
+                        <div class="footer-contact-item" data-comment="cat-footer-email">
+                            <svg viewBox="0 0 24 24" data-comment="cat-footer-email-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            <a href="mailto:sales@ncsbarns.com" data-comment="cat-footer-email-link">sales@ncsbarns.com</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-locations" data-comment="cat-footer-locations">
+                    <div data-comment="cat-footer-loc-phila">
+                        <p class="footer-loc-name" data-comment="cat-footer-loc-phila-name">Philadelphia</p>
+                        <p class="footer-loc-addr" data-comment="cat-footer-loc-phila-addr">32660 US Route 11<br>Philadelphia, NY 13673</p>
+                        <p class="footer-loc-phone" data-comment="cat-footer-loc-phila-phone">(315) 642-0209</p>
+                    </div>
+                    <div data-comment="cat-footer-loc-york">
+                        <p class="footer-loc-name" data-comment="cat-footer-loc-york-name">Yorkville</p>
+                        <p class="footer-loc-addr" data-comment="cat-footer-loc-york-addr">317 Oriskany Blvd<br>Yorkville, NY</p>
+                        <p class="footer-loc-phone" data-comment="cat-footer-loc-york-phone">(315) 793-0726</p>
+                    </div>
+                    <div data-comment="cat-footer-loc-sandy">
+                        <p class="footer-loc-name" data-comment="cat-footer-loc-sandy-name">Sandy Creek</p>
+                        <p class="footer-loc-addr" data-comment="cat-footer-loc-sandy-addr">5780 US Route 11<br>Pulaski, NY 13142</p>
+                        <p class="footer-loc-phone" data-comment="cat-footer-loc-sandy-phone">(315) 387-2092</p>
+                    </div>
+                </div>
+                <div class="footer-bottom" data-comment="cat-footer-bottom">
+                    <div class="footer-copy-row" data-comment="cat-footer-copy-row">
+                        <p class="footer-copy" data-comment="cat-footer-copy">&copy; 2026 North Country Storage Barns. All rights reserved.</p>
+                        <a href="#" class="footer-legal-link" data-comment="cat-footer-privacy">Privacy Policy</a>
+                        <a href="#" class="footer-legal-link" data-comment="cat-footer-terms">Terms &amp; Conditions</a>
+                    </div>
+                    <div class="footer-socials" data-comment="cat-footer-socials">
+                        <a href="https://www.tiktok.com/@northcountrystoragebarns" target="_blank" class="footer-social-btn" data-comment="cat-footer-tiktok" aria-label="TikTok"><i class="ri-tiktok-fill" data-comment="cat-footer-tiktok-icon"></i></a>
+                        <a href="https://www.facebook.com/ifyouneedmeillbeinmyshed/" target="_blank" class="footer-social-btn" data-comment="cat-footer-facebook" aria-label="Facebook"><i class="ri-facebook-fill" data-comment="cat-footer-facebook-icon"></i></a>
+                        <a href="https://www.instagram.com/northcountrystoragebarns/" target="_blank" class="footer-social-btn" data-comment="cat-footer-instagram" aria-label="Instagram"><i class="ri-instagram-fill" data-comment="cat-footer-instagram-icon"></i></a>
+                        <a href="#" class="footer-social-btn" data-comment="cat-footer-google" aria-label="Google"><i class="ri-google-fill" data-comment="cat-footer-google-icon"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+        /* ═══════════════════════════════════════════════
+           PRODUCT DATA
+        ═══════════════════════════════════════════════ */
+        const PRODUCTS = [
+            /* ── SHEDS ── */
+            { id:1,  name:'Classic Barn 8×8',           category:'Sheds',             style:'Gambrel',     size:'Small',  price:2200, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80' },
+            { id:2,  name:'Classic Barn 8×12',          category:'Sheds',             style:'Gambrel',     size:'Small',  price:2800, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80' },
+            { id:3,  name:'Classic Barn 10×12',         category:'Sheds',             style:'Gambrel',     size:'Small',  price:3400, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80' },
+            { id:4,  name:'Classic Barn 10×16',         category:'Sheds',             style:'Gambrel',     size:'Medium', price:4100, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80' },
+            { id:5,  name:'Classic Barn 12×16',         category:'Sheds',             style:'Gambrel',     size:'Medium', price:4800, sale:4200, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80' },
+            { id:6,  name:'Classic Barn 12×20',         category:'Sheds',             style:'Gambrel',     size:'Medium', price:5900, sale:null, rto:true,  instock:false, img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80' },
+            { id:7,  name:'Classic Barn 14×24',         category:'Sheds',             style:'Gambrel',     size:'Large',  price:7200, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80' },
+            { id:8,  name:'Lofted Barn 10×12',          category:'Sheds',             style:'Lofted Barn', size:'Small',  price:3800, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=600&q=80' },
+            { id:9,  name:'Lofted Barn 12×16',          category:'Sheds',             style:'Lofted Barn', size:'Medium', price:5200, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=600&q=80' },
+            { id:10, name:'A-Frame Shed 10×12',         category:'Sheds',             style:'A-Frame',     size:'Small',  price:3100, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80' },
+            { id:11, name:'Cabin Shed 12×20',           category:'Sheds',             style:'Cabin',       size:'Medium', price:6400, sale:null, rto:true,  instock:false, img:'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=600&q=80' },
+            { id:12, name:'Ranch Shed 14×28',           category:'Sheds',             style:'Ranch',       size:'Large',  price:8900, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80' },
+            /* ── GAZEBOS / PERGOLAS / PAVILIONS ── */
+            { id:13, name:'Cedar Gazebo 10×10',         category:'Gazebos',           style:'Gazebo',      size:'Small',  price:3200, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80' },
+            { id:14, name:'Cedar Gazebo 12×12',         category:'Gazebos',           style:'Gazebo',      size:'Medium', price:4100, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80' },
+            { id:15, name:'Vinyl Pergola 12×16',        category:'Gazebos',           style:'Pergola',     size:'Medium', price:3800, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&q=80' },
+            { id:16, name:'Wood Pavilion 14×20',        category:'Gazebos',           style:'Pavilion',    size:'Large',  price:5600, sale:null, rto:true,  instock:false, img:'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80' },
+            { id:17, name:'Screen Gazebo 10×10',        category:'Gazebos',           style:'Gazebo',      size:'Small',  price:3500, sale:3100, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80' },
+            { id:18, name:'Corner Pergola 10×12',       category:'Gazebos',           style:'Pergola',     size:'Small',  price:2900, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&q=80' },
+            /* ── HUNTING BLINDS ── */
+            { id:19, name:'4×4 Tower Blind',            category:'Hunting Blinds',    style:'Tower',       size:'Small',  price:1400, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&q=80' },
+            { id:20, name:'4×6 Elevated Blind',         category:'Hunting Blinds',    style:'Elevated',    size:'Small',  price:1900, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&q=80' },
+            { id:21, name:'5×6 Deluxe Elevated Blind',  category:'Hunting Blinds',    style:'Elevated',    size:'Small',  price:2400, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&q=80' },
+            { id:22, name:'4×4 Box Blind',              category:'Hunting Blinds',    style:'Box',         size:'Small',  price:1200, sale:999,  rto:false, instock:true,  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&q=80' },
+            { id:23, name:'6×6 Executive Tower Blind',  category:'Hunting Blinds',    style:'Tower',       size:'Medium', price:3100, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&q=80' },
+            /* ── PLAY STRUCTURES ── */
+            { id:24, name:'Adventure Playset',          category:'Play Structures',   style:'Playset',     size:'Medium', price:2200, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=600&q=80' },
+            { id:25, name:'Deluxe Swing Set',           category:'Play Structures',   style:'Swing Set',   size:'Medium', price:3400, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=600&q=80' },
+            { id:26, name:'Sandbox Playset',            category:'Play Structures',   style:'Sandbox',     size:'Small',  price:1800, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=600&q=80' },
+            { id:27, name:'Premium Fort &amp; Slide Set', category:'Play Structures', style:'Fort',        size:'Large',  price:4100, sale:null, rto:true,  instock:false, img:'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=600&q=80' },
+            /* ── ANIMAL STRUCTURES ── */
+            { id:28, name:'4-Hen Chicken Coop',         category:'Animal Structures', style:'Coop',        size:'Small',  price:680,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=600&q=80' },
+            { id:29, name:'8-Hen Chicken Coop',         category:'Animal Structures', style:'Coop',        size:'Small',  price:1100, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=600&q=80' },
+            { id:30, name:'Dog Kennel 10×10',           category:'Animal Structures', style:'Kennel',      size:'Small',  price:950,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=600&q=80' },
+            { id:31, name:'Horse Loafing Shed 12×24',   category:'Animal Structures', style:'Loafing Shed',size:'Large',  price:4800, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80' },
+            /* ── INDOOR FURNITURE ── */
+            { id:32, name:'Barnwood Coffee Table',      category:'Indoor Furniture',  style:'Table',       size:null,     price:480,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=600&q=80' },
+            { id:33, name:'Log Bed Frame Queen',        category:'Indoor Furniture',  style:'Bed Frame',   size:null,     price:890,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=600&q=80' },
+            { id:34, name:'Adirondack End Table',       category:'Indoor Furniture',  style:'Table',       size:null,     price:220,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=600&q=80' },
+            { id:35, name:'Rustic Bookshelf',           category:'Indoor Furniture',  style:'Storage',     size:null,     price:340,  sale:295,  rto:false, instock:true,  img:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80' },
+            /* ── OUTDOOR FURNITURE ── */
+            { id:36, name:'Classic Adirondack Chair',   category:'Outdoor Furniture', style:'Chair',       size:null,     price:285,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1592078615290-033ee584e267?w=600&q=80' },
+            { id:37, name:'Cedar Picnic Table 6ft',     category:'Outdoor Furniture', style:'Table',       size:null,     price:520,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1597208751520-49ca90e8c28e?w=600&q=80' },
+            { id:38, name:'Porch Swing 5ft',            category:'Outdoor Furniture', style:'Swing',       size:null,     price:440,  sale:380,  rto:false, instock:true,  img:'https://images.unsplash.com/photo-1597208751520-49ca90e8c28e?w=600&q=80' },
+            { id:39, name:'Cedar Bench 4ft',            category:'Outdoor Furniture', style:'Bench',       size:null,     price:290,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1592078615290-033ee584e267?w=600&q=80' },
+            { id:40, name:'Outdoor Bar Table Set',      category:'Outdoor Furniture', style:'Table',       size:null,     price:680,  sale:null, rto:false, instock:false, img:'https://images.unsplash.com/photo-1597208751520-49ca90e8c28e?w=600&q=80' },
+            /* ── DECOR & MORE ── */
+            { id:41, name:'Barn Star Decor',            category:'Decor & More',      style:'Decor',       size:null,     price:45,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&q=80' },
+            { id:42, name:'Wooden Planter Box',         category:'Decor & More',      style:'Planter',     size:null,     price:95,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&q=80' },
+            { id:43, name:'Rustic Mailbox Post',        category:'Decor & More',      style:'Mailbox',     size:null,     price:185,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&q=80' },
+            /* ── RETURNED RENTALS ── */
+            { id:44, name:'Returned Barn 10×12',        category:'Returned Rentals',  style:'Gambrel',     size:'Small',  price:1800, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80' },
+            { id:45, name:'Returned Lofted Barn 12×16', category:'Returned Rentals',  style:'Lofted Barn', size:'Medium', price:2900, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=600&q=80' },
+            { id:46, name:'Returned A-Frame 8×12',      category:'Returned Rentals',  style:'A-Frame',     size:'Small',  price:1500, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80' },
+        ];
+
+        /* ═══════════════════════════════════════════════
+           CATEGORY URL → display name map
+        ═══════════════════════════════════════════════ */
+        const CAT_MAP = {
+            'Sheds':              'Sheds',
+            'Gazebos':            'Gazebos / Pergolas / Pavilions',
+            'Hunting Blinds':     'Hunting Blinds',
+            'Play Structures':    'Play Structures',
+            'Animal Structures':  'Animal Structures',
+            'Indoor Furniture':   'Indoor Furniture',
+            'Outdoor Furniture':  'Outdoor Furniture',
+            'Decor & More':       'Decor &amp; More',
+            'Returned Rentals':   'Returned Rentals',
+            'Custom Homes':       'Custom Built Homes',
+            'Modular Log Homes':  'Modular Log Homes',
+            'Garages':            'Garages',
+        };
+
+        /* ── map URL ?category= param to PRODUCTS.category value ── */
+        const CAT_SLUG_MAP = {
+            'Sheds':             'Sheds',
+            'Gazebos':           'Gazebos',
+            'Hunting+Blinds':    'Hunting Blinds',
+            'Hunting Blinds':    'Hunting Blinds',
+            'Play+Structures':   'Play Structures',
+            'Play Structures':   'Play Structures',
+            'Animal+Structures': 'Animal Structures',
+            'Animal Structures': 'Animal Structures',
+            'Indoor+Furniture':  'Indoor Furniture',
+            'Indoor Furniture':  'Indoor Furniture',
+            'Outdoor+Furniture': 'Outdoor Furniture',
+            'Outdoor Furniture': 'Outdoor Furniture',
+            'Decor':             'Decor & More',
+            'Returned+Rentals':  'Returned Rentals',
+            'Returned Rentals':  'Returned Rentals',
+        };
+
+        /* ═══════════════════════════════════════════════
+           STATE
+        ═══════════════════════════════════════════════ */
+        let activeCategory = null;  /* product category string or null = all */
+        let currentView    = 'grid';
+
+        /* ═══════════════════════════════════════════════
+           INIT
+        ═══════════════════════════════════════════════ */
+        function init() {
+            const params  = new URLSearchParams(window.location.search);
+            const catSlug = params.get('category');
+
+            if (catSlug) {
+                activeCategory = CAT_SLUG_MAP[catSlug] || decodeURIComponent(catSlug).replace(/\+/g, ' ');
+                const displayName = CAT_MAP[activeCategory] || activeCategory;
+                document.getElementById('catTitle').textContent = activeCategory;
+                document.getElementById('breadcrumbCurrent').innerHTML = displayName;
+                document.getElementById('breadcrumbSep2').style.display = '';
+                document.title = 'NCS Barns — ' + activeCategory;
+                document.getElementById('catSubtitle').textContent =
+                    'Browse our ' + activeCategory.toLowerCase() + ' collection';
+            } else {
+                document.getElementById('catTitle').textContent = 'All Products';
+                document.getElementById('catSubtitle').textContent = 'Browse our full catalog';
+                document.title = 'NCS Barns — Products';
+            }
+
+            buildStyleFilter();
+            applyFilters();
+        }
+
+        /* ── Build dynamic Style checkboxes from current category ── */
+        function buildStyleFilter() {
+            const styles = [...new Set(
+                PRODUCTS
+                    .filter(p => !activeCategory || p.category === activeCategory)
+                    .map(p => p.style)
+                    .filter(Boolean)
+            )].sort();
+
+            document.getElementById('styleList').innerHTML = styles.map((s, i) => `
+                <label class="filter-check-item" data-comment="fg-style-opt-${i}">
+                    <input type="checkbox" data-filter="style" value="${s}" onchange="applyFilters()" data-comment="fg-style-opt-${i}-cb" />
+                    <span class="filter-check-label" data-comment="fg-style-opt-${i}-label">${s}</span>
+                </label>`).join('');
+        }
+
+        /* ═══════════════════════════════════════════════
+           FILTER + SORT + RENDER
+        ═══════════════════════════════════════════════ */
+        function applyFilters() {
+            /* read checked values */
+            const selStyles = new Set([...document.querySelectorAll('[data-filter="style"]:checked')].map(el => el.value));
+            const selSizes  = new Set([...document.querySelectorAll('[data-filter="size"]:checked')].map(el => el.value));
+            const selAvail  = new Set([...document.querySelectorAll('[data-filter="avail"]:checked')].map(el => el.value));
+            const pMin = document.getElementById('priceMin').value  ? +document.getElementById('priceMin').value  : null;
+            const pMax = document.getElementById('priceMax').value  ? +document.getElementById('priceMax').value  : null;
+            const sort = document.getElementById('sortSelect').value;
+
+            let list = PRODUCTS.filter(p => {
+                if (activeCategory && p.category !== activeCategory) return false;
+                if (selStyles.size > 0 && !selStyles.has(p.style))   return false;
+                if (selSizes.size  > 0 && !selSizes.has(p.size))     return false;
+                const ep = p.sale ?? p.price;
+                if (pMin !== null && ep < pMin) return false;
+                if (pMax !== null && ep > pMax) return false;
+                if (selAvail.has('instock') && !p.instock) return false;
+                if (selAvail.has('rto')     && !p.rto)     return false;
+                if (selAvail.has('sale')    && !p.sale)    return false;
+                return true;
+            });
+
+            if (sort === 'price-asc')  list.sort((a,b) => (a.sale??a.price) - (b.sale??b.price));
+            if (sort === 'price-desc') list.sort((a,b) => (b.sale??b.price) - (a.sale??a.price));
+            if (sort === 'name-asc')   list.sort((a,b) => a.name.localeCompare(b.name));
+
+            renderGrid(list);
+            renderCount(list.length);
+            renderChips(selStyles, selSizes, selAvail, pMin, pMax);
+        }
+
+        function renderGrid(list) {
+            const grid = document.getElementById('catGrid');
+            if (!list.length) {
+                grid.innerHTML = `
+                    <div class="cat-empty" data-comment="cat-empty-state">
+                        <div class="cat-empty-icon" data-comment="cat-empty-icon"><i class="ri-archive-line"></i></div>
+                        <p class="cat-empty-title" data-comment="cat-empty-title">No products found</p>
+                        <p class="cat-empty-sub" data-comment="cat-empty-sub">Try adjusting your filters.</p>
+                        <button class="btn-primary" onclick="clearAll()" data-comment="cat-empty-clear" style="margin:0 auto">Clear Filters</button>
+                    </div>`;
+                return;
+            }
+
+            grid.innerHTML = list.map((p, i) => {
+                const n   = i + 1;
+                const ep  = p.sale ?? p.price;
+                const badgeSale = p.sale     ? `<span class="pc-badge" data-comment="cat-card-${n}-sale-badge">On Sale</span>` : '';
+                const badgeOos  = !p.instock ? `<span class="pc-badge pc-badge--gray" data-comment="cat-card-${n}-oos-badge">Order</span>` : '';
+                const oldPrice  = p.sale     ? `<span class="pc-price-old" data-comment="cat-card-${n}-price-old">$${p.price.toLocaleString()}</span>` : '';
+                return `
+                <div class="pc-card" data-comment="cat-card-${n}" onclick="window.location='product.html?id=${p.id}'">
+                    <div class="pc-card-img-wrap" data-comment="cat-card-${n}-img-wrap">
+                        <img src="${p.img}" alt="${p.name}" loading="lazy" data-comment="cat-card-${n}-img" />
+                        ${badgeSale}${badgeOos}
+                    </div>
+                    <div class="pc-card-body" data-comment="cat-card-${n}-body">
+                        <p class="pc-card-cat" data-comment="cat-card-${n}-cat">${p.category}</p>
+                        <h3 class="pc-card-name" data-comment="cat-card-${n}-name">${p.name}</h3>
+                        <div class="pc-price-row" data-comment="cat-card-${n}-price-row">
+                            ${oldPrice}
+                            <span class="pc-price${p.sale ? ' is-sale' : ''}" data-comment="cat-card-${n}-price">$${ep.toLocaleString()}</span>
+                        </div>
+                        <a class="pc-card-btn" href="product.html?id=${p.id}" onclick="event.stopPropagation()" data-comment="cat-card-${n}-btn">More Details</a>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function renderCount(n) {
+            document.getElementById('toolbarCount').innerHTML =
+                `Showing <strong>${n}</strong> ${n === 1 ? 'product' : 'products'}`;
+            const sub = activeCategory
+                ? `${n} ${n === 1 ? 'item' : 'items'} in ${activeCategory}`
+                : `${n} products available`;
+            document.getElementById('catSubtitle').textContent = sub;
+        }
+
+        function renderChips(selStyles, selSizes, selAvail, pMin, pMax) {
+            const SIZE_LABELS = { Small:'Small (up to 10×12)', Medium:'Medium (10×16–12×20)', Large:'Large (14×24+)' };
+            const AVAIL_LABELS = { instock:'In Stock', rto:'Rent-to-Own', sale:'On Sale' };
+            const chips = [];
+            selStyles.forEach(v => chips.push({ label: v,                  type:'style', value: v }));
+            selSizes.forEach(v  => chips.push({ label: SIZE_LABELS[v]||v,  type:'size',  value: v }));
+            selAvail.forEach(v  => chips.push({ label: AVAIL_LABELS[v]||v, type:'avail', value: v }));
+            if (pMin !== null) chips.push({ label:`Min $${pMin}`, type:'price-min', value:'' });
+            if (pMax !== null) chips.push({ label:`Max $${pMax}`, type:'price-max', value:'' });
+
+            document.getElementById('activeChips').innerHTML = chips.map((c, i) => `
+                <span class="active-chip" data-comment="active-chip-${i+1}">
+                    <span data-comment="active-chip-${i+1}-label">${c.label}</span>
+                    <button class="active-chip-x" onclick="removeChip('${c.type}','${c.value}')" data-comment="active-chip-${i+1}-x" title="Remove">×</button>
+                </span>`).join('');
+        }
+
+        /* ═══════════════════════════════════════════════
+           FILTER HELPERS
+        ═══════════════════════════════════════════════ */
+        function removeChip(type, value) {
+            if (type === 'style')     document.querySelectorAll(`[data-filter="style"][value="${value}"]`).forEach(el => el.checked = false);
+            else if (type === 'size') document.querySelectorAll(`[data-filter="size"][value="${value}"]`).forEach(el => el.checked = false);
+            else if (type === 'avail')document.querySelectorAll(`[data-filter="avail"][value="${value}"]`).forEach(el => el.checked = false);
+            else if (type === 'price-min') document.getElementById('priceMin').value = '';
+            else if (type === 'price-max') document.getElementById('priceMax').value = '';
+            applyFilters();
+        }
+
+        function clearAll() {
+            document.querySelectorAll('[data-filter]').forEach(el => el.checked = false);
+            document.getElementById('priceMin').value = '';
+            document.getElementById('priceMax').value = '';
+            applyFilters();
+        }
+
+        document.getElementById('clearAllBtn').addEventListener('click', clearAll);
+
+        function toggleGroup(header) {
+            header.parentElement.classList.toggle('is-open');
+        }
+
+        function setView(mode) {
+            currentView = mode;
+            document.getElementById('btnGrid').classList.toggle('is-active', mode === 'grid');
+            document.getElementById('btnList').classList.toggle('is-active', mode === 'list');
+            document.getElementById('catGrid').style.gridTemplateColumns = mode === 'list' ? '1fr' : '';
+        }
+
+        /* ═══════════════════════════════════════════════
+           BOOT
+        ═══════════════════════════════════════════════ */
+        document.addEventListener('DOMContentLoaded', init);
+        </script>
+    </body>
+</html>

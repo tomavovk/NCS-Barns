@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>NCS Barns — Product</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+            rel="stylesheet" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+            rel="stylesheet" />
+        <script src="nav.js" defer></script>
+
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            :root {
+                --color-burgundy:      #8B1A2A;
+                --color-burgundy-dark: #6D1420;
+                --color-dark:          #1C1F24;
+                --color-gray:          #52575F;
+                --color-gray-light:    #9EA4AD;
+                --color-border:        #E6E2DD;
+                --color-bg:            #F8F6F4;
+                --color-bg-hover:      #F4F1EE;
+                --color-bg-menu:       #FAFAF8;
+
+                --font-ui: 'Inter', sans-serif;
+
+                --nav-height: 72px;
+                --max-width:  1440px;
+                --page-px:    40px;
+
+                --t-fast: 0.15s ease;
+                --t-med:  0.22s ease;
+            }
+
+            body {
+                font-family: var(--font-ui);
+                background: var(--color-bg);
+                color: var(--color-dark);
+            }
+
+            .page-inner {
+                max-width: var(--max-width);
+                margin: 0 auto;
+                padding: 0 var(--page-px);
+            }
+
+            /* ─────────────────────────────────────────
+               BUTTONS
+            ───────────────────────────────────────── */
+            .btn-primary {
+                display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+                padding: 13px 24px; border-radius: 10px;
+                font-family: var(--font-ui); font-size: 14px; font-weight: 600;
+                background: var(--color-burgundy); color: #fff; border: none;
+                cursor: pointer; text-decoration: none;
+                transition: background var(--t-fast), transform var(--t-fast);
+                white-space: nowrap;
+            }
+            .btn-primary:hover { background: var(--color-burgundy-dark); transform: translateY(-1px); }
+
+            .btn-outline {
+                display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+                padding: 13px 24px; border-radius: 10px;
+                font-family: var(--font-ui); font-size: 14px; font-weight: 600;
+                background: transparent; color: var(--color-dark);
+                border: 1.5px solid var(--color-border);
+                cursor: pointer; text-decoration: none;
+                transition: border-color var(--t-fast), background var(--t-fast);
+                white-space: nowrap;
+            }
+            .btn-outline:hover { border-color: var(--color-dark); background: var(--color-bg-hover); }
+
+            /* ─────────────────────────────────────────
+               BREADCRUMB BAR
+            ───────────────────────────────────────── */
+            .pd-breadcrumb-bar {
+                background: #fff;
+                border-bottom: 1px solid var(--color-border);
+                padding: 14px 0;
+            }
+            .pd-breadcrumb {
+                display: flex; align-items: center; gap: 6px;
+                font-size: 13px; color: var(--color-gray-light);
+            }
+            .pd-breadcrumb a { color: var(--color-gray-light); text-decoration: none; transition: color var(--t-fast); }
+            .pd-breadcrumb a:hover { color: var(--color-burgundy); }
+            .pd-breadcrumb-sep { font-size: 11px; opacity: 0.6; }
+            .pd-breadcrumb-current { color: var(--color-dark); font-weight: 500; }
+
+            /* ─────────────────────────────────────────
+               PRODUCT HERO  (gallery + info panel)
+            ───────────────────────────────────────── */
+            .pd-hero {
+                padding: 40px 0 0;
+            }
+
+            .pd-hero-inner {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 52px;
+                align-items: start;
+            }
+
+            /* ── Gallery ── */
+            .pd-gallery { display: flex; flex-direction: column; gap: 12px; }
+
+            .pd-gallery-main {
+                position: relative;
+                border-radius: 16px;
+                overflow: hidden;
+                aspect-ratio: 4/3;
+                background: var(--color-bg-hover);
+                border: 1.5px solid var(--color-border);
+            }
+            .pd-gallery-main img {
+                width: 100%; height: 100%;
+                object-fit: cover; display: block;
+                transition: opacity 0.25s ease;
+            }
+            .pd-gallery-main img.fading { opacity: 0; }
+
+            .pd-gallery-badge {
+                position: absolute;
+                top: 14px; left: 14px;
+                background: var(--color-burgundy);
+                color: #fff;
+                font-size: 10px; font-weight: 700; letter-spacing: 0.4px;
+                text-transform: uppercase;
+                padding: 5px 10px; border-radius: 6px;
+            }
+
+            .pd-thumbs {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 10px;
+            }
+            .pd-thumb {
+                aspect-ratio: 4/3;
+                border-radius: 10px;
+                overflow: hidden;
+                border: 2px solid var(--color-border);
+                cursor: pointer;
+                transition: border-color var(--t-fast), opacity var(--t-fast);
+                background: var(--color-bg-hover);
+            }
+            .pd-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+            .pd-thumb:hover { border-color: var(--color-gray-light); }
+            .pd-thumb.is-active { border-color: var(--color-burgundy); }
+
+            /* ── Info panel ── */
+            .pd-info { padding-top: 4px; }
+
+            .pd-category-badge {
+                display: inline-block;
+                font-size: 11px; font-weight: 700;
+                letter-spacing: 0.8px; text-transform: uppercase;
+                color: var(--color-burgundy);
+                margin-bottom: 12px;
+            }
+
+            .pd-name {
+                font-size: clamp(22px, 2.2vw, 30px);
+                font-weight: 700;
+                color: var(--color-dark);
+                letter-spacing: -0.6px;
+                line-height: 1.15;
+                margin-bottom: 16px;
+            }
+
+            .pd-price-row {
+                display: flex;
+                align-items: baseline;
+                gap: 10px;
+                margin-bottom: 18px;
+            }
+            .pd-price {
+                font-size: 32px;
+                font-weight: 700;
+                color: var(--color-dark);
+                letter-spacing: -1px;
+            }
+            .pd-price.is-sale { color: var(--color-burgundy); }
+            .pd-price-old {
+                font-size: 17px;
+                color: var(--color-gray-light);
+                text-decoration: line-through;
+            }
+            .pd-price-note {
+                font-size: 12px;
+                color: var(--color-gray-light);
+                margin-top: -12px;
+                margin-bottom: 18px;
+            }
+
+            .pd-desc {
+                font-size: 15px;
+                color: var(--color-gray);
+                line-height: 1.7;
+                margin-bottom: 24px;
+            }
+
+            /* Options */
+            .pd-options { margin-bottom: 24px; }
+            .pd-option-label {
+                font-size: 12px;
+                font-weight: 700;
+                letter-spacing: 0.5px;
+                text-transform: uppercase;
+                color: var(--color-dark);
+                margin-bottom: 10px;
+            }
+            .pd-option-label span {
+                font-weight: 400;
+                text-transform: none;
+                letter-spacing: 0;
+                color: var(--color-gray);
+            }
+
+            .pd-size-btns {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-bottom: 16px;
+            }
+            .pd-size-btn {
+                padding: 7px 14px;
+                border: 1.5px solid var(--color-border);
+                border-radius: 8px;
+                font-family: var(--font-ui);
+                font-size: 13px;
+                font-weight: 500;
+                color: var(--color-dark);
+                background: #fff;
+                cursor: pointer;
+                transition: border-color var(--t-fast), background var(--t-fast), color var(--t-fast);
+            }
+            .pd-size-btn:hover { border-color: var(--color-dark); }
+            .pd-size-btn.is-active {
+                border-color: var(--color-burgundy);
+                background: #fcf5f5;
+                color: var(--color-burgundy);
+            }
+
+            .pd-color-swatches {
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+            .pd-color-swatch {
+                width: 28px; height: 28px;
+                border-radius: 50%;
+                border: 2px solid transparent;
+                cursor: pointer;
+                transition: transform var(--t-fast), box-shadow var(--t-fast);
+                outline: none;
+            }
+            .pd-color-swatch:hover { transform: scale(1.1); }
+            .pd-color-swatch.is-active {
+                box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--color-burgundy);
+            }
+
+            /* CTAs */
+            .pd-ctas {
+                display: flex;
+                gap: 12px;
+                margin-bottom: 24px;
+                flex-wrap: wrap;
+            }
+            .pd-ctas .btn-primary { flex: 1; min-width: 160px; }
+            .pd-ctas .btn-outline { flex: 1; min-width: 160px; }
+
+            /* Trust badges */
+            .pd-trust {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                padding: 18px;
+                background: var(--color-bg-hover);
+                border-radius: 12px;
+                border: 1.5px solid var(--color-border);
+            }
+            .pd-trust-item {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-size: 13px;
+                color: var(--color-dark);
+                font-weight: 500;
+            }
+            .pd-trust-item i {
+                font-size: 18px;
+                color: var(--color-burgundy);
+                flex-shrink: 0;
+            }
+
+            /* ─────────────────────────────────────────
+               TABS SECTION
+            ───────────────────────────────────────── */
+            .pd-tabs-section {
+                padding: 52px 0 0;
+            }
+
+            .pd-tabs-header {
+                display: flex;
+                gap: 0;
+                border-bottom: 2px solid var(--color-border);
+                margin-bottom: 32px;
+            }
+            .pd-tab-btn {
+                padding: 12px 24px;
+                background: none;
+                border: none;
+                border-bottom: 2px solid transparent;
+                margin-bottom: -2px;
+                font-family: var(--font-ui);
+                font-size: 14px;
+                font-weight: 500;
+                color: var(--color-gray-light);
+                cursor: pointer;
+                transition: color var(--t-fast), border-color var(--t-fast);
+            }
+            .pd-tab-btn:hover { color: var(--color-dark); }
+            .pd-tab-btn.is-active {
+                color: var(--color-dark);
+                border-bottom-color: var(--color-dark);
+                font-weight: 600;
+            }
+
+            .pd-tab-panel { display: none; }
+            .pd-tab-panel.is-active { display: block; }
+
+            /* Description tab */
+            .pd-desc-text {
+                font-size: 15px;
+                color: var(--color-gray);
+                line-height: 1.75;
+                max-width: 760px;
+            }
+            .pd-desc-text p + p { margin-top: 16px; }
+
+            .pd-features-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 16px;
+                margin-top: 28px;
+            }
+            .pd-feature-item {
+                display: flex;
+                align-items: flex-start;
+                gap: 12px;
+                padding: 16px;
+                background: #fff;
+                border: 1.5px solid var(--color-border);
+                border-radius: 12px;
+            }
+            .pd-feature-icon {
+                width: 36px; height: 36px;
+                border-radius: 9px;
+                background: #fcf5f5;
+                display: flex; align-items: center; justify-content: center;
+                flex-shrink: 0;
+            }
+            .pd-feature-icon i { font-size: 18px; color: var(--color-burgundy); }
+            .pd-feature-title { font-size: 13px; font-weight: 600; color: var(--color-dark); margin-bottom: 3px; }
+            .pd-feature-sub   { font-size: 12px; color: var(--color-gray-light); line-height: 1.4; }
+
+            /* Specifications tab */
+            .pd-specs-table {
+                width: 100%;
+                max-width: 600px;
+                border-collapse: collapse;
+            }
+            .pd-specs-table tr {
+                border-bottom: 1px solid var(--color-border);
+            }
+            .pd-specs-table tr:last-child { border-bottom: none; }
+            .pd-specs-table td {
+                padding: 14px 0;
+                font-size: 14px;
+            }
+            .pd-specs-table td:first-child {
+                width: 200px;
+                font-weight: 600;
+                color: var(--color-dark);
+            }
+            .pd-specs-table td:last-child {
+                color: var(--color-gray);
+            }
+
+            /* Delivery tab */
+            .pd-delivery-content { max-width: 640px; }
+            .pd-delivery-content p { font-size: 15px; color: var(--color-gray); line-height: 1.7; margin-bottom: 16px; }
+            .pd-delivery-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+            .pd-delivery-list li {
+                display: flex; align-items: flex-start; gap: 10px;
+                font-size: 14px; color: var(--color-gray); line-height: 1.5;
+            }
+            .pd-delivery-list li i { font-size: 16px; color: var(--color-burgundy); margin-top: 1px; flex-shrink: 0; }
+
+            /* ─────────────────────────────────────────
+               RELATED PRODUCTS
+            ───────────────────────────────────────── */
+            .pd-related {
+                padding: 52px 0 80px;
+            }
+
+            .pd-related-heading {
+                font-size: 22px;
+                font-weight: 700;
+                color: var(--color-dark);
+                letter-spacing: -0.4px;
+                margin-bottom: 24px;
+            }
+
+            .pd-related-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 20px;
+            }
+
+            /* Product card (shared with catalog) */
+            .pc-card {
+                display: flex; flex-direction: column;
+                background: #fff;
+                border: 1.5px solid var(--color-border);
+                border-radius: 14px;
+                overflow: hidden;
+                cursor: pointer;
+                transition: border-color var(--t-fast), box-shadow var(--t-fast), transform var(--t-fast);
+            }
+            .pc-card:hover { border-color: #ccc; box-shadow: 0 8px 32px rgba(0,0,0,0.08); transform: translateY(-2px); }
+            .pc-card-img-wrap { position: relative; aspect-ratio: 4/3; overflow: hidden; background: var(--color-bg-hover); }
+            .pc-card-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.35s ease; }
+            .pc-card:hover .pc-card-img-wrap img { transform: scale(1.04); }
+            .pc-badge { position: absolute; top: 11px; left: 11px; padding: 4px 9px; border-radius: 6px; font-size: 10px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: #fff; background: var(--color-burgundy); }
+            .pc-card-body { padding: 15px 16px 16px; flex: 1; display: flex; flex-direction: column; }
+            .pc-card-cat { font-size: 10.5px; font-weight: 500; color: var(--color-gray-light); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 5px; }
+            .pc-card-name { font-size: 14.5px; font-weight: 600; color: var(--color-dark); line-height: 1.3; margin-bottom: 11px; flex: 1; }
+            .pc-price-row { display: flex; align-items: baseline; gap: 7px; margin-bottom: 13px; }
+            .pc-price { font-size: 18px; font-weight: 700; color: var(--color-dark); letter-spacing: -0.3px; }
+            .pc-price.is-sale { color: var(--color-burgundy); }
+            .pc-price-old { font-size: 13px; color: var(--color-gray-light); text-decoration: line-through; }
+            .pc-card-btn { display: block; width: 100%; padding: 10px 16px; background: var(--color-burgundy); color: #fff; border: none; border-radius: 8px; font-family: var(--font-ui); font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; transition: background var(--t-fast); }
+            .pc-card-btn:hover { background: var(--color-burgundy-dark); }
+
+            /* ─────────────────────────────────────────
+               FOOTER
+            ───────────────────────────────────────── */
+            .footer-root { background: #000; color: #fff; padding: 72px var(--page-px) 40px; }
+            .footer-inner { max-width: var(--max-width); margin: 0 auto; }
+            .footer-top { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr 1.4fr; gap: 48px; padding-bottom: 52px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 52px; }
+            .footer-brand-logo { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; text-decoration: none; margin-bottom: 16px; }
+            .footer-brand-logo img { width: 60%; height: auto; filter: brightness(0) invert(1); }
+            .footer-brand-name { font-size: 16px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+            .footer-brand-desc { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.65; max-width: 220px; }
+            .footer-col-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 18px; }
+            .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+            .footer-links a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-links a:hover { color: #fff; }
+            .footer-contact-item { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+            .footer-contact-item svg { width: 15px; height: 15px; stroke: rgba(255,255,255,0.35); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+            .footer-contact-item a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-contact-item a:hover { color: #fff; }
+            .footer-locations { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 32px; }
+            .footer-loc-name { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+            .footer-loc-addr { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.55; margin-bottom: 8px; }
+            .footer-loc-phone { font-size: 13px; color: rgba(255,255,255,0.45); }
+            .footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+            .footer-copy-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+            .footer-copy { font-size: 13px; color: rgba(255,255,255,0.3); }
+            .footer-legal-link { font-size: 13px; color: rgba(255,255,255,0.3); text-decoration: none; transition: color var(--t-fast); }
+            .footer-legal-link:hover { color: #fff; }
+            .footer-socials { display: flex; gap: 10px; }
+            .footer-social-btn { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid rgba(255,255,255,0.15); text-decoration: none; transition: border-color var(--t-fast), background var(--t-fast); }
+            .footer-social-btn:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.08); }
+            .footer-social-btn i { font-size: 17px; color: rgba(255,255,255,0.6); }
+
+            /* ─────────────────────────────────────────
+               RESPONSIVE
+            ───────────────────────────────────────── */
+            @media (max-width: 1024px) {
+                .pd-hero-inner { grid-template-columns: 1fr; gap: 32px; }
+                .pd-features-grid { grid-template-columns: repeat(2, 1fr); }
+                .pd-related-grid { grid-template-columns: repeat(3, 1fr); }
+            }
+
+            @media (max-width: 768px) {
+                :root { --page-px: 24px; }
+                .pd-related-grid { grid-template-columns: repeat(2, 1fr); }
+                .pd-features-grid { grid-template-columns: 1fr; }
+                .pd-tabs-header { overflow-x: auto; }
+                .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+                .footer-top > div:first-child { grid-column: 1/-1; }
+                .footer-locations { grid-template-columns: 1fr; gap: 20px; }
+                .footer-bottom { flex-direction: column; align-items: flex-start; gap: 16px; }
+            }
+
+            @media (max-width: 639px) {
+                :root { --page-px: 16px; }
+                .pd-related-grid { grid-template-columns: 1fr; }
+                .pd-ctas { flex-direction: column; }
+                .footer-top { grid-template-columns: 1fr; }
+            }
+        </style>
+    </head>
+    <body>
+
+        <ncs-nav></ncs-nav>
+
+        <!-- ════════════════════════════════
+             BREADCRUMB BAR
+        ════════════════════════════════ -->
+        <div class="pd-breadcrumb-bar" data-comment="pd-breadcrumb-bar">
+            <div class="page-inner" data-comment="pd-breadcrumb-inner">
+                <nav class="pd-breadcrumb" data-comment="pd-breadcrumb" aria-label="Breadcrumb">
+                    <a href="index.html" data-comment="pd-bc-home">Home</a>
+                    <span class="pd-breadcrumb-sep" data-comment="pd-bc-sep1">›</span>
+                    <a href="catalog.html" id="pdBcCatalog" data-comment="pd-bc-catalog">Products</a>
+                    <span class="pd-breadcrumb-sep" data-comment="pd-bc-sep2">›</span>
+                    <a href="#" id="pdBcCategory" data-comment="pd-bc-category"></a>
+                    <span class="pd-breadcrumb-sep" data-comment="pd-bc-sep3">›</span>
+                    <span class="pd-breadcrumb-current" id="pdBcName" data-comment="pd-bc-name">Loading…</span>
+                </nav>
+            </div>
+        </div>
+
+        <!-- ════════════════════════════════
+             PRODUCT HERO
+        ════════════════════════════════ -->
+        <section class="pd-hero" data-comment="pd-hero-section">
+            <div class="page-inner pd-hero-inner" data-comment="pd-hero-inner">
+
+                <!-- ── Gallery ── -->
+                <div class="pd-gallery" data-comment="pd-gallery">
+                    <div class="pd-gallery-main" data-comment="pd-gallery-main">
+                        <img id="mainImg" src="" alt="" data-comment="pd-gallery-main-img" />
+                        <span id="pdSaleBadge" class="pd-gallery-badge" data-comment="pd-gallery-sale-badge" style="display:none">On Sale</span>
+                    </div>
+                    <div class="pd-thumbs" id="pdThumbs" data-comment="pd-thumbs">
+                        <!-- populated by JS -->
+                    </div>
+                </div>
+
+                <!-- ── Info panel ── -->
+                <div class="pd-info" data-comment="pd-info">
+
+                    <span class="pd-category-badge" id="pdCatBadge" data-comment="pd-cat-badge">Category</span>
+                    <h1 class="pd-name" id="pdName" data-comment="pd-name">Loading…</h1>
+
+                    <div class="pd-price-row" data-comment="pd-price-row">
+                        <span id="pdPriceOld" class="pd-price-old" data-comment="pd-price-old" style="display:none"></span>
+                        <span id="pdPrice" class="pd-price" data-comment="pd-price">—</span>
+                    </div>
+                    <p class="pd-price-note" data-comment="pd-price-note">Starting price — final price depends on selected options</p>
+
+                    <p class="pd-desc" id="pdDesc" data-comment="pd-desc">Loading…</p>
+
+                    <!-- Size options -->
+                    <div class="pd-options" id="pdSizeSection" data-comment="pd-size-section">
+                        <p class="pd-option-label" data-comment="pd-size-label">Size <span id="pdSelectedSize" data-comment="pd-selected-size"></span></p>
+                        <div class="pd-size-btns" id="pdSizeBtns" data-comment="pd-size-btns">
+                            <!-- populated by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Color options -->
+                    <div class="pd-options" id="pdColorSection" data-comment="pd-color-section">
+                        <p class="pd-option-label" data-comment="pd-color-label">Color <span id="pdSelectedColor" data-comment="pd-selected-color"></span></p>
+                        <div class="pd-color-swatches" id="pdColorSwatches" data-comment="pd-color-swatches">
+                            <!-- populated by JS -->
+                        </div>
+                    </div>
+
+                    <!-- CTA buttons -->
+                    <div class="pd-ctas" data-comment="pd-ctas">
+                        <button class="btn-primary" id="pdQuoteBtn" data-comment="pd-quote-btn" onclick="openQuote()">
+                            <i class="ri-price-tag-3-line"></i> Request a Quote
+                        </button>
+                        <button class="btn-outline" data-comment="pd-customize-btn">
+                            <i class="ri-box-3-line"></i> Customize This
+                        </button>
+                    </div>
+
+                    <!-- Trust badges -->
+                    <div class="pd-trust" data-comment="pd-trust">
+                        <div class="pd-trust-item" data-comment="pd-trust-delivery">
+                            <i class="ri-truck-line" data-comment="pd-trust-delivery-icon"></i>
+                            <span data-comment="pd-trust-delivery-text">Free delivery within 60 miles</span>
+                        </div>
+                        <div class="pd-trust-item" data-comment="pd-trust-rto">
+                            <i class="ri-calendar-check-line" data-comment="pd-trust-rto-icon"></i>
+                            <span data-comment="pd-trust-rto-text">Rent-to-Own from $117/mo — no large upfront cost</span>
+                        </div>
+                        <div class="pd-trust-item" data-comment="pd-trust-warranty">
+                            <i class="ri-shield-check-line" data-comment="pd-trust-warranty-icon"></i>
+                            <span data-comment="pd-trust-warranty-text">10-year structural warranty included</span>
+                        </div>
+                    </div>
+
+                </div><!-- /pd-info -->
+            </div>
+        </section>
+
+        <!-- ════════════════════════════════
+             TABS SECTION
+        ════════════════════════════════ -->
+        <section class="pd-tabs-section" data-comment="pd-tabs-section">
+            <div class="page-inner" data-comment="pd-tabs-inner">
+
+                <div class="pd-tabs-header" data-comment="pd-tabs-header">
+                    <button class="pd-tab-btn is-active" data-comment="pd-tab-btn-desc" onclick="switchTab('desc', this)">Description</button>
+                    <button class="pd-tab-btn" data-comment="pd-tab-btn-specs" onclick="switchTab('specs', this)">Specifications</button>
+                    <button class="pd-tab-btn" data-comment="pd-tab-btn-delivery" onclick="switchTab('delivery', this)">Delivery Info</button>
+                </div>
+
+                <!-- Description -->
+                <div class="pd-tab-panel is-active" id="tab-desc" data-comment="pd-tab-desc">
+                    <div class="pd-desc-text" id="pdLongDesc" data-comment="pd-long-desc">
+                        <!-- populated by JS -->
+                    </div>
+                    <div class="pd-features-grid" id="pdFeatures" data-comment="pd-features-grid">
+                        <!-- populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Specifications -->
+                <div class="pd-tab-panel" id="tab-specs" data-comment="pd-tab-specs">
+                    <table class="pd-specs-table" id="pdSpecsTable" data-comment="pd-specs-table">
+                        <!-- populated by JS -->
+                    </table>
+                </div>
+
+                <!-- Delivery -->
+                <div class="pd-tab-panel" id="tab-delivery" data-comment="pd-tab-delivery">
+                    <div class="pd-delivery-content" data-comment="pd-delivery-content">
+                        <p data-comment="pd-delivery-p1">NCS Barns offers free delivery within 60 miles of our three New York State locations — Philadelphia, Yorkville, and Sandy Creek. Deliveries beyond 60 miles are available at an additional per-mile charge.</p>
+                        <p data-comment="pd-delivery-p2">Our professional delivery team handles everything: transport, placement on your site, and leveling. Most deliveries are completed within 3–7 business days of order confirmation.</p>
+                        <ul class="pd-delivery-list" data-comment="pd-delivery-list">
+                            <li data-comment="pd-delivery-li1"><i class="ri-check-line" data-comment="pd-delivery-li1-icon"></i><span data-comment="pd-delivery-li1-text">Free delivery within 60 miles of any NCS location</span></li>
+                            <li data-comment="pd-delivery-li2"><i class="ri-check-line" data-comment="pd-delivery-li2-icon"></i><span data-comment="pd-delivery-li2-text">Professional placement and leveling included</span></li>
+                            <li data-comment="pd-delivery-li3"><i class="ri-check-line" data-comment="pd-delivery-li3-icon"></i><span data-comment="pd-delivery-li3-text">3–7 business day lead time after confirmation</span></li>
+                            <li data-comment="pd-delivery-li4"><i class="ri-check-line" data-comment="pd-delivery-li4-icon"></i><span data-comment="pd-delivery-li4-text">Site preparation guidance provided at no charge</span></li>
+                            <li data-comment="pd-delivery-li5"><i class="ri-check-line" data-comment="pd-delivery-li5-icon"></i><span data-comment="pd-delivery-li5-text">Relocation services available for existing structures</span></li>
+                        </ul>
+                        <p data-comment="pd-delivery-p3">Questions about your delivery area? Call us at <a href="tel:3156420209" data-comment="pd-delivery-phone">(315) 642-0209</a> or visit any of our three locations.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ════════════════════════════════
+             RELATED PRODUCTS
+        ════════════════════════════════ -->
+        <section class="pd-related" data-comment="pd-related-section">
+            <div class="page-inner" data-comment="pd-related-inner">
+                <h2 class="pd-related-heading" data-comment="pd-related-heading">You Might Also Like</h2>
+                <div class="pd-related-grid" id="pdRelatedGrid" data-comment="pd-related-grid">
+                    <!-- populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ════════════════════════════════
+             FOOTER
+        ════════════════════════════════ -->
+        <footer class="footer-root" data-comment="pd-footer-root">
+            <div class="footer-inner" data-comment="pd-footer-inner">
+                <div class="footer-top" data-comment="pd-footer-top">
+                    <div data-comment="pd-footer-brand">
+                        <a href="index.html" class="footer-brand-logo" data-comment="pd-footer-brand-logo">
+                            <img src="assets/Logo.png" alt="NCS Barns" data-comment="pd-footer-brand-img" />
+                            <span class="footer-brand-name" data-comment="pd-footer-brand-name">NCS Barns</span>
+                        </a>
+                        <p class="footer-brand-desc" data-comment="pd-footer-brand-desc">Handcrafted quality structures for the North Country — family owned &amp; operated since 1993.</p>
+                    </div>
+                    <div data-comment="pd-footer-col-products">
+                        <p class="footer-col-label" data-comment="pd-footer-products-label">Products</p>
+                        <ul class="footer-links" data-comment="pd-footer-products-links">
+                            <li data-comment="pd-fli-sheds"><a href="catalog.html?category=Sheds" data-comment="pd-fl-sheds">Sheds</a></li>
+                            <li data-comment="pd-fli-gazebos"><a href="catalog.html?category=Gazebos" data-comment="pd-fl-gazebos">Gazebos &amp; Pergolas</a></li>
+                            <li data-comment="pd-fli-hunting"><a href="catalog.html?category=Hunting+Blinds" data-comment="pd-fl-hunting">Hunting Blinds</a></li>
+                            <li data-comment="pd-fli-play"><a href="catalog.html?category=Play+Structures" data-comment="pd-fl-play">Play Structures</a></li>
+                            <li data-comment="pd-fli-furniture"><a href="catalog.html?category=Outdoor+Furniture" data-comment="pd-fl-furniture">Furniture</a></li>
+                            <li data-comment="pd-fli-homes"><a href="catalog.html?category=Custom+Homes" data-comment="pd-fl-homes">Homes &amp; Garages</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="pd-footer-col-company">
+                        <p class="footer-col-label" data-comment="pd-footer-company-label">Company</p>
+                        <ul class="footer-links" data-comment="pd-footer-company-links">
+                            <li data-comment="pd-fli-about"><a href="#" data-comment="pd-fl-about">About Us</a></li>
+                            <li data-comment="pd-fli-testimonials"><a href="#" data-comment="pd-fl-testimonials">Testimonials</a></li>
+                            <li data-comment="pd-fli-gallery"><a href="gallery.html" data-comment="pd-fl-gallery">Gallery</a></li>
+                            <li data-comment="pd-fli-delivery"><a href="#" data-comment="pd-fl-delivery">Delivery &amp; Relocation</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="pd-footer-col-buying">
+                        <p class="footer-col-label" data-comment="pd-footer-buying-label">Buying Process</p>
+                        <ul class="footer-links" data-comment="pd-footer-buying-links">
+                            <li data-comment="pd-fli-rto"><a href="#" data-comment="pd-fl-rto">Rent-To-Own</a></li>
+                            <li data-comment="pd-fli-financing"><a href="#" data-comment="pd-fl-financing">Financing Options</a></li>
+                            <li data-comment="pd-fli-siteprep"><a href="#" data-comment="pd-fl-siteprep">Site Preparation</a></li>
+                            <li data-comment="pd-fli-warranty"><a href="#" data-comment="pd-fl-warranty">Warranty</a></li>
+                            <li data-comment="pd-fli-dealers"><a href="#" data-comment="pd-fl-dealers">Dealers</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="pd-footer-col-contact">
+                        <p class="footer-col-label" data-comment="pd-footer-contact-label">Contact</p>
+                        <div class="footer-contact-item" data-comment="pd-footer-phone">
+                            <svg viewBox="0 0 24 24" data-comment="pd-footer-phone-icon"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l1.64-1.64a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <a href="tel:3156420209" data-comment="pd-footer-phone-link">(315) 642-0209</a>
+                        </div>
+                        <div class="footer-contact-item" data-comment="pd-footer-email">
+                            <svg viewBox="0 0 24 24" data-comment="pd-footer-email-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            <a href="mailto:sales@ncsbarns.com" data-comment="pd-footer-email-link">sales@ncsbarns.com</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-locations" data-comment="pd-footer-locations">
+                    <div data-comment="pd-footer-loc-phila">
+                        <p class="footer-loc-name" data-comment="pd-footer-loc-phila-name">Philadelphia</p>
+                        <p class="footer-loc-addr" data-comment="pd-footer-loc-phila-addr">32660 US Route 11<br>Philadelphia, NY 13673</p>
+                        <p class="footer-loc-phone" data-comment="pd-footer-loc-phila-phone">(315) 642-0209</p>
+                    </div>
+                    <div data-comment="pd-footer-loc-york">
+                        <p class="footer-loc-name" data-comment="pd-footer-loc-york-name">Yorkville</p>
+                        <p class="footer-loc-addr" data-comment="pd-footer-loc-york-addr">317 Oriskany Blvd<br>Yorkville, NY</p>
+                        <p class="footer-loc-phone" data-comment="pd-footer-loc-york-phone">(315) 793-0726</p>
+                    </div>
+                    <div data-comment="pd-footer-loc-sandy">
+                        <p class="footer-loc-name" data-comment="pd-footer-loc-sandy-name">Sandy Creek</p>
+                        <p class="footer-loc-addr" data-comment="pd-footer-loc-sandy-addr">5780 US Route 11<br>Pulaski, NY 13142</p>
+                        <p class="footer-loc-phone" data-comment="pd-footer-loc-sandy-phone">(315) 387-2092</p>
+                    </div>
+                </div>
+                <div class="footer-bottom" data-comment="pd-footer-bottom">
+                    <div class="footer-copy-row" data-comment="pd-footer-copy-row">
+                        <p class="footer-copy" data-comment="pd-footer-copy">&copy; 2026 North Country Storage Barns. All rights reserved.</p>
+                        <a href="#" class="footer-legal-link" data-comment="pd-footer-privacy">Privacy Policy</a>
+                        <a href="#" class="footer-legal-link" data-comment="pd-footer-terms">Terms &amp; Conditions</a>
+                    </div>
+                    <div class="footer-socials" data-comment="pd-footer-socials">
+                        <a href="https://www.tiktok.com/@northcountrystoragebarns" target="_blank" class="footer-social-btn" data-comment="pd-footer-tiktok" aria-label="TikTok"><i class="ri-tiktok-fill" data-comment="pd-footer-tiktok-icon"></i></a>
+                        <a href="https://www.facebook.com/ifyouneedmeillbeinmyshed/" target="_blank" class="footer-social-btn" data-comment="pd-footer-facebook" aria-label="Facebook"><i class="ri-facebook-fill" data-comment="pd-footer-facebook-icon"></i></a>
+                        <a href="https://www.instagram.com/northcountrystoragebarns/" target="_blank" class="footer-social-btn" data-comment="pd-footer-instagram" aria-label="Instagram"><i class="ri-instagram-fill" data-comment="pd-footer-instagram-icon"></i></a>
+                        <a href="#" class="footer-social-btn" data-comment="pd-footer-google" aria-label="Google"><i class="ri-google-fill" data-comment="pd-footer-google-icon"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+        /* ═══════════════════════════════════════════════
+           PRODUCT DATA  (same as catalog.html)
+        ═══════════════════════════════════════════════ */
+        const PRODUCTS = [
+            { id:1,  name:'Classic Barn 8×8',           category:'Sheds',             style:'Gambrel',     size:'Small',  price:2200, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80' },
+            { id:2,  name:'Classic Barn 8×12',          category:'Sheds',             style:'Gambrel',     size:'Small',  price:2800, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80' },
+            { id:3,  name:'Classic Barn 10×12',         category:'Sheds',             style:'Gambrel',     size:'Small',  price:3400, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80' },
+            { id:4,  name:'Classic Barn 10×16',         category:'Sheds',             style:'Gambrel',     size:'Medium', price:4100, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80' },
+            { id:5,  name:'Classic Barn 12×16',         category:'Sheds',             style:'Gambrel',     size:'Medium', price:4800, sale:4200, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80' },
+            { id:6,  name:'Classic Barn 12×20',         category:'Sheds',             style:'Gambrel',     size:'Medium', price:5900, sale:null, rto:true,  instock:false, img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80' },
+            { id:7,  name:'Classic Barn 14×24',         category:'Sheds',             style:'Gambrel',     size:'Large',  price:7200, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80' },
+            { id:8,  name:'Lofted Barn 10×12',          category:'Sheds',             style:'Lofted Barn', size:'Small',  price:3800, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&q=80' },
+            { id:9,  name:'Lofted Barn 12×16',          category:'Sheds',             style:'Lofted Barn', size:'Medium', price:5200, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&q=80' },
+            { id:10, name:'A-Frame Shed 10×12',         category:'Sheds',             style:'A-Frame',     size:'Small',  price:3100, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80' },
+            { id:11, name:'Cabin Shed 12×20',           category:'Sheds',             style:'Cabin',       size:'Medium', price:6400, sale:null, rto:true,  instock:false, img:'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&q=80' },
+            { id:12, name:'Ranch Shed 14×28',           category:'Sheds',             style:'Ranch',       size:'Large',  price:8900, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80' },
+            { id:13, name:'Cedar Gazebo 10×10',         category:'Gazebos',           style:'Gazebo',      size:'Small',  price:3200, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80' },
+            { id:14, name:'Cedar Gazebo 12×12',         category:'Gazebos',           style:'Gazebo',      size:'Medium', price:4100, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80' },
+            { id:15, name:'Vinyl Pergola 12×16',        category:'Gazebos',           style:'Pergola',     size:'Medium', price:3800, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=800&q=80' },
+            { id:16, name:'Wood Pavilion 14×20',        category:'Gazebos',           style:'Pavilion',    size:'Large',  price:5600, sale:null, rto:true,  instock:false, img:'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80' },
+            { id:17, name:'Screen Gazebo 10×10',        category:'Gazebos',           style:'Gazebo',      size:'Small',  price:3500, sale:3100, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80' },
+            { id:18, name:'Corner Pergola 10×12',       category:'Gazebos',           style:'Pergola',     size:'Small',  price:2900, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=800&q=80' },
+            { id:19, name:'4×4 Tower Blind',            category:'Hunting Blinds',    style:'Tower',       size:'Small',  price:1400, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=800&q=80' },
+            { id:20, name:'4×6 Elevated Blind',         category:'Hunting Blinds',    style:'Elevated',    size:'Small',  price:1900, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=800&q=80' },
+            { id:21, name:'5×6 Deluxe Elevated Blind',  category:'Hunting Blinds',    style:'Elevated',    size:'Small',  price:2400, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=800&q=80' },
+            { id:22, name:'4×4 Box Blind',              category:'Hunting Blinds',    style:'Box',         size:'Small',  price:1200, sale:999,  rto:false, instock:true,  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=800&q=80' },
+            { id:23, name:'6×6 Executive Tower Blind',  category:'Hunting Blinds',    style:'Tower',       size:'Medium', price:3100, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=800&q=80' },
+            { id:24, name:'Adventure Playset',          category:'Play Structures',   style:'Playset',     size:'Medium', price:2200, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=800&q=80' },
+            { id:25, name:'Deluxe Swing Set',           category:'Play Structures',   style:'Swing Set',   size:'Medium', price:3400, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=800&q=80' },
+            { id:26, name:'Sandbox Playset',            category:'Play Structures',   style:'Sandbox',     size:'Small',  price:1800, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=800&q=80' },
+            { id:27, name:'Premium Fort &amp; Slide Set', category:'Play Structures', style:'Fort',        size:'Large',  price:4100, sale:null, rto:true,  instock:false, img:'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=800&q=80' },
+            { id:28, name:'4-Hen Chicken Coop',         category:'Animal Structures', style:'Coop',        size:'Small',  price:680,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=800&q=80' },
+            { id:29, name:'8-Hen Chicken Coop',         category:'Animal Structures', style:'Coop',        size:'Small',  price:1100, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=800&q=80' },
+            { id:30, name:'Dog Kennel 10×10',           category:'Animal Structures', style:'Kennel',      size:'Small',  price:950,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=800&q=80' },
+            { id:31, name:'Horse Loafing Shed 12×24',   category:'Animal Structures', style:'Loafing Shed',size:'Large',  price:4800, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80' },
+            { id:32, name:'Barnwood Coffee Table',      category:'Indoor Furniture',  style:'Table',       size:null,     price:480,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=800&q=80' },
+            { id:33, name:'Log Bed Frame Queen',        category:'Indoor Furniture',  style:'Bed Frame',   size:null,     price:890,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&q=80' },
+            { id:34, name:'Adirondack End Table',       category:'Indoor Furniture',  style:'Table',       size:null,     price:220,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=800&q=80' },
+            { id:35, name:'Rustic Bookshelf',           category:'Indoor Furniture',  style:'Storage',     size:null,     price:340,  sale:295,  rto:false, instock:true,  img:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80' },
+            { id:36, name:'Classic Adirondack Chair',   category:'Outdoor Furniture', style:'Chair',       size:null,     price:285,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1592078615290-033ee584e267?w=800&q=80' },
+            { id:37, name:'Cedar Picnic Table 6ft',     category:'Outdoor Furniture', style:'Table',       size:null,     price:520,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1597208751520-49ca90e8c28e?w=800&q=80' },
+            { id:38, name:'Porch Swing 5ft',            category:'Outdoor Furniture', style:'Swing',       size:null,     price:440,  sale:380,  rto:false, instock:true,  img:'https://images.unsplash.com/photo-1597208751520-49ca90e8c28e?w=800&q=80' },
+            { id:39, name:'Cedar Bench 4ft',            category:'Outdoor Furniture', style:'Bench',       size:null,     price:290,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1592078615290-033ee584e267?w=800&q=80' },
+            { id:40, name:'Outdoor Bar Table Set',      category:'Outdoor Furniture', style:'Table',       size:null,     price:680,  sale:null, rto:false, instock:false, img:'https://images.unsplash.com/photo-1597208751520-49ca90e8c28e?w=800&q=80' },
+            { id:41, name:'Barn Star Decor',            category:'Decor & More',      style:'Decor',       size:null,     price:45,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=80' },
+            { id:42, name:'Wooden Planter Box',         category:'Decor & More',      style:'Planter',     size:null,     price:95,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=80' },
+            { id:43, name:'Rustic Mailbox Post',        category:'Decor & More',      style:'Mailbox',     size:null,     price:185,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=80' },
+            { id:44, name:'Returned Barn 10×12',        category:'Returned Rentals',  style:'Gambrel',     size:'Small',  price:1800, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80' },
+            { id:45, name:'Returned Lofted Barn 12×16', category:'Returned Rentals',  style:'Lofted Barn', size:'Medium', price:2900, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&q=80' },
+            { id:46, name:'Returned A-Frame 8×12',      category:'Returned Rentals',  style:'A-Frame',     size:'Small',  price:1500, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80' },
+        ];
+
+        /* ═══════════════════════════════════════════════
+           EXTENDED PRODUCT DETAILS  (per-product extras)
+        ═══════════════════════════════════════════════ */
+        const PRODUCT_DETAILS = {
+            /* keyed by category — default for any product in that category */
+            'Sheds': {
+                desc: 'Our handcrafted storage sheds combine durable construction with classic barn aesthetics. Built right here in New York State, each shed is engineered to handle harsh North Country winters while providing years of reliable storage. All sheds are customizable — choose your siding, roofing, doors, and color to perfectly match your property.',
+                desc2: 'Whether you need a simple storage solution or a fully upgraded workshop, our sheds are built to last. Available in multiple sizes and styles, with delivery and placement included.',
+                features: [
+                    { icon: 'ri-hammer-line',      title: 'Pressure-Treated Floor',   sub: 'Kiln-dried lumber treated for moisture resistance' },
+                    { icon: 'ri-wind-line',         title: 'Weather-Sealed Siding',    sub: 'LP SmartSide or T1-11 options available' },
+                    { icon: 'ri-lock-line',         title: 'Secure Double Doors',      sub: '6-ft double door standard; upgrades available' },
+                    { icon: 'ri-sun-line',          title: 'Skylight Option',          sub: 'Operable roof skylights add natural light' },
+                    { icon: 'ri-color-filter-line', title: 'Custom Colors',            sub: 'Over 30 color combinations available' },
+                    { icon: 'ri-tools-line',        title: 'Pre-built or On-site',     sub: 'Modular panels for tight access sites' },
+                ],
+                specs: [
+                    ['Wall Height',      '7 ft standard (8 ft available)'],
+                    ['Roof Style',       'Gambrel / Lofted / A-Frame / Cabin'],
+                    ['Door Size',        '6 ft wide × 6 ft tall (standard)'],
+                    ['Siding Material',  'LP SmartSide or T1-11'],
+                    ['Roof Material',    '30-year architectural shingles'],
+                    ['Floor',           'Pressure-treated 4×4 skids + ¾" plywood'],
+                    ['Warranty',        '10-year structural, 30-year shingles'],
+                ],
+                sizes: ['8×8', '8×12', '10×12', '10×16', '12×16', '12×20', '14×24'],
+                colors: ['#7B5C40','#9EA4AD','#FFFFFF','#E8DFC8','#4A6741','#8B1A2A'],
+                colorNames: ['Brown','Gray','White','Tan','Green','Red'],
+                gallery: ['?w=800&q=80','?w=800&q=80&sat=-40','?w=800&q=80&hue=20','?w=800&q=80&sharp=10'],
+            },
+            'Gazebos': {
+                desc: 'Transform your outdoor space with a handcrafted NCS Barns gazebo, pergola, or pavilion. Each structure is built with premium cedar or pressure-treated lumber and finished to withstand New York weather year-round.',
+                desc2: 'Our outdoor structures are designed to complement any yard — from intimate backyard retreats to large entertaining pavilions. All structures can be customized with screen enclosures, railings, and electrical rough-ins.',
+                features: [
+                    { icon: 'ri-tree-line',         title: 'Premium Cedar Wood',        sub: 'Naturally rot and insect resistant' },
+                    { icon: 'ri-shield-line',        title: 'Weather Treated',           sub: 'UV and moisture protective finish' },
+                    { icon: 'ri-layout-line',        title: 'Screen Enclosure Option',   sub: 'Full-perimeter screen kits available' },
+                    { icon: 'ri-flashlight-line',    title: 'Electrical Ready',          sub: 'Rough-in conduit included on request' },
+                    { icon: 'ri-ruler-line',         title: 'Custom Sizing',             sub: 'Any size from 10×10 to 20×30' },
+                    { icon: 'ri-tools-line',         title: 'On-site Assembly',          sub: 'Fully assembled and placed by our crew' },
+                ],
+                specs: [
+                    ['Post Size',        '6×6 pressure-treated'],
+                    ['Beam Material',    'Cedar or pressure-treated pine'],
+                    ['Roof Style',       'Hip / Gable / Octagonal'],
+                    ['Roofing',         '30-year architectural shingles'],
+                    ['Floor',           'Treated deck boards (optional)'],
+                    ['Warranty',        '10-year structural'],
+                ],
+                sizes: ['10×10', '12×12', '14×14', '12×16', '14×20'],
+                colors: ['#7B5C40','#9EA4AD','#FFFFFF','#4A6741'],
+                colorNames: ['Brown','Gray','White','Green'],
+                gallery: ['?w=800&q=80','?w=800&q=80','?w=800&q=80','?w=800&q=80'],
+            },
+            'Hunting Blinds': {
+                desc: 'Built specifically for North Country hunters, our hunting blinds are designed for comfort, concealment, and durability. Each blind features solid construction with tight-fitting windows, insulated walls, and full weatherproofing.',
+                desc2: 'From basic box blinds to elevated tower blinds with staircases, we have options for every terrain and budget.',
+                features: [
+                    { icon: 'ri-eye-off-line',     title: 'Full Camo Exterior',       sub: 'Bark textured siding standard' },
+                    { icon: 'ri-temp-cold-line',   title: 'Insulated Walls',          sub: 'R-13 wall insulation keeps you warm' },
+                    { icon: 'ri-window-line',      title: 'Sliding Windows',          sub: 'Silent operation, 360° coverage' },
+                    { icon: 'ri-home-2-line',      title: 'Elevated Options',         sub: 'Tower stands from 6 to 12 ft' },
+                    { icon: 'ri-tools-line',       title: 'Staircase Included',       sub: 'Locking staircase on elevated models' },
+                    { icon: 'ri-lock-line',        title: 'Lockable Door',            sub: 'Keyed entry on all models' },
+                ],
+                specs: [
+                    ['Wall Construction', '2×4 framing, OSB sheathing'],
+                    ['Insulation',        'R-13 fiberglass batt'],
+                    ['Windows',          '4–6 sliding windows per blind'],
+                    ['Door',             '30" exterior door with lock'],
+                    ['Elevation',        'Ground-level or tower (6–12 ft)'],
+                    ['Warranty',         '5-year structural'],
+                ],
+                sizes: ['4×4', '4×6', '5×6', '6×6'],
+                colors: ['#7B5C40','#4A6741','#52575F'],
+                colorNames: ['Brown','Camo Green','Gray'],
+                gallery: ['?w=800&q=80','?w=800&q=80','?w=800&q=80','?w=800&q=80'],
+            },
+            'default': {
+                desc: 'Quality-built by North Country Storage Barns — family owned and operated in New York State since 1993. Every product is crafted with care using premium materials and backed by our satisfaction guarantee.',
+                desc2: 'Available in multiple configurations. Contact us for custom sizing and color options. Free delivery within 60 miles of our locations.',
+                features: [
+                    { icon: 'ri-hammer-line',     title: 'Handcrafted Quality',    sub: 'Built by skilled local craftsmen' },
+                    { icon: 'ri-shield-line',     title: 'Warranty Included',      sub: 'Structural warranty on all products' },
+                    { icon: 'ri-truck-line',      title: 'Free Delivery',          sub: 'Within 60 miles of our locations' },
+                    { icon: 'ri-tools-line',      title: 'Customizable',           sub: 'Colors, sizes, and options available' },
+                ],
+                specs: [
+                    ['Material',   'Premium treated lumber'],
+                    ['Warranty',  'Structural warranty included'],
+                    ['Delivery',  'Free within 60 miles'],
+                ],
+                sizes: [],
+                colors: ['#7B5C40','#9EA4AD','#FFFFFF'],
+                colorNames: ['Brown','Gray','White'],
+                gallery: ['?w=800&q=80','?w=800&q=80','?w=800&q=80','?w=800&q=80'],
+            },
+        };
+
+        /* ═══════════════════════════════════════════════
+           INIT  — read ?id= and render
+        ═══════════════════════════════════════════════ */
+        function init() {
+            const id = parseInt(new URLSearchParams(window.location.search).get('id'));
+            const product = PRODUCTS.find(p => p.id === id) || PRODUCTS[0];
+            renderProduct(product);
+        }
+
+        function renderProduct(p) {
+            const detail = PRODUCT_DETAILS[p.category] || PRODUCT_DETAILS['default'];
+            const catSlug = p.category.replace(/ /g, '+').replace(/&.*/, '').trim();
+
+            /* page title */
+            document.title = 'NCS Barns — ' + p.name;
+
+            /* breadcrumb */
+            document.getElementById('pdBcCategory').textContent = p.category;
+            document.getElementById('pdBcCategory').href = 'catalog.html?category=' + catSlug;
+            document.getElementById('pdBcCatalog').href = 'catalog.html?category=' + catSlug;
+            document.getElementById('pdBcName').textContent = p.name;
+
+            /* gallery */
+            const mainImg = document.getElementById('mainImg');
+            mainImg.src = p.img;
+            mainImg.alt = p.name;
+
+            /* gallery thumbnails — use same image with slight variation */
+            const thumbUrls = [
+                p.img,
+                p.img.replace('w=800', 'w=800').replace('q=80', 'q=75'),
+                p.img.replace('photo-', 'photo-'),  /* same for now */
+                p.img,
+            ];
+            /* pick category-appropriate second/third images */
+            const altImgs = getCategoryAltImages(p.category, p.img);
+            const allThumbs = [p.img, altImgs[0] || p.img, altImgs[1] || p.img, altImgs[2] || p.img];
+
+            document.getElementById('pdThumbs').innerHTML = allThumbs.map((url, i) => `
+                <div class="pd-thumb${i === 0 ? ' is-active' : ''}" data-comment="pd-thumb-${i+1}" onclick="switchImage('${url}', this)">
+                    <img src="${url}" alt="${p.name} view ${i+1}" loading="lazy" data-comment="pd-thumb-${i+1}-img" />
+                </div>`).join('');
+
+            /* sale badge */
+            if (p.sale) document.getElementById('pdSaleBadge').style.display = '';
+
+            /* info panel */
+            document.getElementById('pdCatBadge').textContent = p.category;
+            document.getElementById('pdName').textContent = p.name;
+
+            const ep = p.sale ?? p.price;
+            document.getElementById('pdPrice').textContent = '$' + ep.toLocaleString();
+            document.getElementById('pdPrice').classList.toggle('is-sale', !!p.sale);
+            if (p.sale) {
+                document.getElementById('pdPriceOld').style.display = '';
+                document.getElementById('pdPriceOld').textContent = '$' + p.price.toLocaleString();
+            }
+            document.getElementById('pdDesc').textContent = detail.desc;
+
+            /* size buttons */
+            const sizeSec = document.getElementById('pdSizeSection');
+            if (detail.sizes && detail.sizes.length > 0) {
+                const sizeToSelect = p.size ? detail.sizes.find(s => s.includes(p.size.charAt(0).toLowerCase())) || detail.sizes[0] : detail.sizes[0];
+                document.getElementById('pdSizeBtns').innerHTML = detail.sizes.map((s, i) => `
+                    <button class="pd-size-btn${i === 0 ? ' is-active' : ''}" data-comment="pd-size-${i+1}"
+                        onclick="selectSize(this, '${s}')">${s}</button>`).join('');
+                document.getElementById('pdSelectedSize').textContent = '— ' + detail.sizes[0];
+            } else {
+                sizeSec.style.display = 'none';
+            }
+
+            /* color swatches */
+            document.getElementById('pdColorSwatches').innerHTML = detail.colors.map((hex, i) => `
+                <button class="pd-color-swatch${i === 0 ? ' is-active' : ''}"
+                    style="background:${hex}; border-color:${i === 0 ? 'transparent' : 'transparent'}"
+                    title="${detail.colorNames[i]}"
+                    data-comment="pd-color-${i+1}"
+                    onclick="selectColor(this, '${detail.colorNames[i]}')"></button>`).join('');
+            document.getElementById('pdSelectedColor').textContent = '— ' + detail.colorNames[0];
+
+            /* long description + features */
+            document.getElementById('pdLongDesc').innerHTML = `<p>${detail.desc}</p><p>${detail.desc2}</p>`;
+
+            document.getElementById('pdFeatures').innerHTML = detail.features.map((f, i) => `
+                <div class="pd-feature-item" data-comment="pd-feature-${i+1}">
+                    <div class="pd-feature-icon" data-comment="pd-feature-${i+1}-icon"><i class="${f.icon}"></i></div>
+                    <div data-comment="pd-feature-${i+1}-text">
+                        <p class="pd-feature-title" data-comment="pd-feature-${i+1}-title">${f.title}</p>
+                        <p class="pd-feature-sub" data-comment="pd-feature-${i+1}-sub">${f.sub}</p>
+                    </div>
+                </div>`).join('');
+
+            /* specs */
+            const specsRows = [...detail.specs];
+            if (p.size) specsRows.unshift(['Dimensions', p.size.replace('×', '\'×') + '\'']);
+            document.getElementById('pdSpecsTable').innerHTML = specsRows.map((row, i) => `
+                <tr data-comment="pd-spec-row-${i+1}">
+                    <td data-comment="pd-spec-${i+1}-key">${row[0]}</td>
+                    <td data-comment="pd-spec-${i+1}-val">${row[1]}</td>
+                </tr>`).join('');
+
+            /* related products — same category, different id */
+            const related = PRODUCTS
+                .filter(r => r.category === p.category && r.id !== p.id)
+                .slice(0, 4);
+            const fallback = PRODUCTS.filter(r => r.id !== p.id).slice(0, 4 - related.length);
+            const relList = [...related, ...fallback].slice(0, 4);
+
+            document.getElementById('pdRelatedGrid').innerHTML = relList.map((r, i) => {
+                const rep = r.sale ?? r.price;
+                return `
+                <div class="pc-card" data-comment="pd-rel-card-${i+1}" onclick="window.location='product.html?id=${r.id}'">
+                    <div class="pc-card-img-wrap" data-comment="pd-rel-card-${i+1}-img-wrap">
+                        <img src="${r.img}" alt="${r.name}" loading="lazy" data-comment="pd-rel-card-${i+1}-img" />
+                        ${r.sale ? `<span class="pc-badge" data-comment="pd-rel-card-${i+1}-badge">On Sale</span>` : ''}
+                    </div>
+                    <div class="pc-card-body" data-comment="pd-rel-card-${i+1}-body">
+                        <p class="pc-card-cat" data-comment="pd-rel-card-${i+1}-cat">${r.category}</p>
+                        <h3 class="pc-card-name" data-comment="pd-rel-card-${i+1}-name">${r.name}</h3>
+                        <div class="pc-price-row" data-comment="pd-rel-card-${i+1}-price-row">
+                            ${r.sale ? `<span class="pc-price-old" data-comment="pd-rel-card-${i+1}-price-old">$${r.price.toLocaleString()}</span>` : ''}
+                            <span class="pc-price${r.sale ? ' is-sale' : ''}" data-comment="pd-rel-card-${i+1}-price">$${rep.toLocaleString()}</span>
+                        </div>
+                        <a class="pc-card-btn" href="product.html?id=${r.id}" onclick="event.stopPropagation()" data-comment="pd-rel-card-${i+1}-btn">More Details</a>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        /* ── Category alternative gallery images ── */
+        function getCategoryAltImages(cat, primary) {
+            const altMap = {
+                'Sheds':             ['https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80','https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&q=80','https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80'],
+                'Gazebos':           ['https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=800&q=80','https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80','https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80'],
+                'Hunting Blinds':    ['https://images.unsplash.com/photo-1448375240586-882707db888b?w=800&q=80','https://images.unsplash.com/photo-1448375240586-882707db888b?w=800&q=75','https://images.unsplash.com/photo-1448375240586-882707db888b?w=800&q=70'],
+                'Play Structures':   ['https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=800&q=80','https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=800&q=75','https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=800&q=70'],
+                'Animal Structures': ['https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80','https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=800&q=75','https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=800&q=70'],
+                'Indoor Furniture':  ['https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&q=80','https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80','https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=800&q=75'],
+                'Outdoor Furniture': ['https://images.unsplash.com/photo-1592078615290-033ee584e267?w=800&q=80','https://images.unsplash.com/photo-1597208751520-49ca90e8c28e?w=800&q=75','https://images.unsplash.com/photo-1592078615290-033ee584e267?w=800&q=75'],
+                'Decor & More':      ['https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=75','https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=70','https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=65'],
+            };
+            const alts = altMap[cat] || [primary, primary, primary];
+            return alts.filter(u => u !== primary);
+        }
+
+        /* ═══════════════════════════════════════════════
+           INTERACTIONS
+        ═══════════════════════════════════════════════ */
+        function switchImage(url, thumbEl) {
+            const mainImg = document.getElementById('mainImg');
+            mainImg.classList.add('fading');
+            setTimeout(() => {
+                mainImg.src = url;
+                mainImg.classList.remove('fading');
+            }, 200);
+            document.querySelectorAll('.pd-thumb').forEach(t => t.classList.remove('is-active'));
+            thumbEl.classList.add('is-active');
+        }
+
+        function switchTab(id, btn) {
+            document.querySelectorAll('.pd-tab-panel').forEach(p => p.classList.remove('is-active'));
+            document.querySelectorAll('.pd-tab-btn').forEach(b => b.classList.remove('is-active'));
+            document.getElementById('tab-' + id).classList.add('is-active');
+            btn.classList.add('is-active');
+        }
+
+        function selectSize(btn, size) {
+            document.querySelectorAll('.pd-size-btn').forEach(b => b.classList.remove('is-active'));
+            btn.classList.add('is-active');
+            document.getElementById('pdSelectedSize').textContent = '— ' + size;
+        }
+
+        function selectColor(btn, name) {
+            document.querySelectorAll('.pd-color-swatch').forEach(b => b.classList.remove('is-active'));
+            btn.classList.add('is-active');
+            document.getElementById('pdSelectedColor').textContent = '— ' + name;
+        }
+
+        function openQuote() {
+            /* trigger the quote modal from index.html if it exists; otherwise alert */
+            const overlay = document.getElementById('quoteOverlay');
+            if (overlay) {
+                overlay.classList.add('is-open');
+                document.body.style.overflow = 'hidden';
+            } else {
+                alert('Please call us at (315) 642-0209 or email sales@ncsbarns.com to request a quote.');
+            }
+        }
+
+        /* ═══════════════════════════════════════════════
+           BOOT
+        ═══════════════════════════════════════════════ */
+        document.addEventListener('DOMContentLoaded', init);
+        </script>
+    </body>
+</html>
