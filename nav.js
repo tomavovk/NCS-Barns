@@ -939,7 +939,7 @@
             <div class="nav-inner" data-comment="nav-inner">
 
                 <!-- Logo -->
-                <a href="index.html" class="nav-logo" data-comment="nav-logo">
+                <a href="home.html" class="nav-logo" data-comment="nav-logo">
                     <img
                         src="assets/Logo.png"
                         alt="NCS Barns"
@@ -1263,7 +1263,7 @@
 
             <!-- Header -->
             <div class="mobile-nav-header" data-comment="mobile-nav-header">
-                <a href="index.html" class="mobile-nav-logo" data-comment="mobile-nav-logo">
+                <a href="home.html" class="mobile-nav-logo" data-comment="mobile-nav-logo">
                     <img src="assets/Logo.png" alt="NCS Barns" class="mobile-nav-logo-img" data-comment="mobile-nav-logo-img" />
                     <span class="mobile-nav-logo-name" data-comment="mobile-nav-logo-name">NCS Barns</span>
                 </a>
