@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Care Guide — NCS Barns</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+            rel="stylesheet" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+            rel="stylesheet" />
+        <script src="nav.js" defer></script>
+
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            :root {
+                --color-burgundy:       #8B1A2A;
+                --color-burgundy-dark:  #6D1420;
+                --color-dark:           #1C1F24;
+                --color-gray:           #514C4A;
+                --color-gray-light:     #9A9390;
+                --color-border:         #E6E2DD;
+                --color-bg:             #F8F6F4;
+                --color-bg-hover:       #F4F1EE;
+                --color-bg-menu:        #FAFAF8;
+
+                --font-ui: 'Inter', sans-serif;
+
+                --nav-height: 72px;
+                --max-width:  1440px;
+                --page-px:    40px;
+
+                --t-fast: 0.15s ease;
+                --t-med:  0.22s ease;
+            }
+
+            body {
+                font-family: var(--font-ui);
+                background: var(--color-bg);
+                color: var(--color-dark);
+            }
+
+            .sp-page {
+                max-width: var(--max-width);
+                margin: 0 auto;
+                padding: 0 var(--page-px);
+                padding-top: 48px;
+                padding-bottom: 96px;
+            }
+
+            .sp-page-title {
+                font-size: clamp(28px, 3vw, 38px);
+                font-weight: 600;
+                letter-spacing: -0.02em;
+                color: var(--color-dark);
+                line-height: 1.15;
+                margin-bottom: 28px;
+            }
+
+            .sp-section {
+                display: grid;
+                grid-template-columns: 320px 1fr;
+                gap: 64px;
+                padding: 56px 0;
+                border-top: 1px solid var(--color-border);
+            }
+
+            .sp-section:last-of-type {
+                border-bottom: 1px solid var(--color-border);
+            }
+
+            .sp-col-label {
+                padding-top: 4px;
+            }
+
+            .sp-section-heading {
+                font-size: clamp(22px, 2.4vw, 30px);
+                font-weight: 700;
+                letter-spacing: -0.025em;
+                color: var(--color-dark);
+                line-height: 1.2;
+            }
+
+            .sp-section-label {
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                color: var(--color-gray-light);
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            .sp-col-content {
+                display: flex;
+                flex-direction: column;
+                gap: 28px;
+            }
+
+            .sp-sub-heading {
+                font-size: 16px;
+                font-weight: 650;
+                color: var(--color-dark);
+                letter-spacing: -0.01em;
+                margin-bottom: 8px;
+            }
+
+            .sp-body {
+                font-size: 15px;
+                line-height: 1.7;
+                color: var(--color-gray);
+            }
+
+            .sp-group {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .sp-group-header {
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 0.04em;
+                text-transform: uppercase;
+                color: var(--color-gray-light);
+                padding-bottom: 14px;
+                border-bottom: 1px solid var(--color-border);
+            }
+
+            .sp-group + .sp-group {
+                margin-top: 8px;
+                padding-top: 36px;
+                border-top: 1px solid var(--color-border);
+            }
+
+            .sp-step {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .sp-step-chip {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: var(--color-burgundy);
+                margin-bottom: 4px;
+            }
+
+            .sp-step-chip::before {
+                content: '';
+                display: inline-block;
+                width: 16px;
+                height: 2px;
+                background: var(--color-burgundy);
+                border-radius: 2px;
+            }
+
+            .sp-numbered-list {
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                gap: 14px;
+            }
+
+            .sp-numbered-list li {
+                display: grid;
+                grid-template-columns: 28px 1fr;
+                gap: 8px;
+                font-size: 15px;
+                line-height: 1.7;
+                color: var(--color-gray);
+            }
+
+            .sp-numbered-list li .num {
+                font-size: 13px;
+                font-weight: 700;
+                color: var(--color-burgundy);
+                padding-top: 3px;
+            }
+
+            .sp-tip {
+                background: var(--color-bg-hover);
+                border-left: 3px solid var(--color-border);
+                border-radius: 0 8px 8px 0;
+                padding: 14px 18px;
+                font-size: 14px;
+                line-height: 1.65;
+                color: var(--color-gray);
+            }
+
+            /* ─── FOOTER ─── */
+            .footer-root { background: #000; color: #fff; padding: 72px var(--page-px) 40px; }
+            .footer-inner { max-width: var(--max-width); margin: 0 auto; }
+            .footer-top { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr 1.4fr; gap: 48px; padding-bottom: 52px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 52px; }
+            .footer-brand-logo { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; text-decoration: none; margin-bottom: 16px; }
+            .footer-brand-logo img { width: 50%; height: auto; filter: brightness(0) invert(1) opacity(0.5); }
+            .footer-brand-name { font-size: 16px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+            .footer-brand-desc { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.65; max-width: 220px; }
+            .footer-col-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 18px; }
+            .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+            .footer-links a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-links a:hover { color: #fff; }
+            .footer-contact-item { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+            .footer-contact-item svg { width: 15px; height: 15px; stroke: rgba(255,255,255,0.35); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+            .footer-contact-item a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-contact-item a:hover { color: #fff; }
+            .footer-locations { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 32px; }
+            .footer-loc-name { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+            .footer-loc-addr { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.55; margin-bottom: 8px; }
+            .footer-loc-phone { font-size: 13px; color: rgba(255,255,255,0.45); }
+            .footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+            .footer-copy-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+            .footer-copy { font-size: 13px; color: rgba(255,255,255,0.3); }
+            .footer-legal-link { font-size: 13px; color: rgba(255,255,255,0.3); text-decoration: none; transition: color var(--t-fast); }
+            .footer-legal-link:hover { color: #fff; }
+            .footer-socials { display: flex; gap: 10px; }
+            .footer-social-btn { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid rgba(255,255,255,0.15); text-decoration: none; transition: border-color var(--t-fast), background var(--t-fast); }
+            .footer-social-btn:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.08); }
+            .footer-social-btn i { font-size: 17px; color: rgba(255,255,255,0.6); }
+
+            @media (max-width: 900px) {
+                .sp-section { grid-template-columns: 1fr; gap: 28px; }
+                .sp-section-heading { font-size: clamp(20px, 5vw, 26px); }
+            }
+
+            @media (max-width: 768px) {
+                .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+                .footer-top > div:first-child { grid-column: 1/-1; }
+                .footer-locations { grid-template-columns: 1fr; gap: 20px; }
+                .footer-bottom { flex-direction: column; align-items: flex-start; gap: 16px; }
+            }
+
+            @media (max-width: 640px) {
+                :root { --page-px: 20px; }
+                .sp-page { padding-top: calc(var(--nav-height) + 32px); padding-bottom: 64px; }
+                .sp-section { padding: 36px 0; gap: 20px; }
+            }
+        </style>
+    </head>
+    <body>
+
+        <ncs-nav data-comment="cg-nav"></ncs-nav>
+
+        <main class="sp-page" data-comment="cg-page">
+
+            <h1 class="sp-page-title" data-comment="cg-page-title">Care Guide</h1>
+
+            <!-- ── SECTION 1: Polywood — Regular Cleaning ── -->
+            <section class="sp-section" data-comment="cg-section-polywood">
+
+                <div class="sp-col-label" data-comment="cg-polywood-label">
+                    <span class="sp-section-label" data-comment="cg-polywood-eyebrow">Polywood Furniture</span>
+                    <h2 class="sp-section-heading" data-comment="cg-polywood-heading">How to Clean &amp; Sanitize</h2>
+                </div>
+
+                <div class="sp-col-content" data-comment="cg-polywood-content">
+
+                    <!-- Regular clean -->
+                    <div class="sp-group" data-comment="cg-polywood-group-regular">
+                        <p class="sp-group-header" data-comment="cg-polywood-group-regular-header">Regular cleaning</p>
+
+                        <p class="sp-body" data-comment="cg-polywood-regular-intro">
+                            Use this method for a quick clean-up here and there throughout the season — adding in the bleach solution to easily sanitize and eliminate any stubborn stains or dirt build-up from the winter months.
+                        </p>
+
+                        <ul class="sp-numbered-list" data-comment="cg-polywood-regular-steps">
+                            <li data-comment="cg-pw-step-1"><span class="num">1.</span><span>Mix mild dish soap and warm water in a bucket.</span></li>
+                            <li data-comment="cg-pw-step-2"><span class="num">2.</span><span>Use a clean cloth to wipe the soapy mixture onto the surfaces of your furniture, cleaning off any dirt.</span></li>
+                            <li data-comment="cg-pw-step-3"><span class="num">3.</span><span>For extra cleaning power or to sanitize, mix 1/3 bleach and 2/3 water.</span></li>
+                            <li data-comment="cg-pw-step-4"><span class="num">4.</span><span>Apply bleach mixture to furniture with a clean cloth and allow it to sit on the lumber for a few minutes (this will not affect the color).</span></li>
+                            <li data-comment="cg-pw-step-5"><span class="num">5.</span><span>Loosen any dirt and debris that may catch in the surface grooves of the lumber by scrubbing the bleach mixture with a soft-bristle brush.</span></li>
+                            <li data-comment="cg-pw-step-6"><span class="num">6.</span><span>Rinse thoroughly.</span></li>
+                        </ul>
+
+                        <div class="sp-tip" data-comment="cg-polywood-tip">
+                            You can use the bleach solution stated above, or other products like CLR Polywood Cleaner and 404 to maintain the cleanliness of your polywood furniture.
+                        </div>
+                    </div>
+
+                    <!-- Deep clean -->
+                    <div class="sp-group" data-comment="cg-polywood-group-deep">
+                        <p class="sp-group-header" data-comment="cg-polywood-group-deep-header">Added cleaning power — annual deep clean</p>
+
+                        <p class="sp-body" data-comment="cg-polywood-deep-intro">
+                            If you haven't cleaned your furniture in a year it's time to go big. Plus, using a high-pressure power washer is pretty satisfying.
+                        </p>
+
+                        <ul class="sp-numbered-list" data-comment="cg-polywood-deep-steps">
+                            <li data-comment="cg-pw-deep-1"><span class="num">1.</span><span>First, use a high-pressure power washer <strong>(not to exceed 1,500 psi</strong> — exceeding this may cause damage to the look of your polywood furniture) for an initial deep clean. This will really help get into the texture of the lumber.</span></li>
+                            <li data-comment="cg-pw-deep-2"><span class="num">2.</span><span>Then, follow the regular cleaning steps above for any persistent spots, rinsing thoroughly when complete.</span></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ── SECTION 2: Pressure Treated — Cleaning ── -->
+            <section class="sp-section" data-comment="cg-section-pt-cleaning">
+
+                <div class="sp-col-label" data-comment="cg-pt-cleaning-label">
+                    <span class="sp-section-label" data-comment="cg-pt-cleaning-eyebrow">Pressure Treated Furniture</span>
+                    <h2 class="sp-section-heading" data-comment="cg-pt-cleaning-heading">Cleaning</h2>
+                </div>
+
+                <div class="sp-col-content" data-comment="cg-pt-cleaning-content">
+
+                    <p class="sp-body" data-comment="cg-pt-cleaning-p1">
+                        When it comes to cleaning your wood outdoor furniture, the process is fairly simple. You can power wash your piece, but remember to always follow the grain of the wood and to keep your pressure low — too high a pressure can remove the finish or cut into the wood. We recommend a setting between <strong>500 to 600 psi</strong> for pine and cypress furniture, with the nozzle kept about a foot away from the surface at all times.
+                    </p>
+
+                    <p class="sp-body" data-comment="cg-pt-cleaning-p2">
+                        Before beginning to clean, test your settings on a discreet area first to be sure you are not going to damage the wood. From there, you can increase or decrease the pressure as needed.
+                    </p>
+
+                    <p class="sp-body" data-comment="cg-pt-cleaning-p3">
+                        If you wish to avoid the risk of power washing or don't have access to a power washer, a soft brush and non-bleach cleaner make for a more than adequate substitute. Gently scrub the piece and rinse — that's all there is to it.
+                    </p>
+
+                    <div class="sp-tip" data-comment="cg-pt-cleaning-tip">
+                        To minimize cleaning and protect your wood furniture, store it inside during the winter months. If that's not possible, cover it with a tarp or cloth. Keeping your furniture safe from the winter elements will go a long way in preserving it.
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ── SECTION 3: Pressure Treated — Finishing & Care ── -->
+            <section class="sp-section" data-comment="cg-section-pt-finishing">
+
+                <div class="sp-col-label" data-comment="cg-pt-finishing-label">
+                    <span class="sp-section-label" data-comment="cg-pt-finishing-eyebrow">Pressure Treated Furniture</span>
+                    <h2 class="sp-section-heading" data-comment="cg-pt-finishing-heading">Finishing &amp; Long-Term Care</h2>
+                </div>
+
+                <div class="sp-col-content" data-comment="cg-pt-finishing-content">
+
+                    <div class="sp-step" data-comment="cg-pt-finish-pine">
+                        <h3 class="sp-sub-heading" data-comment="cg-pt-finish-pine-heading">Pressure-Treated Pine (PTP)</h3>
+                        <p class="sp-body" data-comment="cg-pt-finish-pine-body">
+                            Pressure-treated Pine is the best wood we have found for pieces exposed outdoors. The pressure-treating process injects chemicals into the wood for insect and decay resistance. However, pieces made from PTP still need to be finished for best protection and longevity. Your piece needs to be well finished initially, and we recommend refinishing every other year.
+                        </p>
+                        <p class="sp-body" data-comment="cg-pt-finish-pine-stain">
+                            When finishing pressure-treated pine, use a <strong>penetrating deck stain, not paint</strong>, so it can absorb into the wood. When shopping, inform a sales associate that you are finishing a pressure-treated pine item — they'll direct you to the best product. Then simply follow the instructions regarding sanding and preparation.
+                        </p>
+                    </div>
+
+                    <div class="sp-step" data-comment="cg-pt-finish-cypress">
+                        <h3 class="sp-sub-heading" data-comment="cg-pt-finish-cypress-heading">Cypress</h3>
+                        <p class="sp-body" data-comment="cg-pt-finish-cypress-body">
+                            Cypress can be either stained or painted. However, it does best in a covered area rather than fully exposed. If left totally exposed, it will need to be well finished at purchase and refinished every year thereafter.
+                        </p>
+                    </div>
+
+                    <div class="sp-step" data-comment="cg-pt-finish-conditions">
+                        <h3 class="sp-sub-heading" data-comment="cg-pt-finish-conditions-heading">Finishing Conditions</h3>
+                        <p class="sp-body" data-comment="cg-pt-finish-conditions-body">
+                            Do not apply stain in direct sunlight or on a wood surface that is hot to the touch. Pick a day with no rain predicted and a temperature between <strong>50°F (10°C) and 95°F (35°C)</strong>. The finish may require 48 to 72 hours to fully dry before using the furniture again.
+                        </p>
+                    </div>
+
+                    <div class="sp-step" data-comment="cg-pt-finish-maintenance">
+                        <h3 class="sp-sub-heading" data-comment="cg-pt-finish-maintenance-heading">Ongoing Maintenance</h3>
+                        <p class="sp-body" data-comment="cg-pt-finish-maintenance-body">
+                            Exposure to rain and sun cycles will cause wood furniture to expand and contract. This natural process can cause hardware (bolts, screws, etc.) to become loose over time — periodically check and retighten any loose fasteners. To prevent unwanted warping, always place your furniture on a level surface.
+                        </p>
+                    </div>
+
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="footer-root" data-comment="cg-footer-root">
+            <div class="footer-inner" data-comment="cg-footer-inner">
+                <div class="footer-top" data-comment="cg-footer-top">
+                    <div data-comment="cg-footer-brand">
+                        <a href="index.html" class="footer-brand-logo" data-comment="cg-footer-brand-logo">
+                            <img src="assets/Logo.png" alt="NCS Barns" data-comment="cg-footer-brand-img" />
+                            <span class="footer-brand-name" data-comment="cg-footer-brand-name">NCS Barns</span>
+                        </a>
+                        <p class="footer-brand-desc" data-comment="cg-footer-brand-desc">Handcrafted quality structures for the North Country — family owned &amp; operated since 1993.</p>
+                    </div>
+                    <div data-comment="cg-footer-col-products">
+                        <p class="footer-col-label" data-comment="cg-footer-products-label">Products</p>
+                        <ul class="footer-links" data-comment="cg-footer-products-links">
+                            <li data-comment="cg-fli-sheds"><a href="catalog.html?category=Sheds" data-comment="cg-fl-sheds">Sheds</a></li>
+                            <li data-comment="cg-fli-gazebos"><a href="catalog.html?category=Gazebos" data-comment="cg-fl-gazebos">Gazebos &amp; Pergolas</a></li>
+                            <li data-comment="cg-fli-hunting"><a href="catalog.html?category=Hunting+Blinds" data-comment="cg-fl-hunting">Hunting Blinds</a></li>
+                            <li data-comment="cg-fli-play"><a href="catalog.html?category=Play+Structures" data-comment="cg-fl-play">Play Structures</a></li>
+                            <li data-comment="cg-fli-furniture"><a href="catalog.html?category=Outdoor+Furniture" data-comment="cg-fl-furniture">Furniture</a></li>
+                            <li data-comment="cg-fli-homes"><a href="catalog.html?category=Custom+Homes" data-comment="cg-fl-homes">Homes &amp; Garages</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="cg-footer-col-company">
+                        <p class="footer-col-label" data-comment="cg-footer-company-label">Company</p>
+                        <ul class="footer-links" data-comment="cg-footer-company-links">
+                            <li data-comment="cg-fli-about"><a href="#" data-comment="cg-fl-about">About Us</a></li>
+                            <li data-comment="cg-fli-testimonials"><a href="#" data-comment="cg-fl-testimonials">Testimonials</a></li>
+                            <li data-comment="cg-fli-gallery"><a href="gallery.html" data-comment="cg-fl-gallery">Gallery</a></li>
+                            <li data-comment="cg-fli-delivery"><a href="delivery.html" data-comment="cg-fl-delivery">Delivery &amp; Relocation</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="cg-footer-col-buying">
+                        <p class="footer-col-label" data-comment="cg-footer-buying-label">Buying Process</p>
+                        <ul class="footer-links" data-comment="cg-footer-buying-links">
+                            <li data-comment="cg-fli-rto"><a href="#" data-comment="cg-fl-rto">Rent-To-Own</a></li>
+                            <li data-comment="cg-fli-financing"><a href="#" data-comment="cg-fl-financing">Financing Options</a></li>
+                            <li data-comment="cg-fli-siteprep"><a href="site-preparation.html" data-comment="cg-fl-siteprep">Site Preparation</a></li>
+                            <li data-comment="cg-fli-warranty"><a href="warranty.html" data-comment="cg-fl-warranty">Warranty</a></li>
+                            <li data-comment="cg-fli-dealers"><a href="#" data-comment="cg-fl-dealers">Dealers</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="cg-footer-col-contact">
+                        <p class="footer-col-label" data-comment="cg-footer-contact-label">Contact</p>
+                        <div class="footer-contact-item" data-comment="cg-footer-phone">
+                            <svg viewBox="0 0 24 24" data-comment="cg-footer-phone-icon"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l1.64-1.64a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <a href="tel:3156420209" data-comment="cg-footer-phone-link">(315) 642-0209</a>
+                        </div>
+                        <div class="footer-contact-item" data-comment="cg-footer-email">
+                            <svg viewBox="0 0 24 24" data-comment="cg-footer-email-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            <a href="mailto:sales@ncsbarns.com" data-comment="cg-footer-email-link">sales@ncsbarns.com</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-locations" data-comment="cg-footer-locations">
+                    <div data-comment="cg-footer-loc-phila">
+                        <p class="footer-loc-name" data-comment="cg-footer-loc-phila-name">Philadelphia</p>
+                        <p class="footer-loc-addr" data-comment="cg-footer-loc-phila-addr">32660 US Route 11<br>Philadelphia, NY 13673</p>
+                        <p class="footer-loc-phone" data-comment="cg-footer-loc-phila-phone">(315) 642-0209</p>
+                    </div>
+                    <div data-comment="cg-footer-loc-york">
+                        <p class="footer-loc-name" data-comment="cg-footer-loc-york-name">Yorkville</p>
+                        <p class="footer-loc-addr" data-comment="cg-footer-loc-york-addr">317 Oriskany Blvd<br>Yorkville, NY</p>
+                        <p class="footer-loc-phone" data-comment="cg-footer-loc-york-phone">(315) 793-0726</p>
+                    </div>
+                    <div data-comment="cg-footer-loc-sandy">
+                        <p class="footer-loc-name" data-comment="cg-footer-loc-sandy-name">Sandy Creek</p>
+                        <p class="footer-loc-addr" data-comment="cg-footer-loc-sandy-addr">5780 US Route 11<br>Pulaski, NY 13142</p>
+                        <p class="footer-loc-phone" data-comment="cg-footer-loc-sandy-phone">(315) 387-2092</p>
+                    </div>
+                </div>
+                <div class="footer-bottom" data-comment="cg-footer-bottom">
+                    <div class="footer-copy-row" data-comment="cg-footer-copy-row">
+                        <p class="footer-copy" data-comment="cg-footer-copy">Copyright&copy; 2024 North Country Storage Barns LLC. All rights reserved.</p>
+                        <a href="privacy.html" class="footer-legal-link" href="privacy.html" class="footer-legal-link" data-comment="cg-footer-privacy">Privacy Policy</a>
+                        <a href="terms.html" class="footer-legal-link" data-comment="cg-footer-terms">Terms &amp; Conditions</a>
+                    </div>
+                    <div class="footer-socials" data-comment="cg-footer-socials">
+                        <a href="https://www.tiktok.com/@northcountrystoragebarns" target="_blank" class="footer-social-btn" data-comment="cg-footer-tiktok" aria-label="TikTok"><i class="ri-tiktok-fill" data-comment="cg-footer-tiktok-icon"></i></a>
+                        <a href="https://www.facebook.com/ifyouneedmeillbeinmyshed/" target="_blank" class="footer-social-btn" data-comment="cg-footer-facebook" aria-label="Facebook"><i class="ri-facebook-fill" data-comment="cg-footer-facebook-icon"></i></a>
+                        <a href="https://www.instagram.com/northcountrystoragebarns/" target="_blank" class="footer-social-btn" data-comment="cg-footer-instagram" aria-label="Instagram"><i class="ri-instagram-fill" data-comment="cg-footer-instagram-icon"></i></a>
+                        <a href="#" class="footer-social-btn" data-comment="cg-footer-google" aria-label="Google"><i class="ri-google-fill" data-comment="cg-footer-google-icon"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </body>
+</html>

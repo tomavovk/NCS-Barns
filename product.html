@@ -142,6 +142,25 @@
                 padding: 5px 10px; border-radius: 6px;
             }
 
+            /* Gallery nav arrows */
+            .pd-gallery-arrow {
+                position: absolute;
+                top: 50%; transform: translateY(-50%);
+                width: 38px; height: 38px;
+                background: rgba(255,255,255,0.92);
+                border: 1.5px solid var(--color-border);
+                border-radius: 50%;
+                display: flex; align-items: center; justify-content: center;
+                cursor: pointer;
+                transition: background var(--t-fast), box-shadow var(--t-fast);
+                z-index: 2;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            }
+            .pd-gallery-arrow:hover { background: #fff; box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+            .pd-gallery-arrow i { font-size: 18px; color: var(--color-dark); }
+            .pd-gallery-arrow--prev { left: 12px; }
+            .pd-gallery-arrow--next { right: 12px; }
+
             .pd-thumbs {
                 display: grid;
                 grid-template-columns: repeat(4, 1fr);
@@ -235,6 +254,12 @@
                 gap: 8px;
                 margin-bottom: 16px;
             }
+            .pd-size-btns--fp {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 7px;
+                margin-bottom: 16px;
+            }
             .pd-size-btn {
                 padding: 7px 14px;
                 border: 1.5px solid var(--color-border);
@@ -246,6 +271,8 @@
                 background: #fff;
                 cursor: pointer;
                 transition: border-color var(--t-fast), background var(--t-fast), color var(--t-fast);
+                text-align: center;
+                white-space: nowrap;
             }
             .pd-size-btn:hover { border-color: var(--color-dark); }
             .pd-size-btn.is-active {
@@ -400,6 +427,44 @@
                 color: var(--color-gray);
             }
 
+            /* ─────────────────────────────────────────
+               FLOOR PLANS & PRICING
+            ───────────────────────────────────────── */
+            .pd-lead-time {
+                display: inline-flex; align-items: center; gap: 8px;
+                padding: 9px 14px;
+                background: #fef8e6; border: 1.5px solid #f0d060; border-radius: 8px;
+                font-size: 13px; font-weight: 600; color: #7a5e00;
+                margin-bottom: 20px;
+            }
+            .pd-lead-time i { font-size: 15px; color: #c49a00; flex-shrink: 0; }
+
+            .pd-fp-intro {
+                font-size: 14px; color: var(--color-gray); line-height: 1.65;
+                margin-bottom: 24px; max-width: 700px;
+            }
+
+            .pd-fp-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 8px;
+            }
+
+            .pd-fp-btn {
+                display: flex; align-items: center; gap: 12px;
+                padding: 12px 16px;
+                background: #fff;
+                border: 1.5px solid var(--color-border); border-radius: 10px;
+                cursor: pointer; text-decoration: none;
+                font-family: var(--font-ui);
+                transition: border-color var(--t-fast), background var(--t-fast);
+            }
+            .pd-fp-btn:hover { border-color: var(--color-burgundy); background: #fdf5f6; }
+            .pd-fp-btn i { font-size: 20px; color: var(--color-burgundy); flex-shrink: 0; }
+            .pd-fp-btn-info { display: flex; flex-direction: column; gap: 1px; }
+            .pd-fp-btn-size { font-size: 14px; font-weight: 600; color: var(--color-dark); }
+            .pd-fp-btn-price { font-size: 12px; color: var(--color-gray); }
+
             /* Delivery tab */
             .pd-delivery-content { max-width: 640px; }
             .pd-delivery-content p { font-size: 15px; color: var(--color-gray); line-height: 1.7; margin-bottom: 16px; }
@@ -453,8 +518,8 @@
             .pc-price { font-size: 18px; font-weight: 700; color: var(--color-dark); letter-spacing: -0.3px; }
             .pc-price.is-sale { color: var(--color-burgundy); }
             .pc-price-old { font-size: 13px; color: var(--color-gray-light); text-decoration: line-through; }
-            .pc-card-btn { display: block; width: 100%; padding: 10px 16px; background: var(--color-burgundy); color: #fff; border: none; border-radius: 8px; font-family: var(--font-ui); font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; transition: background var(--t-fast); }
-            .pc-card-btn:hover { background: var(--color-burgundy-dark); }
+            .pc-card-btn { display: block; width: 100%; padding: 10px 16px; background: transparent; color: var(--color-burgundy); border: 1.5px solid var(--color-burgundy); border-radius: 8px; font-family: var(--font-ui); font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; transition: background var(--t-fast), color var(--t-fast); }
+            .pc-card-btn:hover { background: var(--color-burgundy); color: #fff; }
 
             /* ─────────────────────────────────────────
                FOOTER
@@ -548,6 +613,12 @@
                     <div class="pd-gallery-main" data-comment="pd-gallery-main">
                         <img id="mainImg" src="" alt="" data-comment="pd-gallery-main-img" />
                         <span id="pdSaleBadge" class="pd-gallery-badge" data-comment="pd-gallery-sale-badge" style="display:none">On Sale</span>
+                        <button class="pd-gallery-arrow pd-gallery-arrow--prev" onclick="galleryNav(-1)" data-comment="pd-gallery-prev" aria-label="Previous">
+                            <i class="ri-arrow-left-s-line"></i>
+                        </button>
+                        <button class="pd-gallery-arrow pd-gallery-arrow--next" onclick="galleryNav(1)" data-comment="pd-gallery-next" aria-label="Next">
+                            <i class="ri-arrow-right-s-line"></i>
+                        </button>
                     </div>
                     <div class="pd-thumbs" id="pdThumbs" data-comment="pd-thumbs">
                         <!-- populated by JS -->
@@ -564,13 +635,13 @@
                         <span id="pdPriceOld" class="pd-price-old" data-comment="pd-price-old" style="display:none"></span>
                         <span id="pdPrice" class="pd-price" data-comment="pd-price">—</span>
                     </div>
-                    <p class="pd-price-note" data-comment="pd-price-note">Starting price — final price depends on selected options</p>
+                    <p class="pd-price-note" id="pdPriceNote" data-comment="pd-price-note">Starting price — final price depends on selected options</p>
 
                     <p class="pd-desc" id="pdDesc" data-comment="pd-desc">Loading…</p>
 
                     <!-- Size options -->
                     <div class="pd-options" id="pdSizeSection" data-comment="pd-size-section">
-                        <p class="pd-option-label" data-comment="pd-size-label">Size <span id="pdSelectedSize" data-comment="pd-selected-size"></span></p>
+                        <p class="pd-option-label" id="pdSizeLabel" data-comment="pd-size-label">Size <span id="pdSelectedSize" data-comment="pd-selected-size"></span></p>
                         <div class="pd-size-btns" id="pdSizeBtns" data-comment="pd-size-btns">
                             <!-- populated by JS -->
                         </div>
@@ -586,12 +657,15 @@
 
                     <!-- CTA buttons -->
                     <div class="pd-ctas" data-comment="pd-ctas">
-                        <button class="btn-primary" id="pdQuoteBtn" data-comment="pd-quote-btn" onclick="openQuote()">
-                            <i class="ri-price-tag-3-line"></i> Request a Quote
+                        <button class="btn-primary" id="pdAddToCartBtn" data-comment="pd-add-to-cart-btn" onclick="addToCart()">
+                            <i class="ri-shopping-cart-line"></i> Add to Cart
                         </button>
-                        <button class="btn-outline" data-comment="pd-customize-btn">
+                        <button class="btn-outline" id="pdCustomizeBtn" data-comment="pd-customize-btn">
                             <i class="ri-box-3-line"></i> Customize This
                         </button>
+                        <a href="options.html" class="btn-outline" id="pdDiscoverOptionsBtn" data-comment="pd-discover-options-btn">
+                            <i class="ri-compass-3-line"></i> Discover Options
+                        </a>
                     </div>
 
                     <!-- Trust badges -->
@@ -621,13 +695,14 @@
             <div class="page-inner" data-comment="pd-tabs-inner">
 
                 <div class="pd-tabs-header" data-comment="pd-tabs-header">
-                    <button class="pd-tab-btn is-active" data-comment="pd-tab-btn-desc" onclick="switchTab('desc', this)">Description</button>
+                    <button class="pd-tab-btn" id="tabBtnFloorPlans" data-comment="pd-tab-btn-floorplans" style="display:none" onclick="switchTab('floorplans', this)">Floor Plans &amp; Pricing</button>
+                    <button class="pd-tab-btn" data-comment="pd-tab-btn-desc" onclick="switchTab('desc', this)">Description</button>
                     <button class="pd-tab-btn" data-comment="pd-tab-btn-specs" onclick="switchTab('specs', this)">Specifications</button>
                     <button class="pd-tab-btn" data-comment="pd-tab-btn-delivery" onclick="switchTab('delivery', this)">Delivery Info</button>
                 </div>
 
                 <!-- Description -->
-                <div class="pd-tab-panel is-active" id="tab-desc" data-comment="pd-tab-desc">
+                <div class="pd-tab-panel" id="tab-desc" data-comment="pd-tab-desc">
                     <div class="pd-desc-text" id="pdLongDesc" data-comment="pd-long-desc">
                         <!-- populated by JS -->
                     </div>
@@ -641,6 +716,13 @@
                     <table class="pd-specs-table" id="pdSpecsTable" data-comment="pd-specs-table">
                         <!-- populated by JS -->
                     </table>
+                </div>
+
+                <!-- Floor Plans & Pricing -->
+                <div class="pd-tab-panel" id="tab-floorplans" data-comment="pd-tab-floorplans">
+                    <div id="pdFloorPlansContent" data-comment="pd-floorplans-content">
+                        <!-- populated by JS -->
+                    </div>
                 </div>
 
                 <!-- Delivery -->
@@ -749,8 +831,8 @@
                 <div class="footer-bottom" data-comment="pd-footer-bottom">
                     <div class="footer-copy-row" data-comment="pd-footer-copy-row">
                         <p class="footer-copy" data-comment="pd-footer-copy">&copy; 2026 North Country Storage Barns. All rights reserved.</p>
-                        <a href="#" class="footer-legal-link" data-comment="pd-footer-privacy">Privacy Policy</a>
-                        <a href="#" class="footer-legal-link" data-comment="pd-footer-terms">Terms &amp; Conditions</a>
+                        <a href="privacy.html" class="footer-legal-link" data-comment="pd-footer-privacy">Privacy Policy</a>
+                        <a href="terms.html" class="footer-legal-link" data-comment="pd-footer-terms">Terms &amp; Conditions</a>
                     </div>
                     <div class="footer-socials" data-comment="pd-footer-socials">
                         <a href="https://www.tiktok.com/@northcountrystoragebarns" target="_blank" class="footer-social-btn" data-comment="pd-footer-tiktok" aria-label="TikTok"><i class="ri-tiktok-fill" data-comment="pd-footer-tiktok-icon"></i></a>
@@ -767,52 +849,63 @@
            PRODUCT DATA  (same as catalog.html)
         ═══════════════════════════════════════════════ */
         const PRODUCTS = [
-            { id:1,  name:'Classic Barn 8×8',           category:'Sheds',             style:'Gambrel',     size:'Small',  price:2200, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80' },
-            { id:2,  name:'Classic Barn 8×12',          category:'Sheds',             style:'Gambrel',     size:'Small',  price:2800, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80' },
-            { id:3,  name:'Classic Barn 10×12',         category:'Sheds',             style:'Gambrel',     size:'Small',  price:3400, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80' },
-            { id:4,  name:'Classic Barn 10×16',         category:'Sheds',             style:'Gambrel',     size:'Medium', price:4100, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80' },
-            { id:5,  name:'Classic Barn 12×16',         category:'Sheds',             style:'Gambrel',     size:'Medium', price:4800, sale:4200, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80' },
-            { id:6,  name:'Classic Barn 12×20',         category:'Sheds',             style:'Gambrel',     size:'Medium', price:5900, sale:null, rto:true,  instock:false, img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80' },
-            { id:7,  name:'Classic Barn 14×24',         category:'Sheds',             style:'Gambrel',     size:'Large',  price:7200, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80' },
-            { id:8,  name:'Lofted Barn 10×12',          category:'Sheds',             style:'Lofted Barn', size:'Small',  price:3800, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&q=80' },
-            { id:9,  name:'Lofted Barn 12×16',          category:'Sheds',             style:'Lofted Barn', size:'Medium', price:5200, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&q=80' },
-            { id:10, name:'A-Frame Shed 10×12',         category:'Sheds',             style:'A-Frame',     size:'Small',  price:3100, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80' },
-            { id:11, name:'Cabin Shed 12×20',           category:'Sheds',             style:'Cabin',       size:'Medium', price:6400, sale:null, rto:true,  instock:false, img:'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&q=80' },
-            { id:12, name:'Ranch Shed 14×28',           category:'Sheds',             style:'Ranch',       size:'Large',  price:8900, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80' },
-            { id:13, name:'Cedar Gazebo 10×10',         category:'Gazebos',           style:'Gazebo',      size:'Small',  price:3200, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80' },
-            { id:14, name:'Cedar Gazebo 12×12',         category:'Gazebos',           style:'Gazebo',      size:'Medium', price:4100, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80' },
-            { id:15, name:'Vinyl Pergola 12×16',        category:'Gazebos',           style:'Pergola',     size:'Medium', price:3800, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=800&q=80' },
-            { id:16, name:'Wood Pavilion 14×20',        category:'Gazebos',           style:'Pavilion',    size:'Large',  price:5600, sale:null, rto:true,  instock:false, img:'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80' },
-            { id:17, name:'Screen Gazebo 10×10',        category:'Gazebos',           style:'Gazebo',      size:'Small',  price:3500, sale:3100, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80' },
-            { id:18, name:'Corner Pergola 10×12',       category:'Gazebos',           style:'Pergola',     size:'Small',  price:2900, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=800&q=80' },
-            { id:19, name:'4×4 Tower Blind',            category:'Hunting Blinds',    style:'Tower',       size:'Small',  price:1400, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=800&q=80' },
-            { id:20, name:'4×6 Elevated Blind',         category:'Hunting Blinds',    style:'Elevated',    size:'Small',  price:1900, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=800&q=80' },
-            { id:21, name:'5×6 Deluxe Elevated Blind',  category:'Hunting Blinds',    style:'Elevated',    size:'Small',  price:2400, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=800&q=80' },
-            { id:22, name:'4×4 Box Blind',              category:'Hunting Blinds',    style:'Box',         size:'Small',  price:1200, sale:999,  rto:false, instock:true,  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=800&q=80' },
-            { id:23, name:'6×6 Executive Tower Blind',  category:'Hunting Blinds',    style:'Tower',       size:'Medium', price:3100, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=800&q=80' },
-            { id:24, name:'Adventure Playset',          category:'Play Structures',   style:'Playset',     size:'Medium', price:2200, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=800&q=80' },
-            { id:25, name:'Deluxe Swing Set',           category:'Play Structures',   style:'Swing Set',   size:'Medium', price:3400, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=800&q=80' },
-            { id:26, name:'Sandbox Playset',            category:'Play Structures',   style:'Sandbox',     size:'Small',  price:1800, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=800&q=80' },
-            { id:27, name:'Premium Fort &amp; Slide Set', category:'Play Structures', style:'Fort',        size:'Large',  price:4100, sale:null, rto:true,  instock:false, img:'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=800&q=80' },
-            { id:28, name:'4-Hen Chicken Coop',         category:'Animal Structures', style:'Coop',        size:'Small',  price:680,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=800&q=80' },
-            { id:29, name:'8-Hen Chicken Coop',         category:'Animal Structures', style:'Coop',        size:'Small',  price:1100, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=800&q=80' },
-            { id:30, name:'Dog Kennel 10×10',           category:'Animal Structures', style:'Kennel',      size:'Small',  price:950,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=800&q=80' },
-            { id:31, name:'Horse Loafing Shed 12×24',   category:'Animal Structures', style:'Loafing Shed',size:'Large',  price:4800, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80' },
-            { id:32, name:'Barnwood Coffee Table',      category:'Indoor Furniture',  style:'Table',       size:null,     price:480,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=800&q=80' },
-            { id:33, name:'Log Bed Frame Queen',        category:'Indoor Furniture',  style:'Bed Frame',   size:null,     price:890,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&q=80' },
-            { id:34, name:'Adirondack End Table',       category:'Indoor Furniture',  style:'Table',       size:null,     price:220,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=800&q=80' },
-            { id:35, name:'Rustic Bookshelf',           category:'Indoor Furniture',  style:'Storage',     size:null,     price:340,  sale:295,  rto:false, instock:true,  img:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80' },
-            { id:36, name:'Classic Adirondack Chair',   category:'Outdoor Furniture', style:'Chair',       size:null,     price:285,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1592078615290-033ee584e267?w=800&q=80' },
-            { id:37, name:'Cedar Picnic Table 6ft',     category:'Outdoor Furniture', style:'Table',       size:null,     price:520,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1597208751520-49ca90e8c28e?w=800&q=80' },
-            { id:38, name:'Porch Swing 5ft',            category:'Outdoor Furniture', style:'Swing',       size:null,     price:440,  sale:380,  rto:false, instock:true,  img:'https://images.unsplash.com/photo-1597208751520-49ca90e8c28e?w=800&q=80' },
-            { id:39, name:'Cedar Bench 4ft',            category:'Outdoor Furniture', style:'Bench',       size:null,     price:290,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1592078615290-033ee584e267?w=800&q=80' },
-            { id:40, name:'Outdoor Bar Table Set',      category:'Outdoor Furniture', style:'Table',       size:null,     price:680,  sale:null, rto:false, instock:false, img:'https://images.unsplash.com/photo-1597208751520-49ca90e8c28e?w=800&q=80' },
-            { id:41, name:'Barn Star Decor',            category:'Decor & More',      style:'Decor',       size:null,     price:45,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=80' },
-            { id:42, name:'Wooden Planter Box',         category:'Decor & More',      style:'Planter',     size:null,     price:95,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=80' },
-            { id:43, name:'Rustic Mailbox Post',        category:'Decor & More',      style:'Mailbox',     size:null,     price:185,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=80' },
-            { id:44, name:'Returned Barn 10×12',        category:'Returned Rentals',  style:'Gambrel',     size:'Small',  price:1800, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80' },
-            { id:45, name:'Returned Lofted Barn 12×16', category:'Returned Rentals',  style:'Lofted Barn', size:'Medium', price:2900, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&q=80' },
-            { id:46, name:'Returned A-Frame 8×12',      category:'Returned Rentals',  style:'A-Frame',     size:'Small',  price:1500, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80' },
+            /* ── SHEDS ── */
+            { id:1,  name:'Classic Barn',             category:'Sheds',             style:'Gambrel',      price:2200,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80' },
+            { id:2,  name:'Lofted Barn',              category:'Sheds',             style:'Lofted Barn',  price:3800,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&q=80' },
+            { id:3,  name:'A-Frame Shed',             category:'Sheds',             style:'A-Frame',      price:3100,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80' },
+            { id:4,  name:'Cabin Shed',               category:'Sheds',             style:'Cabin',        price:6400,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&q=80' },
+            { id:5,  name:'Ranch Shed',               category:'Sheds',             style:'Ranch',        price:8900,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80' },
+            /* ── GAZEBOS ── */
+            { id:6,  name:'Cedar Gazebo',             category:'Gazebos',           style:'Gazebo',       price:3200,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80' },
+            { id:7,  name:'Vinyl Pergola',            category:'Gazebos',           style:'Pergola',      price:3800,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=800&q=80' },
+            { id:8,  name:'Wood Pavilion',            category:'Gazebos',           style:'Pavilion',     price:5600,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80' },
+            { id:9,  name:'Screen Gazebo',            category:'Gazebos',           style:'Gazebo',       price:3500,  sale:3100, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80' },
+            { id:10, name:'Corner Pergola',           category:'Gazebos',           style:'Pergola',      price:2900,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=800&q=80' },
+            /* ── HUNTING BLINDS ── */
+            { id:11, name:'Tower Blind',              category:'Hunting Blinds',    style:'Tower',        price:1400,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=800&q=80' },
+            { id:12, name:'Elevated Blind',           category:'Hunting Blinds',    style:'Elevated',     price:1900,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=800&q=80' },
+            { id:13, name:'Box Blind',                category:'Hunting Blinds',    style:'Box',          price:1200,  sale:999,  rto:false, instock:true,  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=800&q=80' },
+            /* ── PLAY STRUCTURES ── */
+            { id:14, name:'Adventure Playset',        category:'Play Structures',   style:'Playset',      price:2200,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=800&q=80' },
+            { id:15, name:'Deluxe Swing Set',         category:'Play Structures',   style:'Swing Set',    price:3400,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=800&q=80' },
+            { id:16, name:'Sandbox Playset',          category:'Play Structures',   style:'Sandbox',      price:1800,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=800&q=80' },
+            { id:17, name:'Premium Fort & Slide Set', category:'Play Structures',   style:'Fort',         price:4100,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=800&q=80' },
+            /* ── ANIMAL STRUCTURES ── */
+            { id:18, name:'Chicken Coop',             category:'Animal Structures', style:'Coop',         price:680,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=800&q=80' },
+            { id:19, name:'Dog Kennel',               category:'Animal Structures', style:'Kennel',       price:950,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=800&q=80' },
+            { id:20, name:'Horse Loafing Shed',       category:'Animal Structures', style:'Loafing Shed', price:4800,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80' },
+            /* ── INDOOR FURNITURE ── */
+            { id:21, name:'Barnwood Coffee Table',    category:'Indoor Furniture',  style:'Table',        price:480,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=800&q=80' },
+            { id:22, name:'Log Bed Frame',            category:'Indoor Furniture',  style:'Bed Frame',    price:890,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&q=80' },
+            { id:23, name:'Adirondack End Table',     category:'Indoor Furniture',  style:'Table',        price:220,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=800&q=80' },
+            { id:24, name:'Rustic Bookshelf',         category:'Indoor Furniture',  style:'Storage',      price:340,   sale:295,  rto:false, instock:true,  img:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80' },
+            /* ── OUTDOOR FURNITURE ── */
+            { id:25, name:'Classic Adirondack Chair', category:'Outdoor Furniture', style:'Chair',        price:285,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1592078615290-033ee584e267?w=800&q=80' },
+            { id:26, name:'Cedar Picnic Table',       category:'Outdoor Furniture', style:'Table',        price:520,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1597208751520-49ca90e8c28e?w=800&q=80' },
+            { id:27, name:'Porch Swing',              category:'Outdoor Furniture', style:'Swing',        price:440,   sale:380,  rto:false, instock:true,  img:'https://images.unsplash.com/photo-1597208751520-49ca90e8c28e?w=800&q=80' },
+            { id:28, name:'Cedar Bench',              category:'Outdoor Furniture', style:'Bench',        price:290,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1592078615290-033ee584e267?w=800&q=80' },
+            { id:29, name:'Outdoor Bar Table Set',    category:'Outdoor Furniture', style:'Table',        price:680,   sale:null, rto:false, instock:false, img:'https://images.unsplash.com/photo-1597208751520-49ca90e8c28e?w=800&q=80' },
+            /* ── DECOR & MORE ── */
+            { id:30, name:'Barn Star Decor',          category:'Decor & More',      style:'Decor',        price:45,    sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=80' },
+            { id:31, name:'Wooden Planter Box',       category:'Decor & More',      style:'Planter',      price:95,    sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=80' },
+            { id:32, name:'Rustic Mailbox Post',      category:'Decor & More',      style:'Mailbox',      price:185,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=80' },
+            /* ── RETURNED RENTALS ── */
+            { id:33, name:'Returned Classic Barn',    category:'Returned Rentals',  style:'Gambrel',      price:1800,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80' },
+            { id:34, name:'Returned Lofted Barn',     category:'Returned Rentals',  style:'Lofted Barn',  price:2900,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&q=80' },
+            { id:35, name:'Returned A-Frame Shed',    category:'Returned Rentals',  style:'A-Frame',      price:1500,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80' },
+            /* ── LOG HOMES ── */
+            { id:36, name:'Chalet',                   category:'Log Homes',         style:'Chalet',            price:89500,  sale:null, rto:true, instock:true, img:'assets/Log homes/Chalet.png' },
+            { id:37, name:'Mountaineer',              category:'Log Homes',         style:'Mountaineer',       price:112000, sale:null, rto:true, instock:true, img:'assets/Log homes/Mountaineer.png' },
+            { id:38, name:'Mountaineer Deluxe',       category:'Log Homes',         style:'Mountaineer Deluxe',price:134500, sale:null, rto:true, instock:true, img:'assets/Log homes/Mountaineer Deluxe.png' },
+            { id:39, name:'Musketeer',                category:'Log Homes',         style:'Musketeer',         price:67000,  sale:null, rto:true, instock:true, img:'assets/Log homes/Musketeer.png' },
+            { id:40, name:'Pioneer',                  category:'Log Homes',         style:'Pioneer',           price:98000,  sale:null, rto:true, instock:true, img:'assets/Log homes/Pioneer.png' },
+            { id:41, name:'Settler',                  category:'Log Homes',         style:'Settler',           price:74500,  sale:null, rto:true, instock:true, img:'assets/Log homes/Settler.png' },
+            { id:42, name:'Frontier',                 category:'Log Homes',         style:'Frontier',          price:85000,  sale:null, rto:true, instock:true, img:'assets/Log homes/Frontier.png' },
+            { id:43, name:'Alpine',                   category:'Log Homes',         style:'Alpine',            price:145000, sale:null, rto:true, instock:true, img:'assets/Log homes/Alpine.png' },
+            /* ── GARAGES ── */
+            { id:44, name:'Standard Garage',          category:'Garages',           style:'Standard',     price:18500, sale:null, rto:false, instock:false, img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80' },
+            { id:45, name:'Cottage Garage',           category:'Garages',           style:'Cottage',      price:22400, sale:null, rto:false, instock:false, img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80' },
+            { id:46, name:'Gambrel Garage',           category:'Garages',           style:'Gambrel',      price:24100, sale:null, rto:false, instock:false, img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80' },
         ];
 
         /* ═══════════════════════════════════════════════
@@ -893,6 +986,457 @@
                 colorNames: ['Brown','Camo Green','Gray'],
                 gallery: ['?w=800&q=80','?w=800&q=80','?w=800&q=80','?w=800&q=80'],
             },
+            /* ── per-product garage entries ── */
+            'Standard Garage': {
+                desc: 'Maximum storage for your budget. A simple garage will not only increase your storage space but also increase your property value. This simple design is a customer favorite with many upgrades available to suit your needs.',
+                desc2: '⚠ Current Lead Time: 13–14 Months. Due to extended lead times, these are estimates only. Prices are subject to change slightly until we can lock everything in around 6 months from the build date.',
+                features: [
+                    { icon:'ri-wall-line',          title:'2″×6″×8′ Walls',              sub:'Solid framing engineered for North Country winters' },
+                    { icon:'ri-shield-check-line',  title:'50-Year LP SmartSide Siding',  sub:'Industry-leading warranty against rot and insects' },
+                    { icon:'ri-door-open-line',     title:'Overhead & Entrance Doors',    sub:'16′×8′ insulated overhead or 2×9″×8′ + 36″ metal entry' },
+                    { icon:'ri-window-line',        title:'4 Vinyl Windows',              sub:'30″×48″ single-hung with screens, no grids' },
+                    { icon:'ri-home-roof-line',     title:'Architectural Shingles',       sub:'Limited lifetime warranty, 5/12 pitch truss, 1′ overhangs' },
+                    { icon:'ri-color-filter-line',  title:'13 Paint Color Choices',       sub:'Base and trim colors to match your property' },
+                ],
+                upgrades: ['Electrical Package','Custom Paint Color','Garage door openers','Custom overhead doors','Metal roofing','Vinyl or log siding','Painted overhead doors','Steeper roof pitch','Windows with grids','Driveway'],
+                specs: [
+                    ['Wall Framing',   '2″×6″×8′'],
+                    ['Siding',        '50-Year LP SmartSide'],
+                    ['Overhead Door', '16′×8′ solid insulated (or 2×9″×8′)'],
+                    ['Entry Door',    '36″ metal with windows'],
+                    ['Roof Pitch',    '5/12 with 1′ overhangs'],
+                    ['Sheathing',     '5/8″ roof sheathing + felt paper'],
+                    ['Foundation',    'Concrete block, two rows'],
+                    ['Lead Time',     '13–14 months'],
+                ],
+                sizes: ['20×20','22×22','24×24','24×30','24×36','30×30'],
+                colors: ['#7B5C40','#9EA4AD','#FFFFFF','#E8DFC8','#4A6741','#8B1A2A'],
+                colorNames: ['Brown','Gray','White','Tan','Green','Red'],
+                gallery: ['?w=800&q=80','?w=800&q=80','?w=800&q=80','?w=800&q=80'],
+            },
+            'Cottage Garage': {
+                desc: 'Our most popular garage! If you are looking for some storage space for your cars and trucks and would love some overhead space, this model is for you. It includes the attic area in the trusses giving you about 50% more floor space compared to our standard garages.',
+                desc2: '⚠ Current Lead Time: 13–14 Months. Due to extended lead times, these are estimates only. Prices are subject to change slightly until we can lock everything in around 6 months from the build date.',
+                features: [
+                    { icon:'ri-wall-line',          title:'2″×6″×8′ Walls',              sub:'Solid framing engineered for North Country winters' },
+                    { icon:'ri-shield-check-line',  title:'50-Year LP SmartSide Siding',  sub:'Industry-leading warranty against rot and insects' },
+                    { icon:'ri-door-open-line',     title:'Overhead & Entrance Doors',    sub:'16′×8′ insulated overhead or 2×9″×8′ + 36″ metal entry' },
+                    { icon:'ri-stairs-line',        title:'Attic with Stairway',          sub:'3/4″ sub-floor + stairway — ~50% more usable space' },
+                    { icon:'ri-home-roof-line',     title:'7/12 Pitch Truss',             sub:'Steeper pitch creates a generous attic area above' },
+                    { icon:'ri-color-filter-line',  title:'13 Paint Color Choices',       sub:'Base and trim colors to match your property' },
+                ],
+                upgrades: ['Electrical Package','Custom Paint Color','Garage door openers','18′ Wide custom overhead door','Shutters','Vinyl siding','Cupola','Weather vane','Seamless gutters','Insulated attic room','Driveway','Stone entrance with a turn around','Lift Rental'],
+                specs: [
+                    ['Wall Framing',   '2″×6″×8′'],
+                    ['Siding',        '50-Year LP SmartSide'],
+                    ['Overhead Door', '16′×8′ solid insulated (or 2×9″×8′)'],
+                    ['Entry Door',    '36″ metal with windows'],
+                    ['Roof Pitch',    '7/12 with 1′ overhangs'],
+                    ['Attic Floor',   '3/4″ sub-floor with stairway access'],
+                    ['Foundation',    'Concrete block, two rows'],
+                    ['Lead Time',     '13–14 months'],
+                ],
+                sizes: ['20×20','22×22','24×24','24×30','24×36'],
+                colors: ['#7B5C40','#9EA4AD','#FFFFFF','#E8DFC8','#4A6741','#8B1A2A'],
+                colorNames: ['Brown','Gray','White','Tan','Green','Red'],
+                gallery: ['?w=800&q=80','?w=800&q=80','?w=800&q=80','?w=800&q=80'],
+            },
+            'Gambrel Garage': {
+                desc: 'Maximize your storage space! The gambrel garage-style allows for the maximum room in the attic space — usually accommodating a full 8′ wall in the upstairs area. Perfect for those who need a full second-floor workspace, studio, or extra storage.',
+                desc2: '⚠ Current Lead Time: 13–14 Months. Due to extended lead times, these are estimates only. Prices are subject to change slightly until we can lock everything in around 6 months from the build date.',
+                features: [
+                    { icon:'ri-wall-line',          title:'2″×6″×8′ Walls',              sub:'Solid framing engineered for North Country winters' },
+                    { icon:'ri-shield-check-line',  title:'50-Year LP SmartSide Siding',  sub:'Industry-leading warranty against rot and insects' },
+                    { icon:'ri-door-open-line',     title:'Overhead & Entrance Doors',    sub:'16′×8′ insulated overhead or 2×9″×8′ + 36″ metal entry' },
+                    { icon:'ri-building-line',      title:'Full Gambrel Upper Level',     sub:'~8′ wall height upstairs for maximum usable attic space' },
+                    { icon:'ri-stairs-line',        title:'Stairway + 3/4″ Sub-floor',    sub:'Full upper-floor access with finished structural floor' },
+                    { icon:'ri-color-filter-line',  title:'13 Paint Color Choices',       sub:'Base and trim colors to match your property' },
+                ],
+                upgrades: ['Full second story','Extra windows','Grids in windows','Stone apron','Tree Removal','Lift Rental'],
+                specs: [
+                    ['Wall Framing',   '2″×6″×8′'],
+                    ['Siding',        '50-Year LP SmartSide'],
+                    ['Overhead Door', '16′×8′ solid insulated (or 2×9″×8′)'],
+                    ['Entry Door',    '36″ metal with windows'],
+                    ['Roof Style',    'Gambrel with 1′ overhangs'],
+                    ['Upper Level',   '~8′ wall height, full structural floor'],
+                    ['Foundation',    'Concrete block, two rows'],
+                    ['Lead Time',     '13–14 months'],
+                ],
+                sizes: ['20×20','22×22','24×24','24×30','24×36'],
+                colors: ['#7B5C40','#9EA4AD','#FFFFFF','#E8DFC8','#4A6741','#8B1A2A'],
+                colorNames: ['Brown','Gray','White','Tan','Green','Red'],
+                gallery: ['?w=800&q=80','?w=800&q=80','?w=800&q=80','?w=800&q=80'],
+            },
+            /* ── LOG HOMES ── */
+            'Mountaineer': {
+                leadTime: '8–9 months',
+                desc: 'With its attractive steep roofline and expansive front porch, our Mountaineer log homes are the perfect way to impress friends and family. This modular cabin comes in many options and customizable floor plans that are sure to fit your lifestyle and family size.',
+                desc2: 'No matter if you want a large knotty pine great room to relax in or a custom-built kitchen to serve your guests, you can do it all with your new Mountaineer Cabin.',
+                features: [
+                    { icon:'ri-shield-check-line', title:'State & Local Code Certified',  sub:'Fully engineered modular log cabin to your building codes' },
+                    { icon:'ri-home-roof-line',    title:'Architectural Shingle Roof',    sub:'Option to upgrade to metal roofing' },
+                    { icon:'ri-tree-line',         title:'Knotty White Pine Interior',    sub:'3/4″ T&G walls & ceiling, 2-coat clear poly finish' },
+                    { icon:'ri-window-line',       title:'ProVia Insulated Windows',      sub:'Double-hung/tilt, Low-E/Argon/HC glass' },
+                    { icon:'ri-layout-3-line',     title:'Solid Pine Cabinetry',          sub:'Full-extension soft-close doors/drawers, Wilsonart laminate tops' },
+                    { icon:'ri-tools-line',        title:'Fully Wired & Plumbed',         sub:'Insulated to meet all state and local building codes' },
+                ],
+                specs: [
+                    ['Lead Time',      '8–9 months'],
+                    ['Width Range',    "26', 28', or 30' wide"],
+                    ['Length Range',   "Up to 56' long"],
+                    ['Porch',          "6' wide front porch included"],
+                    ['Roof',           'Architectural shingles (metal upgrade available)'],
+                    ['Walls',          '3/4″ T&G knotty white pine, clear poly finish'],
+                    ['Floors',         'Engineered yellow pine T&G, clear poly finish'],
+                    ['Windows',        'ProVia insulated vinyl, Low-E/Argon/HC glass'],
+                    ['Cabinetry',      'Solid pine, soft-close, Wilsonart laminate tops'],
+                    ['Snow Load',      '90 lb snow load'],
+                    ['Crane Allowance','$6,500 included in pricing'],
+                    ['Delivery',       'Included within 100 miles of Philadelphia, NY'],
+                ],
+                floorPlans: [
+                    { size: "26' × 36'", price: 217570, img: null },
+                    { size: "26' × 40'", price: 252120, img: null },
+                    { size: "26' × 44'", price: 256185, img: null },
+                    { size: "26' × 48'", price: 283405, img: null },
+                    { size: "26' × 52'", price: 295785, img: null },
+                    { size: "26' × 56'", price: 312070, img: null },
+                    { size: "28' × 36'", price: 229650, img: null },
+                    { size: "28' × 40'", price: 264550, img: null },
+                    { size: "28' × 44'", price: 268170, img: null },
+                    { size: "28' × 48'", price: 296430, img: null },
+                    { size: "28' × 52'", price: 311820, img: null },
+                    { size: "28' × 56'", price: 326750, img: null },
+                    { size: "30' × 40'", price: 272945, img: null },
+                    { size: "30' × 44'", price: 273390, img: null },
+                    { size: "30' × 48'", price: 303985, img: null },
+                    { size: "30' × 52'", price: 321300, img: null },
+                    { size: "30' × 56'", price: 336035, img: null },
+                ],
+                floorPlansNote: "Sizes range from 26', 28', or 30' wide and up to 56' long, plus a 6' wide front porch. Pricing is for the home with all standard options — delivery, set-up, site work, and heating source are additional. Includes $6,500 crane allowance. Delivery included within 100 miles of Philadelphia, NY. Figures 90 lb snow load. Prices subject to change.",
+                sizes: [],
+                colors: [],
+                colorNames: [],
+                gallery: [],
+            },
+            'Musketeer': {
+                leadTime: '8–9 months',
+                desc: 'The Musketeer modular log home is perfect for single-story living, giving you the traditional "cape cod" look, but keeping all your living space on one floor. This cabin is a good choice for a retirement place – or for any of the many other reasons you may want everything on one level.',
+                desc2: 'Its gently sloping ceilings grant an open, yet efficient feeling. Or make use of that steep roofline by choosing our 8′ flat ceiling option which provides a generous attic space.',
+                features: [
+                    { icon:'ri-shield-check-line', title:'State & Local Code Certified',  sub:'Fully engineered modular log cabin to your building codes' },
+                    { icon:'ri-home-roof-line',    title:'Architectural Shingle Roof',    sub:'Option to upgrade to metal roofing' },
+                    { icon:'ri-tree-line',         title:'Knotty White Pine Interior',    sub:'3/4″ T&G walls & ceiling, 2-coat clear poly finish' },
+                    { icon:'ri-window-line',       title:'ProVia Insulated Windows',      sub:'Double-hung/tilt, Low-E/Argon/HC glass' },
+                    { icon:'ri-layout-3-line',     title:'Solid Pine Cabinetry',          sub:'Full-extension soft-close doors/drawers, Wilsonart laminate tops' },
+                    { icon:'ri-tools-line',        title:'Fully Wired & Plumbed',         sub:'Insulated to meet all state and local building codes' },
+                ],
+                specs: [
+                    ['Lead Time',      '8–9 months'],
+                    ['Width Range',    "24' to 30' wide"],
+                    ['Length Range',   "Up to 56' long"],
+                    ['Style',          'Single-story, cape cod roofline'],
+                    ['Ceiling Option', "8' flat ceiling available (adds attic space)"],
+                    ['Roof',           'Architectural shingles (metal upgrade available)'],
+                    ['Walls',          '3/4″ T&G knotty white pine, clear poly finish'],
+                    ['Floors',         'Engineered yellow pine T&G, clear poly finish'],
+                    ['Windows',        'ProVia insulated vinyl, Low-E/Argon/HC glass'],
+                    ['Cabinetry',      'Solid pine, soft-close, Wilsonart laminate tops'],
+                    ['Snow Load',      '90 lb snow load'],
+                    ['Crane Allowance','$6,500 included in pricing'],
+                ],
+                floorPlans: [
+                    { size: "24' × 30'", price: 165815, img: null },
+                    { size: "24' × 36'", price: 191020, img: null },
+                    { size: "26' × 30'", price: 169955, img: null },
+                    { size: "26' × 36'", price: 197285, img: null },
+                    { size: "26' × 44'", price: 237265, img: null },
+                    { size: "26' × 48'", price: 253140, img: null },
+                    { size: "26' × 52'", price: 284465, img: null },
+                    { size: "26' × 56'", price: 286885, img: null },
+                    { size: "28' × 30'", price: 176375, img: null },
+                    { size: "28' × 36'", price: 204480, img: null },
+                    { size: "28' × 44'", price: 244510, img: null },
+                    { size: "28' × 48'", price: 261915, img: null },
+                    { size: "28' × 52'", price: 295180, img: null },
+                    { size: "28' × 56'", price: 296300, img: null },
+                    { size: "30' × 44'", price: 254095, img: null },
+                    { size: "30' × 48'", price: 267430, img: null },
+                    { size: "30' × 52'", price: 301940, img: null },
+                    { size: "30' × 56'", price: 304455, img: null },
+                ],
+                floorPlansNote: "Sizes range from 24' to 30' wide and up to 56' long. Pricing is for the home with all standard options — delivery, set-up, site work, and heating source are additional. Includes $6,500 crane allowance. Figures 90 lb snow load. Prices subject to change.",
+                sizes: [],
+                colors: [],
+                colorNames: [],
+                gallery: [],
+            },
+            'Mountaineer Deluxe': {
+                leadTime: '7–8 months',
+                desc: 'No matter if you are looking for a vacation home or log cabin to retire in, a Mountaineer Deluxe cabin from North Country Storage Barns is the ideal model for any family. The 20′ high ceilings in the great room create a truly open feel you\'ll enjoy from your couch, dinner table, or kitchen.',
+                desc2: 'All of our Mountaineer Deluxe log homes are manufactured in Lancaster County and can be customized to include luxury options like dormers, additional porches, master bathrooms, and more.',
+                features: [
+                    { icon:'ri-shield-check-line', title:'State & Local Code Certified',  sub:'Fully engineered modular log cabin to your building codes' },
+                    { icon:'ri-home-roof-line',    title:'Architectural Shingle Roof',    sub:'Option to upgrade to metal roofing' },
+                    { icon:'ri-tree-line',         title:'Knotty White Pine Interior',    sub:'3/4″ T&G walls & ceiling, 2-coat clear poly finish' },
+                    { icon:'ri-window-line',       title:'ProVia Insulated Windows',      sub:'Double-hung/tilt, Low-E/Argon/HC glass' },
+                    { icon:'ri-layout-3-line',     title:'Solid Pine Cabinetry',          sub:'Full-extension soft-close doors/drawers, Wilsonart laminate tops' },
+                    { icon:'ri-tools-line',        title:'Fully Wired & Plumbed',         sub:'Insulated to meet all state and local building codes' },
+                ],
+                specs: [
+                    ['Lead Time',      '7–8 months'],
+                    ['Width Range',    "26', 28', or 30' wide"],
+                    ['Length Range',   "36' to 56' long"],
+                    ['Ceiling Height', "20' high ceilings in great room"],
+                    ['Roof',           'Architectural shingles (metal upgrade available)'],
+                    ['Walls',          '3/4″ T&G knotty white pine, clear poly finish'],
+                    ['Floors',         'Engineered yellow pine T&G, clear poly finish'],
+                    ['Windows',        'ProVia insulated vinyl, Low-E/Argon/HC glass'],
+                    ['Cabinetry',      'Solid pine, soft-close, Wilsonart laminate tops'],
+                    ['Countertop Opt', 'Solid surface Corian available'],
+                    ['Snow Load',      '90 lb snow load'],
+                    ['Crane Allowance','$6,500 included in pricing'],
+                    ['Delivery',       'Included within 100 miles of Philadelphia, NY'],
+                ],
+                floorPlans: [
+                    { size: "26' × 36'", price: 247530, img: null },
+                    { size: "26' × 40'", price: 285655, img: null },
+                    { size: "26' × 44'", price: 289720, img: null },
+                    { size: "26' × 48'", price: 316990, img: null },
+                    { size: "26' × 52'", price: 327560, img: null },
+                    { size: "26' × 56'", price: 349125, img: null },
+                    { size: "28' × 36'", price: 260305, img: null },
+                    { size: "28' × 40'", price: 298535, img: null },
+                    { size: "28' × 44'", price: 303065, img: null },
+                    { size: "28' × 48'", price: 329300, img: null },
+                    { size: "28' × 52'", price: 345020, img: null },
+                    { size: "28' × 56'", price: 365425, img: null },
+                    { size: "30' × 40'", price: 311535, img: null },
+                    { size: "30' × 44'", price: 314255, img: null },
+                    { size: "30' × 48'", price: 343125, img: null },
+                    { size: "30' × 52'", price: 359230, img: null },
+                    { size: "30' × 56'", price: 379825, img: null },
+                ],
+                floorPlansNote: "Sizes range from 26', 28', or 30' wide and 36' to 56' long. Pricing is for the home with all standard options — delivery, set-up, site work, and heating source are additional. Includes $6,500 crane allowance. Delivery included within 100 miles of Philadelphia, NY. Figures 90 lb snow load. Prices subject to change.",
+                sizes: [],
+                colors: [],
+                colorNames: [],
+                gallery: [],
+            },
+            'Chalet': {
+                leadTime: '8–9 months',
+                desc: 'When you\'re looking for optimal views of the lake or mountain side, it\'s seen best from the Chalet Modular Home. The extended prow roof shelters some of the sun\'s rays from inside of the home but allows ultimate viewing pleasure. The cathedral ceiling in the great room is open and spacious and allows for memorable times together with friends and family.',
+                desc2: 'The overall style is like the Mountaineer. The unfinished loft area can make a great office, game room, or an additional bedroom.',
+                features: [
+                    { icon:'ri-shield-check-line', title:'State & Local Code Certified',  sub:'Fully engineered modular log cabin to your building codes' },
+                    { icon:'ri-home-roof-line',    title:'Architectural Shingle Roof',    sub:'Option to upgrade to metal roofing' },
+                    { icon:'ri-tree-line',         title:'Knotty White Pine Interior',    sub:'3/4″ T&G walls & ceiling, 2-coat clear poly finish' },
+                    { icon:'ri-window-line',       title:'ProVia Insulated Windows',      sub:'Double-hung/tilt, Low-E/Argon/HC glass' },
+                    { icon:'ri-layout-3-line',     title:'Solid Pine Cabinetry',          sub:'Full-extension soft-close doors/drawers, Wilsonart laminate tops' },
+                    { icon:'ri-tools-line',        title:'Fully Wired & Plumbed',         sub:'Insulated to meet all state and local building codes' },
+                ],
+                specs: [
+                    ['Lead Time',      '8–9 months'],
+                    ['Width Range',    "26' to 30' wide"],
+                    ['Length Range',   "Up to 56' long"],
+                    ['Deck',           "8' × 24' included"],
+                    ['Roof',           'Architectural shingles (metal upgrade available)'],
+                    ['Walls',          '3/4″ T&G knotty white pine, clear poly finish'],
+                    ['Floors',         'Engineered yellow pine T&G, clear poly finish'],
+                    ['Windows',        'ProVia insulated vinyl, Low-E/Argon/HC glass'],
+                    ['Cabinetry',      'Solid pine, soft-close, Wilsonart laminate tops'],
+                    ['Countertop Opt', 'Solid surface Corian available'],
+                ],
+                floorPlans: [
+                    { size: "26' × 30'", price: 227955, img: null },
+                    { size: "26' × 36'", price: 251685, img: null },
+                    { size: "26' × 42'", price: 271785, img: null },
+                    { size: "26' × 48'", price: 309165, img: null },
+                    { size: "26' × 52'", price: 327020, img: null },
+                    { size: "26' × 56'", price: 344055, img: null },
+                    { size: "28' × 30'", price: 241070, img: null },
+                    { size: "28' × 36'", price: 267605, img: null },
+                    { size: "28' × 42'", price: 285920, img: null },
+                    { size: "28' × 48'", price: 322200, img: null },
+                    { size: "28' × 52'", price: 340200, img: null },
+                    { size: "28' × 56'", price: 361470, img: null },
+                    { size: "30' × 42'", price: 300325, img: null },
+                    { size: "30' × 48'", price: 337215, img: null },
+                    { size: "30' × 52'", price: 355445, img: null },
+                    { size: "30' × 56'", price: 376835, img: null },
+                ],
+                floorPlansNote: "Sizes range from 26', 28', 30' wide and up to 56' long, with an 8' × 24' deck (8' deep, 2' narrower than home width). Click a size to download the floor plan. Prices may vary due to lumber market conditions.",
+                sizes: [],
+                colors: [],
+                colorNames: [],
+                gallery: [],
+            },
+            'Pioneer': {
+                leadTime: '7–8 months',
+                desc: 'When you are looking to build a home that can handle all of life\'s big gatherings, you want to be sure that everyone can be together. The Pioneer cabin is ideal for those who want maximum space for family — grandchildren spending time with cousins, grown children comfortable, and a true place to call home.',
+                desc2: 'The Pioneer is also a great choice for those who cannot physically manage stairs to a second-floor living space, or have frequent visitors with the same concern. Single-story living without compromise.',
+                features: [
+                    { icon:'ri-shield-check-line', title:'State & Local Code Certified',  sub:'Fully engineered modular log cabin to your building codes' },
+                    { icon:'ri-home-roof-line',    title:'Architectural Shingle Roof',    sub:'Option to upgrade to metal roofing' },
+                    { icon:'ri-tree-line',         title:'Knotty White Pine Interior',    sub:'3/4″ T&G walls & ceiling, 2-coat clear poly finish' },
+                    { icon:'ri-window-line',       title:'ProVia Insulated Windows',      sub:'Double-hung/tilt, Low-E/Argon/HC glass' },
+                    { icon:'ri-layout-3-line',     title:'Solid Pine Cabinetry',          sub:'Full-extension soft-close doors/drawers, Wilsonart laminate tops' },
+                    { icon:'ri-tools-line',        title:'Fully Wired & Plumbed',         sub:'Insulated to meet all state and local building codes' },
+                ],
+                specs: [
+                    ['Lead Time',       '7–8 months'],
+                    ['Width Range',     "22', 24', 26', 28', or 30' wide"],
+                    ['Length Range',    "Up to 56' long"],
+                    ['Porch',           "Standard 6' × 20' porch (not included in dimensions)"],
+                    ['Style',           'Single-story ranch'],
+                    ['Roof',            'Architectural shingles (metal upgrade available)'],
+                    ['Walls',           '3/4″ T&G knotty white pine, clear poly finish'],
+                    ['Floors',         'Engineered yellow pine T&G, clear poly finish'],
+                    ['Windows',        'ProVia insulated vinyl, Low-E/Argon/HC glass'],
+                    ['Cabinetry',      'Solid pine, soft-close, Wilsonart laminate tops'],
+                    ['Countertop Opt', 'Solid surface Corian available'],
+                    ['Snow Load',      '90 lb snow load'],
+                    ['Crane Allowance','$6,500 included in pricing'],
+                    ['Delivery',       'Included within 100 miles of Philadelphia, NY'],
+                ],
+                floorPlans: [
+                    { size: "22' × 30'", price: 158300, img: null },
+                    { size: "22' × 36'", price: 179970, img: null },
+                    { size: "24' × 30'", price: 164850, img: null },
+                    { size: "24' × 36'", price: 177815, img: null },
+                    { size: "26' × 30'", price: 169625, img: null },
+                    { size: "26' × 36'", price: 183565, img: null },
+                    { size: "26' × 42'", price: 221960, img: null },
+                    { size: "26' × 48'", price: 259160, img: null },
+                    { size: "26' × 52'", price: 269070, img: null },
+                    { size: "26' × 56'", price: 276685, img: null },
+                    { size: "28' × 30'", price: 175485, img: null },
+                    { size: "28' × 36'", price: 189835, img: null },
+                    { size: "28' × 42'", price: 230615, img: null },
+                    { size: "28' × 48'", price: 270750, img: null },
+                    { size: "28' × 52'", price: 279255, img: null },
+                    { size: "28' × 56'", price: 283635, img: null },
+                    { size: "30' × 42'", price: 239130, img: null },
+                    { size: "30' × 48'", price: 276880, img: null },
+                    { size: "30' × 52'", price: 289105, img: null },
+                    { size: "30' × 56'", price: 291295, img: null },
+                ],
+                floorPlansNote: "Sizes range from 22' to 30' wide and up to 56' long. Standard 6' × 20' porch not included in dimensions. Pricing is for the home with all standard options — set-up, site work, and heating source are additional. Delivery included within 100 miles of Philadelphia, NY. Includes $6,500 crane allowance. Figures 90 lb snow load. Prices subject to change.",
+                sizes: [],
+                colors: [],
+                colorNames: [],
+                gallery: [],
+            },
+            'Settler': {
+                leadTime: '7–8 months',
+                desc: 'The Settler Modular Cabin offers the most available living space at the lowest possible price point. Available only as a ranch-style cabin, it has been expertly designed to maximize every square foot. With a large variety of floor plan options, you can choose a modular cabin that is right for you, your family, or hunting buddies.',
+                desc2: 'Whether you\'re looking for a permanent home, a vacation getaway, or a hunting cabin, the Settler gives you flexibility and value in a classic log home package.',
+                features: [
+                    { icon:'ri-shield-check-line', title:'State & Local Code Certified',  sub:'Fully engineered modular log cabin to your building codes' },
+                    { icon:'ri-home-roof-line',    title:'Architectural Shingle Roof',    sub:'Option to upgrade to metal roofing' },
+                    { icon:'ri-tree-line',         title:'Knotty White Pine Interior',    sub:'3/4″ T&G walls & ceiling, 2-coat clear poly finish' },
+                    { icon:'ri-window-line',       title:'ProVia Insulated Windows',      sub:'Double-hung/tilt, Low-E/Argon/HC glass' },
+                    { icon:'ri-layout-3-line',     title:'Solid Pine Cabinetry',          sub:'Full-extension soft-close doors/drawers, Wilsonart laminate tops' },
+                    { icon:'ri-tools-line',        title:'Fully Wired & Plumbed',         sub:'Insulated to meet all state and local building codes' },
+                ],
+                specs: [
+                    ['Lead Time',       '7–8 months'],
+                    ['Width Range',     "13', 15', 22', 24', 26', 28', or 30' wide"],
+                    ['Length Range',    "Up to 56' long"],
+                    ['Porch',           "6' porch included in dimensions"],
+                    ['Style',           'Ranch-style (single-story)'],
+                    ['Roof',            'Architectural shingles (metal upgrade available)'],
+                    ['Walls',           '3/4″ T&G knotty white pine, clear poly finish'],
+                    ['Floors',         'Engineered yellow pine T&G, clear poly finish'],
+                    ['Windows',        'ProVia insulated vinyl, Low-E/Argon/HC glass'],
+                    ['Cabinetry',      'Solid pine, soft-close, Wilsonart laminate tops'],
+                    ['Countertop Opt', 'Solid surface Corian available'],
+                    ['Snow Load',      '90 lb snow load'],
+                    ['Crane Allowance','$6,500 included in pricing'],
+                    ['Delivery',       'Included within 100 miles of Philadelphia, NY'],
+                ],
+                floorPlans: [
+                    { size: "22' × 30'", price: 156880, img: null },
+                    { size: "24' × 30'", price: 163550, img: null },
+                    { size: "24' × 36'", price: 190980, img: null },
+                    { size: "26' × 30'", price: 167710, img: null },
+                    { size: "26' × 36'", price: 197190, img: null },
+                    { size: "26' × 42'", price: 225840, img: null },
+                    { size: "26' × 48'", price: 249570, img: null },
+                    { size: "26' × 52'", price: 262285, img: null },
+                    { size: "26' × 56'", price: 275985, img: null },
+                    { size: "28' × 30'", price: 175465, img: null },
+                    { size: "28' × 36'", price: 204690, img: null },
+                    { size: "28' × 42'", price: 234700, img: null },
+                    { size: "28' × 48'", price: 260380, img: null },
+                    { size: "28' × 52'", price: 271845, img: null },
+                    { size: "28' × 56'", price: 287175, img: null },
+                    { size: "30' × 42'", price: 245690, img: null },
+                    { size: "30' × 48'", price: 269895, img: null },
+                    { size: "30' × 52'", price: 280245, img: null },
+                    { size: "30' × 56'", price: 296115, img: null },
+                ],
+                floorPlansNote: "Sizes range from 13' to 30' wide and up to 56' long. The 6' porch is included in the dimensions. Pricing is for the home with all standard options — delivery, set-up, site work, and heating source are additional. Includes $6,500 crane allowance. Figures 90 lb snow load. Prices subject to change.",
+                sizes: [],
+                colors: [],
+                colorNames: [],
+                gallery: [],
+            },
+            'Alpine': {
+                leadTime: '8–9 months',
+                desc: 'The combination of one-floor living and a cathedral living area makes the Alpine a fantastic choice. The large A-frame front porch adds to the wow factor, and four vista glass windows in the peak of the porch share the beautiful outdoors with you and your family as you relax in the living room with its 15′ high vaulted ceiling.',
+                desc2: 'Whether your place is in the mountains, by the lake, or a special spot in the country, the Alpine will not disappoint. We look forward to customizing a plan to fit your needs and preferences.',
+                features: [
+                    { icon:'ri-shield-check-line', title:'State & Local Code Certified',  sub:'Fully engineered modular log cabin to your building codes' },
+                    { icon:'ri-home-roof-line',    title:'Architectural Shingle Roof',    sub:'Option to upgrade to metal roofing' },
+                    { icon:'ri-tree-line',         title:'Knotty White Pine Interior',    sub:'3/4″ T&G walls & ceiling, 2-coat clear poly finish' },
+                    { icon:'ri-window-line',       title:'ProVia Insulated Windows',      sub:'Double-hung/tilt, Low-E/Argon/HC glass' },
+                    { icon:'ri-layout-3-line',     title:'Solid Pine Cabinetry',          sub:'Full-extension soft-close doors/drawers, Wilsonart laminate tops' },
+                    { icon:'ri-tools-line',        title:'Fully Wired & Plumbed',         sub:'Insulated to meet all state and local building codes' },
+                ],
+                specs: [
+                    ['Lead Time',       '8–9 months'],
+                    ['Width Range',     "26', 28', or 30' wide"],
+                    ['Length Range',    "Up to 56' long"],
+                    ['Ceiling Height',  "15' vaulted ceiling in living room"],
+                    ['Porch',           'Large A-frame front porch with 4 vista glass windows'],
+                    ['Style',           'Single-story with cathedral living area'],
+                    ['Roof',            'Architectural shingles (metal upgrade available)'],
+                    ['Walls',           '3/4″ T&G knotty white pine, clear poly finish'],
+                    ['Floors',         'Engineered yellow pine T&G, clear poly finish'],
+                    ['Windows',        'ProVia insulated vinyl, Low-E/Argon/HC glass'],
+                    ['Cabinetry',      'Solid pine, soft-close, Wilsonart laminate tops'],
+                    ['Countertop Opt', 'Solid surface Corian available'],
+                    ['Snow Load',      '90 lb snow load'],
+                    ['Crane Allowance','$6,500 included in pricing'],
+                ],
+                floorPlans: [
+                    { size: "26' × 44'",             price: 261325, img: null },
+                    { size: "26' × 48'",             price: 281445, img: null },
+                    { size: "26' × 48' w/ Bump Out", price: 307035, img: null },
+                    { size: "26' × 52'",             price: 297270, img: null },
+                    { size: "26' × 56'",             price: 313400, img: null },
+                    { size: "26' × 56' Flipped",     price: 317415, img: null },
+                    { size: "28' × 44'",             price: 272160, img: null },
+                    { size: "28' × 48'",             price: 290780, img: null },
+                    { size: "28' × 48' w/ Bump Out", price: 319315, img: null },
+                    { size: "28' × 52'",             price: 309125, img: null },
+                    { size: "28' × 56'",             price: 323200, img: null },
+                    { size: "28' × 56' Flipped",     price: 328815, img: null },
+                    { size: "30' × 44'",             price: 281175, img: null },
+                    { size: "30' × 48'",             price: 299675, img: null },
+                    { size: "30' × 48' w/ Bump Out", price: 328920, img: null },
+                    { size: "30' × 52'",             price: 318105, img: null },
+                    { size: "30' × 56'",             price: 334445, img: null },
+                    { size: "30' × 56' Flipped",     price: 338505, img: null },
+                ],
+                floorPlansNote: "Sizes range from 26', 28', and 30' wide and up to 56' long. Some plans include a bump-out or flipped layout option. Pricing is for the home with all standard options — delivery, set-up, site work, and heating source are additional. Includes $6,500 crane allowance. Figures 90 lb snow load. Prices subject to change.",
+                sizes: [],
+                colors: [],
+                colorNames: [],
+                gallery: [],
+            },
             'default': {
                 desc: 'Quality-built by North Country Storage Barns — family owned and operated in New York State since 1993. Every product is crafted with care using premium materials and backed by our satisfaction guarantee.',
                 desc2: 'Available in multiple configurations. Contact us for custom sizing and color options. Free delivery within 60 miles of our locations.',
@@ -917,14 +1461,46 @@
         /* ═══════════════════════════════════════════════
            INIT  — read ?id= and render
         ═══════════════════════════════════════════════ */
+        let currentProduct = null;
+
         function init() {
             const id = parseInt(new URLSearchParams(window.location.search).get('id'));
             const product = PRODUCTS.find(p => p.id === id) || PRODUCTS[0];
             renderProduct(product);
         }
 
+        function addToCart() {
+            const sizeBtn      = document.querySelector('.pd-size-btn.is-active');
+            const selectedSize = sizeBtn ? sizeBtn.textContent.trim() : '';
+            const colorLabel   = (document.getElementById('pdSelectedColor')?.textContent || '').replace('— ', '').trim();
+            const p = currentProduct;
+            const cart = JSON.parse(localStorage.getItem('ncs_cart') || '[]');
+            const existing = cart.find(item => item.id === p.id);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                const opts = [];
+                if (selectedSize) opts.push({ label: 'Size',  value: selectedSize, price: 0 });
+                if (colorLabel)   opts.push({ label: 'Color', value: colorLabel,   price: 0 });
+                cart.push({
+                    id:       p.id,
+                    title:    p.name,
+                    image:    p.img,
+                    location: selectedSize || p.style || p.category,
+                    lead:     p.category,
+                    price:    p.sale ?? p.price,
+                    qty:      1,
+                    options:  opts,
+                });
+            }
+            localStorage.setItem('ncs_cart', JSON.stringify(cart));
+            window.location.href = 'cart.html';
+        }
+
         function renderProduct(p) {
-            const detail = PRODUCT_DETAILS[p.category] || PRODUCT_DETAILS['default'];
+            currentProduct = p;
+            const detail = PRODUCT_DETAILS[p.name] || PRODUCT_DETAILS[p.category] || PRODUCT_DETAILS['default'];
+            document.getElementById('pdCustomizeBtn').style.display = p.category === 'Sheds' ? '' : 'none';
             const catSlug = p.category.replace(/ /g, '+').replace(/&.*/, '').trim();
 
             /* page title */
@@ -965,7 +1541,9 @@
             document.getElementById('pdName').textContent = p.name;
 
             const ep = p.sale ?? p.price;
-            document.getElementById('pdPrice').textContent = '$' + ep.toLocaleString();
+            const hasSizes = detail.sizes && detail.sizes.length > 0;
+            const pricePrefix = hasSizes && !p.sale ? 'from ' : '';
+            document.getElementById('pdPrice').textContent = pricePrefix + '$' + ep.toLocaleString();
             document.getElementById('pdPrice').classList.toggle('is-sale', !!p.sale);
             if (p.sale) {
                 document.getElementById('pdPriceOld').style.display = '';
@@ -973,10 +1551,58 @@
             }
             document.getElementById('pdDesc').textContent = detail.desc;
 
+            /* floor plans tab */
+            const tabBtnFP = document.getElementById('tabBtnFloorPlans');
+            if (detail.floorPlans && detail.floorPlans.length) {
+                tabBtnFP.style.display = '';
+                const rowCount = Math.ceil(detail.floorPlans.length / 2);
+                const fpHTML = `
+                    ${detail.leadTime ? `<div class="pd-lead-time" data-comment="pd-lead-time"><i class="ri-time-line"></i>Current lead time: ${detail.leadTime}</div>` : ''}
+                    <p class="pd-fp-intro" data-comment="pd-fp-intro">${detail.floorPlansNote || ''}</p>
+                    <div class="pd-fp-grid" id="pdFpGrid" data-comment="pd-fp-grid">
+                        ${detail.floorPlans.map((fp, i) => `
+                        <a class="pd-fp-btn" href="#" data-comment="pd-fp-btn-${i+1}" onclick="event.preventDefault()">
+                            <i class="ri-file-pdf-2-line" data-comment="pd-fp-btn-${i+1}-icon"></i>
+                            <span class="pd-fp-btn-info" data-comment="pd-fp-btn-${i+1}-info">
+                                <span class="pd-fp-btn-size" data-comment="pd-fp-btn-${i+1}-size">${fp.size}</span>
+                                <span class="pd-fp-btn-price" data-comment="pd-fp-btn-${i+1}-price">$${fp.price.toLocaleString()}</span>
+                            </span>
+                        </a>`).join('')}
+                    </div>`;
+                document.getElementById('pdFloorPlansContent').innerHTML = fpHTML;
+            } else {
+                tabBtnFP.style.display = 'none';
+            }
+
+            /* activate first relevant tab */
+            const firstTabId = (detail.floorPlans && detail.floorPlans.length) ? 'floorplans' : 'desc';
+            document.querySelectorAll('.pd-tab-panel').forEach(p => p.classList.remove('is-active'));
+            document.querySelectorAll('.pd-tab-btn').forEach(b => b.classList.remove('is-active'));
+            document.getElementById('tab-' + firstTabId).classList.add('is-active');
+            const firstBtn = document.querySelector(`.pd-tab-btn[onclick*="'${firstTabId}'"]`);
+            if (firstBtn) firstBtn.classList.add('is-active');
+
             /* size buttons */
             const sizeSec = document.getElementById('pdSizeSection');
-            if (detail.sizes && detail.sizes.length > 0) {
-                const sizeToSelect = p.size ? detail.sizes.find(s => s.includes(p.size.charAt(0).toLowerCase())) || detail.sizes[0] : detail.sizes[0];
+            const hasFloorPlans = detail.floorPlans && detail.floorPlans.length > 0;
+
+            if (hasFloorPlans) {
+                /* Floor plan sizes — grid layout, price updates on select */
+                sizeSec.style.display = '';
+                const sizeBtnsEl = document.getElementById('pdSizeBtns');
+                sizeBtnsEl.className = 'pd-size-btns--fp';
+                sizeBtnsEl.innerHTML = detail.floorPlans.map((fp, i) => `
+                    <button class="pd-size-btn${i === 0 ? ' is-active' : ''}"
+                        data-price="${fp.price}"
+                        data-size="${fp.size}"
+                        data-fp-img="${fp.img || ''}"
+                        data-comment="pd-size-${i+1}"
+                        onclick="selectSize(this, this.dataset.size)">${fp.size}</button>`).join('');
+                document.getElementById('pdSelectedSize').textContent = '';
+                /* set initial price to first floor plan */
+                document.getElementById('pdPrice').textContent = '$' + detail.floorPlans[0].price.toLocaleString();
+                document.getElementById('pdPriceNote').textContent = 'Price updates when you select a size below';
+            } else if (hasSizes) {
                 document.getElementById('pdSizeBtns').innerHTML = detail.sizes.map((s, i) => `
                     <button class="pd-size-btn${i === 0 ? ' is-active' : ''}" data-comment="pd-size-${i+1}"
                         onclick="selectSize(this, '${s}')">${s}</button>`).join('');
@@ -986,13 +1612,19 @@
             }
 
             /* color swatches */
-            document.getElementById('pdColorSwatches').innerHTML = detail.colors.map((hex, i) => `
-                <button class="pd-color-swatch${i === 0 ? ' is-active' : ''}"
-                    style="background:${hex}; border-color:${i === 0 ? 'transparent' : 'transparent'}"
-                    title="${detail.colorNames[i]}"
-                    data-comment="pd-color-${i+1}"
-                    onclick="selectColor(this, '${detail.colorNames[i]}')"></button>`).join('');
-            document.getElementById('pdSelectedColor').textContent = '— ' + detail.colorNames[0];
+            const colorSec = document.getElementById('pdColorSection');
+            if (detail.colors && detail.colors.length > 0) {
+                colorSec.style.display = '';
+                document.getElementById('pdColorSwatches').innerHTML = detail.colors.map((hex, i) => `
+                    <button class="pd-color-swatch${i === 0 ? ' is-active' : ''}"
+                        style="background:${hex}; border-color:transparent"
+                        title="${detail.colorNames[i]}"
+                        data-comment="pd-color-${i+1}"
+                        onclick="selectColor(this, '${detail.colorNames[i]}')"></button>`).join('');
+                document.getElementById('pdSelectedColor').textContent = '— ' + detail.colorNames[0];
+            } else {
+                colorSec.style.display = 'none';
+            }
 
             /* long description + features */
             document.getElementById('pdLongDesc').innerHTML = `<p>${detail.desc}</p><p>${detail.desc2}</p>`;
@@ -1008,7 +1640,6 @@
 
             /* specs */
             const specsRows = [...detail.specs];
-            if (p.size) specsRows.unshift(['Dimensions', p.size.replace('×', '\'×') + '\'']);
             document.getElementById('pdSpecsTable').innerHTML = specsRows.map((row, i) => `
                 <tr data-comment="pd-spec-row-${i+1}">
                     <td data-comment="pd-spec-${i+1}-key">${row[0]}</td>
@@ -1028,7 +1659,7 @@
                 <div class="pc-card" data-comment="pd-rel-card-${i+1}" onclick="window.location='product.html?id=${r.id}'">
                     <div class="pc-card-img-wrap" data-comment="pd-rel-card-${i+1}-img-wrap">
                         <img src="${r.img}" alt="${r.name}" loading="lazy" data-comment="pd-rel-card-${i+1}-img" />
-                        ${r.sale ? `<span class="pc-badge" data-comment="pd-rel-card-${i+1}-badge">On Sale</span>` : ''}
+                        ${r.sale ? `<span class="pc-badge" data-comment="pd-rel-card-${i+1}-badge">Sale</span>` : ''}
                     </div>
                     <div class="pc-card-body" data-comment="pd-rel-card-${i+1}-body">
                         <p class="pc-card-cat" data-comment="pd-rel-card-${i+1}-cat">${r.category}</p>
@@ -1054,6 +1685,7 @@
                 'Indoor Furniture':  ['https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&q=80','https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80','https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=800&q=75'],
                 'Outdoor Furniture': ['https://images.unsplash.com/photo-1592078615290-033ee584e267?w=800&q=80','https://images.unsplash.com/photo-1597208751520-49ca90e8c28e?w=800&q=75','https://images.unsplash.com/photo-1592078615290-033ee584e267?w=800&q=75'],
                 'Decor & More':      ['https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=75','https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=70','https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=65'],
+                'Garages':           ['https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80','https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80','https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&q=80'],
             };
             const alts = altMap[cat] || [primary, primary, primary];
             return alts.filter(u => u !== primary);
@@ -1073,6 +1705,16 @@
             thumbEl.classList.add('is-active');
         }
 
+        function galleryNav(dir) {
+            const thumbs = [...document.querySelectorAll('.pd-thumb')];
+            if (!thumbs.length) return;
+            const activeIdx = thumbs.findIndex(t => t.classList.contains('is-active'));
+            const nextIdx = (activeIdx + dir + thumbs.length) % thumbs.length;
+            const nextThumb = thumbs[nextIdx];
+            const nextSrc = nextThumb.querySelector('img')?.src;
+            if (nextSrc) switchImage(nextSrc, nextThumb);
+        }
+
         function switchTab(id, btn) {
             document.querySelectorAll('.pd-tab-panel').forEach(p => p.classList.remove('is-active'));
             document.querySelectorAll('.pd-tab-btn').forEach(b => b.classList.remove('is-active'));
@@ -1084,6 +1726,42 @@
             document.querySelectorAll('.pd-size-btn').forEach(b => b.classList.remove('is-active'));
             btn.classList.add('is-active');
             document.getElementById('pdSelectedSize').textContent = '— ' + size;
+
+            /* update price */
+            if (btn.dataset.price) {
+                const priceEl = document.getElementById('pdPrice');
+                priceEl.textContent = '$' + parseInt(btn.dataset.price).toLocaleString();
+                priceEl.classList.remove('is-sale');
+                const noteEl = document.getElementById('pdPriceNote');
+                if (noteEl) noteEl.textContent = 'Price for selected size — subject to change due to lumber market';
+            }
+
+            /* update floor plan in gallery */
+            const thumbsEl = document.getElementById('pdThumbs');
+            /* remove previous fp thumb */
+            const existing = thumbsEl.querySelector('[data-fp-thumb]');
+            if (existing) existing.remove();
+
+            const fpImg = btn.dataset.fpImg;
+            if (fpImg) {
+                /* add fp as thumbnail */
+                const div = document.createElement('div');
+                div.className = 'pd-thumb';
+                div.setAttribute('data-fp-thumb', '');
+                div.setAttribute('data-comment', 'pd-thumb-fp');
+                div.innerHTML = `<img src="${fpImg}" alt="Floor Plan ${size}" style="object-fit:contain;background:#fff;" />`;
+                div.onclick = function() { switchImage(fpImg, this); };
+                thumbsEl.appendChild(div);
+                /* auto-show floor plan as main image */
+                switchImage(fpImg, div);
+            } else {
+                /* no fp image — restore original product photo as main */
+                const firstThumb = thumbsEl.querySelector('.pd-thumb');
+                if (firstThumb) {
+                    const origSrc = firstThumb.querySelector('img')?.src;
+                    if (origSrc) switchImage(origSrc, firstThumb);
+                }
+            }
         }
 
         function selectColor(btn, name) {

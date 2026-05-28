@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>NCS Barns — Testimonials</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+            rel="stylesheet" />
+        <script src="nav.js" defer></script>
+
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            :root {
+                /* Colors */
+                --color-burgundy:      #8B1A2A;
+                --color-burgundy-dark: #6D1420;
+                --color-dark:          #1C1F24;
+                --color-gray:          #514C4A;
+                --color-gray-light:    #9A9390;
+                --color-border:        #E6E2DD;
+                --color-bg:            #F8F6F4;
+                --color-bg-hover:      #F4F1EE;
+                --color-white:         #fff;
+                --color-gold:          #E8A020;
+
+                /* Typography */
+                --font-ui: 'Inter', sans-serif;
+
+                /* Layout */
+                --nav-height: 72px;
+                --max-width:  1440px;
+                --page-px:    40px;
+
+                /* Transitions */
+                --t-fast: 0.15s ease;
+                --t-med:  0.22s ease;
+            }
+
+            body {
+                font-family: var(--font-ui);
+                background: var(--color-bg);
+                color: var(--color-dark);
+            }
+
+            /* ─────────────────────────────────────────
+               GLOBAL UTILITIES
+            ───────────────────────────────────────── */
+            .section-inner {
+                max-width: var(--max-width);
+                margin: 0 auto;
+                padding: 0 var(--page-px);
+            }
+
+            .section-eyebrow {
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 1.2px;
+                text-transform: uppercase;
+                color: var(--color-burgundy);
+                margin-bottom: 12px;
+            }
+
+            .section-heading {
+                font-size: clamp(28px, 3vw, 40px);
+                font-weight: 600;
+                color: var(--color-dark);
+                letter-spacing: -0.5px;
+                line-height: 1.1;
+            }
+
+            .stars {
+                display: flex;
+                gap: 3px;
+            }
+
+            .stars i {
+                color: var(--color-gold);
+                font-size: 16px;
+            }
+
+            /* ─────────────────────────────────────────
+               PAGE HERO
+            ───────────────────────────────────────── */
+            .t-hero {
+                padding: 80px var(--page-px) 72px;
+                text-align: center;
+            }
+
+            .t-hero-inner {
+                max-width: 640px;
+                margin: 0 auto;
+            }
+
+            .t-hero-heading {
+                font-size: clamp(36px, 4.5vw, 56px);
+                white-space: nowrap;
+                font-weight: 600;
+                letter-spacing: -2px;
+                line-height: 1.0;
+                margin-bottom: 16px;
+            }
+
+            .t-hero-sub {
+                font-size: 16px;
+                color: var(--color-gray);
+                line-height: 1.65;
+                max-width: 480px;
+                margin: 0 auto 32px;
+            }
+
+            .t-hero-rating {
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                padding: 8px 16px;
+                border: 1.5px solid var(--color-border);
+                border-radius: 999px;
+                background: var(--color-white);
+                font-size: 13px;
+                font-weight: 600;
+                color: var(--color-dark);
+            }
+
+            .t-hero-rating .stars i { font-size: 14px; }
+
+            /* ─────────────────────────────────────────
+               REVIEW FORM
+            ───────────────────────────────────────── */
+            .t-form-section {
+                padding: 0 var(--page-px) 80px;
+            }
+
+            .t-form-wrap {
+                max-width: 680px;
+                margin: 0 auto;
+                background: var(--color-white);
+                border: 1.5px solid var(--color-border);
+                border-radius: 20px;
+                padding: 48px 52px;
+            }
+
+            .t-form-header {
+                margin-bottom: 32px;
+            }
+
+            .t-form-title {
+                font-size: 22px;
+                font-weight: 600;
+                letter-spacing: -0.4px;
+                margin-bottom: 6px;
+            }
+
+            .t-form-subtitle {
+                font-size: 14px;
+                color: var(--color-gray);
+            }
+
+            .t-form-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+                margin-bottom: 16px;
+            }
+
+            .t-form-field {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                margin-bottom: 16px;
+            }
+
+            .t-form-field:last-of-type {
+                margin-bottom: 0;
+            }
+
+            .t-form-label {
+                font-size: 13px;
+                font-weight: 600;
+                color: var(--color-dark);
+            }
+
+            .t-form-input,
+            .t-form-textarea {
+                font-family: var(--font-ui);
+                font-size: 14px;
+                color: var(--color-dark);
+                background: var(--color-bg);
+                border: 1.5px solid var(--color-border);
+                border-radius: 10px;
+                padding: 10px 14px;
+                outline: none;
+                transition: border-color var(--t-fast);
+            }
+
+            .t-form-input:focus,
+            .t-form-textarea:focus {
+                border-color: var(--color-dark);
+            }
+
+            .t-form-textarea {
+                resize: vertical;
+                min-height: 120px;
+                line-height: 1.6;
+            }
+
+            /* Star rating picker */
+            .t-star-picker {
+                display: flex;
+                flex-direction: row-reverse;
+                gap: 4px;
+                width: fit-content;
+            }
+
+            .t-star-picker input {
+                display: none;
+            }
+
+            .t-star-picker label {
+                font-size: 28px;
+                color: var(--color-border);
+                cursor: pointer;
+                transition: color var(--t-fast);
+                line-height: 1;
+            }
+
+            .t-star-picker label::before {
+                content: "\F186";
+                font-family: "remixicon";
+            }
+
+            .t-star-picker input:checked ~ label,
+            .t-star-picker label:hover,
+            .t-star-picker label:hover ~ label {
+                color: var(--color-gold);
+            }
+
+            .t-form-note {
+                font-size: 12px;
+                color: var(--color-gray-light);
+                margin-top: 16px;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+            .t-form-note i { font-size: 14px; }
+
+            .t-form-submit {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 12px 24px;
+                background: var(--color-burgundy);
+                color: #fff;
+                border: none;
+                border-radius: 10px;
+                font-family: var(--font-ui);
+                font-size: 14px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: background var(--t-fast), transform var(--t-fast);
+                margin-top: 24px;
+            }
+
+            .t-form-submit:hover {
+                background: var(--color-burgundy-dark);
+                transform: translateY(-1px);
+            }
+
+            .t-form-success {
+                display: none;
+                text-align: center;
+                padding: 32px 0 16px;
+            }
+
+            .t-form-success-icon {
+                width: 56px;
+                height: 56px;
+                border-radius: 999px;
+                background: #EDFAF3;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 16px;
+                font-size: 26px;
+                color: #22A267;
+            }
+
+            .t-form-success-title {
+                font-size: 18px;
+                font-weight: 600;
+                letter-spacing: -0.3px;
+                margin-bottom: 8px;
+            }
+
+            .t-form-success-sub {
+                font-size: 14px;
+                color: var(--color-gray);
+                line-height: 1.6;
+            }
+
+            /* ─────────────────────────────────────────
+               FEATURED TESTIMONIAL
+            ───────────────────────────────────────── */
+            .t-featured {
+                background: var(--color-burgundy);
+                padding: 80px var(--page-px);
+            }
+
+            .t-featured-inner {
+                max-width: 900px;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            .t-featured-card {
+                background: rgba(0,0,0,0.22);
+                border-radius: 20px;
+                padding: 56px 64px 48px;
+            }
+
+            .t-featured-quote-mark {
+                font-size: 120px;
+                line-height: 0.6;
+                color: rgba(255,255,255,0.15);
+                font-family: Georgia, serif;
+                margin-bottom: 32px;
+                display: block;
+            }
+
+            .t-featured-text {
+                font-size: clamp(18px, 2.2vw, 24px);
+                font-weight: 400;
+                color: rgba(255,255,255,0.9);
+                line-height: 1.7;
+                letter-spacing: -0.2px;
+                margin-bottom: 36px;
+            }
+
+            .t-featured-author {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .t-featured-stars {
+                display: flex;
+                gap: 4px;
+            }
+
+            .t-featured-stars i {
+                color: var(--color-gold);
+                font-size: 18px;
+            }
+
+            .t-featured-name {
+                font-size: 15px;
+                font-weight: 700;
+                color: #fff;
+                letter-spacing: -0.1px;
+            }
+
+            .t-featured-title-label {
+                font-size: 13px;
+                color: rgba(255,255,255,0.55);
+                font-style: italic;
+            }
+
+            /* ─────────────────────────────────────────
+               TESTIMONIALS GRID
+            ───────────────────────────────────────── */
+            .t-grid-section {
+                padding: 80px var(--page-px) 96px;
+            }
+
+            .t-grid-header {
+                text-align: center;
+                margin-bottom: 56px;
+            }
+
+            .t-grid-sub {
+                font-size: 15px;
+                color: var(--color-gray);
+                line-height: 1.65;
+                margin-top: 12px;
+            }
+
+            .t-grid {
+                columns: 3;
+                column-gap: 24px;
+            }
+
+            .t-card {
+                break-inside: avoid;
+                background: var(--color-white);
+                border: 1.5px solid var(--color-border);
+                border-radius: 16px;
+                padding: 28px 28px 24px;
+                margin-bottom: 24px;
+            }
+
+            .t-card-stars {
+                display: flex;
+                gap: 3px;
+                margin-bottom: 14px;
+            }
+
+            .t-card-stars i {
+                color: var(--color-gold);
+                font-size: 15px;
+            }
+
+            .t-card-title {
+                font-size: 15px;
+                font-weight: 700;
+                color: var(--color-dark);
+                letter-spacing: -0.2px;
+                margin-bottom: 10px;
+                line-height: 1.3;
+            }
+
+            .t-card-text {
+                font-size: 14px;
+                color: var(--color-gray);
+                line-height: 1.7;
+                margin-bottom: 20px;
+            }
+
+            .t-card-author {
+                font-size: 13px;
+                font-weight: 600;
+                color: var(--color-dark);
+                padding-top: 16px;
+                border-top: 1px solid var(--color-border);
+            }
+
+            /* ─────────────────────────────────────────
+               CTA
+            ───────────────────────────────────────── */
+            .t-cta {
+                background: var(--color-bg-hover);
+                padding: 80px var(--page-px);
+                text-align: center;
+                border-top: 1px solid var(--color-border);
+            }
+
+            .t-cta-inner {
+                max-width: 560px;
+                margin: 0 auto;
+            }
+
+            .t-cta-eyebrow {
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 1.2px;
+                text-transform: uppercase;
+                color: var(--color-burgundy);
+                margin-bottom: 16px;
+            }
+
+            .t-cta-heading {
+                font-size: clamp(28px, 3.5vw, 44px);
+                font-weight: 600;
+                color: var(--color-dark);
+                letter-spacing: -1px;
+                line-height: 1.08;
+                margin-bottom: 14px;
+            }
+
+            .t-cta-sub {
+                font-size: 15px;
+                color: var(--color-gray);
+                line-height: 1.65;
+                margin-bottom: 32px;
+            }
+
+            .t-cta-buttons {
+                display: flex;
+                gap: 12px;
+                justify-content: center;
+            }
+
+            .btn-primary {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 12px 22px;
+                border-radius: 10px;
+                font-family: var(--font-ui);
+                font-size: 14px;
+                font-weight: 600;
+                text-decoration: none;
+                cursor: pointer;
+                white-space: nowrap;
+                background: var(--color-burgundy);
+                color: #fff;
+                border: none;
+                transition: background var(--t-fast), transform var(--t-fast);
+            }
+
+            .btn-primary:hover { background: var(--color-burgundy-dark); transform: translateY(-1px); }
+
+            .btn-outline-dark {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 12px 22px;
+                border-radius: 10px;
+                font-family: var(--font-ui);
+                font-size: 14px;
+                font-weight: 600;
+                text-decoration: none;
+                cursor: pointer;
+                white-space: nowrap;
+                background: transparent;
+                color: var(--color-dark);
+                border: 1.5px solid var(--color-dark);
+                transition: border-color var(--t-fast), background var(--t-fast);
+            }
+
+            .btn-outline-dark:hover { border-color: var(--color-gray); background: var(--color-bg); }
+
+            /* ─────────────────────────────────────────
+               RESPONSIVE — tablet  (sm: 640px)
+            ───────────────────────────────────────── */
+            @media (max-width: 1023px) { /* lg */
+                .t-grid { columns: 2; }
+            }
+
+            @media (max-width: 767px) { /* md */
+                :root { --page-px: 24px; }
+
+                .t-hero { padding: 52px var(--page-px) 56px; }
+
+                .t-form-wrap { padding: 32px 28px; }
+                .t-form-row { grid-template-columns: 1fr; gap: 0; }
+
+                .t-featured { padding: 56px var(--page-px); }
+                .t-featured-quote-mark { font-size: 80px; margin-bottom: 20px; }
+
+                .t-grid-section { padding: 56px var(--page-px) 72px; }
+
+                .t-cta { padding: 56px var(--page-px); }
+            }
+
+            @media (max-width: 639px) { /* sm */
+                :root { --page-px: 20px; }
+
+                .t-hero { padding: 40px var(--page-px) 48px; }
+                .t-hero-heading { letter-spacing: -0.5px; }
+
+                .t-form-section { padding: 0 var(--page-px) 56px; }
+                .t-form-wrap { padding: 28px 20px; border-radius: 16px; }
+
+                .t-grid { columns: 1; }
+                .t-card { padding: 24px 20px 20px; }
+
+                .t-cta-buttons { flex-direction: column; align-items: stretch; }
+                .t-cta-buttons .btn-primary,
+                .t-cta-buttons .btn-outline-dark { justify-content: center; }
+            }
+
+            /* ─────────────────────────────────────────
+               FOOTER
+            ───────────────────────────────────────── */
+            .footer-root { background: #000; color: #fff; padding: 72px var(--page-px) 40px; }
+            .footer-inner { max-width: var(--max-width); margin: 0 auto; }
+            .footer-top { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr 1.4fr; gap: 48px; padding-bottom: 52px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 52px; }
+            .footer-brand-logo { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; text-decoration: none; margin-bottom: 16px; }
+            .footer-brand-logo img { width: 50%; height: auto; filter: brightness(0) invert(1) opacity(0.5); }
+            .footer-brand-name { font-size: 16px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+            .footer-brand-desc { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.65; max-width: 220px; }
+            .footer-col-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 18px; }
+            .footer-links { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+            .footer-links a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-links a:hover { color: #fff; }
+            .footer-contact-item { font-size: 14px; color: rgba(255,255,255,0.65); margin-bottom: 10px; display: flex; align-items: flex-start; gap: 8px; }
+            .footer-contact-item svg { width: 15px; height: 15px; stroke: rgba(255,255,255,0.35); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; margin-top: 1px; }
+            .footer-contact-item a { color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-contact-item a:hover { color: #fff; }
+            .footer-locations { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 32px; }
+            .footer-loc-name { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+            .footer-loc-addr { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.55; margin-bottom: 8px; }
+            .footer-loc-phone { font-size: 13px; color: rgba(255,255,255,0.45); }
+            .footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+            .footer-copy-row { display: flex; align-items: center; gap: 20px; }
+            .footer-copy { font-size: 13px; color: rgba(255,255,255,0.35); }
+            .footer-legal-link { font-size: 13px; color: rgba(255,255,255,0.35); text-decoration: none; transition: color var(--t-fast); }
+            .footer-legal-link:hover { color: rgba(255,255,255,0.7); }
+            .footer-socials { display: flex; gap: 10px; }
+            .footer-social-btn { width: 38px; height: 38px; border-radius: 9px; border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; text-decoration: none; transition: border-color var(--t-fast), background var(--t-fast); }
+            .footer-social-btn:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.08); }
+            .footer-social-btn i { font-size: 17px; color: rgba(255,255,255,0.6); }
+
+            @media (max-width: 1023px) { /* lg */
+                .footer-top { grid-template-columns: 1fr 1fr 1fr; gap: 36px; }
+                [data-comment="testimonials-footer-brand"] { grid-column: 1 / -1; }
+                [data-comment="testimonials-footer-col-contact"] { grid-column: 1 / -1; display: flex; gap: 32px; }
+                [data-comment="testimonials-footer-col-contact"] .footer-col-label { display: none; }
+            }
+
+            @media (max-width: 767px) { /* md */
+                .footer-root { padding: 52px var(--page-px) 32px; }
+                .footer-top { grid-template-columns: 1fr 1fr; gap: 28px 32px; padding-bottom: 36px; margin-bottom: 36px; }
+                [data-comment="testimonials-footer-brand"] { grid-column: 1 / -1; }
+                [data-comment="testimonials-footer-col-contact"] { grid-column: 1 / -1; display: flex; gap: 24px; flex-wrap: wrap; }
+                [data-comment="testimonials-footer-col-contact"] .footer-col-label { display: none; }
+                .footer-locations { grid-template-columns: 1fr 1fr; gap: 24px; }
+                .footer-bottom { flex-direction: column; align-items: flex-start; gap: 16px; }
+                .footer-copy-row { flex-wrap: wrap; gap: 10px; }
+            }
+
+            @media (max-width: 639px) { /* sm */
+                .footer-top { grid-template-columns: 1fr 1fr; }
+                .footer-locations { grid-template-columns: 1fr; gap: 20px; }
+                .footer-brand-logo img { width: 40%; }
+                .footer-brand-desc { max-width: 100%; }
+            }
+        </style>
+    </head>
+    <body>
+        <ncs-nav></ncs-nav>
+
+        <main>
+
+            <!-- ── HERO ── -->
+            <section class="t-hero" data-comment="testimonials-hero">
+                <div class="t-hero-inner" data-comment="testimonials-hero-inner">
+                    <p class="section-eyebrow" data-comment="testimonials-hero-eyebrow">Customer Reviews</p>
+                    <h1 class="t-hero-heading" data-comment="testimonials-hero-heading">What Our Customers Say</h1>
+                    <p class="t-hero-sub" data-comment="testimonials-hero-sub">Hundreds of happy homeowners, farmers, and businesses across New York trust North Country Storage Barns. Here's what they have to say.</p>
+                    <div class="t-hero-rating" data-comment="testimonials-hero-rating">
+                        <div class="stars" data-comment="testimonials-hero-stars">
+                            <i class="ri-star-fill" data-comment="testimonials-hero-star-1"></i>
+                            <i class="ri-star-fill" data-comment="testimonials-hero-star-2"></i>
+                            <i class="ri-star-fill" data-comment="testimonials-hero-star-3"></i>
+                            <i class="ri-star-fill" data-comment="testimonials-hero-star-4"></i>
+                            <i class="ri-star-fill" data-comment="testimonials-hero-star-5"></i>
+                        </div>
+                        <span data-comment="testimonials-hero-rating-label">5.0 · 500+ Reviews</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── LEAVE A REVIEW FORM ── -->
+            <section class="t-form-section" data-comment="testimonials-form-section">
+                <div class="t-form-wrap" data-comment="testimonials-form-wrap">
+                    <div class="t-form-header" data-comment="testimonials-form-header">
+                        <h2 class="t-form-title" data-comment="testimonials-form-title">Leave a Review</h2>
+                        <p class="t-form-subtitle" data-comment="testimonials-form-subtitle">Share your experience with North Country Storage Barns</p>
+                    </div>
+
+                    <form id="review-form" data-comment="testimonials-form">
+                        <div class="t-form-row" data-comment="testimonials-form-row-1">
+                            <div class="t-form-field" data-comment="testimonials-form-field-name">
+                                <label class="t-form-label" for="review-name" data-comment="testimonials-form-label-name">Your Name</label>
+                                <input
+                                    class="t-form-input"
+                                    type="text"
+                                    id="review-name"
+                                    name="name"
+                                    placeholder="Jane Smith"
+                                    required
+                                    data-comment="testimonials-form-input-name" />
+                            </div>
+                            <div class="t-form-field" data-comment="testimonials-form-field-location">
+                                <label class="t-form-label" for="review-location" data-comment="testimonials-form-label-location">Location</label>
+                                <input
+                                    class="t-form-input"
+                                    type="text"
+                                    id="review-location"
+                                    name="location"
+                                    placeholder="Watertown, NY"
+                                    data-comment="testimonials-form-input-location" />
+                            </div>
+                        </div>
+
+                        <div class="t-form-field" data-comment="testimonials-form-field-review-title">
+                            <label class="t-form-label" for="review-title" data-comment="testimonials-form-label-review-title">Review Title</label>
+                            <input
+                                class="t-form-input"
+                                type="text"
+                                id="review-title"
+                                name="title"
+                                placeholder="Great experience!"
+                                required
+                                data-comment="testimonials-form-input-review-title" />
+                        </div>
+
+                        <div class="t-form-field" data-comment="testimonials-form-field-rating">
+                            <label class="t-form-label" data-comment="testimonials-form-label-rating">Rating</label>
+                            <div class="t-star-picker" data-comment="testimonials-form-star-picker">
+                                <input type="radio" id="star5" name="rating" value="5" checked data-comment="testimonials-form-star-input-5" />
+                                <label for="star5" data-comment="testimonials-form-star-label-5"></label>
+                                <input type="radio" id="star4" name="rating" value="4" data-comment="testimonials-form-star-input-4" />
+                                <label for="star4" data-comment="testimonials-form-star-label-4"></label>
+                                <input type="radio" id="star3" name="rating" value="3" data-comment="testimonials-form-star-input-3" />
+                                <label for="star3" data-comment="testimonials-form-star-label-3"></label>
+                                <input type="radio" id="star2" name="rating" value="2" data-comment="testimonials-form-star-input-2" />
+                                <label for="star2" data-comment="testimonials-form-star-label-2"></label>
+                                <input type="radio" id="star1" name="rating" value="1" data-comment="testimonials-form-star-input-1" />
+                                <label for="star1" data-comment="testimonials-form-star-label-1"></label>
+                            </div>
+                        </div>
+
+                        <div class="t-form-field" data-comment="testimonials-form-field-message">
+                            <label class="t-form-label" for="review-message" data-comment="testimonials-form-label-message">Your Review</label>
+                            <textarea
+                                class="t-form-textarea"
+                                id="review-message"
+                                name="message"
+                                placeholder="Tell us about your experience…"
+                                required
+                                data-comment="testimonials-form-textarea"></textarea>
+                        </div>
+
+                        <button type="submit" class="t-form-submit" data-comment="testimonials-form-submit">
+                            <i class="ri-send-plane-line" data-comment="testimonials-form-submit-icon"></i>
+                            <span data-comment="testimonials-form-submit-label">Submit Review</span>
+                        </button>
+
+                        <p class="t-form-note" data-comment="testimonials-form-note">
+                            <i class="ri-google-fill" data-comment="testimonials-form-note-icon"></i>
+                            <span data-comment="testimonials-form-note-text">Reviews verified by Google</span>
+                        </p>
+                    </form>
+
+                    <div class="t-form-success" id="review-success" data-comment="testimonials-form-success">
+                        <div class="t-form-success-icon" data-comment="testimonials-form-success-icon">
+                            <i class="ri-check-line" data-comment="testimonials-form-success-check"></i>
+                        </div>
+                        <h3 class="t-form-success-title" data-comment="testimonials-form-success-title">Thank you for your review!</h3>
+                        <p class="t-form-success-sub" data-comment="testimonials-form-success-sub">We appreciate you taking the time to share your experience. We'll review your submission shortly.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── FEATURED TESTIMONIAL ── -->
+            <section class="t-featured" data-comment="testimonials-featured">
+                <div class="t-featured-inner" data-comment="testimonials-featured-inner">
+                    <div class="t-featured-card" data-comment="testimonials-featured-card">
+<p class="t-featured-text" data-comment="testimonials-featured-text">We have purchased a cabin, an addition to the cabin, and a gazebo from NCSB and we are so happy with the Service, the professionalism, and the quality of the work. Edwin has been one of the easiest people to deal with. His customer service is outstanding, he always returns calls and gets back to us immediately. Every single person that we have interacted with from NCSB has been so amazing. They are honest individuals with integrity and are like family. I highly recommend their company to anyone. Great people, great company, excellent customer service.</p>
+                        <div class="t-featured-author" data-comment="testimonials-featured-author">
+                            <div class="t-featured-stars" data-comment="testimonials-featured-stars">
+                                <i class="ri-star-fill" data-comment="testimonials-featured-star-1"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-featured-star-2"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-featured-star-3"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-featured-star-4"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-featured-star-5"></i>
+                            </div>
+                            <p class="t-featured-name" data-comment="testimonials-featured-name">Skip Starr</p>
+                            <p class="t-featured-title-label" data-comment="testimonials-featured-label">Extremely Pleased</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── TESTIMONIALS GRID ── -->
+            <section class="t-grid-section" data-comment="testimonials-grid-section">
+                <div class="section-inner" data-comment="testimonials-grid-section-inner">
+                    <div class="t-grid-header" data-comment="testimonials-grid-header">
+                        <p class="section-eyebrow" data-comment="testimonials-grid-eyebrow">All Reviews</p>
+                        <h2 class="section-heading" data-comment="testimonials-grid-heading">More from Our Customers</h2>
+                        <p class="t-grid-sub" data-comment="testimonials-grid-sub">Every review is from a real North Country Storage Barns customer.</p>
+                    </div>
+
+                    <div class="t-grid" data-comment="testimonials-grid">
+
+                        <article class="t-card" data-comment="testimonials-card-1">
+                            <div class="t-card-stars" data-comment="testimonials-card-1-stars">
+                                <i class="ri-star-fill" data-comment="testimonials-card-1-star-1"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-1-star-2"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-1-star-3"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-1-star-4"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-1-star-5"></i>
+                            </div>
+                            <p class="t-card-title" data-comment="testimonials-card-1-title">Awesome Group of People</p>
+                            <p class="t-card-text" data-comment="testimonials-card-1-text">I work for an equine nonprofit and they were so wonderful at North Country Storage Barns. The customer service was fast, kind, and willing to help with all of my questions. Everyone I spoke with was friendly and ready to help. I will contact them first and foremost for any of my equine shelter needs!</p>
+                            <p class="t-card-author" data-comment="testimonials-card-1-author">Leigha Burkhalter</p>
+                        </article>
+
+                        <article class="t-card" data-comment="testimonials-card-2">
+                            <div class="t-card-stars" data-comment="testimonials-card-2-stars">
+                                <i class="ri-star-fill" data-comment="testimonials-card-2-star-1"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-2-star-2"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-2-star-3"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-2-star-4"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-2-star-5"></i>
+                            </div>
+                            <p class="t-card-title" data-comment="testimonials-card-2-title">Great Place</p>
+                            <p class="t-card-text" data-comment="testimonials-card-2-text">Great place. Very helpful staff and quality made buildings. I highly recommend it.</p>
+                            <p class="t-card-author" data-comment="testimonials-card-2-author">Ted B</p>
+                        </article>
+
+                        <article class="t-card" data-comment="testimonials-card-3">
+                            <div class="t-card-stars" data-comment="testimonials-card-3-stars">
+                                <i class="ri-star-fill" data-comment="testimonials-card-3-star-1"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-3-star-2"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-3-star-3"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-3-star-4"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-3-star-5"></i>
+                            </div>
+                            <p class="t-card-title" data-comment="testimonials-card-3-title">Great Company</p>
+                            <p class="t-card-text" data-comment="testimonials-card-3-text">One of the best companies I've ever done business with. Timely, courteous, and very professional and friendly people to work with.</p>
+                            <p class="t-card-author" data-comment="testimonials-card-3-author">Vern Borrowman</p>
+                        </article>
+
+                        <article class="t-card" data-comment="testimonials-card-4">
+                            <div class="t-card-stars" data-comment="testimonials-card-4-stars">
+                                <i class="ri-star-fill" data-comment="testimonials-card-4-star-1"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-4-star-2"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-4-star-3"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-4-star-4"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-4-star-5"></i>
+                            </div>
+                            <p class="t-card-title" data-comment="testimonials-card-4-title">Awesome Group of People</p>
+                            <p class="t-card-text" data-comment="testimonials-card-4-text">Great people. Great service.</p>
+                            <p class="t-card-author" data-comment="testimonials-card-4-author">Skip Starr</p>
+                        </article>
+
+                        <article class="t-card" data-comment="testimonials-card-5">
+                            <div class="t-card-stars" data-comment="testimonials-card-5-stars">
+                                <i class="ri-star-fill" data-comment="testimonials-card-5-star-1"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-5-star-2"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-5-star-3"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-5-star-4"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-5-star-5"></i>
+                            </div>
+                            <p class="t-card-title" data-comment="testimonials-card-5-title">Extremely Pleased</p>
+                            <p class="t-card-text" data-comment="testimonials-card-5-text">Brenda and I want to let you know we are extremely pleased with the construction of our new garage. All of your crews were a delight to work with. They were all highly capable, very skilled, and hard-working. The quality of construction and selection of materials is top-notch. This building is extremely solid! Thanks again for a thoroughly professional job!</p>
+                            <p class="t-card-author" data-comment="testimonials-card-5-author">Candy Ryan</p>
+                        </article>
+
+                        <article class="t-card" data-comment="testimonials-card-6">
+                            <div class="t-card-stars" data-comment="testimonials-card-6-stars">
+                                <i class="ri-star-fill" data-comment="testimonials-card-6-star-1"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-6-star-2"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-6-star-3"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-6-star-4"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-6-star-5"></i>
+                            </div>
+                            <p class="t-card-title" data-comment="testimonials-card-6-title">Fast and Reliable</p>
+                            <p class="t-card-text" data-comment="testimonials-card-6-text">Fast delivery, friendly people.</p>
+                            <p class="t-card-author" data-comment="testimonials-card-6-author">Dennis · Stéphane Rioux</p>
+                        </article>
+
+                        <article class="t-card" data-comment="testimonials-card-7">
+                            <div class="t-card-stars" data-comment="testimonials-card-7-stars">
+                                <i class="ri-star-fill" data-comment="testimonials-card-7-star-1"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-7-star-2"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-7-star-3"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-7-star-4"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-7-star-5"></i>
+                            </div>
+                            <p class="t-card-title" data-comment="testimonials-card-7-title">Very Happy</p>
+                            <p class="t-card-text" data-comment="testimonials-card-7-text">I am very happy with my new barn. It is well built and I've had many compliments on its appearance. I live in the city and don't have much room to maneuver, but they delivered it with ease.</p>
+                            <p class="t-card-author" data-comment="testimonials-card-7-author">Frank Arney</p>
+                        </article>
+
+                        <article class="t-card" data-comment="testimonials-card-8">
+                            <div class="t-card-stars" data-comment="testimonials-card-8-stars">
+                                <i class="ri-star-fill" data-comment="testimonials-card-8-star-1"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-8-star-2"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-8-star-3"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-8-star-4"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-8-star-5"></i>
+                            </div>
+                            <p class="t-card-title" data-comment="testimonials-card-8-title">Amazing Detail</p>
+                            <p class="t-card-text" data-comment="testimonials-card-8-text">Great attention to detail on the houses.</p>
+                            <p class="t-card-author" data-comment="testimonials-card-8-author">Chuck Mundry</p>
+                        </article>
+
+                        <article class="t-card" data-comment="testimonials-card-9">
+                            <div class="t-card-stars" data-comment="testimonials-card-9-stars">
+                                <i class="ri-star-fill" data-comment="testimonials-card-9-star-1"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-9-star-2"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-9-star-3"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-9-star-4"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-9-star-5"></i>
+                            </div>
+                            <p class="t-card-title" data-comment="testimonials-card-9-title">Awesome Place</p>
+                            <p class="t-card-text" data-comment="testimonials-card-9-text">The quality of furniture at this store is outstanding! I love the Amish woodworking and the products they sell are absolutely beautiful, top-of-the-line quality. They have nice bird feeders and lighthouses outside as well. Definite shops to visit when in the area!</p>
+                            <p class="t-card-author" data-comment="testimonials-card-9-author">Caitlyn Z.</p>
+                        </article>
+
+                        <article class="t-card" data-comment="testimonials-card-10">
+                            <div class="t-card-stars" data-comment="testimonials-card-10-stars">
+                                <i class="ri-star-fill" data-comment="testimonials-card-10-star-1"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-10-star-2"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-10-star-3"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-10-star-4"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-10-star-5"></i>
+                            </div>
+                            <p class="t-card-title" data-comment="testimonials-card-10-title">Great Customer Service</p>
+                            <p class="t-card-text" data-comment="testimonials-card-10-text">My husband and I purchased a well-built, single-stall garage from NCSB 2 years ago. When I requested a quote to relocate it on our property, we were on a fixed budget and NCSB worked with us. Great customer service and customer appreciation. Job well done!</p>
+                            <p class="t-card-author" data-comment="testimonials-card-10-author">Sarah Foster-Mckoy</p>
+                        </article>
+
+                        <article class="t-card" data-comment="testimonials-card-11">
+                            <div class="t-card-stars" data-comment="testimonials-card-11-stars">
+                                <i class="ri-star-fill" data-comment="testimonials-card-11-star-1"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-11-star-2"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-11-star-3"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-11-star-4"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-11-star-5"></i>
+                            </div>
+                            <p class="t-card-title" data-comment="testimonials-card-11-title">Huge Variety</p>
+                            <p class="t-card-text" data-comment="testimonials-card-11-text">The variety of storage sheds AND kids outdoor items!!!</p>
+                            <p class="t-card-author" data-comment="testimonials-card-11-author">Clara Artley</p>
+                        </article>
+
+                        <article class="t-card" data-comment="testimonials-card-12">
+                            <div class="t-card-stars" data-comment="testimonials-card-12-stars">
+                                <i class="ri-star-fill" data-comment="testimonials-card-12-star-1"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-12-star-2"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-12-star-3"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-12-star-4"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-12-star-5"></i>
+                            </div>
+                            <p class="t-card-title" data-comment="testimonials-card-12-title">Great Company</p>
+                            <p class="t-card-text" data-comment="testimonials-card-12-text">North Country Storage Barns is a great company. I was looking for my first chicken coop and everyone was very helpful. They have multiple locations and were quick to respond to my questions. Delivery was timely with no problems and very courteous service.</p>
+                            <p class="t-card-author" data-comment="testimonials-card-12-author">Marianne Lange</p>
+                        </article>
+
+                        <article class="t-card" data-comment="testimonials-card-13">
+                            <div class="t-card-stars" data-comment="testimonials-card-13-stars">
+                                <i class="ri-star-fill" data-comment="testimonials-card-13-star-1"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-13-star-2"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-13-star-3"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-13-star-4"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-13-star-5"></i>
+                            </div>
+                            <p class="t-card-title" data-comment="testimonials-card-13-title">Super People</p>
+                            <p class="t-card-text" data-comment="testimonials-card-13-text">Super people, exceptional expertise, and attention to detail. My small cabin on Trout Brook is excellent. Thanks to North Country it was done quickly, as directed, and at a great value.</p>
+                            <p class="t-card-author" data-comment="testimonials-card-13-author">Rob A.</p>
+                        </article>
+
+                        <article class="t-card" data-comment="testimonials-card-14">
+                            <div class="t-card-stars" data-comment="testimonials-card-14-stars">
+                                <i class="ri-star-fill" data-comment="testimonials-card-14-star-1"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-14-star-2"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-14-star-3"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-14-star-4"></i>
+                                <i class="ri-star-fill" data-comment="testimonials-card-14-star-5"></i>
+                            </div>
+                            <p class="t-card-title" data-comment="testimonials-card-14-title">Great Sales Reps</p>
+                            <p class="t-card-text" data-comment="testimonials-card-14-text">Sales rep Steve was very easy to work with to customize our soon-to-be-built shed.</p>
+                            <p class="t-card-author" data-comment="testimonials-card-14-author">Peter Klementowski</p>
+                        </article>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── CTA ── -->
+            <section class="t-cta" data-comment="testimonials-cta">
+                <div class="t-cta-inner" data-comment="testimonials-cta-inner">
+                    <p class="t-cta-eyebrow" data-comment="testimonials-cta-eyebrow">Start Your Project</p>
+                    <h2 class="t-cta-heading" data-comment="testimonials-cta-heading">Ready to Join Them?</h2>
+                    <p class="t-cta-sub" data-comment="testimonials-cta-sub">Join hundreds of satisfied customers across New York. Get a free quote and let's build something you'll love.</p>
+                    <div class="t-cta-buttons" data-comment="testimonials-cta-buttons">
+                        <a href="catalog.html" class="btn-primary" data-comment="testimonials-cta-btn-quote">
+                            <i class="ri-drafting-compass-line" data-comment="testimonials-cta-btn-quote-icon"></i>
+                            <span data-comment="testimonials-cta-btn-quote-label">Get a Free Quote</span>
+                        </a>
+                        <a href="catalog.html" class="btn-outline-dark" data-comment="testimonials-cta-btn-browse">
+                            <span data-comment="testimonials-cta-btn-browse-label">Browse Products</span>
+                            <i class="ri-arrow-right-line" data-comment="testimonials-cta-btn-browse-icon"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- ── FOOTER ── -->
+        <footer class="footer-root" data-comment="testimonials-footer">
+            <div class="footer-inner" data-comment="testimonials-footer-inner">
+                <div class="footer-top" data-comment="testimonials-footer-top">
+                    <div data-comment="testimonials-footer-brand">
+                        <a href="index.html" class="footer-brand-logo" data-comment="testimonials-footer-brand-logo">
+                            <img src="assets/Logo.png" alt="NCS Barns" data-comment="testimonials-footer-brand-logo-image" />
+                            <span class="footer-brand-name" data-comment="testimonials-footer-brand-logo-name">NCS Barns</span>
+                        </a>
+                        <p class="footer-brand-desc" data-comment="testimonials-footer-brand-desc">Handcrafted quality structures for the North Country — family owned &amp; operated since 1993.</p>
+                    </div>
+                    <div data-comment="testimonials-footer-col-products">
+                        <p class="footer-col-label" data-comment="testimonials-footer-col-products-label">Products</p>
+                        <ul class="footer-links" data-comment="testimonials-footer-links-products">
+                            <li><a href="#" data-comment="testimonials-footer-link-sheds">Sheds</a></li>
+                            <li><a href="#" data-comment="testimonials-footer-link-gazebos">Gazebos &amp; Pergolas</a></li>
+                            <li><a href="#" data-comment="testimonials-footer-link-hunting">Hunting Blinds</a></li>
+                            <li><a href="#" data-comment="testimonials-footer-link-play">Play Structures</a></li>
+                            <li><a href="#" data-comment="testimonials-footer-link-furniture">Furniture</a></li>
+                            <li><a href="#" data-comment="testimonials-footer-link-homes">Homes &amp; Garages</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="testimonials-footer-col-company">
+                        <p class="footer-col-label" data-comment="testimonials-footer-col-company-label">Company</p>
+                        <ul class="footer-links" data-comment="testimonials-footer-links-company">
+                            <li><a href="#" data-comment="testimonials-footer-link-about">About Us</a></li>
+                            <li><a href="testimonials.html" data-comment="testimonials-footer-link-testimonials">Testimonials</a></li>
+                            <li><a href="gallery.html" data-comment="testimonials-footer-link-gallery">Gallery</a></li>
+                            <li><a href="#" data-comment="testimonials-footer-link-delivery">Delivery &amp; Relocation</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="testimonials-footer-col-buying">
+                        <p class="footer-col-label" data-comment="testimonials-footer-col-buying-label">Buying Process</p>
+                        <ul class="footer-links" data-comment="testimonials-footer-links-buying">
+                            <li><a href="#" data-comment="testimonials-footer-link-rto">Rent-To-Own</a></li>
+                            <li><a href="#" data-comment="testimonials-footer-link-financing">Financing Options</a></li>
+                            <li><a href="#" data-comment="testimonials-footer-link-siteprep">Site Preparation</a></li>
+                            <li><a href="#" data-comment="testimonials-footer-link-warranty">Warranty</a></li>
+                            <li><a href="#" data-comment="testimonials-footer-link-dealers">Dealers</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="testimonials-footer-col-contact">
+                        <p class="footer-col-label" data-comment="testimonials-footer-col-contact-label">Contact</p>
+                        <div class="footer-contact-item" data-comment="testimonials-footer-contact-phone">
+                            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l1.64-1.64a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <a href="tel:3156420209" data-comment="testimonials-footer-contact-phone-link">(315) 642-0209</a>
+                        </div>
+                        <div class="footer-contact-item" data-comment="testimonials-footer-contact-email">
+                            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            <a href="mailto:sales@ncsbarns.com" data-comment="testimonials-footer-contact-email-link">sales@ncsbarns.com</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-locations" data-comment="testimonials-footer-locations">
+                    <div data-comment="testimonials-footer-loc-philadelphia">
+                        <p class="footer-loc-name" data-comment="testimonials-footer-loc-philadelphia-name">Philadelphia</p>
+                        <p class="footer-loc-addr" data-comment="testimonials-footer-loc-philadelphia-addr">32660 US Route 11<br>Philadelphia, NY 13673</p>
+                        <p class="footer-loc-phone" data-comment="testimonials-footer-loc-philadelphia-phone">(315) 642-0209</p>
+                    </div>
+                    <div data-comment="testimonials-footer-loc-yorkville">
+                        <p class="footer-loc-name" data-comment="testimonials-footer-loc-yorkville-name">Yorkville</p>
+                        <p class="footer-loc-addr" data-comment="testimonials-footer-loc-yorkville-addr">317 Oriskany Blvd<br>Yorkville, NY</p>
+                        <p class="footer-loc-phone" data-comment="testimonials-footer-loc-yorkville-phone">(315) 793-0726</p>
+                    </div>
+                    <div data-comment="testimonials-footer-loc-sandycreek">
+                        <p class="footer-loc-name" data-comment="testimonials-footer-loc-sandycreek-name">Sandy Creek</p>
+                        <p class="footer-loc-addr" data-comment="testimonials-footer-loc-sandycreek-addr">5780 US Route 11<br>Pulaski, NY 13142</p>
+                        <p class="footer-loc-phone" data-comment="testimonials-footer-loc-sandycreek-phone">(315) 387-2092</p>
+                    </div>
+                </div>
+                <div class="footer-bottom" data-comment="testimonials-footer-bottom">
+                    <div class="footer-copy-row" data-comment="testimonials-footer-copy-row">
+                        <p class="footer-copy" data-comment="testimonials-footer-copy">Copyright&copy; 2024 North Country Storage Barns LLC. All rights reserved.</p>
+                        <a href="privacy.html" class="footer-legal-link" href="privacy.html" class="footer-legal-link" data-comment="testimonials-footer-privacy">Privacy Policy</a>
+                        <a href="terms.html" class="footer-legal-link" data-comment="testimonials-footer-terms">Terms &amp; Conditions</a>
+                    </div>
+                    <div class="footer-socials" data-comment="testimonials-footer-socials">
+                        <a href="https://www.tiktok.com/@northcountrystoragebarns" target="_blank" class="footer-social-btn" aria-label="TikTok" data-comment="testimonials-footer-social-tiktok"><i class="ri-tiktok-fill"></i></a>
+                        <a href="https://www.facebook.com/ifyouneedmeillbeinmyshed/" target="_blank" class="footer-social-btn" aria-label="Facebook" data-comment="testimonials-footer-social-facebook"><i class="ri-facebook-fill"></i></a>
+                        <a href="https://www.instagram.com/northcountrystoragebarns/" target="_blank" class="footer-social-btn" aria-label="Instagram" data-comment="testimonials-footer-social-instagram"><i class="ri-instagram-fill"></i></a>
+                        <a href="#" target="_blank" class="footer-social-btn" aria-label="Google" data-comment="testimonials-footer-social-google"><i class="ri-google-fill"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            document.getElementById('review-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                this.style.display = 'none';
+                document.getElementById('review-success').style.display = 'block';
+            });
+        </script>
+    </body>
+</html>

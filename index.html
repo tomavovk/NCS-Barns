@@ -525,7 +525,7 @@
             ───────────────────────────────────────── */
             .products-section { padding: 128px 0 148px; }
             .products-header { margin-bottom: 48px; }
-            .products-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; }
+            .products-grid { display: grid; grid-template-columns: repeat(3,1fr); column-gap: 24px; row-gap: 48px; }
             .prod-card {
                 display: flex;
                 flex-direction: column;
@@ -732,7 +732,7 @@
                REVIEWS
             ───────────────────────────────────────── */
             .homes-cta-section { padding: 48px var(--page-px); background: var(--color-bg-hover); }
-            .homes-cta { position: relative; height: 800px; background: #C8C3BC url('assets/CTA.png') center/cover no-repeat; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 20px; }
+            .homes-cta { position: relative; height: 600px; background: #C8C3BC url('assets/CTA.png') center/cover no-repeat; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 20px; }
             .homes-cta-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.32) 0%, rgba(0,0,0,0.58) 100%); }
             .homes-cta-content { position: relative; z-index: 1; text-align: center; color: #fff; max-width: 680px; padding: 0 var(--page-px); }
             .homes-cta-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.65); margin-bottom: 20px; }
@@ -1223,7 +1223,7 @@
                             </div>
                             <h3 class="prod-card-title" data-comment="prod-card-homes-title">Homes &amp; Garages</h3>
                             <p class="prod-card-desc" data-comment="prod-card-homes-desc">Custom-built homes and garages designed for the way you live — crafted to your specifications.</p>
-                            <a href="#" class="prod-card-link" data-comment="prod-card-homes-link">
+                            <a href="https://www.billlakehomes.com/" target="_blank" rel="noopener noreferrer" class="prod-card-link" data-comment="prod-card-homes-link">
                                 View all homes &amp; garages
                                 <svg viewBox="0 0 24 24" data-comment="prod-card-homes-link-icon"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
                             </a>
@@ -1373,7 +1373,7 @@
                     <p class="homes-cta-eyebrow" data-comment="homes-cta-eyebrow">Now Available</p>
                     <h2 class="homes-cta-heading" data-comment="homes-cta-heading">Custom Built Homes &amp; Garages</h2>
                     <p class="homes-cta-sub" data-comment="homes-cta-sub">From cozy cabins to full-size garages — we build to your specs, on your lot, with the same craftsmanship we've delivered for over 30 years.</p>
-                    <a href="#" class="btn-primary" data-comment="homes-cta-btn"><i class="ri-arrow-right-line"></i> Explore More</a>
+                    <a href="custom-built-homes.html" class="btn-primary" data-comment="homes-cta-btn"><i class="ri-arrow-right-line"></i> Explore More</a>
                 </div>
             </section>
             </div>
@@ -1400,7 +1400,7 @@
                             <div class="review-author-loc" data-comment="review-author-loc">Watertown, NY</div>
                         </div>
                     </div>
-                    <a href="reviews.html" class="btn-outline" data-comment="reviews-view-all-btn">View All Reviews</a>
+                    <a href="testimonials.html" class="btn-primary" data-comment="reviews-view-all-btn">View All Reviews</a>
                 </div>
             </section>
 
@@ -1481,8 +1481,8 @@
                 <div class="footer-bottom" data-comment="footer-bottom">
                     <div class="footer-copy-row" data-comment="footer-copy-row">
                         <p class="footer-copy" data-comment="footer-copy">&copy; 2026 North Country Storage Barns. All rights reserved.</p>
-                        <a href="#" class="footer-legal-link" data-comment="footer-link-privacy">Privacy Policy</a>
-                        <a href="#" class="footer-legal-link" data-comment="footer-link-terms">Terms &amp; Conditions</a>
+                        <a href="privacy.html" class="footer-legal-link" data-comment="footer-link-privacy">Privacy Policy</a>
+                        <a href="terms.html" class="footer-legal-link" data-comment="footer-link-terms">Terms &amp; Conditions</a>
                     </div>
                     <div class="footer-socials" data-comment="footer-socials">
                         <a href="https://www.tiktok.com/@northcountrystoragebarns" target="_blank" class="footer-social-btn" data-comment="footer-social-tiktok" aria-label="TikTok">
@@ -1610,21 +1610,21 @@
                SEARCH DROPDOWN
             ───────────────────────────────────────── */
             const PRODUCTS = [
-                { id: 1,  name: 'Classic Barn Shed 10×12',       category: 'Sheds',            price: 4800,  sale: null,  icon: '🏚️' },
-                { id: 2,  name: 'Lofted Barn Cabin 12×24',       category: 'Structures',       price: 12500, sale: 10800, icon: '🏠' },
-                { id: 3,  name: 'Dutch Barn Gazebo 12×16',       category: 'Gazebos',          price: 6200,  sale: null,  icon: '⛺' },
-                { id: 4,  name: 'Hunting Blind Pro',              category: 'Hunting Blinds',   price: 2800,  sale: null,  icon: '🎯' },
-                { id: 5,  name: 'Modular Log Home 24×48',        category: 'Homes & Garages',  price: 45000, sale: 38500, icon: '🏡' },
-                { id: 6,  name: 'Outdoor Adirondack Set',        category: 'Outdoor Furniture',price: 890,   sale: null,  icon: '🪑' },
-                { id: 7,  name: 'Adventure Playground Structure',category: 'Play Structures',  price: 3200,  sale: null,  icon: '🛝' },
-                { id: 8,  name: 'Premium Chicken Coop',          category: 'Animal Structures',price: 1400,  sale: 1100,  icon: '🐔' },
-                { id: 9,  name: 'Garden Storage Shed 8×10',      category: 'Sheds',            price: 3200,  sale: null,  icon: '🏚️' },
-                { id: 10, name: 'Two-Car Garage 24×24',          category: 'Homes & Garages',  price: 18000, sale: null,  icon: '🚗' },
-                { id: 11, name: 'Pergola Kit 12×12',             category: 'Gazebos',          price: 4200,  sale: 3600,  icon: '⛺' },
-                { id: 12, name: 'Indoor Dining Set — Oak',       category: 'Indoor Furniture', price: 1200,  sale: null,  icon: '🪵' },
-                { id: 13, name: 'Saltbox Storage Barn',          category: 'Sheds',            price: 5400,  sale: null,  icon: '🏚️' },
-                { id: 14, name: 'Log Cabin Kit 16×20',           category: 'Structures',       price: 22000, sale: 18500, icon: '🏠' },
-                { id: 15, name: 'Rabbit & Small Animal Hutch',   category: 'Animal Structures',price: 680,   sale: null,  icon: '🐰' },
+                { id: 1,  name: 'Classic Barn',                  category: 'Sheds',            price: 2200,  sale: null,  icon: '🏚️' },
+                { id: 2,  name: 'Lofted Barn',                   category: 'Sheds',            price: 3800,  sale: null,  icon: '🏚️' },
+                { id: 3,  name: 'Cedar Gazebo',                  category: 'Gazebos',          price: 3200,  sale: null,  icon: '⛺' },
+                { id: 4,  name: 'Tower Blind',                   category: 'Hunting Blinds',   price: 1400,  sale: null,  icon: '🎯' },
+                { id: 5,  name: 'Chalet',                        category: 'Log Homes',        price: 89500, sale: null,  icon: '🏡' },
+                { id: 6,  name: 'Classic Adirondack Chair',      category: 'Outdoor Furniture',price: 285,   sale: null,  icon: '🪑' },
+                { id: 7,  name: 'Adventure Playset',             category: 'Play Structures',  price: 2200,  sale: null,  icon: '🛝' },
+                { id: 8,  name: 'Chicken Coop',                  category: 'Animal Structures',price: 680,   sale: null,  icon: '🐔' },
+                { id: 9,  name: 'A-Frame Shed',                  category: 'Sheds',            price: 3100,  sale: null,  icon: '🏚️' },
+                { id: 10, name: 'Standard Garage',               category: 'Garages',          price: 18500, sale: null,  icon: '🚗' },
+                { id: 11, name: 'Vinyl Pergola',                 category: 'Gazebos',          price: 3800,  sale: null,  icon: '⛺' },
+                { id: 12, name: 'Barnwood Coffee Table',         category: 'Indoor Furniture', price: 480,   sale: null,  icon: '🪵' },
+                { id: 13, name: 'Ranch Shed',                    category: 'Sheds',            price: 8900,  sale: null,  icon: '🏚️' },
+                { id: 14, name: 'Mountaineer',                   category: 'Log Homes',        price: 112000,sale: null,  icon: '🏠' },
+                { id: 15, name: 'Horse Loafing Shed',            category: 'Animal Structures',price: 4800,  sale: null,  icon: '🐴' },
             ];
 
             const HISTORY_KEY = 'ncs_search_history';

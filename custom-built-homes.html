@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Custom Built Homes — NCS Barns</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+            rel="stylesheet" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+            rel="stylesheet" />
+        <script src="nav.js" defer></script>
+
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            :root {
+                --color-burgundy:       #8B1A2A;
+                --color-burgundy-dark:  #6D1420;
+                --color-dark:           #1C1F24;
+                --color-gray:           #514C4A;
+                --color-gray-light:     #9A9390;
+                --color-border:         #E6E2DD;
+                --color-bg:             #F8F6F4;
+                --color-bg-hover:       #F4F1EE;
+                --color-bg-menu:        #FAFAF8;
+                --color-white:          #fff;
+
+                --font-ui: 'Inter', sans-serif;
+
+                --nav-height: 72px;
+                --max-width:  1440px;
+                --page-px:    40px;
+
+                --t-fast: 0.15s ease;
+                --t-med:  0.22s ease;
+            }
+
+            body {
+                font-family: var(--font-ui);
+                background: var(--color-bg);
+                color: var(--color-dark);
+            }
+
+            /* ─── GLOBAL UTILITIES ─── */
+            .section-eyebrow {
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 1.2px;
+                text-transform: uppercase;
+                color: var(--color-burgundy);
+                margin-bottom: 12px;
+            }
+
+            .btn-primary {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 13px 24px;
+                background: var(--color-burgundy);
+                color: #fff;
+                font-size: 14px;
+                font-weight: 600;
+                border-radius: 10px;
+                border: none;
+                cursor: pointer;
+                text-decoration: none;
+                transition: background var(--t-fast);
+            }
+            .btn-primary:hover { background: var(--color-burgundy-dark); }
+
+            /* ─── PAGE WRAPPER ─── */
+            .sp-page {
+                max-width: var(--max-width);
+                margin: 0 auto;
+                padding: 0 var(--page-px);
+                padding-top: 48px;
+                padding-bottom: 96px;
+            }
+
+            /* ─── PAGE TITLE ─── */
+            .sp-page-title {
+                font-size: clamp(28px, 3vw, 38px);
+                font-weight: 600;
+                letter-spacing: -0.02em;
+                color: var(--color-dark);
+                line-height: 1.15;
+                margin-bottom: 28px;
+            }
+
+            /* ─── CALLOUT ─── */
+            .cbh-callout {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                padding: 18px 24px;
+                background: #FDF0F1;
+                border: 1.5px solid rgba(139,26,42,0.2);
+                border-radius: 14px;
+                margin-bottom: 48px;
+            }
+            .cbh-callout-icon {
+                width: 36px;
+                height: 36px;
+                border-radius: 8px;
+                background: var(--color-burgundy);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+            .cbh-callout-icon i { font-size: 18px; color: #fff; }
+            .cbh-callout-text {
+                font-size: 14px;
+                font-weight: 500;
+                color: var(--color-dark);
+                line-height: 1.55;
+            }
+            .cbh-callout-text a {
+                color: var(--color-burgundy);
+                font-weight: 700;
+                text-decoration: none;
+            }
+            .cbh-callout-text a:hover { text-decoration: underline; }
+
+            /* ─── EDITORIAL TWO-COL SECTIONS ─── */
+            .sp-section {
+                display: grid;
+                grid-template-columns: 320px 1fr;
+                gap: 64px;
+                padding: 56px 0;
+                border-top: 1px solid var(--color-border);
+            }
+
+            .sp-section:last-of-type {
+                border-bottom: 1px solid var(--color-border);
+            }
+
+            .sp-col-label {
+                padding-top: 4px;
+            }
+
+            .sp-section-heading {
+                font-size: clamp(22px, 2.4vw, 30px);
+                font-weight: 700;
+                letter-spacing: -0.025em;
+                color: var(--color-dark);
+                line-height: 1.2;
+            }
+
+            .sp-col-content {
+                display: flex;
+                flex-direction: column;
+                gap: 18px;
+            }
+
+            .sp-body {
+                font-size: 15px;
+                line-height: 1.75;
+                color: var(--color-gray);
+            }
+
+            /* ─── FAQ SECTION ─── */
+            .faq-section {
+                padding: 96px 0;
+            }
+            .faq-inner {
+                max-width: 920px;
+                margin: 0 auto;
+            }
+            .faq-header {
+                text-align: center;
+                margin-bottom: 56px;
+            }
+            .faq-heading {
+                font-size: clamp(26px, 3vw, 38px);
+                font-weight: 800;
+                letter-spacing: -1px;
+                line-height: 1.15;
+                color: var(--color-dark);
+                margin-bottom: 14px;
+            }
+            .faq-subhead {
+                font-size: 16px;
+                line-height: 1.65;
+                color: var(--color-gray);
+            }
+            .faq-list {
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+                border: 1px solid var(--color-border);
+                border-radius: 16px;
+                overflow: hidden;
+                background: var(--color-white);
+            }
+            .faq-item {
+                border-bottom: 1px solid var(--color-border);
+            }
+            .faq-item:last-child { border-bottom: none; }
+            .faq-question {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 16px;
+                padding: 22px 28px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                text-align: left;
+                transition: background var(--t-fast);
+            }
+            .faq-question:hover { background: var(--color-bg); }
+            .faq-question.is-open { background: var(--color-bg); }
+            .faq-q-text {
+                font-size: 15px;
+                font-weight: 600;
+                color: var(--color-dark);
+                line-height: 1.4;
+            }
+            .faq-icon {
+                width: 30px;
+                height: 30px;
+                border-radius: 8px;
+                background: var(--color-bg-hover);
+                border: 1.5px solid var(--color-border);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                transition: background var(--t-fast), border-color var(--t-fast), transform var(--t-med);
+            }
+            .faq-icon i { font-size: 16px; color: var(--color-gray); transition: color var(--t-fast); }
+            .faq-question.is-open .faq-icon {
+                background: #FDF0F1;
+                border-color: var(--color-burgundy);
+                transform: rotate(45deg);
+            }
+            .faq-question.is-open .faq-icon i { color: var(--color-burgundy); }
+            .faq-answer {
+                display: none;
+                padding: 0 28px 22px;
+            }
+            .faq-answer.is-open { display: block; }
+            .faq-a-text {
+                font-size: 14px;
+                line-height: 1.75;
+                color: var(--color-gray);
+            }
+
+            /* ─── CONTACT SECTION ─── */
+            .cbh-contact-section {
+                padding: 0 0 96px;
+            }
+            .cbh-contact-wrap {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+                min-height: clamp(480px, 56vw, 680px);
+            }
+
+            /* Left: form panel */
+            .cbh-contact-left {
+                background: var(--color-white);
+                border: 1px solid var(--color-border);
+                border-radius: 20px;
+                padding: 52px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            .cbh-contact-heading {
+                font-size: clamp(24px, 2.8vw, 36px);
+                font-weight: 800;
+                letter-spacing: -1px;
+                line-height: 1.15;
+                color: var(--color-dark);
+                margin-bottom: 8px;
+            }
+            .cbh-contact-subhead {
+                font-size: 14px;
+                line-height: 1.7;
+                color: var(--color-gray);
+                margin-bottom: 32px;
+            }
+
+            /* Form */
+            .cbh-form { display: flex; flex-direction: column; gap: 14px; }
+            .cbh-form-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+            .cbh-form-group {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+            .cbh-form-label {
+                font-size: 12px;
+                font-weight: 600;
+                color: var(--color-dark);
+                letter-spacing: 0.2px;
+            }
+            .cbh-form-input,
+            .cbh-form-textarea {
+                font-family: var(--font-ui);
+                font-size: 14px;
+                color: var(--color-dark);
+                background: var(--color-bg);
+                border: 1.5px solid var(--color-border);
+                border-radius: 10px;
+                padding: 11px 14px;
+                outline: none;
+                transition: border-color var(--t-fast), background var(--t-fast);
+                width: 100%;
+            }
+            .cbh-form-input::placeholder,
+            .cbh-form-textarea::placeholder { color: var(--color-gray-light); }
+            .cbh-form-input:focus,
+            .cbh-form-textarea:focus { border-color: var(--color-burgundy); background: #fff; }
+            .cbh-form-textarea { resize: vertical; min-height: 110px; }
+            .cbh-form-footer {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 16px;
+                margin-top: 4px;
+            }
+            .cbh-form-note {
+                font-size: 12px;
+                color: var(--color-gray-light);
+                line-height: 1.5;
+            }
+
+            /* Success state */
+            .cbh-form-success {
+                display: none;
+                text-align: center;
+                padding: 40px 0;
+            }
+            .cbh-success-icon {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                background: #E8F5E9;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 18px;
+            }
+            .cbh-success-icon i { font-size: 26px; color: #2E7D32; }
+            .cbh-success-heading { font-size: 20px; font-weight: 700; color: var(--color-dark); margin-bottom: 8px; }
+            .cbh-success-body { font-size: 14px; line-height: 1.7; color: var(--color-gray); }
+
+            /* Right: photo */
+            .cbh-contact-right {
+                position: relative;
+                border-radius: 20px;
+                overflow: hidden;
+                background: var(--color-dark);
+            }
+            .cbh-contact-photo {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center center;
+            }
+            .cbh-contact-overlay {
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(
+                    to top,
+                    rgba(10,8,7,0.55) 0%,
+                    rgba(10,8,7,0.1) 55%,
+                    transparent 100%
+                );
+            }
+            .cbh-contact-badge {
+                position: absolute;
+                bottom: 36px;
+                left: 36px;
+                right: 36px;
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                background: rgba(255,255,255,0.1);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                border: 1px solid rgba(255,255,255,0.18);
+                border-radius: 14px;
+                padding: 18px 22px;
+            }
+            .cbh-badge-icon {
+                width: 40px;
+                height: 40px;
+                border-radius: 9px;
+                background: var(--color-burgundy);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+            .cbh-badge-icon i { font-size: 18px; color: #fff; }
+            .cbh-badge-stat { font-size: 22px; font-weight: 800; color: #fff; letter-spacing: -0.8px; line-height: 1; }
+            .cbh-badge-label { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 3px; }
+
+            /* ─── FOOTER ─── */
+            .footer-root { background: #000; color: #fff; padding: 72px var(--page-px) 40px; }
+            .footer-inner { max-width: var(--max-width); margin: 0 auto; }
+            .footer-top { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr 1.4fr; gap: 48px; padding-bottom: 52px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 52px; }
+            .footer-brand-logo { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; text-decoration: none; margin-bottom: 16px; }
+            .footer-brand-logo img { width: 50%; height: auto; filter: brightness(0) invert(1) opacity(0.5); }
+            .footer-brand-name { font-size: 16px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+            .footer-brand-desc { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.65; max-width: 220px; }
+            .footer-col-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 18px; }
+            .footer-links { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+            .footer-links a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-links a:hover { color: #fff; }
+            .footer-contact-item { font-size: 14px; color: rgba(255,255,255,0.65); margin-bottom: 10px; display: flex; align-items: flex-start; gap: 8px; }
+            .footer-contact-item svg { width: 15px; height: 15px; stroke: rgba(255,255,255,0.35); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; margin-top: 1px; }
+            .footer-contact-item a { color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-contact-item a:hover { color: #fff; }
+            .footer-locations { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 32px; }
+            .footer-loc-name { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+            .footer-loc-addr { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.55; margin-bottom: 8px; }
+            .footer-loc-phone { font-size: 13px; color: rgba(255,255,255,0.45); }
+            .footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+            .footer-copy-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+            .footer-copy { font-size: 13px; color: rgba(255,255,255,0.35); }
+            .footer-legal-link { font-size: 13px; color: rgba(255,255,255,0.35); text-decoration: none; transition: color var(--t-fast); }
+            .footer-legal-link:hover { color: rgba(255,255,255,0.7); }
+            .footer-socials { display: flex; gap: 10px; }
+            .footer-social-btn { width: 36px; height: 36px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; text-decoration: none; transition: border-color var(--t-fast), background var(--t-fast); }
+            .footer-social-btn:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.08); }
+            .footer-social-btn i { font-size: 17px; color: rgba(255,255,255,0.6); }
+
+            /* ─── PAGE HERO ─── */
+            .cbh-hero-section {
+                padding: 12px var(--page-px) 0;
+            }
+            .cbh-hero-wrap {
+                position: relative;
+                border-radius: 20px;
+                overflow: hidden;
+                height: 480px;
+                background: var(--color-dark);
+            }
+            .cbh-hero-bg {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center 30%;
+            }
+            .cbh-hero-overlay {
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(
+                    to top,
+                    rgba(10,8,7,0.85) 0%,
+                    rgba(10,8,7,0.55) 55%,
+                    rgba(10,8,7,0.25) 100%
+                );
+            }
+            .cbh-hero-content {
+                position: absolute;
+                inset: 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                padding: 44px 48px;
+            }
+            .cbh-hero-eyebrow {
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 1.4px;
+                text-transform: uppercase;
+                color: rgba(255,255,255,0.55);
+                margin-bottom: 12px;
+            }
+            .cbh-hero-heading {
+                font-size: clamp(28px, 3.8vw, 52px);
+                font-weight: 800;
+                letter-spacing: -1.5px;
+                line-height: 1.06;
+                color: #fff;
+            }
+
+            /* ─── RESPONSIVE ─── */
+            @media (max-width: 900px) {
+                .sp-section {
+                    grid-template-columns: 1fr;
+                    gap: 28px;
+                }
+                .cbh-contact-wrap {
+                    grid-template-columns: 1fr;
+                }
+                .cbh-contact-right {
+                    min-height: 320px;
+                }
+            }
+
+            @media (max-width: 768px) {
+                .footer-top { grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+                .footer-top > div:first-child { grid-column: 1 / -1; }
+                .footer-locations { grid-template-columns: 1fr; gap: 20px; }
+                .footer-bottom { flex-direction: column; align-items: flex-start; gap: 16px; }
+                .faq-section { padding: 64px 0; }
+                .cbh-form-row { grid-template-columns: 1fr; }
+                .cbh-form-footer { flex-direction: column; align-items: stretch; }
+                .cbh-form-footer .btn-primary { justify-content: center; }
+            }
+
+            @media (max-width: 640px) {
+                :root { --page-px: 20px; }
+                .sp-page { padding-top: calc(var(--nav-height) + 32px); padding-bottom: 64px; }
+                .sp-section { padding: 36px 0; gap: 20px; }
+                .cbh-callout { flex-direction: column; align-items: flex-start; gap: 10px; }
+                .cbh-contact-left { padding: 28px 20px; }
+                .faq-question { padding: 18px 20px; }
+                .faq-answer { padding: 0 20px 18px; }
+                .footer-top { grid-template-columns: 1fr 1fr; gap: 28px; }
+            }
+        </style>
+    </head>
+    <body>
+
+        <ncs-nav data-comment="cbh-nav"></ncs-nav>
+
+        <!-- Hero -->
+        <section class="cbh-hero-section" data-comment="cbh-hero-section">
+            <div class="cbh-hero-wrap" data-comment="cbh-hero-wrap">
+                <img src="assets/CTA.png" alt="Custom built home by Pine Ridge Homes" class="cbh-hero-bg" data-comment="cbh-hero-bg" />
+                <div class="cbh-hero-overlay" data-comment="cbh-hero-overlay"></div>
+                <div class="cbh-hero-content" data-comment="cbh-hero-content">
+                    <p class="cbh-hero-eyebrow" data-comment="cbh-hero-eyebrow">Pine Ridge Homes</p>
+                    <h1 class="cbh-hero-heading" data-comment="cbh-hero-heading">Custom Built Homes</h1>
+                </div>
+            </div>
+        </section>
+
+        <main class="sp-page" data-comment="cbh-page">
+
+            <!-- Callout -->
+            <div class="cbh-callout" data-comment="cbh-callout">
+                <div class="cbh-callout-icon" data-comment="cbh-callout-icon">
+                    <i class="ri-phone-line" data-comment="cbh-callout-icon-ri"></i>
+                </div>
+                <p class="cbh-callout-text" data-comment="cbh-callout-text">
+                    For Custom Built Home Questions Please Contact Pine Ridge Homes
+                    <a href="tel:3156299919" data-comment="cbh-callout-phone">315-629-9919</a>
+                </p>
+            </div>
+
+            <!-- ── SECTION 1: Serving The North Country ── -->
+            <section class="sp-section" data-comment="cbh-section-intro">
+                <div class="sp-col-label" data-comment="cbh-intro-label">
+                    <h2 class="sp-section-heading" data-comment="cbh-intro-heading">Serving The North Country Since 2011</h2>
+                </div>
+                <div class="sp-col-content" data-comment="cbh-intro-content">
+                    <p class="sp-body" data-comment="cbh-intro-body">
+                        Let Pine Ridge Homes construct your dream home! If you are looking for a full-service home builder you have come to the right place. We have (almost) all aspects of the home construction right within our own company. Pine Ridge has plumbing, electricity, heating, and even site work all under one roof so you never have to take time to coordinate between different parties. We try to make the difficult task of constructing a new home as stress-free as possible!
+                    </p>
+                </div>
+            </section>
+
+            <!-- ── SECTION 2: Current Lead Times ── -->
+            <section class="sp-section" data-comment="cbh-section-leadtimes">
+                <div class="sp-col-label" data-comment="cbh-leadtimes-label">
+                    <h2 class="sp-section-heading" data-comment="cbh-leadtimes-heading">Current Lead Times</h2>
+                </div>
+                <div class="sp-col-content" data-comment="cbh-leadtimes-content">
+                    <p class="sp-body" data-comment="cbh-leadtimes-body">
+                        We have been blessed with constant business in these tumultuous times. We are booking into Fall of 2026 for all onsite homes and garages. It is never too early to start talking about your future project. Please use the contact form at the bottom of the page to reach out. We would love to hear from you to get you on the schedule for 2026!!
+                    </p>
+                </div>
+            </section>
+
+            <!-- ── SECTION 3: Making Your Dreams A Reality ── -->
+            <section class="sp-section" data-comment="cbh-section-dreams">
+                <div class="sp-col-label" data-comment="cbh-dreams-label">
+                    <h2 class="sp-section-heading" data-comment="cbh-dreams-heading">Making Your Dreams A Reality</h2>
+                </div>
+                <div class="sp-col-content" data-comment="cbh-dreams-content">
+                    <p class="sp-body" data-comment="cbh-dreams-body">
+                        Do you have ideas or plans that you have found? Send them over to us and let's talk! We offer in-house design help (and can get you stamped plans as well) meaning that you bring us your dreams and we can help make them a reality. Please fill out our contact form at the bottom of the page to start making your home become a reality!
+                    </p>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- ── FAQ ── -->
+        <section class="faq-section" data-comment="cbh-faq-section">
+            <div class="faq-inner sp-page" style="padding-top:0;padding-bottom:0;" data-comment="cbh-faq-inner">
+
+                <div class="faq-header" data-comment="cbh-faq-header">
+                    <p class="section-eyebrow" data-comment="cbh-faq-eyebrow">FAQ</p>
+                    <h2 class="faq-heading" data-comment="cbh-faq-heading">Frequently asked questions</h2>
+                    <p class="faq-subhead" data-comment="cbh-faq-subhead">Have more questions? Reach out using the contact form below or call Pine Ridge Homes directly.</p>
+                </div>
+
+                <div class="faq-list" data-comment="cbh-faq-list">
+
+                    <!-- Q1 -->
+                    <div class="faq-item" data-comment="cbh-faq-item-1">
+                        <button class="faq-question" data-comment="cbh-faq-question-1" aria-expanded="false">
+                            <span class="faq-q-text" data-comment="cbh-faq-qtext-1">How Do I Go About Getting A Quote?</span>
+                            <span class="faq-icon" data-comment="cbh-faq-icon-1"><i class="ri-add-line" data-comment="cbh-faq-icon-ri-1"></i></span>
+                        </button>
+                        <div class="faq-answer" data-comment="cbh-faq-answer-1">
+                            <p class="faq-a-text" data-comment="cbh-faq-atext-1">Great question! We know this isn't the first time that you have thought about constructing a new home and we appreciate you taking the time to see what Pine Ridge Homes has to offer. We ask that you bring some plans and ideas to us so that we have something to start off with. There are many plans that can be found online for free and we just ask that you have something in mind so we can have something to work with.</p>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="faq-item" data-comment="cbh-faq-item-2">
+                        <button class="faq-question" data-comment="cbh-faq-question-2" aria-expanded="false">
+                            <span class="faq-q-text" data-comment="cbh-faq-qtext-2">Can I Get A Free Quote?</span>
+                            <span class="faq-icon" data-comment="cbh-faq-icon-2"><i class="ri-add-line" data-comment="cbh-faq-icon-ri-2"></i></span>
+                        </button>
+                        <div class="faq-answer" data-comment="cbh-faq-answer-2">
+                            <p class="faq-a-text" data-comment="cbh-faq-atext-2">Absolutely! Once we take a look at your plans and discuss what you are looking for we are able to give you a ball park estimate based on what our homes have been coming in at currently. To get an exact quote obviously takes time so if you were interested in hearing the price range that we estimate your home to cost, we would sit down and get to work quoting out everything you might want. This usually takes a few weeks as there is just so much involved in quoting things out. We ask that you please be patient with us.</p>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="faq-item" data-comment="cbh-faq-item-3">
+                        <button class="faq-question" data-comment="cbh-faq-question-3" aria-expanded="false">
+                            <span class="faq-q-text" data-comment="cbh-faq-qtext-3">How Do You Guarantee Pricing?</span>
+                            <span class="faq-icon" data-comment="cbh-faq-icon-3"><i class="ri-add-line" data-comment="cbh-faq-icon-ri-3"></i></span>
+                        </button>
+                        <div class="faq-answer" data-comment="cbh-faq-answer-3">
+                            <p class="faq-a-text" data-comment="cbh-faq-atext-3">Truth be told, we can't. As you may be aware, materials have been all over the board. Pine Ridge Homes has been affected by this. Since we are more than a year out, we can give you the quote at the current time but reserve the right to change the price by up to 10%. When we get within 4 months of starting your project, we will have an idea of what the market will be like and would start purchasing materials for your job and would be able to lock in prices at that time.</p>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div class="faq-item" data-comment="cbh-faq-item-4">
+                        <button class="faq-question" data-comment="cbh-faq-question-4" aria-expanded="false">
+                            <span class="faq-q-text" data-comment="cbh-faq-qtext-4">Do I Need To Have My Own Plans?</span>
+                            <span class="faq-icon" data-comment="cbh-faq-icon-4"><i class="ri-add-line" data-comment="cbh-faq-icon-ri-4"></i></span>
+                        </button>
+                        <div class="faq-answer" data-comment="cbh-faq-answer-4">
+                            <p class="faq-a-text" data-comment="cbh-faq-atext-4">Nope! We can certainly have that done for you. Actually, it's included in the price of the home! We do ask that you bring us ideas on what you are looking for. Many free plans can be seen online or on our website (check out the modular floor plans). We can take your ideas and draw up your house the way you want it, making your ideas come to life. Once we have your plans up to your liking we then get them stamped by an engineer so we are ready to go! We do ask for a $1,000 deposit to start the drawings as they usually take quite a bit of time to make (this does not include the engineer's stamp). That deposit would be incorporated into the cost of the overall home pricing if we construct the project for you.</p>
+                        </div>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div class="faq-item" data-comment="cbh-faq-item-5">
+                        <button class="faq-question" data-comment="cbh-faq-question-5" aria-expanded="false">
+                            <span class="faq-q-text" data-comment="cbh-faq-qtext-5">What Is Your Lead Time For Building A Home Or Garage?</span>
+                            <span class="faq-icon" data-comment="cbh-faq-icon-5"><i class="ri-add-line" data-comment="cbh-faq-icon-ri-5"></i></span>
+                        </button>
+                        <div class="faq-answer" data-comment="cbh-faq-answer-5">
+                            <p class="faq-a-text" data-comment="cbh-faq-atext-5">Since the creation of our homes and garage division of Pine Ridge Homes, we have been blessed with constant work from our customers. At this point, we are booking into the Summer/Fall of 2026. If this fits within your timeline, please reach out to us as it's never too early to get things rolling!</p>
+                        </div>
+                    </div>
+
+                    <!-- Q6 -->
+                    <div class="faq-item" data-comment="cbh-faq-item-6">
+                        <button class="faq-question" data-comment="cbh-faq-question-6" aria-expanded="false">
+                            <span class="faq-q-text" data-comment="cbh-faq-qtext-6">Do You Do Foundations?</span>
+                            <span class="faq-icon" data-comment="cbh-faq-icon-6"><i class="ri-add-line" data-comment="cbh-faq-icon-ri-6"></i></span>
+                        </button>
+                        <div class="faq-answer" data-comment="cbh-faq-answer-6">
+                            <p class="faq-a-text" data-comment="cbh-faq-atext-6">We work with many people that can do the basements for you. We price it right out and can get it taken care of for you. Whether it's a basement, crawlspace or just a concrete floor for a garage — let Pine Ridge get the quotes for you and set up the work.</p>
+                        </div>
+                    </div>
+
+                    <!-- Q7 -->
+                    <div class="faq-item" data-comment="cbh-faq-item-7">
+                        <button class="faq-question" data-comment="cbh-faq-question-7" aria-expanded="false">
+                            <span class="faq-q-text" data-comment="cbh-faq-qtext-7">What About Preparing The Site?</span>
+                            <span class="faq-icon" data-comment="cbh-faq-icon-7"><i class="ri-add-line" data-comment="cbh-faq-icon-ri-7"></i></span>
+                        </button>
+                        <div class="faq-answer" data-comment="cbh-faq-answer-7">
+                            <p class="faq-a-text" data-comment="cbh-faq-atext-7">Our crews love to dig. We would be happy to prepare the foundation for you and usually quote that out in the foundation pricing. We also offer services for grading your area post construction so it looks less like a construction site and more like a place to call your own!</p>
+                        </div>
+                    </div>
+
+                    <!-- Q8 -->
+                    <div class="faq-item" data-comment="cbh-faq-item-8">
+                        <button class="faq-question" data-comment="cbh-faq-question-8" aria-expanded="false">
+                            <span class="faq-q-text" data-comment="cbh-faq-qtext-8">Can I Customize My Home To My Style?</span>
+                            <span class="faq-icon" data-comment="cbh-faq-icon-8"><i class="ri-add-line" data-comment="cbh-faq-icon-ri-8"></i></span>
+                        </button>
+                        <div class="faq-answer" data-comment="cbh-faq-answer-8">
+                            <p class="faq-a-text" data-comment="cbh-faq-atext-8">We encourage you to make this home your own. We can help you make it fit the feel and look that you would like. We deal with custom cabinet makers that can build anything your mind can think of. You have control over siding, roofing, windows, flooring, painting and the list goes on! We certainly don't want you to feel limited and strive to make your vision come true.</p>
+                        </div>
+                    </div>
+
+                    <!-- Q9 -->
+                    <div class="faq-item" data-comment="cbh-faq-item-9">
+                        <button class="faq-question" data-comment="cbh-faq-question-9" aria-expanded="false">
+                            <span class="faq-q-text" data-comment="cbh-faq-qtext-9">Does My Home or Garage Come With A Warranty?</span>
+                            <span class="faq-icon" data-comment="cbh-faq-icon-9"><i class="ri-add-line" data-comment="cbh-faq-icon-ri-9"></i></span>
+                        </button>
+                        <div class="faq-answer" data-comment="cbh-faq-answer-9">
+                            <p class="faq-a-text" data-comment="cbh-faq-atext-9">It certainly does. We offer a 1 year warranty on most things in your home. With being a new construction, if things were to go wrong they usually happen in the first year. The structure is new and needs to settle which can make a few things pop up. Pine Ridge takes care of those tricky issues. You also will carry warranties of your roofing, siding, windows, etc. through the manufacturer. Pine Ridge uses tried and true brands that stand behind their products like Certainteed Siding/Roofing Shingles, Clopay Garage Doors and Pella Windows.</p>
+                        </div>
+                    </div>
+
+                    <!-- Q10 -->
+                    <div class="faq-item" data-comment="cbh-faq-item-10">
+                        <button class="faq-question" data-comment="cbh-faq-question-10" aria-expanded="false">
+                            <span class="faq-q-text" data-comment="cbh-faq-qtext-10">Do I Have To Get The Permits?</span>
+                            <span class="faq-icon" data-comment="cbh-faq-icon-10"><i class="ri-add-line" data-comment="cbh-faq-icon-ri-10"></i></span>
+                        </button>
+                        <div class="faq-answer" data-comment="cbh-faq-answer-10">
+                            <p class="faq-a-text" data-comment="cbh-faq-atext-10">Let us take care of that. We will work with the codes office for your towns getting all building permits and zoning permits as applicable. Let the people building your project deal with that headache! We have constructed jobs all over the North Country and are familiar with the codes as well as the code officers.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ── CONTACT SECTION ── -->
+        <section class="cbh-contact-section" data-comment="cbh-contact-section">
+            <div class="cbh-contact-wrap sp-page" style="padding-top:0;padding-bottom:0;max-width:var(--max-width);margin:0 auto;" data-comment="cbh-contact-wrap">
+
+                <!-- Left: form -->
+                <div class="cbh-contact-left" data-comment="cbh-contact-left">
+                    <p class="section-eyebrow" data-comment="cbh-contact-eyebrow">Get In Touch</p>
+                    <h2 class="cbh-contact-heading" data-comment="cbh-contact-heading">Let's start building<br>your dream home</h2>
+                    <p class="cbh-contact-subhead" data-comment="cbh-contact-subhead">Fill out the form and our team will be in touch to discuss your project and get you on the schedule.</p>
+
+                    <div id="cbhFormBody" data-comment="cbh-form-body">
+                        <form class="cbh-form" data-comment="cbh-form" onsubmit="return false;">
+                            <div class="cbh-form-row" data-comment="cbh-form-row-name">
+                                <div class="cbh-form-group" data-comment="cbh-form-group-firstname">
+                                    <label class="cbh-form-label" data-comment="cbh-form-label-firstname" for="cbhFirstName">First Name</label>
+                                    <input class="cbh-form-input" data-comment="cbh-form-input-firstname" type="text" id="cbhFirstName" placeholder="John" />
+                                </div>
+                                <div class="cbh-form-group" data-comment="cbh-form-group-lastname">
+                                    <label class="cbh-form-label" data-comment="cbh-form-label-lastname" for="cbhLastName">Last Name</label>
+                                    <input class="cbh-form-input" data-comment="cbh-form-input-lastname" type="text" id="cbhLastName" placeholder="Smith" />
+                                </div>
+                            </div>
+                            <div class="cbh-form-row" data-comment="cbh-form-row-contact">
+                                <div class="cbh-form-group" data-comment="cbh-form-group-email">
+                                    <label class="cbh-form-label" data-comment="cbh-form-label-email" for="cbhEmail">Email Address</label>
+                                    <input class="cbh-form-input" data-comment="cbh-form-input-email" type="email" id="cbhEmail" placeholder="john@example.com" />
+                                </div>
+                                <div class="cbh-form-group" data-comment="cbh-form-group-phone">
+                                    <label class="cbh-form-label" data-comment="cbh-form-label-phone" for="cbhPhone">Phone Number</label>
+                                    <input class="cbh-form-input" data-comment="cbh-form-input-phone" type="tel" id="cbhPhone" placeholder="(315) 000-0000" />
+                                </div>
+                            </div>
+                            <div class="cbh-form-group" data-comment="cbh-form-group-message">
+                                <label class="cbh-form-label" data-comment="cbh-form-label-message" for="cbhMessage">Message</label>
+                                <textarea class="cbh-form-textarea" data-comment="cbh-form-textarea-message" id="cbhMessage" placeholder="Tell us about your project ideas, timeline, or any questions you have…"></textarea>
+                            </div>
+                            <div class="cbh-form-footer" data-comment="cbh-form-footer">
+                                <p class="cbh-form-note" data-comment="cbh-form-note">We'll respond within one business day. Your info is never shared.</p>
+                                <button type="button" class="btn-primary" data-comment="cbh-form-submit-btn" id="cbhSubmitBtn">
+                                    <i class="ri-send-plane-line" data-comment="cbh-form-submit-icon"></i> Send Message
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Success state -->
+                    <div class="cbh-form-success" id="cbhFormSuccess" data-comment="cbh-form-success">
+                        <div class="cbh-success-icon" data-comment="cbh-success-icon">
+                            <i class="ri-checkbox-circle-line" data-comment="cbh-success-check-icon"></i>
+                        </div>
+                        <h3 class="cbh-success-heading" data-comment="cbh-success-heading">Message sent!</h3>
+                        <p class="cbh-success-body" data-comment="cbh-success-body">Thanks for reaching out. Our team will be in touch with you soon to discuss your project.</p>
+                    </div>
+                </div>
+
+                <!-- Right: photo -->
+                <div class="cbh-contact-right" data-comment="cbh-contact-right">
+                    <img
+                        src="assets/CTA.png"
+                        alt="Custom built home by Pine Ridge Homes"
+                        class="cbh-contact-photo"
+                        data-comment="cbh-contact-photo" />
+                    <div class="cbh-contact-overlay" data-comment="cbh-contact-overlay"></div>
+                    <div class="cbh-contact-badge" data-comment="cbh-contact-badge">
+                        <div class="cbh-badge-icon" data-comment="cbh-badge-icon">
+                            <i class="ri-home-2-line" data-comment="cbh-badge-icon-ri"></i>
+                        </div>
+                        <div data-comment="cbh-badge-text">
+                            <div class="cbh-badge-stat" data-comment="cbh-badge-stat">2026</div>
+                            <div class="cbh-badge-label" data-comment="cbh-badge-label">Now booking · Serving the North Country since 2011</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ── FOOTER ── -->
+        <footer class="footer-root" data-comment="cbh-footer">
+            <div class="footer-inner" data-comment="cbh-footer-inner">
+                <div class="footer-top" data-comment="cbh-footer-top">
+                    <div data-comment="cbh-footer-brand">
+                        <a href="index.html" class="footer-brand-logo" data-comment="cbh-footer-brand-logo">
+                            <img src="assets/Logo.png" alt="NCS Barns" data-comment="cbh-footer-brand-img" />
+                            <span class="footer-brand-name" data-comment="cbh-footer-brand-name">NCS Barns</span>
+                        </a>
+                        <p class="footer-brand-desc" data-comment="cbh-footer-brand-desc">Handcrafted quality structures for the North Country — family owned &amp; operated since 1993.</p>
+                    </div>
+                    <div data-comment="cbh-footer-col-products">
+                        <p class="footer-col-label" data-comment="cbh-footer-products-label">Products</p>
+                        <ul class="footer-links" data-comment="cbh-footer-products-links">
+                            <li><a href="catalog.html?category=Sheds" data-comment="cbh-footer-link-sheds">Sheds</a></li>
+                            <li><a href="catalog.html?category=Gazebos" data-comment="cbh-footer-link-gazebos">Gazebos &amp; Pergolas</a></li>
+                            <li><a href="catalog.html?category=Hunting+Blinds" data-comment="cbh-footer-link-hunting">Hunting Blinds</a></li>
+                            <li><a href="catalog.html?category=Play+Structures" data-comment="cbh-footer-link-play">Play Structures</a></li>
+                            <li><a href="catalog.html?category=Outdoor+Furniture" data-comment="cbh-footer-link-furniture">Furniture</a></li>
+                            <li><a href="custom-built-homes.html" data-comment="cbh-footer-link-homes">Homes &amp; Garages</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="cbh-footer-col-company">
+                        <p class="footer-col-label" data-comment="cbh-footer-company-label">Company</p>
+                        <ul class="footer-links" data-comment="cbh-footer-company-links">
+                            <li><a href="about.html" data-comment="cbh-footer-link-about">About Us</a></li>
+                            <li><a href="testimonials.html" data-comment="cbh-footer-link-testimonials">Testimonials</a></li>
+                            <li><a href="gallery.html" data-comment="cbh-footer-link-gallery">Gallery</a></li>
+                            <li><a href="delivery.html" data-comment="cbh-footer-link-delivery">Delivery &amp; Relocation</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="cbh-footer-col-buying">
+                        <p class="footer-col-label" data-comment="cbh-footer-buying-label">Buying Process</p>
+                        <ul class="footer-links" data-comment="cbh-footer-buying-links">
+                            <li><a href="#" data-comment="cbh-footer-link-rto">Rent-To-Own</a></li>
+                            <li><a href="#" data-comment="cbh-footer-link-financing">Financing Options</a></li>
+                            <li><a href="site-preparation.html" data-comment="cbh-footer-link-siteprep">Site Preparation</a></li>
+                            <li><a href="warranty.html" data-comment="cbh-footer-link-warranty">Warranty</a></li>
+                            <li><a href="dealers.html" data-comment="cbh-footer-link-dealers">Dealers</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="cbh-footer-col-contact">
+                        <p class="footer-col-label" data-comment="cbh-footer-contact-label">Contact</p>
+                        <div class="footer-contact-item" data-comment="cbh-footer-contact-phone">
+                            <svg viewBox="0 0 24 24" data-comment="cbh-footer-phone-icon"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l1.64-1.64a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <a href="tel:3156420209" data-comment="cbh-footer-phone-link">(315) 642-0209</a>
+                        </div>
+                        <div class="footer-contact-item" data-comment="cbh-footer-contact-email">
+                            <svg viewBox="0 0 24 24" data-comment="cbh-footer-email-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            <a href="mailto:sales@ncsbarns.com" data-comment="cbh-footer-email-link">sales@ncsbarns.com</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-locations" data-comment="cbh-footer-locations">
+                    <div data-comment="cbh-footer-loc-philadelphia">
+                        <p class="footer-loc-name" data-comment="cbh-footer-loc-phila-name">Philadelphia</p>
+                        <p class="footer-loc-addr" data-comment="cbh-footer-loc-phila-addr">32660 US Route 11<br>Philadelphia, NY 13673</p>
+                        <p class="footer-loc-phone" data-comment="cbh-footer-loc-phila-phone">(315) 642-0209</p>
+                    </div>
+                    <div data-comment="cbh-footer-loc-yorkville">
+                        <p class="footer-loc-name" data-comment="cbh-footer-loc-york-name">Yorkville</p>
+                        <p class="footer-loc-addr" data-comment="cbh-footer-loc-york-addr">317 Oriskany Blvd<br>Yorkville, NY</p>
+                        <p class="footer-loc-phone" data-comment="cbh-footer-loc-york-phone">(315) 793-0726</p>
+                    </div>
+                    <div data-comment="cbh-footer-loc-sandycreek">
+                        <p class="footer-loc-name" data-comment="cbh-footer-loc-sandy-name">Sandy Creek</p>
+                        <p class="footer-loc-addr" data-comment="cbh-footer-loc-sandy-addr">5780 US Route 11<br>Pulaski, NY 13142</p>
+                        <p class="footer-loc-phone" data-comment="cbh-footer-loc-sandy-phone">(315) 387-2092</p>
+                    </div>
+                </div>
+                <div class="footer-bottom" data-comment="cbh-footer-bottom">
+                    <div class="footer-copy-row" data-comment="cbh-footer-copy-row">
+                        <p class="footer-copy" data-comment="cbh-footer-copy">Copyright &copy; 2025 North Country Storage Barns LLC. All rights reserved.</p>
+                        <a href="privacy.html" class="footer-legal-link" data-comment="cbh-footer-link-privacy">Privacy Policy</a>
+                        <a href="terms.html" class="footer-legal-link" data-comment="cbh-footer-link-terms">Terms &amp; Conditions</a>
+                    </div>
+                    <div class="footer-socials" data-comment="cbh-footer-socials">
+                        <a href="https://www.tiktok.com/@northcountrystoragebarns" target="_blank" class="footer-social-btn" data-comment="cbh-footer-social-tiktok" aria-label="TikTok"><i class="ri-tiktok-fill" data-comment="cbh-footer-tiktok-icon"></i></a>
+                        <a href="https://www.facebook.com/ifyouneedmeillbeinmyshed/" target="_blank" class="footer-social-btn" data-comment="cbh-footer-social-facebook" aria-label="Facebook"><i class="ri-facebook-fill" data-comment="cbh-footer-facebook-icon"></i></a>
+                        <a href="https://www.instagram.com/northcountrystoragebarns/" target="_blank" class="footer-social-btn" data-comment="cbh-footer-social-instagram" aria-label="Instagram"><i class="ri-instagram-fill" data-comment="cbh-footer-instagram-icon"></i></a>
+                        <a href="#" class="footer-social-btn" data-comment="cbh-footer-social-google" aria-label="Google"><i class="ri-google-fill" data-comment="cbh-footer-google-icon"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            // FAQ accordion
+            document.querySelectorAll('.faq-question').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var isOpen = this.classList.contains('is-open');
+                    document.querySelectorAll('.faq-question').forEach(function(q) {
+                        q.classList.remove('is-open');
+                        q.setAttribute('aria-expanded', 'false');
+                        q.nextElementSibling.classList.remove('is-open');
+                    });
+                    if (!isOpen) {
+                        this.classList.add('is-open');
+                        this.setAttribute('aria-expanded', 'true');
+                        this.nextElementSibling.classList.add('is-open');
+                    }
+                });
+            });
+
+            // Form submit mock
+            document.getElementById('cbhSubmitBtn').addEventListener('click', function() {
+                document.getElementById('cbhFormBody').style.display = 'none';
+                document.getElementById('cbhFormSuccess').style.display = 'block';
+            });
+        </script>
+    </body>
+</html>

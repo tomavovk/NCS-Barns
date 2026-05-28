@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>NCS Barns — Page Not Found</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+            rel="stylesheet" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+            rel="stylesheet" />
+        <script src="nav.js" defer></script>
+
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            :root {
+                --color-burgundy:       #8B1A2A;
+                --color-burgundy-dark:  #6D1420;
+                --color-dark:           #1C1F24;
+                --color-gray:           #514C4A;
+                --color-gray-light:     #9A9390;
+                --color-border:         #E6E2DD;
+                --color-bg:             #F8F6F4;
+                --color-bg-hover:       #F4F1EE;
+                --color-bg-menu:        #FAFAF8;
+                --color-white:          #fff;
+
+                --font-ui: 'Inter', sans-serif;
+
+                --nav-height: 72px;
+                --max-width:  1440px;
+                --page-px:    40px;
+
+                --t-fast: 0.15s ease;
+                --t-med:  0.22s ease;
+            }
+
+            body {
+                font-family: var(--font-ui);
+                background: var(--color-bg);
+                color: var(--color-dark);
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+            }
+
+            /* ── 404 Content ── */
+            .error-page {
+                flex: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 80px var(--page-px);
+            }
+
+            .error-inner {
+                text-align: center;
+                max-width: 560px;
+            }
+
+            .error-code {
+                font-size: clamp(96px, 18vw, 180px);
+                font-weight: 900;
+                line-height: 1;
+                color: var(--color-burgundy);
+                opacity: 0.15;
+                letter-spacing: -4px;
+                user-select: none;
+            }
+
+            .error-icon {
+                font-size: 56px;
+                color: var(--color-burgundy);
+                margin-bottom: 24px;
+                display: block;
+                margin-top: -32px;
+            }
+
+            .error-title {
+                font-size: 28px;
+                font-weight: 700;
+                color: var(--color-dark);
+                margin-bottom: 12px;
+            }
+
+            .error-desc {
+                font-size: 16px;
+                color: var(--color-gray);
+                line-height: 1.6;
+                margin-bottom: 40px;
+            }
+
+            .error-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 12px;
+                justify-content: center;
+            }
+
+            .btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 12px 24px;
+                border-radius: 8px;
+                font-size: 15px;
+                font-weight: 600;
+                text-decoration: none;
+                transition: background var(--t-fast), color var(--t-fast), border-color var(--t-fast);
+                cursor: pointer;
+                border: 1.5px solid transparent;
+            }
+
+            .btn-primary {
+                background: var(--color-burgundy);
+                color: var(--color-white);
+                border-color: var(--color-burgundy);
+            }
+
+            .btn-primary:hover {
+                background: var(--color-burgundy-dark);
+                border-color: var(--color-burgundy-dark);
+            }
+
+            .btn-outline {
+                background: transparent;
+                color: var(--color-burgundy);
+                border-color: var(--color-burgundy);
+            }
+
+            .btn-outline:hover {
+                background: var(--color-burgundy);
+                color: var(--color-white);
+            }
+
+            @media (max-width: 480px) {
+                :root { --page-px: 20px; }
+                .error-actions { flex-direction: column; align-items: center; }
+                .btn { width: 100%; justify-content: center; }
+            }
+        </style>
+    </head>
+    <body>
+
+        <div data-comment="nav"></div>
+
+        <main class="error-page">
+            <div class="error-inner">
+                <div class="error-code" aria-hidden="true">404</div>
+                <i class="ri-error-warning-line error-icon" aria-hidden="true"></i>
+                <h1 class="error-title">Page Not Found</h1>
+                <p class="error-desc">
+                    Oops — looks like this page doesn't exist or may have been moved.<br>
+                    Let's get you back on track.
+                </p>
+                <div class="error-actions">
+                    <a href="index.html" class="btn btn-primary">
+                        <i class="ri-home-4-line"></i> Back to Home
+                    </a>
+                    <a href="catalog.html" class="btn btn-outline">
+                        <i class="ri-store-2-line"></i> Browse Products
+                    </a>
+                    <a href="contact.html" class="btn btn-outline">
+                        <i class="ri-customer-service-2-line"></i> Contact Us
+                    </a>
+                </div>
+            </div>
+        </main>
+
+    </body>
+</html>

@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>NCS Barns — My Account</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+            rel="stylesheet" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+            rel="stylesheet" />
+        <script src="nav.js" defer></script>
+
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            :root {
+                --color-burgundy:       #8B1A2A;
+                --color-burgundy-dark:  #6D1420;
+                --color-dark:           #1C1F24;
+                --color-gray:           #514C4A;
+                --color-gray-light:     #9A9390;
+                --color-border:         #E6E2DD;
+                --color-bg:             #F8F6F4;
+                --color-bg-hover:       #F4F1EE;
+                --font-ui: 'Inter', sans-serif;
+                --nav-height: 72px;
+                --max-width:  1440px;
+                --page-px:    40px;
+                --t-fast: 0.15s ease;
+                --t-med:  0.22s ease;
+            }
+
+            body {
+                font-family: var(--font-ui);
+                background: var(--color-bg);
+                color: var(--color-dark);
+            }
+
+            /* ─────────────────────────────────────────
+               GLOBAL UTILITIES
+            ───────────────────────────────────────── */
+            .section-inner {
+                max-width: var(--max-width);
+                margin: 0 auto;
+                padding: 0 var(--page-px);
+            }
+
+            .btn-primary,
+            .btn-outline {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 12px 22px;
+                border-radius: 10px;
+                font-family: var(--font-ui);
+                font-size: 14px;
+                font-weight: 600;
+                letter-spacing: -0.1px;
+                text-decoration: none;
+                cursor: pointer;
+                white-space: nowrap;
+            }
+            .btn-primary {
+                background: var(--color-burgundy);
+                color: #fff;
+                border: none;
+                transition: background var(--t-fast), transform var(--t-fast);
+            }
+            .btn-primary:hover { background: var(--color-burgundy-dark); transform: translateY(-1px); }
+            .btn-outline {
+                background: transparent;
+                color: var(--color-dark);
+                border: 1.5px solid var(--color-border);
+                transition: border-color var(--t-fast), background var(--t-fast);
+            }
+            .btn-outline:hover { border-color: var(--color-dark); background: var(--color-bg-hover); }
+
+            /* ─────────────────────────────────────────
+               FORM FIELDS
+            ───────────────────────────────────────── */
+            .quote-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+            .quote-field { display: flex; flex-direction: column; gap: 6px; }
+            .quote-label {
+                font-size: 13px;
+                font-weight: 600;
+                color: var(--color-dark);
+                letter-spacing: -0.1px;
+            }
+            .quote-input,
+            .quote-select {
+                font-family: var(--font-ui);
+                font-size: 14px;
+                font-weight: 400;
+                color: var(--color-dark);
+                background: var(--color-bg);
+                border: 1.5px solid var(--color-border);
+                border-radius: 10px;
+                padding: 11px 14px;
+                outline: none;
+                transition: border-color var(--t-fast), box-shadow var(--t-fast);
+                width: 100%;
+                appearance: none;
+                -webkit-appearance: none;
+            }
+            .quote-input::placeholder { color: var(--color-gray-light); }
+            .quote-input:focus,
+            .quote-select:focus {
+                border-color: var(--color-burgundy);
+                box-shadow: 0 0 0 3px rgba(139,26,42,0.1);
+            }
+
+            /* ─────────────────────────────────────────
+               TAGS / BADGES
+            ───────────────────────────────────────── */
+            .event-tag {
+                display: inline-block;
+                font-size: 11px;
+                font-weight: 600;
+                letter-spacing: 0.4px;
+                text-transform: uppercase;
+                color: var(--color-burgundy);
+                background: rgba(139,26,42,0.08);
+                padding: 4px 10px;
+                border-radius: 8px;
+            }
+            .event-tag--open-house { color: #1E6B3C; background: rgba(30,107,60,0.09); }
+            .event-tag--workshop   { color: #1A4F8B; background: rgba(26,79,139,0.09);  }
+
+            /* ─────────────────────────────────────────
+               ACCOUNT LAYOUT
+            ───────────────────────────────────────── */
+            .account-wrap {
+                padding: 48px 0 96px;
+            }
+            .account-layout {
+                display: grid;
+                grid-template-columns: 272px 1fr;
+                gap: 24px;
+                align-items: start;
+            }
+
+            /* ─── SIDEBAR ─── */
+            .account-sidebar {
+                position: sticky;
+                top: calc(var(--nav-height) + 24px);
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+            }
+            .account-user-card {
+                background: #fff;
+                border: 1px solid var(--color-border);
+                border-radius: 16px;
+                padding: 16px 20px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                margin-bottom: 10px;
+            }
+            .account-avatar {
+                width: 44px;
+                height: 44px;
+                border-radius: 50%;
+                background: var(--color-burgundy);
+                color: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 15px;
+                font-weight: 700;
+                flex-shrink: 0;
+                letter-spacing: -0.3px;
+            }
+            .account-user-info { min-width: 0; }
+            .account-user-name {
+                font-size: 15px;
+                font-weight: 600;
+                color: var(--color-dark);
+                letter-spacing: -0.2px;
+                margin-bottom: 5px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .account-nav-item {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                width: 100%;
+                padding: 12px 16px;
+                border: none;
+                border-radius: 12px;
+                background: none;
+                font-family: var(--font-ui);
+                font-size: 14px;
+                font-weight: 500;
+                color: var(--color-dark);
+                cursor: pointer;
+                text-align: left;
+                transition: background var(--t-fast), color var(--t-fast);
+            }
+            .account-nav-item i.nav-icon { font-size: 17px; flex-shrink: 0; }
+            .account-nav-item:hover { background: var(--color-bg-hover); }
+            .account-nav-item.is-active { background: var(--color-burgundy); color: #fff; }
+            .account-nav-arrow {
+                margin-left: auto;
+                font-size: 16px;
+                opacity: 0.45;
+                flex-shrink: 0;
+            }
+
+            /* ─── PANEL ─── */
+            .account-panel {
+                background: #fff;
+                border: 1px solid var(--color-border);
+                border-radius: 16px;
+                overflow: hidden;
+            }
+            .account-section { display: none; padding: 32px; }
+            .account-section.is-visible { display: block; }
+            .account-section-header {
+                margin-bottom: 28px;
+                padding-bottom: 20px;
+                border-bottom: 1px solid var(--color-border);
+            }
+            .account-section-title {
+                font-size: 20px;
+                font-weight: 600;
+                color: var(--color-dark);
+                letter-spacing: -0.3px;
+                margin-bottom: 4px;
+            }
+            .account-section-sub {
+                font-size: 13px;
+                color: var(--color-gray-light);
+            }
+
+            /* ─────────────────────────────────────────
+               ACCOUNT DETAILS
+            ───────────────────────────────────────── */
+            .account-form {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+            .account-form-footer {
+                display: flex;
+                justify-content: flex-end;
+                padding-top: 8px;
+            }
+
+            /* ─────────────────────────────────────────
+               PAYMENT METHODS
+            ───────────────────────────────────────── */
+            .pay-info-row {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 14px;
+            }
+            .pay-default-label {
+                font-size: 13px;
+                color: var(--color-gray);
+            }
+            .pay-drag-hint {
+                font-size: 12px;
+                color: var(--color-gray-light);
+            }
+            .pay-cards-list {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+            .pay-card-row {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 13px 16px;
+                border: 1.5px solid var(--color-border);
+                border-radius: 12px;
+                background: #fff;
+                cursor: grab;
+                transition: border-color var(--t-fast), box-shadow var(--t-fast);
+            }
+            .pay-card-row.is-default {
+                border-color: var(--color-burgundy);
+                background: rgba(139,26,42,0.015);
+            }
+            .pay-card-drag {
+                color: var(--color-gray-light);
+                font-size: 18px;
+                cursor: grab;
+                flex-shrink: 0;
+            }
+            .pay-card-brand {
+                flex-shrink: 0;
+                width: 40px;
+                height: 26px;
+                border-radius: 4px;
+                border: 1px solid var(--color-border);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 10px;
+                font-weight: 800;
+                letter-spacing: 0.5px;
+                background: #fff;
+            }
+            .pay-card-brand--visa { color: #1a1f71; }
+            .pay-card-brand--mc   { color: #EB001B; }
+            .pay-card-number {
+                flex: 1;
+                font-size: 14px;
+                font-weight: 500;
+                color: var(--color-dark);
+                letter-spacing: 0.5px;
+            }
+            .pay-card-delete {
+                width: 32px;
+                height: 32px;
+                border: none;
+                border-radius: 8px;
+                background: none;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--color-gray-light);
+                font-size: 17px;
+                transition: background var(--t-fast), color var(--t-fast);
+                flex-shrink: 0;
+            }
+            .pay-card-delete:hover { background: var(--color-bg-hover); color: var(--color-burgundy); }
+            .pay-section-divider { height: 1px; background: var(--color-border); margin: 24px 0; }
+            .pay-other-label {
+                font-size: 13px;
+                font-weight: 500;
+                color: var(--color-gray);
+                margin: 16px 0 10px;
+            }
+            .pay-section-label {
+                font-size: 15px;
+                font-weight: 600;
+                color: var(--color-dark);
+                letter-spacing: -0.2px;
+                margin-bottom: 18px;
+            }
+            .pay-add-form {
+                display: flex;
+                flex-direction: column;
+                gap: 14px;
+            }
+            .pay-add-footer { display: flex; justify-content: flex-end; }
+
+            /* ─────────────────────────────────────────
+               YOUR ORDERS
+            ───────────────────────────────────────── */
+            .orders-table-wrap {
+                border: 1px solid var(--color-border);
+                border-radius: 12px;
+                overflow: hidden;
+            }
+            .orders-table { width: 100%; border-collapse: collapse; }
+            .orders-table thead th {
+                font-size: 12px;
+                font-weight: 600;
+                color: var(--color-gray-light);
+                text-align: left;
+                padding: 11px 16px;
+                background: var(--color-bg);
+                border-bottom: 1px solid var(--color-border);
+                white-space: nowrap;
+            }
+            .order-row {
+                cursor: pointer;
+                border-bottom: 1px solid var(--color-border);
+                transition: background var(--t-fast);
+            }
+            .order-row:last-of-type { border-bottom: none; }
+            .order-row:hover,
+            .order-row.is-open { background: var(--color-bg-hover); }
+            .order-row td {
+                font-size: 14px;
+                color: var(--color-dark);
+                padding: 14px 16px;
+                vertical-align: middle;
+            }
+            .order-row-chevron {
+                color: var(--color-gray-light);
+                font-size: 17px;
+                transition: transform var(--t-fast);
+                display: block;
+            }
+            .order-row.is-open .order-row-chevron { transform: rotate(90deg); }
+            .order-expand-row { display: none; }
+            .order-expand-row.is-open { display: table-row; }
+            .order-expand-cell {
+                padding: 0 !important;
+                border-bottom: 1px solid var(--color-border);
+            }
+            .order-expand-inner { padding: 20px 20px 24px; }
+            .order-meta-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 12px;
+                padding: 16px;
+                background: var(--color-bg);
+                border-radius: 10px;
+                margin-bottom: 18px;
+            }
+            .order-meta-label {
+                font-size: 11px;
+                font-weight: 600;
+                color: var(--color-gray-light);
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                margin-bottom: 4px;
+            }
+            .order-meta-value {
+                font-size: 13px;
+                font-weight: 500;
+                color: var(--color-dark);
+            }
+            .order-items-table-wrap {
+                border: 1px solid var(--color-border);
+                border-radius: 10px;
+                overflow: hidden;
+            }
+            .order-items-table { width: 100%; border-collapse: collapse; }
+            .order-items-table th {
+                font-size: 11px;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                color: var(--color-gray-light);
+                padding: 10px 14px;
+                border-bottom: 1px solid var(--color-border);
+                text-align: left;
+                background: var(--color-bg);
+            }
+            .order-items-table td {
+                font-size: 13px;
+                color: var(--color-dark);
+                padding: 12px 14px;
+                vertical-align: middle;
+                border-bottom: 1px solid var(--color-border);
+            }
+            .order-items-table tbody tr:last-child td { border-bottom: none; }
+            .order-item-product { display: flex; align-items: center; gap: 12px; }
+            .order-item-img {
+                width: 48px;
+                height: 48px;
+                border-radius: 8px;
+                background: var(--color-bg-hover);
+                border: 1px solid var(--color-border);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--color-gray-light);
+                font-size: 20px;
+                flex-shrink: 0;
+                overflow: hidden;
+            }
+            .order-item-name {
+                font-size: 13px;
+                font-weight: 500;
+                color: var(--color-dark);
+                margin-bottom: 2px;
+            }
+            .order-item-option { font-size: 12px; color: var(--color-gray-light); }
+            .order-amount { font-weight: 600; }
+            .order-qty { color: var(--color-gray); }
+
+            /* ─────────────────────────────────────────
+               FOOTER
+            ───────────────────────────────────────── */
+            .footer-root { background: #000; color: #fff; padding: 72px var(--page-px) 40px; }
+            .footer-inner { max-width: var(--max-width); margin: 0 auto; }
+            .footer-top { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr 1.4fr; gap: 48px; padding-bottom: 52px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 52px; }
+            .footer-brand-logo { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; text-decoration: none; margin-bottom: 16px; }
+            .footer-brand-logo img { width: 50%; height: auto; filter: brightness(0) invert(1) opacity(0.5); }
+            .footer-brand-name { font-size: 16px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+            .footer-brand-desc { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.65; max-width: 220px; }
+            .footer-col-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 18px; }
+            .footer-links { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+            .footer-links a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-links a:hover { color: #fff; }
+            .footer-contact-item { font-size: 14px; color: rgba(255,255,255,0.65); margin-bottom: 10px; display: flex; align-items: flex-start; gap: 8px; }
+            .footer-contact-item svg { width: 15px; height: 15px; stroke: rgba(255,255,255,0.35); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; margin-top: 1px; }
+            .footer-contact-item a { color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-contact-item a:hover { color: #fff; }
+            .footer-locations { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 32px; }
+            .footer-loc-name { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+            .footer-loc-addr { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.55; margin-bottom: 8px; }
+            .footer-loc-phone { font-size: 13px; color: rgba(255,255,255,0.45); }
+            .footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+            .footer-copy-row { display: flex; align-items: center; gap: 20px; }
+            .footer-copy { font-size: 13px; color: rgba(255,255,255,0.35); }
+            .footer-legal-link { font-size: 13px; color: rgba(255,255,255,0.35); text-decoration: none; transition: color var(--t-fast); }
+            .footer-legal-link:hover { color: rgba(255,255,255,0.7); }
+            .footer-socials { display: flex; gap: 10px; }
+            .footer-social-btn { width: 38px; height: 38px; border-radius: 9px; border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; text-decoration: none; transition: border-color var(--t-fast), background var(--t-fast); }
+            .footer-social-btn:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.08); }
+            .footer-social-btn i { font-size: 17px; color: rgba(255,255,255,0.6); }
+        </style>
+    </head>
+    <body>
+
+        <ncs-nav data-comment="nav-root"></ncs-nav>
+
+        <main data-comment="account-main">
+            <div class="section-inner">
+                <div class="account-wrap" data-comment="account-wrap">
+                    <div class="account-layout" data-comment="account-layout">
+
+                        <!-- ════════════════════════════
+                             SIDEBAR
+                        ════════════════════════════ -->
+                        <aside class="account-sidebar" data-comment="account-sidebar">
+
+                            <div class="account-user-card" data-comment="account-user-card">
+                                <div class="account-avatar" data-comment="account-avatar">JD</div>
+                                <div class="account-user-info" data-comment="account-user-info">
+                                    <div class="account-user-name" data-comment="account-user-name">John Doe</div>
+                                    <span class="event-tag" data-comment="account-user-role">Customer</span>
+                                </div>
+                            </div>
+
+                            <button class="account-nav-item is-active" data-target="details" data-comment="account-nav-details">
+                                <i class="ri-user-line nav-icon" data-comment="account-nav-details-icon"></i>
+                                Account details
+                                <i class="ri-arrow-right-s-line account-nav-arrow" data-comment="account-nav-details-arrow"></i>
+                            </button>
+                            <button class="account-nav-item" data-target="payment" data-comment="account-nav-payment">
+                                <i class="ri-bank-card-line nav-icon" data-comment="account-nav-payment-icon"></i>
+                                Payment Methods
+                                <i class="ri-arrow-right-s-line account-nav-arrow" data-comment="account-nav-payment-arrow"></i>
+                            </button>
+                            <button class="account-nav-item" data-target="orders" data-comment="account-nav-orders">
+                                <i class="ri-list-check-2 nav-icon" data-comment="account-nav-orders-icon"></i>
+                                Your Orders
+                                <i class="ri-arrow-right-s-line account-nav-arrow" data-comment="account-nav-orders-arrow"></i>
+                            </button>
+
+                        </aside>
+
+                        <!-- ════════════════════════════
+                             PANEL
+                        ════════════════════════════ -->
+                        <div class="account-panel" data-comment="account-panel">
+
+                            <!-- ── ACCOUNT DETAILS ── -->
+                            <div class="account-section is-visible" data-section="details" data-comment="account-section-details">
+                                <div class="account-section-header" data-comment="account-details-header">
+                                    <h1 class="account-section-title" data-comment="account-details-title">Account details</h1>
+                                    <p class="account-section-sub" data-comment="account-details-sub">Manage your profile</p>
+                                </div>
+                                <form class="account-form" id="accountDetailsForm" data-comment="account-details-form" novalidate>
+                                    <div class="quote-form-row" data-comment="account-form-row-name-email">
+                                        <div class="quote-field" data-comment="account-field-name">
+                                            <label class="quote-label" for="accName" data-comment="account-label-name">Name</label>
+                                            <input class="quote-input" id="accName" type="text" value="John Doe" autocomplete="name" data-comment="account-input-name" />
+                                        </div>
+                                        <div class="quote-field" data-comment="account-field-email">
+                                            <label class="quote-label" for="accEmail" data-comment="account-label-email">Email</label>
+                                            <input class="quote-input" id="accEmail" type="email" value="johndoe@ncsbarns.com" autocomplete="email" data-comment="account-input-email" />
+                                        </div>
+                                    </div>
+                                    <div class="quote-form-row" data-comment="account-form-row-phone-country">
+                                        <div class="quote-field" data-comment="account-field-phone">
+                                            <label class="quote-label" for="accPhone" data-comment="account-label-phone">Phone</label>
+                                            <input class="quote-input" id="accPhone" type="tel" value="+1 (315) 642-0209" autocomplete="tel" data-comment="account-input-phone" />
+                                        </div>
+                                        <div class="quote-field" data-comment="account-field-country">
+                                            <label class="quote-label" for="accCountry" data-comment="account-label-country">Country</label>
+                                            <input class="quote-input" id="accCountry" type="text" value="United States" autocomplete="country-name" data-comment="account-input-country" />
+                                        </div>
+                                    </div>
+                                    <div class="quote-form-row" data-comment="account-form-row-state-city">
+                                        <div class="quote-field" data-comment="account-field-state">
+                                            <label class="quote-label" for="accState" data-comment="account-label-state">State / Province</label>
+                                            <input class="quote-input" id="accState" type="text" value="New York" autocomplete="address-level1" data-comment="account-input-state" />
+                                        </div>
+                                        <div class="quote-field" data-comment="account-field-city">
+                                            <label class="quote-label" for="accCity" data-comment="account-label-city">City</label>
+                                            <input class="quote-input" id="accCity" type="text" value="Philadelphia" autocomplete="address-level2" data-comment="account-input-city" />
+                                        </div>
+                                    </div>
+                                    <div class="quote-form-row" data-comment="account-form-row-address">
+                                        <div class="quote-field" data-comment="account-field-addr1">
+                                            <label class="quote-label" for="accAddr1" data-comment="account-label-addr1">Address Line 1</label>
+                                            <input class="quote-input" id="accAddr1" type="text" value="32660 US Route 11" autocomplete="address-line1" data-comment="account-input-addr1" />
+                                        </div>
+                                        <div class="quote-field" data-comment="account-field-addr2">
+                                            <label class="quote-label" for="accAddr2" data-comment="account-label-addr2">Address Line 2</label>
+                                            <input class="quote-input" id="accAddr2" type="text" placeholder="Apt, suite, unit…" autocomplete="address-line2" data-comment="account-input-addr2" />
+                                        </div>
+                                    </div>
+                                    <div class="quote-field" data-comment="account-field-zip">
+                                        <label class="quote-label" for="accZip" data-comment="account-label-zip">Zip / Postal Code</label>
+                                        <input class="quote-input" id="accZip" type="text" value="13673" autocomplete="postal-code" data-comment="account-input-zip" />
+                                    </div>
+                                    <div class="account-form-footer" data-comment="account-form-footer">
+                                        <button type="submit" class="btn-primary" data-comment="account-save-btn">Save changes</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- ── PAYMENT METHODS ── -->
+                            <div class="account-section" data-section="payment" data-comment="account-section-payment">
+                                <div class="account-section-header" data-comment="account-payment-header">
+                                    <h1 class="account-section-title" data-comment="account-payment-title">Payment Methods</h1>
+                                    <p class="account-section-sub" data-comment="account-payment-sub">Manage your payment cards</p>
+                                </div>
+
+                                <div class="pay-info-row" data-comment="pay-info-row">
+                                    <span class="pay-default-label" data-comment="pay-default-label">Default card: <strong data-comment="pay-default-number">**** 4242</strong></span>
+                                    <span class="pay-drag-hint" data-comment="pay-drag-hint">Drag to reorder</span>
+                                </div>
+
+                                <div class="pay-cards-list" data-comment="pay-cards-list">
+                                    <div class="pay-card-row is-default" data-comment="pay-card-1">
+                                        <i class="ri-drag-move-2-line pay-card-drag" data-comment="pay-card-1-drag"></i>
+                                        <div class="pay-card-brand pay-card-brand--visa" data-comment="pay-card-1-brand">VISA</div>
+                                        <span class="pay-card-number" data-comment="pay-card-1-number">**** **** **** 4242</span>
+                                        <button class="pay-card-delete" aria-label="Remove card" data-comment="pay-card-1-delete">
+                                            <i class="ri-delete-bin-line" data-comment="pay-card-1-delete-icon"></i>
+                                        </button>
+                                    </div>
+
+                                    <p class="pay-other-label" data-comment="pay-other-label">Other cards</p>
+
+                                    <div class="pay-card-row" data-comment="pay-card-2">
+                                        <i class="ri-drag-move-2-line pay-card-drag" data-comment="pay-card-2-drag"></i>
+                                        <div class="pay-card-brand pay-card-brand--mc" data-comment="pay-card-2-brand">MC</div>
+                                        <span class="pay-card-number" data-comment="pay-card-2-number">**** **** **** 0089</span>
+                                        <button class="pay-card-delete" aria-label="Remove card" data-comment="pay-card-2-delete">
+                                            <i class="ri-delete-bin-line" data-comment="pay-card-2-delete-icon"></i>
+                                        </button>
+                                    </div>
+                                    <div class="pay-card-row" data-comment="pay-card-3">
+                                        <i class="ri-drag-move-2-line pay-card-drag" data-comment="pay-card-3-drag"></i>
+                                        <div class="pay-card-brand pay-card-brand--mc" data-comment="pay-card-3-brand">MC</div>
+                                        <span class="pay-card-number" data-comment="pay-card-3-number">**** **** **** 0045</span>
+                                        <button class="pay-card-delete" aria-label="Remove card" data-comment="pay-card-3-delete">
+                                            <i class="ri-delete-bin-line" data-comment="pay-card-3-delete-icon"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="pay-section-divider" data-comment="pay-divider"></div>
+
+                                <p class="pay-section-label" data-comment="pay-add-label">Add new card:</p>
+                                <div class="pay-add-form" data-comment="pay-add-form">
+                                    <div class="quote-field" data-comment="pay-field-number">
+                                        <label class="quote-label" for="cardNumber" data-comment="pay-label-number">Card number</label>
+                                        <input class="quote-input" id="cardNumber" type="text" placeholder="4141 3893 1093 5901" maxlength="19" data-comment="pay-input-number" />
+                                    </div>
+                                    <div class="quote-form-row" data-comment="pay-form-row-expiry-cvc">
+                                        <div class="quote-field" data-comment="pay-field-expiry">
+                                            <label class="quote-label" for="cardExpiry" data-comment="pay-label-expiry">Expiry</label>
+                                            <input class="quote-input" id="cardExpiry" type="text" placeholder="MM / YY" maxlength="7" data-comment="pay-input-expiry" />
+                                        </div>
+                                        <div class="quote-field" data-comment="pay-field-cvc">
+                                            <label class="quote-label" for="cardCvc" data-comment="pay-label-cvc">CVC</label>
+                                            <input class="quote-input" id="cardCvc" type="text" placeholder="· · ·" maxlength="4" data-comment="pay-input-cvc" />
+                                        </div>
+                                    </div>
+                                    <div class="pay-add-footer" data-comment="pay-add-footer">
+                                        <button type="button" class="btn-primary" data-comment="pay-add-card-btn">
+                                            <i class="ri-add-line" data-comment="pay-add-card-btn-icon"></i> Add card
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ── YOUR ORDERS ── -->
+                            <div class="account-section" data-section="orders" data-comment="account-section-orders">
+                                <div class="account-section-header" data-comment="account-orders-header">
+                                    <h1 class="account-section-title" data-comment="account-orders-title">Your Orders</h1>
+                                    <p class="account-section-sub" data-comment="account-orders-sub">View and manage your purchase history</p>
+                                </div>
+
+                                <div class="orders-table-wrap" data-comment="orders-table-wrap">
+                                    <table class="orders-table" data-comment="orders-table">
+                                        <thead data-comment="orders-thead">
+                                            <tr data-comment="orders-thead-row">
+                                                <th data-comment="orders-th-number">Order #</th>
+                                                <th data-comment="orders-th-date">Date</th>
+                                                <th data-comment="orders-th-subtotal">Subtotal</th>
+                                                <th data-comment="orders-th-tax">Tax</th>
+                                                <th data-comment="orders-th-total">Total</th>
+                                                <th data-comment="orders-th-status">Status</th>
+                                                <th data-comment="orders-th-expand"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody data-comment="orders-tbody">
+
+                                            <!-- ORDER 1 -->
+                                            <tr class="order-row" data-order="1" data-comment="order-row-1">
+                                                <td data-comment="order-1-number"><strong data-comment="order-1-number-val">#44291</strong></td>
+                                                <td data-comment="order-1-date">Nov 15, 2025</td>
+                                                <td data-comment="order-1-subtotal">$5,900.99</td>
+                                                <td data-comment="order-1-tax">$15.20</td>
+                                                <td data-comment="order-1-total"><strong data-comment="order-1-total-val">$5,916.19</strong></td>
+                                                <td data-comment="order-1-status"><span class="event-tag" data-comment="order-1-status-tag">Pending</span></td>
+                                                <td data-comment="order-1-chevron-cell"><i class="ri-arrow-right-s-line order-row-chevron" data-comment="order-1-chevron"></i></td>
+                                            </tr>
+                                            <tr class="order-expand-row" data-expand="1" data-comment="order-expand-1">
+                                                <td class="order-expand-cell" colspan="7" data-comment="order-expand-1-cell">
+                                                    <div class="order-expand-inner" data-comment="order-expand-1-inner">
+                                                        <div class="order-meta-grid" data-comment="order-1-meta">
+                                                            <div class="order-meta-item" data-comment="order-1-meta-shipping">
+                                                                <p class="order-meta-label" data-comment="order-1-meta-shipping-label">Shipping</p>
+                                                                <p class="order-meta-value" data-comment="order-1-meta-shipping-val">Pickup</p>
+                                                            </div>
+                                                            <div class="order-meta-item" data-comment="order-1-meta-zip">
+                                                                <p class="order-meta-label" data-comment="order-1-meta-zip-label">Zip Code</p>
+                                                                <p class="order-meta-value" data-comment="order-1-meta-zip-val">13673</p>
+                                                            </div>
+                                                            <div class="order-meta-item" data-comment="order-1-meta-addr">
+                                                                <p class="order-meta-label" data-comment="order-1-meta-addr-label">Address</p>
+                                                                <p class="order-meta-value" data-comment="order-1-meta-addr-val">32660 US Route 11</p>
+                                                            </div>
+                                                            <div class="order-meta-item" data-comment="order-1-meta-shipdate">
+                                                                <p class="order-meta-label" data-comment="order-1-meta-shipdate-label">Ship Date</p>
+                                                                <p class="order-meta-value" data-comment="order-1-meta-shipdate-val">Nov 22, 2025</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="order-items-table-wrap" data-comment="order-1-items-wrap">
+                                                            <table class="order-items-table" data-comment="order-1-items-table">
+                                                                <thead data-comment="order-1-items-thead">
+                                                                    <tr data-comment="order-1-items-thead-row">
+                                                                        <th data-comment="order-1-th-product">Product</th>
+                                                                        <th data-comment="order-1-th-price">Price</th>
+                                                                        <th data-comment="order-1-th-qty">Qty</th>
+                                                                        <th data-comment="order-1-th-total">Total</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody data-comment="order-1-items-tbody">
+                                                                    <tr data-comment="order-1-item-1">
+                                                                        <td data-comment="order-1-item-1-product">
+                                                                            <div class="order-item-product" data-comment="order-1-item-1-product-inner">
+                                                                                <div class="order-item-img" data-comment="order-1-item-1-img">
+                                                                                    <img src="assets/Products/Visual Sheds.png" alt="14×20 Classic Shed" data-comment="order-1-item-1-img-photo" />
+                                                                                </div>
+                                                                                <div data-comment="order-1-item-1-info">
+                                                                                    <p class="order-item-name" data-comment="order-1-item-1-name">14×20 Classic Shed</p>
+                                                                                    <p class="order-item-option" data-comment="order-1-item-1-option">Vinyl Siding · Weatherwood</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td data-comment="order-1-item-1-price">$5,600.00</td>
+                                                                        <td class="order-qty" data-comment="order-1-item-1-qty">1</td>
+                                                                        <td class="order-amount" data-comment="order-1-item-1-total">$5,600.00</td>
+                                                                    </tr>
+                                                                    <tr data-comment="order-1-item-2">
+                                                                        <td data-comment="order-1-item-2-product">
+                                                                            <div class="order-item-product" data-comment="order-1-item-2-product-inner">
+                                                                                <div class="order-item-img" data-comment="order-1-item-2-img">
+                                                                                    <img src="assets/Products/Furniture.png" alt="Adirondack Chair Set" data-comment="order-1-item-2-img-photo" />
+                                                                                </div>
+                                                                                <div data-comment="order-1-item-2-info">
+                                                                                    <p class="order-item-name" data-comment="order-1-item-2-name">Adirondack Chair Set (2pc)</p>
+                                                                                    <p class="order-item-option" data-comment="order-1-item-2-option">Cedar · Natural Finish</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td data-comment="order-1-item-2-price">$1,910.00</td>
+                                                                        <td class="order-qty" data-comment="order-1-item-2-qty">1</td>
+                                                                        <td class="order-amount" data-comment="order-1-item-2-total">$1,910.00</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <!-- ORDER 2 -->
+                                            <tr class="order-row" data-order="2" data-comment="order-row-2">
+                                                <td data-comment="order-2-number"><strong data-comment="order-2-number-val">#43815</strong></td>
+                                                <td data-comment="order-2-date">Oct 3, 2025</td>
+                                                <td data-comment="order-2-subtotal">$2,299.00</td>
+                                                <td data-comment="order-2-tax">$24.50</td>
+                                                <td data-comment="order-2-total"><strong data-comment="order-2-total-val">$2,323.50</strong></td>
+                                                <td data-comment="order-2-status"><span class="event-tag event-tag--workshop" data-comment="order-2-status-tag">Shipped</span></td>
+                                                <td data-comment="order-2-chevron-cell"><i class="ri-arrow-right-s-line order-row-chevron" data-comment="order-2-chevron"></i></td>
+                                            </tr>
+                                            <tr class="order-expand-row" data-expand="2" data-comment="order-expand-2">
+                                                <td class="order-expand-cell" colspan="7" data-comment="order-expand-2-cell">
+                                                    <div class="order-expand-inner" data-comment="order-expand-2-inner">
+                                                        <div class="order-meta-grid" data-comment="order-2-meta">
+                                                            <div class="order-meta-item" data-comment="order-2-meta-shipping">
+                                                                <p class="order-meta-label" data-comment="order-2-meta-shipping-label">Shipping</p>
+                                                                <p class="order-meta-value" data-comment="order-2-meta-shipping-val">Home Delivery</p>
+                                                            </div>
+                                                            <div class="order-meta-item" data-comment="order-2-meta-zip">
+                                                                <p class="order-meta-label" data-comment="order-2-meta-zip-label">Zip Code</p>
+                                                                <p class="order-meta-value" data-comment="order-2-meta-zip-val">13367</p>
+                                                            </div>
+                                                            <div class="order-meta-item" data-comment="order-2-meta-addr">
+                                                                <p class="order-meta-label" data-comment="order-2-meta-addr-label">Address</p>
+                                                                <p class="order-meta-value" data-comment="order-2-meta-addr-val">317 Oriskany Blvd</p>
+                                                            </div>
+                                                            <div class="order-meta-item" data-comment="order-2-meta-shipdate">
+                                                                <p class="order-meta-label" data-comment="order-2-meta-shipdate-label">Ship Date</p>
+                                                                <p class="order-meta-value" data-comment="order-2-meta-shipdate-val">Oct 9, 2025</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="order-items-table-wrap" data-comment="order-2-items-wrap">
+                                                            <table class="order-items-table" data-comment="order-2-items-table">
+                                                                <thead data-comment="order-2-items-thead">
+                                                                    <tr data-comment="order-2-items-thead-row">
+                                                                        <th data-comment="order-2-th-product">Product</th>
+                                                                        <th data-comment="order-2-th-price">Price</th>
+                                                                        <th data-comment="order-2-th-qty">Qty</th>
+                                                                        <th data-comment="order-2-th-total">Total</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody data-comment="order-2-items-tbody">
+                                                                    <tr data-comment="order-2-item-1">
+                                                                        <td data-comment="order-2-item-1-product">
+                                                                            <div class="order-item-product" data-comment="order-2-item-1-product-inner">
+                                                                                <div class="order-item-img" data-comment="order-2-item-1-img">
+                                                                                    <img src="assets/Products/Visual Sheds.png" alt="10×16 Duratemp Shed" data-comment="order-2-item-1-img-photo" />
+                                                                                </div>
+                                                                                <div data-comment="order-2-item-1-info">
+                                                                                    <p class="order-item-name" data-comment="order-2-item-1-name">10×16 Duratemp Shed</p>
+                                                                                    <p class="order-item-option" data-comment="order-2-item-1-option">Duratemp · Cape Cod Gray</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td data-comment="order-2-item-1-price">$2,299.00</td>
+                                                                        <td class="order-qty" data-comment="order-2-item-1-qty">1</td>
+                                                                        <td class="order-amount" data-comment="order-2-item-1-total">$2,299.00</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <!-- ORDER 3 -->
+                                            <tr class="order-row" data-order="3" data-comment="order-row-3">
+                                                <td data-comment="order-3-number"><strong data-comment="order-3-number-val">#43201</strong></td>
+                                                <td data-comment="order-3-date">Sep 12, 2025</td>
+                                                <td data-comment="order-3-subtotal">$1,850.00</td>
+                                                <td data-comment="order-3-tax">$12.00</td>
+                                                <td data-comment="order-3-total"><strong data-comment="order-3-total-val">$1,862.00</strong></td>
+                                                <td data-comment="order-3-status"><span class="event-tag event-tag--open-house" data-comment="order-3-status-tag">Delivered</span></td>
+                                                <td data-comment="order-3-chevron-cell"><i class="ri-arrow-right-s-line order-row-chevron" data-comment="order-3-chevron"></i></td>
+                                            </tr>
+                                            <tr class="order-expand-row" data-expand="3" data-comment="order-expand-3">
+                                                <td class="order-expand-cell" colspan="7" data-comment="order-expand-3-cell">
+                                                    <div class="order-expand-inner" data-comment="order-expand-3-inner">
+                                                        <div class="order-meta-grid" data-comment="order-3-meta">
+                                                            <div class="order-meta-item" data-comment="order-3-meta-shipping">
+                                                                <p class="order-meta-label" data-comment="order-3-meta-shipping-label">Shipping</p>
+                                                                <p class="order-meta-value" data-comment="order-3-meta-shipping-val">Home Delivery</p>
+                                                            </div>
+                                                            <div class="order-meta-item" data-comment="order-3-meta-zip">
+                                                                <p class="order-meta-label" data-comment="order-3-meta-zip-label">Zip Code</p>
+                                                                <p class="order-meta-value" data-comment="order-3-meta-zip-val">13142</p>
+                                                            </div>
+                                                            <div class="order-meta-item" data-comment="order-3-meta-addr">
+                                                                <p class="order-meta-label" data-comment="order-3-meta-addr-label">Address</p>
+                                                                <p class="order-meta-value" data-comment="order-3-meta-addr-val">5780 US Route 11</p>
+                                                            </div>
+                                                            <div class="order-meta-item" data-comment="order-3-meta-shipdate">
+                                                                <p class="order-meta-label" data-comment="order-3-meta-shipdate-label">Ship Date</p>
+                                                                <p class="order-meta-value" data-comment="order-3-meta-shipdate-val">Sep 18, 2025</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="order-items-table-wrap" data-comment="order-3-items-wrap">
+                                                            <table class="order-items-table" data-comment="order-3-items-table">
+                                                                <thead data-comment="order-3-items-thead">
+                                                                    <tr data-comment="order-3-items-thead-row">
+                                                                        <th data-comment="order-3-th-product">Product</th>
+                                                                        <th data-comment="order-3-th-price">Price</th>
+                                                                        <th data-comment="order-3-th-qty">Qty</th>
+                                                                        <th data-comment="order-3-th-total">Total</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody data-comment="order-3-items-tbody">
+                                                                    <tr data-comment="order-3-item-1">
+                                                                        <td data-comment="order-3-item-1-product">
+                                                                            <div class="order-item-product" data-comment="order-3-item-1-product-inner">
+                                                                                <div class="order-item-img" data-comment="order-3-item-1-img">
+                                                                                    <img src="assets/Products/Visual Hunting Blinds.png" alt="6×6 Elevated Hunting Blind" data-comment="order-3-item-1-img-photo" />
+                                                                                </div>
+                                                                                <div data-comment="order-3-item-1-info">
+                                                                                    <p class="order-item-name" data-comment="order-3-item-1-name">6×6 Elevated Hunting Blind</p>
+                                                                                    <p class="order-item-option" data-comment="order-3-item-1-option">4-Window · Camo Exterior</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td data-comment="order-3-item-1-price">$1,850.00</td>
+                                                                        <td class="order-qty" data-comment="order-3-item-1-qty">1</td>
+                                                                        <td class="order-amount" data-comment="order-3-item-1-total">$1,850.00</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div><!-- /.account-panel -->
+                    </div><!-- /.account-layout -->
+                </div><!-- /.account-wrap -->
+            </div><!-- /.section-inner -->
+        </main>
+
+        <!-- ════════════════════════════════
+             FOOTER
+        ════════════════════════════════ -->
+        <footer class="footer-root" data-comment="footer-root">
+            <div class="footer-inner" data-comment="footer-inner">
+                <div class="footer-top" data-comment="footer-top">
+                    <div data-comment="footer-brand">
+                        <a href="index.html" class="footer-brand-logo" data-comment="footer-brand-logo">
+                            <img src="assets/Logo.png" alt="NCS Barns" data-comment="footer-brand-img" />
+                            <span class="footer-brand-name" data-comment="footer-brand-name">NCS Barns</span>
+                        </a>
+                        <p class="footer-brand-desc" data-comment="footer-brand-desc">Handcrafted quality structures for the North Country — family owned &amp; operated since 1993.</p>
+                    </div>
+                    <div data-comment="footer-col-products">
+                        <p class="footer-col-label" data-comment="footer-col-products-label">Products</p>
+                        <ul class="footer-links" data-comment="footer-links-products">
+                            <li data-comment="footer-link-li-sheds"><a href="#" data-comment="footer-link-sheds">Sheds</a></li>
+                            <li data-comment="footer-link-li-gazebos"><a href="#" data-comment="footer-link-gazebos">Gazebos &amp; Pergolas</a></li>
+                            <li data-comment="footer-link-li-hunting"><a href="#" data-comment="footer-link-hunting">Hunting Blinds</a></li>
+                            <li data-comment="footer-link-li-play"><a href="#" data-comment="footer-link-play">Play Structures</a></li>
+                            <li data-comment="footer-link-li-furniture"><a href="#" data-comment="footer-link-furniture">Furniture</a></li>
+                            <li data-comment="footer-link-li-homes"><a href="#" data-comment="footer-link-homes">Homes &amp; Garages</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="footer-col-company">
+                        <p class="footer-col-label" data-comment="footer-col-company-label">Company</p>
+                        <ul class="footer-links" data-comment="footer-links-company">
+                            <li data-comment="footer-link-li-about"><a href="#" data-comment="footer-link-about">About Us</a></li>
+                            <li data-comment="footer-link-li-testimonials"><a href="#" data-comment="footer-link-testimonials">Testimonials</a></li>
+                            <li data-comment="footer-link-li-gallery"><a href="#" data-comment="footer-link-gallery">Gallery</a></li>
+                            <li data-comment="footer-link-li-delivery"><a href="#" data-comment="footer-link-delivery">Delivery &amp; Relocation</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="footer-col-buying">
+                        <p class="footer-col-label" data-comment="footer-col-buying-label">Buying Process</p>
+                        <ul class="footer-links" data-comment="footer-links-buying">
+                            <li data-comment="footer-link-li-rto"><a href="#" data-comment="footer-link-rto">Rent-To-Own</a></li>
+                            <li data-comment="footer-link-li-financing"><a href="#" data-comment="footer-link-financing">Financing Options</a></li>
+                            <li data-comment="footer-link-li-siteprep"><a href="#" data-comment="footer-link-siteprep">Site Preparation</a></li>
+                            <li data-comment="footer-link-li-warranty"><a href="#" data-comment="footer-link-warranty">Warranty</a></li>
+                            <li data-comment="footer-link-li-dealers"><a href="#" data-comment="footer-link-dealers">Dealers</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="footer-col-contact">
+                        <p class="footer-col-label" data-comment="footer-col-contact-label">Contact</p>
+                        <div class="footer-contact-item" data-comment="footer-contact-phone">
+                            <svg viewBox="0 0 24 24" data-comment="footer-contact-phone-icon"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l1.64-1.64a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <a href="tel:3156420209" data-comment="footer-contact-phone-link">(315) 642-0209</a>
+                        </div>
+                        <div class="footer-contact-item" data-comment="footer-contact-email">
+                            <svg viewBox="0 0 24 24" data-comment="footer-contact-email-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            <a href="mailto:sales@ncsbarns.com" data-comment="footer-contact-email-link">sales@ncsbarns.com</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-locations" data-comment="footer-locations">
+                    <div data-comment="footer-loc-philadelphia">
+                        <p class="footer-loc-name" data-comment="footer-loc-philadelphia-name">Philadelphia</p>
+                        <p class="footer-loc-addr" data-comment="footer-loc-philadelphia-addr">32660 US Route 11<br>Philadelphia, NY 13673</p>
+                        <p class="footer-loc-phone" data-comment="footer-loc-philadelphia-phone">(315) 642-0209</p>
+                    </div>
+                    <div data-comment="footer-loc-yorkville">
+                        <p class="footer-loc-name" data-comment="footer-loc-yorkville-name">Yorkville</p>
+                        <p class="footer-loc-addr" data-comment="footer-loc-yorkville-addr">317 Oriskany Blvd<br>Yorkville, NY</p>
+                        <p class="footer-loc-phone" data-comment="footer-loc-yorkville-phone">(315) 793-0726</p>
+                    </div>
+                    <div data-comment="footer-loc-sandycreek">
+                        <p class="footer-loc-name" data-comment="footer-loc-sandycreek-name">Sandy Creek</p>
+                        <p class="footer-loc-addr" data-comment="footer-loc-sandycreek-addr">5780 US Route 11<br>Pulaski, NY 13142</p>
+                        <p class="footer-loc-phone" data-comment="footer-loc-sandycreek-phone">(315) 387-2092</p>
+                    </div>
+                </div>
+                <div class="footer-bottom" data-comment="footer-bottom">
+                    <div class="footer-copy-row" data-comment="footer-copy-row">
+                        <p class="footer-copy" data-comment="footer-copy">Copyright&copy; 2024 North Country Storage Barns LLC. All rights reserved.</p>
+                        <a href="privacy.html" class="footer-legal-link" href="privacy.html" class="footer-legal-link" data-comment="footer-link-privacy">Privacy Policy</a>
+                        <a href="terms.html" class="footer-legal-link" data-comment="footer-link-terms">Terms &amp; Conditions</a>
+                    </div>
+                    <div class="footer-socials" data-comment="footer-socials">
+                        <a href="https://www.tiktok.com/@northcountrystoragebarns" target="_blank" class="footer-social-btn" data-comment="footer-social-tiktok" aria-label="TikTok">
+                            <i class="ri-tiktok-fill" data-comment="footer-social-tiktok-icon"></i>
+                        </a>
+                        <a href="https://www.facebook.com/ifyouneedmeillbeinmyshed/" target="_blank" class="footer-social-btn" data-comment="footer-social-facebook" aria-label="Facebook">
+                            <i class="ri-facebook-fill" data-comment="footer-social-facebook-icon"></i>
+                        </a>
+                        <a href="https://www.instagram.com/northcountrystoragebarns/" target="_blank" class="footer-social-btn" data-comment="footer-social-instagram" aria-label="Instagram">
+                            <i class="ri-instagram-fill" data-comment="footer-social-instagram-icon"></i>
+                        </a>
+                        <a href="#" class="footer-social-btn" data-comment="footer-social-google" aria-label="Google">
+                            <i class="ri-google-fill" data-comment="footer-social-google-icon"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            // ── TAB SWITCHING ──
+            const navItems = document.querySelectorAll('.account-nav-item');
+            const sections = document.querySelectorAll('.account-section');
+
+            navItems.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const target = btn.dataset.target;
+                    navItems.forEach(b => b.classList.remove('is-active'));
+                    btn.classList.add('is-active');
+                    sections.forEach(s => s.classList.remove('is-visible'));
+                    document.querySelector(`[data-section="${target}"]`).classList.add('is-visible');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            });
+
+            // ── ORDER ACCORDION ──
+            document.querySelectorAll('.order-row').forEach(row => {
+                row.addEventListener('click', () => {
+                    const orderId = row.dataset.order;
+                    const expandRow = document.querySelector(`[data-expand="${orderId}"]`);
+                    const isOpen = row.classList.contains('is-open');
+
+                    document.querySelectorAll('.order-row').forEach(r => r.classList.remove('is-open'));
+                    document.querySelectorAll('.order-expand-row').forEach(r => r.classList.remove('is-open'));
+
+                    if (!isOpen) {
+                        row.classList.add('is-open');
+                        expandRow.classList.add('is-open');
+                    }
+                });
+            });
+
+            // ── CARD DELETE (mock) ──
+            document.querySelectorAll('.pay-card-delete').forEach(btn => {
+                btn.addEventListener('click', e => {
+                    e.stopPropagation();
+                    const card = btn.closest('.pay-card-row');
+                    card.style.transition = 'opacity 0.18s ease, transform 0.18s ease';
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateX(6px)';
+                    setTimeout(() => card.remove(), 180);
+                });
+            });
+
+            // ── ACCOUNT DETAILS FORM (mock submit) ──
+            document.getElementById('accountDetailsForm').addEventListener('submit', e => {
+                e.preventDefault();
+                const btn = e.target.querySelector('[data-comment="account-save-btn"]');
+                const orig = btn.textContent;
+                btn.textContent = 'Saved!';
+                btn.style.background = '#1E6B3C';
+                setTimeout(() => {
+                    btn.textContent = orig;
+                    btn.style.background = '';
+                }, 2000);
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Privacy Policy — NCS Barns</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+            rel="stylesheet" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+            rel="stylesheet" />
+        <script src="nav.js" defer></script>
+
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            :root {
+                --color-burgundy:       #8B1A2A;
+                --color-burgundy-dark:  #6D1420;
+                --color-dark:           #1C1F24;
+                --color-gray:           #514C4A;
+                --color-gray-light:     #9A9390;
+                --color-border:         #E6E2DD;
+                --color-bg:             #F8F6F4;
+                --color-bg-hover:       #F4F1EE;
+                --color-bg-menu:        #FAFAF8;
+
+                --font-ui: 'Inter', sans-serif;
+
+                --nav-height: 72px;
+                --max-width:  1440px;
+                --page-px:    40px;
+
+                --t-fast: 0.15s ease;
+                --t-med:  0.22s ease;
+            }
+
+            body {
+                font-family: var(--font-ui);
+                background: var(--color-bg);
+                color: var(--color-dark);
+            }
+
+            .sp-page {
+                max-width: var(--max-width);
+                margin: 0 auto;
+                padding: 0 var(--page-px);
+                padding-top: 48px;
+                padding-bottom: 96px;
+            }
+
+            .sp-page-title {
+                font-size: clamp(28px, 3vw, 38px);
+                font-weight: 600;
+                letter-spacing: -0.02em;
+                color: var(--color-dark);
+                line-height: 1.15;
+                margin-bottom: 28px;
+            }
+
+            .sp-section {
+                display: grid;
+                grid-template-columns: 320px 1fr;
+                gap: 64px;
+                padding: 56px 0;
+                border-top: 1px solid var(--color-border);
+            }
+
+            .sp-section:last-of-type {
+                border-bottom: 1px solid var(--color-border);
+            }
+
+            .sp-col-label {
+                padding-top: 4px;
+            }
+
+            .sp-section-heading {
+                font-size: clamp(22px, 2.4vw, 30px);
+                font-weight: 700;
+                letter-spacing: -0.025em;
+                color: var(--color-dark);
+                line-height: 1.2;
+            }
+
+            .sp-section-label {
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                color: var(--color-gray-light);
+            }
+
+            .sp-col-content {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .sp-body {
+                font-size: 15px;
+                line-height: 1.7;
+                color: var(--color-gray);
+            }
+
+            .sp-body a {
+                color: var(--color-burgundy);
+                font-weight: 600;
+                text-decoration: none;
+            }
+
+            .sp-body a:hover {
+                text-decoration: underline;
+            }
+
+            /* ─── FOOTER ─── */
+            .footer-root { background: #000; color: #fff; padding: 72px var(--page-px) 40px; }
+            .footer-inner { max-width: var(--max-width); margin: 0 auto; }
+            .footer-top { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr 1.4fr; gap: 48px; padding-bottom: 52px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 52px; }
+            .footer-brand-logo { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; text-decoration: none; margin-bottom: 16px; }
+            .footer-brand-logo img { width: 50%; height: auto; filter: brightness(0) invert(1) opacity(0.5); }
+            .footer-brand-name { font-size: 16px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+            .footer-brand-desc { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.65; max-width: 220px; }
+            .footer-col-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 18px; }
+            .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+            .footer-links a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-links a:hover { color: #fff; }
+            .footer-contact-item { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+            .footer-contact-item svg { width: 15px; height: 15px; stroke: rgba(255,255,255,0.35); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+            .footer-contact-item a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-contact-item a:hover { color: #fff; }
+            .footer-locations { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 32px; }
+            .footer-loc-name { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+            .footer-loc-addr { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.55; margin-bottom: 8px; }
+            .footer-loc-phone { font-size: 13px; color: rgba(255,255,255,0.45); }
+            .footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+            .footer-copy-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+            .footer-copy { font-size: 13px; color: rgba(255,255,255,0.3); }
+            .footer-legal-link { font-size: 13px; color: rgba(255,255,255,0.3); text-decoration: none; transition: color var(--t-fast); }
+            .footer-legal-link:hover { color: #fff; }
+            .footer-socials { display: flex; gap: 10px; }
+            .footer-social-btn { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid rgba(255,255,255,0.15); text-decoration: none; transition: border-color var(--t-fast), background var(--t-fast); }
+            .footer-social-btn:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.08); }
+            .footer-social-btn i { font-size: 17px; color: rgba(255,255,255,0.6); }
+
+            @media (max-width: 900px) {
+                .sp-section {
+                    grid-template-columns: 1fr;
+                    gap: 28px;
+                }
+                .sp-section-heading {
+                    font-size: clamp(20px, 5vw, 26px);
+                }
+            }
+
+            @media (max-width: 768px) {
+                .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+                .footer-top > div:first-child { grid-column: 1/-1; }
+                .footer-locations { grid-template-columns: 1fr; gap: 20px; }
+                .footer-bottom { flex-direction: column; align-items: flex-start; gap: 16px; }
+            }
+
+            @media (max-width: 640px) {
+                :root { --page-px: 20px; }
+                .sp-page { padding-top: calc(var(--nav-height) + 32px); padding-bottom: 64px; }
+                .sp-section { padding: 36px 0; gap: 20px; }
+            }
+        </style>
+    </head>
+    <body>
+
+        <ncs-nav data-comment="pp-nav"></ncs-nav>
+
+        <main class="sp-page" data-comment="pp-page">
+
+            <h1 class="sp-page-title" data-comment="pp-page-title">Privacy Policy</h1>
+
+            <!-- ── SECTION 1: What Data We Collect ── -->
+            <section class="sp-section" data-comment="pp-section-datacollect">
+
+                <div class="sp-col-label" data-comment="pp-datacollect-label">
+                    <h2 class="sp-section-heading" data-comment="pp-datacollect-heading">What Personal Data We Collect and Why</h2>
+                </div>
+
+                <div class="sp-col-content" data-comment="pp-datacollect-content">
+
+                    <p class="sp-body" data-comment="pp-datacollect-comments-heading"><strong>Comments</strong></p>
+                    <p class="sp-body" data-comment="pp-datacollect-comments-p1">When visitors leave comments on the site we collect the data shown in the comments form, and also the visitor's IP address and browser user agent string to help spam detection.</p>
+                    <p class="sp-body" data-comment="pp-datacollect-comments-p2">An anonymized string created from your email address (also called a hash) may be provided to the Gravatar service to see if you are using it. The Gravatar service privacy policy is available here: <a href="https://automattic.com/privacy/">https://automattic.com/privacy/</a>. After approval of your comment, your profile picture is visible to the public in the context of your comment.</p>
+
+                    <p class="sp-body" data-comment="pp-datacollect-media-heading"><strong>Media</strong></p>
+                    <p class="sp-body" data-comment="pp-datacollect-media-p1">If you upload images to the website, you should avoid uploading images with embedded location data (EXIF GPS) included. Visitors to the website can download and extract any location data from images on the website.</p>
+
+                    <p class="sp-body" data-comment="pp-datacollect-cookies-heading"><strong>Cookies</strong></p>
+                    <p class="sp-body" data-comment="pp-datacollect-cookies-p1">If you leave a comment on our site you may opt-in to saving your name, email address and website in cookies. These are for your convenience so that you do not have to fill in your details again when you leave another comment. These cookies will last for one year.</p>
+                    <p class="sp-body" data-comment="pp-datacollect-cookies-p2">If you visit our login page, we will set a temporary cookie to determine if your browser accepts cookies. This cookie contains no personal data and is discarded when you close your browser.</p>
+                    <p class="sp-body" data-comment="pp-datacollect-cookies-p3">When you log in, we will also set up several cookies to save your login information and your screen display choices. Login cookies last for two days, and screen options cookies last for a year. If you select "Remember Me", your login will persist for two weeks. If you log out of your account, the login cookies will be removed.</p>
+                    <p class="sp-body" data-comment="pp-datacollect-cookies-p4">If you edit or publish an article, an additional cookie will be saved in your browser. This cookie includes no personal data and simply indicates the post ID of the article you just edited. It expires after 1 day.</p>
+
+                    <p class="sp-body" data-comment="pp-datacollect-embedded-heading"><strong>Embedded Content from Other Websites</strong></p>
+                    <p class="sp-body" data-comment="pp-datacollect-embedded-p1">Articles on this site may include embedded content (e.g. videos, images, articles, etc.). Embedded content from other websites behaves in the exact same way as if the visitor has visited the other website.</p>
+                    <p class="sp-body" data-comment="pp-datacollect-embedded-p2">These websites may collect data about you, use cookies, embed additional third-party tracking, and monitor your interaction with that embedded content, including tracking your interaction with the embedded content if you have an account and are logged in to that website.</p>
+
+                    <p class="sp-body" data-comment="pp-datacollect-analytics-heading"><strong>Analytics</strong></p>
+                    <p class="sp-body" data-comment="pp-datacollect-analytics-p1">We use Google Analytics.</p>
+
+                </div>
+
+            </section>
+
+            <!-- ── SECTION 3: Who We Share With ── -->
+            <section class="sp-section" data-comment="pp-section-sharing">
+
+                <div class="sp-col-label" data-comment="pp-sharing-label">
+                    <h2 class="sp-section-heading" data-comment="pp-sharing-heading">Who We Share Your Data With</h2>
+                </div>
+
+                <div class="sp-col-content" data-comment="pp-sharing-content">
+                    <p class="sp-body" data-comment="pp-sharing-p1">Web designers have access.</p>
+                </div>
+
+            </section>
+
+            <!-- ── SECTION 4: Data Retention ── -->
+            <section class="sp-section" data-comment="pp-section-retention">
+
+                <div class="sp-col-label" data-comment="pp-retention-label">
+                    <h2 class="sp-section-heading" data-comment="pp-retention-heading">How Long We Retain Your Data</h2>
+                </div>
+
+                <div class="sp-col-content" data-comment="pp-retention-content">
+                    <p class="sp-body" data-comment="pp-retention-p1">If you leave a comment, the comment and its metadata are retained indefinitely. This is so we can recognize and approve any follow-up comments automatically instead of holding them in a moderation queue.</p>
+                    <p class="sp-body" data-comment="pp-retention-p2">For users that register on our website (if any), we also store the personal information they provide in their user profile. All users can see, edit, or delete their personal information at any time (except they cannot change their username). Website administrators can also see and edit that information.</p>
+                </div>
+
+            </section>
+
+            <!-- ── SECTION 5: Your Rights ── -->
+            <section class="sp-section" data-comment="pp-section-rights">
+
+                <div class="sp-col-label" data-comment="pp-rights-label">
+                    <h2 class="sp-section-heading" data-comment="pp-rights-heading">What Rights You Have Over Your Data</h2>
+                </div>
+
+                <div class="sp-col-content" data-comment="pp-rights-content">
+                    <p class="sp-body" data-comment="pp-rights-p1">If you have an account on this site, or have left comments, you can request to receive an exported file of the personal data we hold about you, including any data you have provided to us. You can also request that we erase any personal data we hold about you. This does not include any data we are obliged to keep for administrative, legal, or security purposes.</p>
+                </div>
+
+            </section>
+
+            <!-- ── SECTION 6: Where Data Goes ── -->
+            <section class="sp-section" data-comment="pp-section-datadest">
+
+                <div class="sp-col-label" data-comment="pp-datadest-label">
+                    <h2 class="sp-section-heading" data-comment="pp-datadest-heading">Where We Send Your Data</h2>
+                </div>
+
+                <div class="sp-col-content" data-comment="pp-datadest-content">
+                    <p class="sp-body" data-comment="pp-datadest-p1">Visitor comments may be checked through an automated spam detection service.</p>
+                </div>
+
+            </section>
+
+            <!-- ── SECTION 7: Contact ── -->
+            <section class="sp-section" data-comment="pp-section-contact">
+
+                <div class="sp-col-label" data-comment="pp-contact-label">
+                    <h2 class="sp-section-heading" data-comment="pp-contact-label-text">Contact</h2>
+                </div>
+
+                <div class="sp-col-content" data-comment="pp-contact-content">
+                    <p class="sp-body" data-comment="pp-contact-info">
+                        North Country Storage Barns LLC<br>
+                        32660 US 11<br>
+                        Philadelphia, New York, 13673
+                    </p>
+                </div>
+
+            </section>
+
+        </main>
+
+        <footer class="footer-root" data-comment="pp-footer-root">
+            <div class="footer-inner" data-comment="pp-footer-inner">
+                <div class="footer-top" data-comment="pp-footer-top">
+                    <div data-comment="pp-footer-brand">
+                        <a href="index.html" class="footer-brand-logo" data-comment="pp-footer-brand-logo">
+                            <img src="assets/Logo.png" alt="NCS Barns" data-comment="pp-footer-brand-img" />
+                            <span class="footer-brand-name" data-comment="pp-footer-brand-name">NCS Barns</span>
+                        </a>
+                        <p class="footer-brand-desc" data-comment="pp-footer-brand-desc">Handcrafted quality structures for the North Country — family owned &amp; operated since 1993.</p>
+                    </div>
+                    <div data-comment="pp-footer-col-products">
+                        <p class="footer-col-label" data-comment="pp-footer-products-label">Products</p>
+                        <ul class="footer-links" data-comment="pp-footer-products-links">
+                            <li data-comment="pp-fli-sheds"><a href="catalog.html?category=Sheds" data-comment="pp-fl-sheds">Sheds</a></li>
+                            <li data-comment="pp-fli-gazebos"><a href="catalog.html?category=Gazebos" data-comment="pp-fl-gazebos">Gazebos &amp; Pergolas</a></li>
+                            <li data-comment="pp-fli-hunting"><a href="catalog.html?category=Hunting+Blinds" data-comment="pp-fl-hunting">Hunting Blinds</a></li>
+                            <li data-comment="pp-fli-play"><a href="catalog.html?category=Play+Structures" data-comment="pp-fl-play">Play Structures</a></li>
+                            <li data-comment="pp-fli-furniture"><a href="catalog.html?category=Outdoor+Furniture" data-comment="pp-fl-furniture">Furniture</a></li>
+                            <li data-comment="pp-fli-homes"><a href="catalog.html?category=Custom+Homes" data-comment="pp-fl-homes">Homes &amp; Garages</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="pp-footer-col-company">
+                        <p class="footer-col-label" data-comment="pp-footer-company-label">Company</p>
+                        <ul class="footer-links" data-comment="pp-footer-company-links">
+                            <li data-comment="pp-fli-about"><a href="#" data-comment="pp-fl-about">About Us</a></li>
+                            <li data-comment="pp-fli-testimonials"><a href="#" data-comment="pp-fl-testimonials">Testimonials</a></li>
+                            <li data-comment="pp-fli-gallery"><a href="gallery.html" data-comment="pp-fl-gallery">Gallery</a></li>
+                            <li data-comment="pp-fli-delivery"><a href="delivery.html" data-comment="pp-fl-delivery">Delivery &amp; Relocation</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="pp-footer-col-buying">
+                        <p class="footer-col-label" data-comment="pp-footer-buying-label">Buying Process</p>
+                        <ul class="footer-links" data-comment="pp-footer-buying-links">
+                            <li data-comment="pp-fli-rto"><a href="#" data-comment="pp-fl-rto">Rent-To-Own</a></li>
+                            <li data-comment="pp-fli-financing"><a href="#" data-comment="pp-fl-financing">Financing Options</a></li>
+                            <li data-comment="pp-fli-siteprep"><a href="site-preparation.html" data-comment="pp-fl-siteprep">Site Preparation</a></li>
+                            <li data-comment="pp-fli-warranty"><a href="warranty.html" data-comment="pp-fl-warranty">Warranty</a></li>
+                            <li data-comment="pp-fli-dealers"><a href="#" data-comment="pp-fl-dealers">Dealers</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="pp-footer-col-contact">
+                        <p class="footer-col-label" data-comment="pp-footer-contact-label">Contact</p>
+                        <div class="footer-contact-item" data-comment="pp-footer-phone">
+                            <svg viewBox="0 0 24 24" data-comment="pp-footer-phone-icon"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l1.64-1.64a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <a href="tel:3156420209" data-comment="pp-footer-phone-link">(315) 642-0209</a>
+                        </div>
+                        <div class="footer-contact-item" data-comment="pp-footer-email">
+                            <svg viewBox="0 0 24 24" data-comment="pp-footer-email-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            <a href="mailto:sales@ncsbarns.com" data-comment="pp-footer-email-link">sales@ncsbarns.com</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-locations" data-comment="pp-footer-locations">
+                    <div data-comment="pp-footer-loc-phila">
+                        <p class="footer-loc-name" data-comment="pp-footer-loc-phila-name">Philadelphia</p>
+                        <p class="footer-loc-addr" data-comment="pp-footer-loc-phila-addr">32660 US Route 11<br>Philadelphia, NY 13673</p>
+                        <p class="footer-loc-phone" data-comment="pp-footer-loc-phila-phone">(315) 642-0209</p>
+                    </div>
+                    <div data-comment="pp-footer-loc-york">
+                        <p class="footer-loc-name" data-comment="pp-footer-loc-york-name">Yorkville</p>
+                        <p class="footer-loc-addr" data-comment="pp-footer-loc-york-addr">317 Oriskany Blvd<br>Yorkville, NY</p>
+                        <p class="footer-loc-phone" data-comment="pp-footer-loc-york-phone">(315) 793-0726</p>
+                    </div>
+                    <div data-comment="pp-footer-loc-sandy">
+                        <p class="footer-loc-name" data-comment="pp-footer-loc-sandy-name">Sandy Creek</p>
+                        <p class="footer-loc-addr" data-comment="pp-footer-loc-sandy-addr">5780 US Route 11<br>Pulaski, NY 13142</p>
+                        <p class="footer-loc-phone" data-comment="pp-footer-loc-sandy-phone">(315) 387-2092</p>
+                    </div>
+                </div>
+                <div class="footer-bottom" data-comment="pp-footer-bottom">
+                    <div class="footer-copy-row" data-comment="pp-footer-copy-row">
+                        <p class="footer-copy" data-comment="pp-footer-copy">Copyright&copy; 2024 North Country Storage Barns LLC. All rights reserved.</p>
+                        <a href="privacy.html" class="footer-legal-link" data-comment="pp-footer-privacy">Privacy Policy</a>
+                        <a href="terms.html" class="footer-legal-link" data-comment="pp-footer-terms">Terms &amp; Conditions</a>
+                    </div>
+                    <div class="footer-socials" data-comment="pp-footer-socials">
+                        <a href="https://www.tiktok.com/@northcountrystoragebarns" target="_blank" class="footer-social-btn" data-comment="pp-footer-tiktok" aria-label="TikTok"><i class="ri-tiktok-fill" data-comment="pp-footer-tiktok-icon"></i></a>
+                        <a href="https://www.facebook.com/ifyouneedmeillbeinmyshed/" target="_blank" class="footer-social-btn" data-comment="pp-footer-facebook" aria-label="Facebook"><i class="ri-facebook-fill" data-comment="pp-footer-facebook-icon"></i></a>
+                        <a href="https://www.instagram.com/northcountrystoragebarns/" target="_blank" class="footer-social-btn" data-comment="pp-footer-instagram" aria-label="Instagram"><i class="ri-instagram-fill" data-comment="pp-footer-instagram-icon"></i></a>
+                        <a href="#" class="footer-social-btn" data-comment="pp-footer-google" aria-label="Google"><i class="ri-google-fill" data-comment="pp-footer-google-icon"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </body>
+</html>

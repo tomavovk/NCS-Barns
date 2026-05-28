@@ -119,6 +119,13 @@
                 color: var(--color-gray-light);
             }
 
+            .cat-header-inner {
+                display: flex;
+                align-items: flex-end;
+                justify-content: space-between;
+                gap: 20px;
+            }
+
             /* ─────────────────────────────────────────
                BODY LAYOUT  (sidebar + main)
             ───────────────────────────────────────── */
@@ -142,30 +149,23 @@
                 top: calc(var(--nav-height) + 20px);
             }
 
-            .sidebar-header {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                margin-bottom: 14px;
-            }
-            .sidebar-header-label {
-                font-size: 13px;
-                font-weight: 700;
-                color: var(--color-dark);
-                letter-spacing: 0.2px;
-            }
             .sidebar-clear-btn {
-                font-size: 12px;
+                display: block;
+                width: 100%;
+                margin-top: 12px;
+                padding: 10px;
+                background: #fff;
+                border: 1.5px solid var(--color-border);
+                border-radius: 8px;
+                font-family: var(--font-ui);
+                font-size: 13px;
                 font-weight: 500;
-                color: var(--color-burgundy);
-                background: none;
-                border: none;
+                color: var(--color-gray);
                 cursor: pointer;
-                padding: 0;
-                opacity: 0.8;
-                transition: opacity var(--t-fast);
+                text-align: center;
+                transition: border-color var(--t-fast), color var(--t-fast);
             }
-            .sidebar-clear-btn:hover { opacity: 1; }
+            .sidebar-clear-btn:hover { border-color: var(--color-burgundy); color: var(--color-burgundy); }
 
             /* Filter group card */
             .filter-group {
@@ -357,8 +357,10 @@
                 display: flex;
                 flex-wrap: wrap;
                 gap: 6px;
-                margin-bottom: 20px;
                 min-height: 0;
+            }
+            .active-chips:not(:empty) {
+                margin-bottom: 16px;
             }
             .active-chip {
                 display: inline-flex;
@@ -439,7 +441,9 @@
                 color: #fff;
                 background: var(--color-burgundy);
             }
-            .pc-badge--gray { background: #52575F; }
+            .pc-badge--gray  { background: #52575F; }
+            .pc-badge--green { background: #1a7f4b; }
+            .pc-badge--dark  { background: #1C1F24; }
 
             .pc-card-body {
                 padding: 15px 16px 16px;
@@ -486,9 +490,9 @@
                 display: block;
                 width: 100%;
                 padding: 10px 16px;
-                background: var(--color-burgundy);
-                color: #fff;
-                border: none;
+                background: transparent;
+                color: var(--color-burgundy);
+                border: 1.5px solid var(--color-burgundy);
                 border-radius: 8px;
                 font-family: var(--font-ui);
                 font-size: 13px;
@@ -496,9 +500,9 @@
                 cursor: pointer;
                 text-align: center;
                 text-decoration: none;
-                transition: background var(--t-fast);
+                transition: background var(--t-fast), color var(--t-fast);
             }
-            .pc-card-btn:hover { background: var(--color-burgundy-dark); }
+            .pc-card-btn:hover { background: var(--color-burgundy); color: #fff; }
 
             /* Empty state */
             .cat-empty {
@@ -559,8 +563,8 @@
             /* ─────────────────────────────────────────
                RESPONSIVE
             ───────────────────────────────────────── */
-            @media (min-width: 1280px) { /* xl — 4 cols */
-                .cat-grid { grid-template-columns: repeat(4, 1fr); }
+            @media (min-width: 1280px) { /* xl — 3 cols */
+                .cat-grid { grid-template-columns: repeat(3, 1fr); }
             }
 
             @media (max-width: 1100px) {
@@ -603,16 +607,27 @@
              PAGE HEADER
         ════════════════════════════════ -->
         <div class="cat-header" data-comment="cat-header">
-            <div class="page-inner" data-comment="cat-header-inner">
-                <nav class="cat-breadcrumb" data-comment="cat-breadcrumb" aria-label="Breadcrumb">
-                    <a href="index.html" data-comment="cat-breadcrumb-home">Home</a>
-                    <span class="cat-breadcrumb-sep" data-comment="cat-breadcrumb-sep1">›</span>
-                    <a href="catalog.html" data-comment="cat-breadcrumb-products">Products</a>
-                    <span class="cat-breadcrumb-sep" id="breadcrumbSep2" data-comment="cat-breadcrumb-sep2" style="display:none">›</span>
-                    <span class="cat-breadcrumb-current" id="breadcrumbCurrent" data-comment="cat-breadcrumb-current"></span>
-                </nav>
-                <h1 class="cat-title" id="catTitle" data-comment="cat-title">All Products</h1>
-                <p class="cat-subtitle" id="catSubtitle" data-comment="cat-subtitle">Browse our full catalog</p>
+            <div class="page-inner cat-header-inner" data-comment="cat-header-inner">
+                <div data-comment="cat-header-left">
+                    <nav class="cat-breadcrumb" data-comment="cat-breadcrumb" aria-label="Breadcrumb">
+                        <a href="index.html" data-comment="cat-breadcrumb-home">Home</a>
+                        <span class="cat-breadcrumb-sep" data-comment="cat-breadcrumb-sep1">›</span>
+                        <a href="catalog.html" data-comment="cat-breadcrumb-products">Products</a>
+                        <span class="cat-breadcrumb-sep" id="breadcrumbSep2" data-comment="cat-breadcrumb-sep2" style="display:none">›</span>
+                        <span class="cat-breadcrumb-current" id="breadcrumbCurrent" data-comment="cat-breadcrumb-current"></span>
+                    </nav>
+                    <h1 class="cat-title" id="catTitle" data-comment="cat-title">All Products</h1>
+                    <p class="cat-subtitle" id="catSubtitle" data-comment="cat-subtitle">Browse our full catalog</p>
+                </div>
+                <div class="sort-wrap" data-comment="cat-header-sort">
+                    <select class="sort-select" id="sortSelect" onchange="applyFilters()" data-comment="sort-select">
+                        <option value="featured">Featured</option>
+                        <option value="price-asc">Price: Low to High</option>
+                        <option value="price-desc">Price: High to Low</option>
+                        <option value="name-asc">Name: A–Z</option>
+                    </select>
+                    <svg class="sort-chevron" data-comment="sort-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
             </div>
         </div>
 
@@ -625,11 +640,6 @@
                 <!-- ── SIDEBAR ── -->
                 <aside class="cat-sidebar" data-comment="cat-sidebar">
 
-                    <div class="sidebar-header" data-comment="sidebar-header">
-                        <span class="sidebar-header-label" data-comment="sidebar-header-label">Filters</span>
-                        <button class="sidebar-clear-btn" id="clearAllBtn" data-comment="sidebar-clear-btn">Clear all</button>
-                    </div>
-
                     <div class="sidebar-filters-grid" data-comment="sidebar-filters-grid">
 
                         <!-- Style -->
@@ -641,30 +651,6 @@
                             <div class="filter-group-body" data-comment="fg-style-body">
                                 <div class="filter-check-list" id="styleList" data-comment="fg-style-list">
                                     <!-- filled by JS -->
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Size -->
-                        <div class="filter-group is-open" data-comment="fg-size">
-                            <div class="filter-group-header" data-comment="fg-size-header" onclick="toggleGroup(this)">
-                                <span class="filter-group-title" data-comment="fg-size-title">Size</span>
-                                <svg class="fg-chevron" data-comment="fg-size-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-                            </div>
-                            <div class="filter-group-body" data-comment="fg-size-body">
-                                <div class="filter-check-list" data-comment="fg-size-list">
-                                    <label class="filter-check-item" data-comment="fg-size-small">
-                                        <input type="checkbox" data-filter="size" value="Small" onchange="applyFilters()" data-comment="fg-size-small-cb" />
-                                        <span class="filter-check-label" data-comment="fg-size-small-label">Small (up to 10×12)</span>
-                                    </label>
-                                    <label class="filter-check-item" data-comment="fg-size-medium">
-                                        <input type="checkbox" data-filter="size" value="Medium" onchange="applyFilters()" data-comment="fg-size-medium-cb" />
-                                        <span class="filter-check-label" data-comment="fg-size-medium-label">Medium (10×16–12×20)</span>
-                                    </label>
-                                    <label class="filter-check-item" data-comment="fg-size-large">
-                                        <input type="checkbox" data-filter="size" value="Large" onchange="applyFilters()" data-comment="fg-size-large-cb" />
-                                        <span class="filter-check-label" data-comment="fg-size-large-label">Large (14×24+)</span>
-                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -715,36 +701,13 @@
                         </div>
 
                     </div><!-- /sidebar-filters-grid -->
+
+                    <button class="sidebar-clear-btn" id="clearAllBtn" data-comment="sidebar-clear-all-btn">Clear all</button>
+
                 </aside>
 
                 <!-- ── MAIN ── -->
                 <main class="cat-main" data-comment="cat-main">
-
-                    <!-- Toolbar -->
-                    <div class="cat-toolbar" data-comment="cat-toolbar">
-                        <p class="toolbar-count" id="toolbarCount" data-comment="toolbar-count">
-                            Showing <strong>0</strong> products
-                        </p>
-                        <div class="toolbar-right" data-comment="toolbar-right">
-                            <div class="sort-wrap" data-comment="sort-wrap">
-                                <select class="sort-select" id="sortSelect" onchange="applyFilters()" data-comment="sort-select">
-                                    <option value="featured">Featured</option>
-                                    <option value="price-asc">Price: Low to High</option>
-                                    <option value="price-desc">Price: High to Low</option>
-                                    <option value="name-asc">Name: A–Z</option>
-                                </select>
-                                <svg class="sort-chevron" data-comment="sort-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-                            </div>
-                            <div class="view-btns" data-comment="view-btns">
-                                <button class="view-btn is-active" id="btnGrid" data-comment="view-btn-grid" title="Grid" onclick="setView('grid')">
-                                    <i class="ri-grid-line"></i>
-                                </button>
-                                <button class="view-btn" id="btnList" data-comment="view-btn-list" title="List" onclick="setView('list')">
-                                    <i class="ri-list-unordered"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
 
                     <!-- Active filter chips -->
                     <div class="active-chips" id="activeChips" data-comment="active-chips"></div>
@@ -834,8 +797,8 @@
                 <div class="footer-bottom" data-comment="cat-footer-bottom">
                     <div class="footer-copy-row" data-comment="cat-footer-copy-row">
                         <p class="footer-copy" data-comment="cat-footer-copy">&copy; 2026 North Country Storage Barns. All rights reserved.</p>
-                        <a href="#" class="footer-legal-link" data-comment="cat-footer-privacy">Privacy Policy</a>
-                        <a href="#" class="footer-legal-link" data-comment="cat-footer-terms">Terms &amp; Conditions</a>
+                        <a href="privacy.html" class="footer-legal-link" data-comment="cat-footer-privacy">Privacy Policy</a>
+                        <a href="terms.html" class="footer-legal-link" data-comment="cat-footer-terms">Terms &amp; Conditions</a>
                     </div>
                     <div class="footer-socials" data-comment="cat-footer-socials">
                         <a href="https://www.tiktok.com/@northcountrystoragebarns" target="_blank" class="footer-social-btn" data-comment="cat-footer-tiktok" aria-label="TikTok"><i class="ri-tiktok-fill" data-comment="cat-footer-tiktok-icon"></i></a>
@@ -853,60 +816,62 @@
         ═══════════════════════════════════════════════ */
         const PRODUCTS = [
             /* ── SHEDS ── */
-            { id:1,  name:'Classic Barn 8×8',           category:'Sheds',             style:'Gambrel',     size:'Small',  price:2200, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80' },
-            { id:2,  name:'Classic Barn 8×12',          category:'Sheds',             style:'Gambrel',     size:'Small',  price:2800, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80' },
-            { id:3,  name:'Classic Barn 10×12',         category:'Sheds',             style:'Gambrel',     size:'Small',  price:3400, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80' },
-            { id:4,  name:'Classic Barn 10×16',         category:'Sheds',             style:'Gambrel',     size:'Medium', price:4100, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80' },
-            { id:5,  name:'Classic Barn 12×16',         category:'Sheds',             style:'Gambrel',     size:'Medium', price:4800, sale:4200, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80' },
-            { id:6,  name:'Classic Barn 12×20',         category:'Sheds',             style:'Gambrel',     size:'Medium', price:5900, sale:null, rto:true,  instock:false, img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80' },
-            { id:7,  name:'Classic Barn 14×24',         category:'Sheds',             style:'Gambrel',     size:'Large',  price:7200, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80' },
-            { id:8,  name:'Lofted Barn 10×12',          category:'Sheds',             style:'Lofted Barn', size:'Small',  price:3800, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=600&q=80' },
-            { id:9,  name:'Lofted Barn 12×16',          category:'Sheds',             style:'Lofted Barn', size:'Medium', price:5200, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=600&q=80' },
-            { id:10, name:'A-Frame Shed 10×12',         category:'Sheds',             style:'A-Frame',     size:'Small',  price:3100, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80' },
-            { id:11, name:'Cabin Shed 12×20',           category:'Sheds',             style:'Cabin',       size:'Medium', price:6400, sale:null, rto:true,  instock:false, img:'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=600&q=80' },
-            { id:12, name:'Ranch Shed 14×28',           category:'Sheds',             style:'Ranch',       size:'Large',  price:8900, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80' },
+            { id:1,  name:'Classic Barn',             category:'Sheds',             style:'Gambrel',      price:2200,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80' },
+            { id:2,  name:'Lofted Barn',              category:'Sheds',             style:'Lofted Barn',  price:3800,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=600&q=80' },
+            { id:3,  name:'A-Frame Shed',             category:'Sheds',             style:'A-Frame',      price:3100,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80' },
+            { id:4,  name:'Cabin Shed',               category:'Sheds',             style:'Cabin',        price:6400,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=600&q=80' },
+            { id:5,  name:'Ranch Shed',               category:'Sheds',             style:'Ranch',        price:8900,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80' },
             /* ── GAZEBOS / PERGOLAS / PAVILIONS ── */
-            { id:13, name:'Cedar Gazebo 10×10',         category:'Gazebos',           style:'Gazebo',      size:'Small',  price:3200, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80' },
-            { id:14, name:'Cedar Gazebo 12×12',         category:'Gazebos',           style:'Gazebo',      size:'Medium', price:4100, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80' },
-            { id:15, name:'Vinyl Pergola 12×16',        category:'Gazebos',           style:'Pergola',     size:'Medium', price:3800, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&q=80' },
-            { id:16, name:'Wood Pavilion 14×20',        category:'Gazebos',           style:'Pavilion',    size:'Large',  price:5600, sale:null, rto:true,  instock:false, img:'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80' },
-            { id:17, name:'Screen Gazebo 10×10',        category:'Gazebos',           style:'Gazebo',      size:'Small',  price:3500, sale:3100, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80' },
-            { id:18, name:'Corner Pergola 10×12',       category:'Gazebos',           style:'Pergola',     size:'Small',  price:2900, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&q=80' },
+            { id:6,  name:'Cedar Gazebo',             category:'Gazebos',           style:'Gazebo',       price:3200,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80' },
+            { id:7,  name:'Vinyl Pergola',            category:'Gazebos',           style:'Pergola',      price:3800,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&q=80' },
+            { id:8,  name:'Wood Pavilion',            category:'Gazebos',           style:'Pavilion',     price:5600,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80' },
+            { id:9,  name:'Screen Gazebo',            category:'Gazebos',           style:'Gazebo',       price:3500,  sale:3100, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80' },
+            { id:10, name:'Corner Pergola',           category:'Gazebos',           style:'Pergola',      price:2900,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&q=80' },
             /* ── HUNTING BLINDS ── */
-            { id:19, name:'4×4 Tower Blind',            category:'Hunting Blinds',    style:'Tower',       size:'Small',  price:1400, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&q=80' },
-            { id:20, name:'4×6 Elevated Blind',         category:'Hunting Blinds',    style:'Elevated',    size:'Small',  price:1900, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&q=80' },
-            { id:21, name:'5×6 Deluxe Elevated Blind',  category:'Hunting Blinds',    style:'Elevated',    size:'Small',  price:2400, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&q=80' },
-            { id:22, name:'4×4 Box Blind',              category:'Hunting Blinds',    style:'Box',         size:'Small',  price:1200, sale:999,  rto:false, instock:true,  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&q=80' },
-            { id:23, name:'6×6 Executive Tower Blind',  category:'Hunting Blinds',    style:'Tower',       size:'Medium', price:3100, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&q=80' },
+            { id:11, name:'Tower Blind',              category:'Hunting Blinds',    style:'Tower',        price:1400,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&q=80' },
+            { id:12, name:'Elevated Blind',           category:'Hunting Blinds',    style:'Elevated',     price:1900,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&q=80' },
+            { id:13, name:'Box Blind',                category:'Hunting Blinds',    style:'Box',          price:1200,  sale:999,  rto:false, instock:true,  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&q=80' },
             /* ── PLAY STRUCTURES ── */
-            { id:24, name:'Adventure Playset',          category:'Play Structures',   style:'Playset',     size:'Medium', price:2200, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=600&q=80' },
-            { id:25, name:'Deluxe Swing Set',           category:'Play Structures',   style:'Swing Set',   size:'Medium', price:3400, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=600&q=80' },
-            { id:26, name:'Sandbox Playset',            category:'Play Structures',   style:'Sandbox',     size:'Small',  price:1800, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=600&q=80' },
-            { id:27, name:'Premium Fort &amp; Slide Set', category:'Play Structures', style:'Fort',        size:'Large',  price:4100, sale:null, rto:true,  instock:false, img:'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=600&q=80' },
+            { id:14, name:'Adventure Playset',        category:'Play Structures',   style:'Playset',      price:2200,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=600&q=80' },
+            { id:15, name:'Deluxe Swing Set',         category:'Play Structures',   style:'Swing Set',    price:3400,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=600&q=80' },
+            { id:16, name:'Sandbox Playset',          category:'Play Structures',   style:'Sandbox',      price:1800,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=600&q=80' },
+            { id:17, name:'Premium Fort & Slide Set', category:'Play Structures',   style:'Fort',         price:4100,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=600&q=80' },
             /* ── ANIMAL STRUCTURES ── */
-            { id:28, name:'4-Hen Chicken Coop',         category:'Animal Structures', style:'Coop',        size:'Small',  price:680,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=600&q=80' },
-            { id:29, name:'8-Hen Chicken Coop',         category:'Animal Structures', style:'Coop',        size:'Small',  price:1100, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=600&q=80' },
-            { id:30, name:'Dog Kennel 10×10',           category:'Animal Structures', style:'Kennel',      size:'Small',  price:950,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=600&q=80' },
-            { id:31, name:'Horse Loafing Shed 12×24',   category:'Animal Structures', style:'Loafing Shed',size:'Large',  price:4800, sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80' },
+            { id:18, name:'Chicken Coop',             category:'Animal Structures', style:'Coop',         price:680,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=600&q=80' },
+            { id:19, name:'Dog Kennel',               category:'Animal Structures', style:'Kennel',       price:950,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=600&q=80' },
+            { id:20, name:'Horse Loafing Shed',       category:'Animal Structures', style:'Loafing Shed', price:4800,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80' },
             /* ── INDOOR FURNITURE ── */
-            { id:32, name:'Barnwood Coffee Table',      category:'Indoor Furniture',  style:'Table',       size:null,     price:480,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=600&q=80' },
-            { id:33, name:'Log Bed Frame Queen',        category:'Indoor Furniture',  style:'Bed Frame',   size:null,     price:890,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=600&q=80' },
-            { id:34, name:'Adirondack End Table',       category:'Indoor Furniture',  style:'Table',       size:null,     price:220,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=600&q=80' },
-            { id:35, name:'Rustic Bookshelf',           category:'Indoor Furniture',  style:'Storage',     size:null,     price:340,  sale:295,  rto:false, instock:true,  img:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80' },
+            { id:21, name:'Barnwood Coffee Table',    category:'Indoor Furniture',  style:'Table',        price:480,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=600&q=80' },
+            { id:22, name:'Log Bed Frame',            category:'Indoor Furniture',  style:'Bed Frame',    price:890,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=600&q=80' },
+            { id:23, name:'Adirondack End Table',     category:'Indoor Furniture',  style:'Table',        price:220,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=600&q=80' },
+            { id:24, name:'Rustic Bookshelf',         category:'Indoor Furniture',  style:'Storage',      price:340,   sale:295,  rto:false, instock:true,  img:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80' },
             /* ── OUTDOOR FURNITURE ── */
-            { id:36, name:'Classic Adirondack Chair',   category:'Outdoor Furniture', style:'Chair',       size:null,     price:285,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1592078615290-033ee584e267?w=600&q=80' },
-            { id:37, name:'Cedar Picnic Table 6ft',     category:'Outdoor Furniture', style:'Table',       size:null,     price:520,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1597208751520-49ca90e8c28e?w=600&q=80' },
-            { id:38, name:'Porch Swing 5ft',            category:'Outdoor Furniture', style:'Swing',       size:null,     price:440,  sale:380,  rto:false, instock:true,  img:'https://images.unsplash.com/photo-1597208751520-49ca90e8c28e?w=600&q=80' },
-            { id:39, name:'Cedar Bench 4ft',            category:'Outdoor Furniture', style:'Bench',       size:null,     price:290,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1592078615290-033ee584e267?w=600&q=80' },
-            { id:40, name:'Outdoor Bar Table Set',      category:'Outdoor Furniture', style:'Table',       size:null,     price:680,  sale:null, rto:false, instock:false, img:'https://images.unsplash.com/photo-1597208751520-49ca90e8c28e?w=600&q=80' },
+            { id:25, name:'Classic Adirondack Chair', category:'Outdoor Furniture', style:'Chair',        price:285,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1592078615290-033ee584e267?w=600&q=80' },
+            { id:26, name:'Cedar Picnic Table',       category:'Outdoor Furniture', style:'Table',        price:520,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1597208751520-49ca90e8c28e?w=600&q=80' },
+            { id:27, name:'Porch Swing',              category:'Outdoor Furniture', style:'Swing',        price:440,   sale:380,  rto:false, instock:true,  img:'https://images.unsplash.com/photo-1597208751520-49ca90e8c28e?w=600&q=80' },
+            { id:28, name:'Cedar Bench',              category:'Outdoor Furniture', style:'Bench',        price:290,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1592078615290-033ee584e267?w=600&q=80' },
+            { id:29, name:'Outdoor Bar Table Set',    category:'Outdoor Furniture', style:'Table',        price:680,   sale:null, rto:false, instock:false, img:'https://images.unsplash.com/photo-1597208751520-49ca90e8c28e?w=600&q=80' },
             /* ── DECOR & MORE ── */
-            { id:41, name:'Barn Star Decor',            category:'Decor & More',      style:'Decor',       size:null,     price:45,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&q=80' },
-            { id:42, name:'Wooden Planter Box',         category:'Decor & More',      style:'Planter',     size:null,     price:95,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&q=80' },
-            { id:43, name:'Rustic Mailbox Post',        category:'Decor & More',      style:'Mailbox',     size:null,     price:185,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&q=80' },
+            { id:30, name:'Barn Star Decor',          category:'Decor & More',      style:'Decor',        price:45,    sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&q=80' },
+            { id:31, name:'Wooden Planter Box',       category:'Decor & More',      style:'Planter',      price:95,    sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&q=80' },
+            { id:32, name:'Rustic Mailbox Post',      category:'Decor & More',      style:'Mailbox',      price:185,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&q=80' },
             /* ── RETURNED RENTALS ── */
-            { id:44, name:'Returned Barn 10×12',        category:'Returned Rentals',  style:'Gambrel',     size:'Small',  price:1800, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80' },
-            { id:45, name:'Returned Lofted Barn 12×16', category:'Returned Rentals',  style:'Lofted Barn', size:'Medium', price:2900, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=600&q=80' },
-            { id:46, name:'Returned A-Frame 8×12',      category:'Returned Rentals',  style:'A-Frame',     size:'Small',  price:1500, sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80' },
+            { id:33, name:'Returned Classic Barn',    category:'Returned Rentals',  style:'Gambrel',      price:1800,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80' },
+            { id:34, name:'Returned Lofted Barn',     category:'Returned Rentals',  style:'Lofted Barn',  price:2900,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=600&q=80' },
+            { id:35, name:'Returned A-Frame Shed',    category:'Returned Rentals',  style:'A-Frame',      price:1500,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80' },
+            /* ── LOG HOMES ── */
+            { id:36, name:'Chalet',                   category:'Log Homes',         style:'Chalet',            price:89500,  sale:null, rto:true, instock:true, img:'assets/Log homes/Chalet.png' },
+            { id:37, name:'Mountaineer',              category:'Log Homes',         style:'Mountaineer',       price:112000, sale:null, rto:true, instock:true, img:'assets/Log homes/Mountaineer.png' },
+            { id:38, name:'Mountaineer Deluxe',       category:'Log Homes',         style:'Mountaineer Deluxe',price:134500, sale:null, rto:true, instock:true, img:'assets/Log homes/Mountaineer Deluxe.png' },
+            { id:39, name:'Musketeer',                category:'Log Homes',         style:'Musketeer',         price:67000,  sale:null, rto:true, instock:true, img:'assets/Log homes/Musketeer.png' },
+            { id:40, name:'Pioneer',                  category:'Log Homes',         style:'Pioneer',           price:98000,  sale:null, rto:true, instock:true, img:'assets/Log homes/Pioneer.png' },
+            { id:41, name:'Settler',                  category:'Log Homes',         style:'Settler',           price:74500,  sale:null, rto:true, instock:true, img:'assets/Log homes/Settler.png' },
+            { id:42, name:'Frontier',                 category:'Log Homes',         style:'Frontier',          price:85000,  sale:null, rto:true, instock:true, img:'assets/Log homes/Frontier.png' },
+            { id:43, name:'Alpine',                   category:'Log Homes',         style:'Alpine',            price:145000, sale:null, rto:true, instock:true, img:'assets/Log homes/Alpine.png' },
+            /* ── GARAGES ── */
+            { id:44, name:'Standard Garage',          category:'Garages',           style:'Standard',     price:18500, sale:null, rto:false, instock:false, img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80' },
+            { id:45, name:'Cottage Garage',           category:'Garages',           style:'Cottage',      price:22400, sale:null, rto:false, instock:false, img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80' },
+            { id:46, name:'Gambrel Garage',           category:'Garages',           style:'Gambrel',      price:24100, sale:null, rto:false, instock:false, img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80' },
         ];
 
         /* ═══════════════════════════════════════════════
@@ -924,6 +889,7 @@
             'Returned Rentals':   'Returned Rentals',
             'Custom Homes':       'Custom Built Homes',
             'Modular Log Homes':  'Modular Log Homes',
+            'Log Homes':          'Log Homes',
             'Garages':            'Garages',
         };
 
@@ -944,6 +910,9 @@
             'Decor':             'Decor & More',
             'Returned+Rentals':  'Returned Rentals',
             'Returned Rentals':  'Returned Rentals',
+            'Log+Homes':         'Log Homes',
+            'Log Homes':         'Log Homes',
+            'Garages':           'Garages',
         };
 
         /* ═══════════════════════════════════════════════
@@ -1000,7 +969,6 @@
         function applyFilters() {
             /* read checked values */
             const selStyles = new Set([...document.querySelectorAll('[data-filter="style"]:checked')].map(el => el.value));
-            const selSizes  = new Set([...document.querySelectorAll('[data-filter="size"]:checked')].map(el => el.value));
             const selAvail  = new Set([...document.querySelectorAll('[data-filter="avail"]:checked')].map(el => el.value));
             const pMin = document.getElementById('priceMin').value  ? +document.getElementById('priceMin').value  : null;
             const pMax = document.getElementById('priceMax').value  ? +document.getElementById('priceMax').value  : null;
@@ -1009,7 +977,6 @@
             let list = PRODUCTS.filter(p => {
                 if (activeCategory && p.category !== activeCategory) return false;
                 if (selStyles.size > 0 && !selStyles.has(p.style))   return false;
-                if (selSizes.size  > 0 && !selSizes.has(p.size))     return false;
                 const ep = p.sale ?? p.price;
                 if (pMin !== null && ep < pMin) return false;
                 if (pMax !== null && ep > pMax) return false;
@@ -1025,7 +992,7 @@
 
             renderGrid(list);
             renderCount(list.length);
-            renderChips(selStyles, selSizes, selAvail, pMin, pMax);
+            renderChips(selStyles, selAvail, pMin, pMax);
         }
 
         function renderGrid(list) {
@@ -1042,16 +1009,19 @@
             }
 
             grid.innerHTML = list.map((p, i) => {
-                const n   = i + 1;
-                const ep  = p.sale ?? p.price;
-                const badgeSale = p.sale     ? `<span class="pc-badge" data-comment="cat-card-${n}-sale-badge">On Sale</span>` : '';
-                const badgeOos  = !p.instock ? `<span class="pc-badge pc-badge--gray" data-comment="cat-card-${n}-oos-badge">Order</span>` : '';
-                const oldPrice  = p.sale     ? `<span class="pc-price-old" data-comment="cat-card-${n}-price-old">$${p.price.toLocaleString()}</span>` : '';
+                const n  = i + 1;
+                const ep = p.sale ?? p.price;
+                let badge = '';
+                if      (p.sale)                 badge = `<span class="pc-badge"              data-comment="cat-card-${n}-badge">Sale</span>`;
+                else if (p.badge === 'new')       badge = `<span class="pc-badge pc-badge--green" data-comment="cat-card-${n}-badge">New</span>`;
+                else if (p.badge === 'sold-out')  badge = `<span class="pc-badge pc-badge--dark"  data-comment="cat-card-${n}-badge">Sold Out</span>`;
+                else if (!p.instock)              badge = `<span class="pc-badge pc-badge--gray"  data-comment="cat-card-${n}-badge">Out of Stock</span>`;
+                const oldPrice = p.sale ? `<span class="pc-price-old" data-comment="cat-card-${n}-price-old">$${p.price.toLocaleString()}</span>` : '';
                 return `
                 <div class="pc-card" data-comment="cat-card-${n}" onclick="window.location='product.html?id=${p.id}'">
                     <div class="pc-card-img-wrap" data-comment="cat-card-${n}-img-wrap">
                         <img src="${p.img}" alt="${p.name}" loading="lazy" data-comment="cat-card-${n}-img" />
-                        ${badgeSale}${badgeOos}
+                        ${badge}
                     </div>
                     <div class="pc-card-body" data-comment="cat-card-${n}-body">
                         <p class="pc-card-cat" data-comment="cat-card-${n}-cat">${p.category}</p>
@@ -1067,20 +1037,16 @@
         }
 
         function renderCount(n) {
-            document.getElementById('toolbarCount').innerHTML =
-                `Showing <strong>${n}</strong> ${n === 1 ? 'product' : 'products'}`;
             const sub = activeCategory
                 ? `${n} ${n === 1 ? 'item' : 'items'} in ${activeCategory}`
                 : `${n} products available`;
             document.getElementById('catSubtitle').textContent = sub;
         }
 
-        function renderChips(selStyles, selSizes, selAvail, pMin, pMax) {
-            const SIZE_LABELS = { Small:'Small (up to 10×12)', Medium:'Medium (10×16–12×20)', Large:'Large (14×24+)' };
+        function renderChips(selStyles, selAvail, pMin, pMax) {
             const AVAIL_LABELS = { instock:'In Stock', rto:'Rent-to-Own', sale:'On Sale' };
             const chips = [];
             selStyles.forEach(v => chips.push({ label: v,                  type:'style', value: v }));
-            selSizes.forEach(v  => chips.push({ label: SIZE_LABELS[v]||v,  type:'size',  value: v }));
             selAvail.forEach(v  => chips.push({ label: AVAIL_LABELS[v]||v, type:'avail', value: v }));
             if (pMin !== null) chips.push({ label:`Min $${pMin}`, type:'price-min', value:'' });
             if (pMax !== null) chips.push({ label:`Max $${pMax}`, type:'price-max', value:'' });
@@ -1097,7 +1063,6 @@
         ═══════════════════════════════════════════════ */
         function removeChip(type, value) {
             if (type === 'style')     document.querySelectorAll(`[data-filter="style"][value="${value}"]`).forEach(el => el.checked = false);
-            else if (type === 'size') document.querySelectorAll(`[data-filter="size"][value="${value}"]`).forEach(el => el.checked = false);
             else if (type === 'avail')document.querySelectorAll(`[data-filter="avail"][value="${value}"]`).forEach(el => el.checked = false);
             else if (type === 'price-min') document.getElementById('priceMin').value = '';
             else if (type === 'price-max') document.getElementById('priceMax').value = '';

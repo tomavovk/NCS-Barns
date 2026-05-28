@@ -83,22 +83,14 @@
             ───────────────────────────────────────── */
             .cl-header {
                 background: #fff;
-                padding: 44px 0 48px;
+                padding: 44px 0 32px;
             }
             .cl-header-title {
-                font-size: clamp(28px, 3vw, 42px);
-                font-weight: 800;
+                font-size: clamp(28px, 3vw, 40px);
+                font-weight: 600;
                 color: var(--color-dark);
-                letter-spacing: -1px;
-                text-transform: uppercase;
-                margin-bottom: 20px;
-            }
-            .cl-header-divider {
-                width: 80px;
-                height: 3px;
-                background: var(--color-border);
-                border-radius: 2px;
-                margin-bottom: 24px;
+                letter-spacing: -0.5px;
+                margin-bottom: 10px;
             }
             .cl-header-note {
                 font-size: 14px;
@@ -110,8 +102,8 @@
                COLOR CONTENT AREA
             ───────────────────────────────────────── */
             .cl-content {
-                background: var(--color-bg-warm);
-                padding: 64px 0 80px;
+                background: #fff;
+                padding: 32px 0 80px;
             }
 
             /* ─────────────────────────────────────────
@@ -123,8 +115,8 @@
             .cl-group:last-child { margin-bottom: 0; }
 
             .cl-group-title {
-                font-size: 18px;
-                font-weight: 700;
+                font-size: clamp(18px, 1.6vw, 22px);
+                font-weight: 600;
                 color: var(--color-dark);
                 letter-spacing: -0.3px;
                 margin-bottom: 28px;
@@ -133,7 +125,7 @@
             .cl-grid {
                 display: grid;
                 grid-template-columns: repeat(6, 1fr);
-                gap: 20px 20px;
+                gap: 20px;
             }
 
             /* ─────────────────────────────────────────
@@ -146,24 +138,15 @@
             }
 
             .cl-swatch {
-                aspect-ratio: 4 / 3;
+                aspect-ratio: 4 / 2;
                 border-radius: 8px;
-                border: 1px solid rgba(0,0,0,0.07);
+                border: 1px solid var(--color-border);
                 background: var(--c, #ccc);
-                /* placeholder ready — swap background-image when photo available */
-                background-size: cover;
-                background-position: center;
                 transition: transform var(--t-fast), box-shadow var(--t-fast);
-                cursor: default;
             }
             .cl-swatch:hover {
                 transform: translateY(-2px);
-                box-shadow: 0 6px 20px rgba(0,0,0,0.10);
-            }
-
-            /* white swatch needs a visible border */
-            .cl-swatch.is-light {
-                border-color: var(--color-border);
+                box-shadow: 0 6px 20px rgba(0,0,0,0.08);
             }
 
             .cl-color-name {
@@ -250,8 +233,7 @@
         ════════════════════════════════ -->
         <section class="cl-header" data-comment="cl-header-section">
             <div class="page-inner" data-comment="cl-header-inner">
-                <h1 class="cl-header-title" data-comment="cl-header-title">Paint Colors</h1>
-                <div class="cl-header-divider" data-comment="cl-header-divider"></div>
+                <h1 class="cl-header-title" data-comment="cl-header-title">Colors</h1>
                 <p class="cl-header-note" data-comment="cl-header-note">*Colors may vary from actual color.</p>
             </div>
         </section>
@@ -499,8 +481,8 @@
                 <div class="footer-bottom" data-comment="cl-footer-bottom">
                     <div class="footer-copy-row" data-comment="cl-footer-copy-row">
                         <p class="footer-copy" data-comment="cl-footer-copy">&copy; 2026 North Country Storage Barns. All rights reserved.</p>
-                        <a href="#" class="footer-legal-link" data-comment="cl-footer-privacy">Privacy Policy</a>
-                        <a href="#" class="footer-legal-link" data-comment="cl-footer-terms">Terms &amp; Conditions</a>
+                        <a href="privacy.html" class="footer-legal-link" data-comment="cl-footer-privacy">Privacy Policy</a>
+                        <a href="terms.html" class="footer-legal-link" data-comment="cl-footer-terms">Terms &amp; Conditions</a>
                     </div>
                     <div class="footer-socials" data-comment="cl-footer-socials">
                         <a href="https://www.tiktok.com/@northcountrystoragebarns" target="_blank" class="footer-social-btn" data-comment="cl-footer-tiktok" aria-label="TikTok"><i class="ri-tiktok-fill" data-comment="cl-footer-tiktok-icon"></i></a>

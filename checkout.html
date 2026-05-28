@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>NCS Barns — Checkout</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+            rel="stylesheet" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+            rel="stylesheet" />
+        <link rel="stylesheet" href="commerce.css" />
+        <script src="nav.js" defer></script>
+    </head>
+    <body>
+        <ncs-nav></ncs-nav>
+
+        <main class="page-shell" data-comment="checkout-main">
+            <div class="section-inner" data-comment="checkout-shell">
+                <header class="page-header" data-comment="checkout-header">
+                    <span class="page-kicker" data-comment="checkout-kicker">Checkout</span>
+                    <h1 class="page-title" id="pageTitle" data-comment="checkout-title">
+                        Checkout <span class="page-title-accent" id="pageTitleAccent">Information</span>
+                    </h1>
+                    <p class="page-subtitle" id="pageSubtitle" data-comment="checkout-subtitle">Fill in your details to continue to payment</p>
+                </header>
+
+                <div class="step-strip" data-comment="checkout-steps">
+                    <div class="step-chip" id="stepChipInfo" data-comment="checkout-step-information">
+                        <span class="step-chip-number" data-comment="checkout-step-information-number">1</span>
+                        Information
+                    </div>
+                    <div class="step-chip" id="stepChipPayment" data-comment="checkout-step-payment">
+                        <span class="step-chip-number" data-comment="checkout-step-payment-number">2</span>
+                        Payment
+                    </div>
+                </div>
+
+                <div class="flow-grid" data-comment="checkout-grid">
+                    <section class="flow-main" data-comment="checkout-main-column">
+                        <div id="informationStep" data-comment="checkout-information-step">
+                            <div class="stack" data-comment="checkout-information-stack">
+                                <div class="panel panel-pad" data-comment="billing-panel">
+                                    <h2 class="panel-title" data-comment="billing-title">Billing</h2>
+                                    <form id="checkoutForm" data-comment="checkout-form" novalidate>
+                                        <div class="form-grid" data-comment="billing-grid">
+                                            <div class="field" data-field="billingName" data-comment="billing-field-name">
+                                                <label class="field-label" for="billingName" data-comment="billing-label-name">Full Name</label>
+                                                <input class="field-input" id="billingName" type="text" placeholder="Jane Smith" data-comment="billing-input-name" />
+                                                <span class="field-error" data-comment="billing-error-name">Full name is required.</span>
+                                            </div>
+                                            <div class="field" data-field="billingEmail" data-comment="billing-field-email">
+                                                <label class="field-label" for="billingEmail" data-comment="billing-label-email">Email</label>
+                                                <input class="field-input" id="billingEmail" type="email" placeholder="jane@example.com" data-comment="billing-input-email" />
+                                                <span class="field-error" data-comment="billing-error-email">A valid email is required.</span>
+                                            </div>
+                                            <div class="field" data-field="billingPhone" data-comment="billing-field-phone">
+                                                <label class="field-label" for="billingPhone" data-comment="billing-label-phone">Phone</label>
+                                                <input class="field-input" id="billingPhone" type="tel" placeholder="(315) 000-0000" data-comment="billing-input-phone" />
+                                                <span class="field-error" data-comment="billing-error-phone">Phone number is required.</span>
+                                            </div>
+                                            <div class="field" data-field="billingLocation" data-comment="billing-field-location">
+                                                <label class="field-label" for="billingLocation" data-comment="billing-label-location">Preferred Location</label>
+                                                <select class="field-select" id="billingLocation" data-comment="billing-select-location">
+                                                    <option value="">Select a showroom</option>
+                                                    <option value="Philadelphia">Philadelphia, NY</option>
+                                                    <option value="Yorkville">Yorkville, NY</option>
+                                                    <option value="Sandy Creek">Sandy Creek, NY</option>
+                                                </select>
+                                                <span class="field-error" data-comment="billing-error-location">Select a location so we know which team should follow up.</span>
+                                            </div>
+                                            <div class="field" data-field="billingAddress1" data-comment="billing-field-address1">
+                                                <label class="field-label" for="billingAddress1" data-comment="billing-label-address1">Address Line 1</label>
+                                                <input class="field-input" id="billingAddress1" type="text" placeholder="Street address" data-comment="billing-input-address1" />
+                                                <span class="field-error" data-comment="billing-error-address1">Address is required.</span>
+                                            </div>
+                                            <div class="field" data-field="billingAddress2" data-comment="billing-field-address2">
+                                                <label class="field-label" for="billingAddress2" data-comment="billing-label-address2">Address Line 2</label>
+                                                <input class="field-input" id="billingAddress2" type="text" placeholder="Suite, unit, or gate code" data-comment="billing-input-address2" />
+                                                <span class="field-error" data-comment="billing-error-address2"></span>
+                                            </div>
+                                            <div class="field" data-field="billingCity" data-comment="billing-field-city">
+                                                <label class="field-label" for="billingCity" data-comment="billing-label-city">City</label>
+                                                <input class="field-input" id="billingCity" type="text" placeholder="City" data-comment="billing-input-city" />
+                                                <span class="field-error" data-comment="billing-error-city">City is required.</span>
+                                            </div>
+                                            <div class="field" data-field="billingState" data-comment="billing-field-state">
+                                                <label class="field-label" for="billingState" data-comment="billing-label-state">State</label>
+                                                <input class="field-input" id="billingState" type="text" placeholder="State" data-comment="billing-input-state" />
+                                                <span class="field-error" data-comment="billing-error-state">State is required.</span>
+                                            </div>
+                                            <div class="field" data-field="billingZip" data-comment="billing-field-zip">
+                                                <label class="field-label" for="billingZip" data-comment="billing-label-zip">ZIP Code</label>
+                                                <input class="field-input" id="billingZip" type="text" placeholder="ZIP code" data-comment="billing-input-zip" />
+                                                <span class="field-error" data-comment="billing-error-zip">ZIP code is required.</span>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="panel panel-soft panel-pad" data-comment="shipping-panel">
+                                    <h2 class="panel-title" data-comment="shipping-title">Delivery</h2>
+                                    <div class="toggle-row" data-comment="shipping-toggle-row">
+                                        <input id="sameAsBilling" type="checkbox" checked data-comment="shipping-toggle-input" />
+                                        <label for="sameAsBilling" data-comment="shipping-toggle-label">Delivery address is the same as billing</label>
+                                    </div>
+                                    <div class="form-grid" id="shippingGrid" data-comment="shipping-grid">
+                                        <div class="field" data-field="shippingName" data-comment="shipping-field-name">
+                                            <label class="field-label" for="shippingName" data-comment="shipping-label-name">Delivery Contact</label>
+                                            <input class="field-input" id="shippingName" type="text" placeholder="Full name on site" data-comment="shipping-input-name" />
+                                            <span class="field-error" data-comment="shipping-error-name">Delivery contact is required.</span>
+                                        </div>
+                                        <div class="field" data-field="shippingPhone" data-comment="shipping-field-phone">
+                                            <label class="field-label" for="shippingPhone" data-comment="shipping-label-phone">Delivery Phone</label>
+                                            <input class="field-input" id="shippingPhone" type="tel" placeholder="Phone for delivery team" data-comment="shipping-input-phone" />
+                                            <span class="field-error" data-comment="shipping-error-phone">Delivery phone is required.</span>
+                                        </div>
+                                        <div class="field" data-field="shippingAddress1" data-comment="shipping-field-address1">
+                                            <label class="field-label" for="shippingAddress1" data-comment="shipping-label-address1">Address Line 1</label>
+                                            <input class="field-input" id="shippingAddress1" type="text" placeholder="Delivery street address" data-comment="shipping-input-address1" />
+                                            <span class="field-error" data-comment="shipping-error-address1">Delivery address is required.</span>
+                                        </div>
+                                        <div class="field" data-field="shippingAddress2" data-comment="shipping-field-address2">
+                                            <label class="field-label" for="shippingAddress2" data-comment="shipping-label-address2">Address Line 2</label>
+                                            <input class="field-input" id="shippingAddress2" type="text" placeholder="Gate, landmark, or lot note" data-comment="shipping-input-address2" />
+                                            <span class="field-error" data-comment="shipping-error-address2"></span>
+                                        </div>
+                                        <div class="field" data-field="shippingCity" data-comment="shipping-field-city">
+                                            <label class="field-label" for="shippingCity" data-comment="shipping-label-city">City</label>
+                                            <input class="field-input" id="shippingCity" type="text" placeholder="City" data-comment="shipping-input-city" />
+                                            <span class="field-error" data-comment="shipping-error-city">City is required.</span>
+                                        </div>
+                                        <div class="field" data-field="shippingState" data-comment="shipping-field-state">
+                                            <label class="field-label" for="shippingState" data-comment="shipping-label-state">State</label>
+                                            <input class="field-input" id="shippingState" type="text" placeholder="State" data-comment="shipping-input-state" />
+                                            <span class="field-error" data-comment="shipping-error-state">State is required.</span>
+                                        </div>
+                                        <div class="field" data-field="shippingZip" data-comment="shipping-field-zip">
+                                            <label class="field-label" for="shippingZip" data-comment="shipping-label-zip">ZIP Code</label>
+                                            <input class="field-input" id="shippingZip" type="text" placeholder="ZIP code" data-comment="shipping-input-zip" />
+                                            <span class="field-error" data-comment="shipping-error-zip">ZIP code is required.</span>
+                                        </div>
+                                        <div class="field" data-field="deliveryType" data-comment="shipping-field-delivery-type">
+                                            <label class="field-label" for="deliveryType" data-comment="shipping-label-delivery-type">Delivery Preference</label>
+                                            <select class="field-select" id="deliveryType" data-comment="shipping-select-delivery-type">
+                                                <option value="">Select one</option>
+                                                <option value="Delivery">Home or jobsite delivery</option>
+                                                <option value="Pickup">Pickup from showroom</option>
+                                            </select>
+                                            <span class="field-error" data-comment="shipping-error-delivery-type">Choose delivery or pickup.</span>
+                                        </div>
+                                        <div class="field-full" data-field="siteNotes" data-comment="shipping-field-site-notes">
+                                            <label class="field-label" for="siteNotes" data-comment="shipping-label-site-notes">Site Notes</label>
+                                            <textarea class="field-textarea" id="siteNotes" placeholder="Tell us about access, slope, pad prep, or anything the delivery team should know." data-comment="shipping-textarea-site-notes"></textarea>
+                                            <span class="field-error" data-comment="shipping-error-site-notes"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="callout callout-success" data-comment="shipping-callout">
+                                    <i class="ri-information-line" data-comment="shipping-callout-icon"></i>
+                                    <span data-comment="shipping-callout-text">Our team will confirm delivery timing, clearance, and any site-prep questions after the order is submitted.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="paymentStep" style="display:none" data-comment="checkout-payment-step">
+                            <div class="stack" data-comment="checkout-payment-stack">
+                                <div class="panel panel-soft panel-pad" data-comment="payment-panel">
+                                    <h2 class="panel-title" data-comment="payment-title">Payment</h2>
+                                    <div class="payment-list" id="paymentList" data-comment="payment-list"></div>
+                                    <div class="summary-actions" style="margin-top:24px" data-comment="payment-actions">
+                                        <button type="button" class="btn-primary" id="payNowButton" data-comment="payment-pay-now-btn">Pay Now <i class="ri-arrow-right-line" data-comment="payment-pay-now-icon"></i></button>
+                                        <button type="button" class="btn-outline" id="addCardButton" data-comment="payment-add-card-btn">Add Another Card</button>
+                                    </div>
+                                </div>
+
+                                <div class="callout callout-error" id="paymentError" style="display:none" data-comment="payment-error-callout">
+                                    <i class="ri-error-warning-line" data-comment="payment-error-icon"></i>
+                                    <span data-comment="payment-error-text">Please select a payment method before placing the order.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <aside class="flow-sidebar" data-comment="checkout-sidebar">
+                        <div class="panel panel-soft panel-pad summary-card" data-comment="checkout-summary-card">
+                            <div class="summary-block" data-comment="checkout-summary-header">
+                                <h2 class="summary-title" data-comment="checkout-summary-title">Order Summary</h2>
+                            </div>
+
+                            <div class="summary-block" data-comment="checkout-summary-lines-block">
+                                <div class="summary-line-list" id="checkoutSummaryLines" data-comment="checkout-summary-lines"></div>
+                            </div>
+
+                            <div class="summary-block" id="promoBlock" data-comment="checkout-promo-block">
+                                <div class="field-full" data-comment="checkout-promo-field">
+                                    <label class="field-label" for="promoCode" data-comment="checkout-promo-label">Promo Code</label>
+                                    <div class="promo-row" data-comment="checkout-promo-row">
+                                        <input class="field-input" id="promoCode" type="text" placeholder="Enter a promo code" data-comment="checkout-promo-input" />
+                                        <button type="button" class="btn-outline" id="applyPromoButton" data-comment="checkout-promo-apply-btn">Apply</button>
+                                    </div>
+                                    <div class="promo-feedback" id="promoFeedback" data-comment="checkout-promo-feedback">
+                                        <i class="ri-checkbox-circle-fill" data-comment="checkout-promo-feedback-icon"></i>
+                                        <span data-comment="checkout-promo-feedback-text">Promo code applied.</span>
+                                    </div>
+                                </div>
+                                <div class="field-full" style="margin-top:16px" data-comment="checkout-comment-field">
+                                    <label class="field-label" for="orderComment" data-comment="checkout-comment-label">Order Notes</label>
+                                    <textarea class="field-textarea" id="orderComment" placeholder="Anything else our team should know before we confirm your order?" data-comment="checkout-comment-input"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="summary-block" data-comment="checkout-summary-metrics-block">
+                                <div class="summary-metrics" id="checkoutSummaryMetrics" data-comment="checkout-summary-metrics"></div>
+                            </div>
+
+                            <div class="summary-block" data-comment="checkout-summary-actions-block">
+                                <div class="summary-actions" id="checkoutActionGroup" data-comment="checkout-summary-actions"></div>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </main>
+
+        <div class="modal-overlay" id="cardModal" data-comment="card-modal-overlay">
+            <div class="modal-card" data-comment="card-modal">
+                <h2 class="modal-title" data-comment="card-modal-title">Add a new card</h2>
+                <div class="stack" data-comment="card-modal-form">
+                    <div class="field-full" data-comment="card-modal-field-number">
+                        <label class="field-label" for="cardNumber" data-comment="card-modal-label-number">Card Number</label>
+                        <input class="field-input" id="cardNumber" type="text" placeholder="4242 4242 4242 4242" data-comment="card-modal-input-number" />
+                    </div>
+                    <div class="modal-grid" data-comment="card-modal-expiry-grid">
+                        <div class="field" data-comment="card-modal-field-expiry">
+                            <label class="field-label" for="cardExpiry" data-comment="card-modal-label-expiry">Expires</label>
+                            <input class="field-input" id="cardExpiry" type="text" placeholder="MM/YYYY" data-comment="card-modal-input-expiry" />
+                        </div>
+                        <div class="field" data-comment="card-modal-field-cvv">
+                            <label class="field-label" for="cardCvv" data-comment="card-modal-label-cvv">CVV</label>
+                            <input class="field-input" id="cardCvv" type="text" placeholder="123" data-comment="card-modal-input-cvv" />
+                        </div>
+                    </div>
+                    <div class="field-full" data-comment="card-modal-field-name">
+                        <label class="field-label" for="cardholderName" data-comment="card-modal-label-name">Name on Card</label>
+                        <input class="field-input" id="cardholderName" type="text" placeholder="Cardholder name" data-comment="card-modal-input-name" />
+                    </div>
+                </div>
+                <div class="modal-actions" data-comment="card-modal-actions">
+                    <button type="button" class="btn-primary" id="saveCardButton" data-comment="card-modal-save-btn">Save Card</button>
+                    <button type="button" class="btn-outline-dark" id="cancelCardButton" data-comment="card-modal-cancel-btn">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer-root" data-comment="footer-root">
+            <div class="footer-inner" data-comment="footer-inner">
+                <div class="footer-top" data-comment="footer-top">
+                    <div data-comment="footer-brand">
+                        <a href="index.html" class="footer-brand-logo" data-comment="footer-brand-logo">
+                            <img src="assets/Logo.png" alt="NCS Barns" data-comment="footer-brand-img" />
+                            <span class="footer-brand-name" data-comment="footer-brand-name">NCS Barns</span>
+                        </a>
+                        <p class="footer-brand-desc" data-comment="footer-brand-desc">Handcrafted quality structures for the North Country — family owned &amp; operated since 1993.</p>
+                    </div>
+                    <div data-comment="footer-col-products">
+                        <p class="footer-col-label" data-comment="footer-col-products-label">Products</p>
+                        <ul class="footer-links" data-comment="footer-links-products">
+                            <li data-comment="footer-link-li-sheds"><a href="#" data-comment="footer-link-sheds">Sheds</a></li>
+                            <li data-comment="footer-link-li-gazebos"><a href="#" data-comment="footer-link-gazebos">Gazebos &amp; Pergolas</a></li>
+                            <li data-comment="footer-link-li-hunting"><a href="#" data-comment="footer-link-hunting">Hunting Blinds</a></li>
+                            <li data-comment="footer-link-li-play"><a href="#" data-comment="footer-link-play">Play Structures</a></li>
+                            <li data-comment="footer-link-li-furniture"><a href="#" data-comment="footer-link-furniture">Furniture</a></li>
+                            <li data-comment="footer-link-li-homes"><a href="#" data-comment="footer-link-homes">Homes &amp; Garages</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="footer-col-company">
+                        <p class="footer-col-label" data-comment="footer-col-company-label">Company</p>
+                        <ul class="footer-links" data-comment="footer-links-company">
+                            <li data-comment="footer-link-li-about"><a href="#" data-comment="footer-link-about">About Us</a></li>
+                            <li data-comment="footer-link-li-testimonials"><a href="#" data-comment="footer-link-testimonials">Testimonials</a></li>
+                            <li data-comment="footer-link-li-gallery"><a href="#" data-comment="footer-link-gallery">Gallery</a></li>
+                            <li data-comment="footer-link-li-delivery"><a href="#" data-comment="footer-link-delivery">Delivery &amp; Relocation</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="footer-col-buying">
+                        <p class="footer-col-label" data-comment="footer-col-buying-label">Buying Process</p>
+                        <ul class="footer-links" data-comment="footer-links-buying">
+                            <li data-comment="footer-link-li-rto"><a href="#" data-comment="footer-link-rto">Rent-To-Own</a></li>
+                            <li data-comment="footer-link-li-financing"><a href="#" data-comment="footer-link-financing">Financing Options</a></li>
+                            <li data-comment="footer-link-li-siteprep"><a href="#" data-comment="footer-link-siteprep">Site Preparation</a></li>
+                            <li data-comment="footer-link-li-warranty"><a href="#" data-comment="footer-link-warranty">Warranty</a></li>
+                            <li data-comment="footer-link-li-dealers"><a href="#" data-comment="footer-link-dealers">Dealers</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="footer-col-contact">
+                        <p class="footer-col-label" data-comment="footer-col-contact-label">Contact</p>
+                        <div class="footer-contact-item" data-comment="footer-contact-phone">
+                            <svg viewBox="0 0 24 24" data-comment="footer-contact-phone-icon"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l1.64-1.64a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <a href="tel:3156420209" data-comment="footer-contact-phone-link">(315) 642-0209</a>
+                        </div>
+                        <div class="footer-contact-item" data-comment="footer-contact-email">
+                            <svg viewBox="0 0 24 24" data-comment="footer-contact-email-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            <a href="mailto:sales@ncsbarns.com" data-comment="footer-contact-email-link">sales@ncsbarns.com</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-locations" data-comment="footer-locations">
+                    <div data-comment="footer-loc-philadelphia">
+                        <p class="footer-loc-name" data-comment="footer-loc-philadelphia-name">Philadelphia</p>
+                        <p class="footer-loc-addr" data-comment="footer-loc-philadelphia-addr">32660 US Route 11<br />Philadelphia, NY 13673</p>
+                        <p class="footer-loc-phone" data-comment="footer-loc-philadelphia-phone">(315) 642-0209</p>
+                    </div>
+                    <div data-comment="footer-loc-yorkville">
+                        <p class="footer-loc-name" data-comment="footer-loc-yorkville-name">Yorkville</p>
+                        <p class="footer-loc-addr" data-comment="footer-loc-yorkville-addr">317 Oriskany Blvd<br />Yorkville, NY</p>
+                        <p class="footer-loc-phone" data-comment="footer-loc-yorkville-phone">(315) 793-0726</p>
+                    </div>
+                    <div data-comment="footer-loc-sandycreek">
+                        <p class="footer-loc-name" data-comment="footer-loc-sandycreek-name">Sandy Creek</p>
+                        <p class="footer-loc-addr" data-comment="footer-loc-sandycreek-addr">5780 US Route 11<br />Pulaski, NY 13142</p>
+                        <p class="footer-loc-phone" data-comment="footer-loc-sandycreek-phone">(315) 387-2092</p>
+                    </div>
+                </div>
+                <div class="footer-bottom" data-comment="footer-bottom">
+                    <div class="footer-copy-row" data-comment="footer-copy-row">
+                        <p class="footer-copy" data-comment="footer-copy">Copyright&copy; 2024 North Country Storage Barns LLC. All rights reserved.</p>
+                        <a href="privacy.html" class="footer-legal-link" href="privacy.html" class="footer-legal-link" data-comment="footer-link-privacy">Privacy Policy</a>
+                        <a href="terms.html" class="footer-legal-link" data-comment="footer-link-terms">Terms &amp; Conditions</a>
+                    </div>
+                    <div class="footer-socials" data-comment="footer-socials">
+                        <a href="https://www.tiktok.com/@northcountrystoragebarns" target="_blank" class="footer-social-btn" data-comment="footer-social-tiktok" aria-label="TikTok"><i class="ri-tiktok-fill" data-comment="footer-social-tiktok-icon"></i></a>
+                        <a href="https://www.facebook.com/ifyouneedmeillbeinmyshed/" target="_blank" class="footer-social-btn" data-comment="footer-social-facebook" aria-label="Facebook"><i class="ri-facebook-fill" data-comment="footer-social-facebook-icon"></i></a>
+                        <a href="https://www.instagram.com/northcountrystoragebarns/" target="_blank" class="footer-social-btn" data-comment="footer-social-instagram" aria-label="Instagram"><i class="ri-instagram-fill" data-comment="footer-social-instagram-icon"></i></a>
+                        <a href="https://www.google.com/search?q=north+country+storage+barns" target="_blank" class="footer-social-btn" data-comment="footer-social-google" aria-label="Google"><i class="ri-google-fill" data-comment="footer-social-google-icon"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            const ORDER_ITEMS = [
+                { title: 'Lofted Barn Shed 12×24', qty: 1, price: 12870, note: 'Charcoal siding · Philadelphia lot' },
+                { title: 'Vinyl Pergola 12×16', qty: 1, price: 8950, note: 'On-site assembly included' },
+                { title: 'Outdoor Dining Set', qty: 2, price: 3780, note: 'Ships with structure delivery' },
+            ];
+
+            const PAYMENT_METHODS = [
+                { id: 'visa-6767', brand: 'visa', label: '**** **** **** 6767', note: 'Default card', selected: true },
+                { id: 'master-0089', brand: 'mastercard', label: '**** **** **** 0089', note: 'Business card', selected: false },
+                { id: 'master-0045', brand: 'mastercard', label: '**** **** **** 0045', note: 'Project card', selected: false },
+            ];
+
+            const TAX = 1820;
+            const DELIVERY = 750;
+            const PROMO_CODE = 'NCSBUILD';
+            let promoApplied = false;
+
+            function fmt(value) {
+                return new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                    maximumFractionDigits: 0,
+                }).format(value);
+            }
+
+            function getCartTotal() {
+                return ORDER_ITEMS.reduce((sum, item) => sum + item.price, 0);
+            }
+
+            function getGrandTotal() {
+                const promoDiscount = promoApplied ? 500 : 0;
+                return getCartTotal() + DELIVERY + TAX - promoDiscount;
+            }
+
+            function renderSummaryLines() {
+                document.getElementById('checkoutSummaryLines').innerHTML = ORDER_ITEMS.map((item, index) => `
+                    <div class="summary-line" data-comment="checkout-summary-line-${index + 1}">
+                        <div data-comment="checkout-summary-line-copy-${index + 1}">
+                            <div class="summary-line-title" data-comment="checkout-summary-line-title-${index + 1}">${item.title}</div>
+                            <div class="summary-line-sub" data-comment="checkout-summary-line-sub-${index + 1}">${item.qty} × ${fmt(item.price / item.qty)} · ${item.note}</div>
+                        </div>
+                        <strong data-comment="checkout-summary-line-price-${index + 1}">${fmt(item.price)}</strong>
+                    </div>
+                `).join('');
+            }
+
+            function renderSummaryMetrics() {
+                const metrics = [
+                    { label: 'Cart total', value: fmt(getCartTotal()) },
+                    { label: 'Estimated delivery', value: fmt(DELIVERY) },
+                    { label: 'Estimated tax', value: fmt(TAX) },
+                ];
+
+                if (promoApplied) {
+                    metrics.push({ label: 'Promo savings', value: `− ${fmt(500)}` });
+                }
+
+                metrics.push({ label: 'Estimated total', value: fmt(getGrandTotal()), total: true });
+
+                document.getElementById('checkoutSummaryMetrics').innerHTML = metrics.map((metric, index) => `
+                    <div class="summary-metric${metric.total ? ' summary-metric-total' : ''}" data-comment="checkout-summary-metric-${index + 1}">
+                        <span data-comment="checkout-summary-metric-label-${index + 1}">${metric.label}</span>
+                        <strong data-comment="checkout-summary-metric-value-${index + 1}">${metric.value}</strong>
+                    </div>
+                `).join('');
+            }
+
+            function renderPaymentMethods() {
+                const list = document.getElementById('paymentList');
+                list.innerHTML = PAYMENT_METHODS.map((method, index) => `
+                    <button type="button" class="payment-option${method.selected ? ' is-selected' : ''}" data-payment-id="${method.id}" data-comment="payment-option-${index + 1}">
+                        <span class="payment-radio" data-comment="payment-option-radio-${index + 1}"></span>
+                        <span class="payment-card" data-comment="payment-option-card-${index + 1}">
+                            <span class="payment-card-badge ${method.brand}" data-comment="payment-option-badge-${index + 1}">${method.brand === 'visa' ? 'VISA' : 'MC'}</span>
+                            <span class="payment-card-copy" data-comment="payment-option-copy-${index + 1}">
+                                <span class="payment-card-title" data-comment="payment-option-title-${index + 1}">${method.label}</span>
+                                <span class="payment-card-note" data-comment="payment-option-note-${index + 1}">${method.note}</span>
+                            </span>
+                        </span>
+                        <span class="payment-option-tag" data-comment="payment-option-tag-${index + 1}">${method.selected ? 'Selected' : 'Saved card'}</span>
+                    </button>
+                `).join('');
+            }
+
+            function renderActions(step) {
+                const actions = document.getElementById('checkoutActionGroup');
+                if (step === 'payment') {
+                    actions.innerHTML = `
+                        <a href="checkout.html?step=information" class="btn-outline" data-comment="checkout-back-to-information-btn">Back to Information</a>
+                        <a href="cart.html" class="btn-outline" data-comment="checkout-back-to-cart-btn">Back to Cart</a>
+                    `;
+                    return;
+                }
+
+                actions.innerHTML = `
+                    <button type="button" class="btn-primary" id="continueToPayment" data-comment="checkout-continue-to-payment-btn">
+                        Continue to Payment <i class="ri-arrow-right-line" data-comment="checkout-continue-to-payment-icon"></i>
+                    </button>
+                    <a href="cart.html" class="btn-outline" data-comment="checkout-return-cart-btn">Back to Cart</a>
+                `;
+
+                document.getElementById('continueToPayment').addEventListener('click', handleContinueToPayment);
+            }
+
+            function setFieldError(id, active) {
+                const field = document.querySelector(`[data-field="${id}"]`);
+                if (!field) return;
+                field.classList.toggle('has-error', active);
+            }
+
+            function validateInformationStep() {
+                const sameAsBilling = document.getElementById('sameAsBilling').checked;
+                const required = [
+                    'billingName',
+                    'billingEmail',
+                    'billingPhone',
+                    'billingLocation',
+                    'billingAddress1',
+                    'billingCity',
+                    'billingState',
+                    'billingZip',
+                ];
+
+                required.push('deliveryType');
+
+                if (!sameAsBilling) {
+                    required.push(
+                        'shippingName',
+                        'shippingPhone',
+                        'shippingAddress1',
+                        'shippingCity',
+                        'shippingState',
+                        'shippingZip'
+                    );
+                }
+
+                let valid = true;
+                required.forEach((id) => {
+                    const input = document.getElementById(id);
+                    const value = input ? input.value.trim() : '';
+                    const isEmail = id === 'billingEmail';
+                    const fieldValid = isEmail ? /\S+@\S+\.\S+/.test(value) : Boolean(value);
+                    setFieldError(id, !fieldValid);
+                    if (!fieldValid) valid = false;
+                });
+
+                return valid;
+            }
+
+            function copyBillingToShipping() {
+                document.getElementById('shippingName').value = document.getElementById('billingName').value;
+                document.getElementById('shippingPhone').value = document.getElementById('billingPhone').value;
+                document.getElementById('shippingAddress1').value = document.getElementById('billingAddress1').value;
+                document.getElementById('shippingAddress2').value = document.getElementById('billingAddress2').value;
+                document.getElementById('shippingCity').value = document.getElementById('billingCity').value;
+                document.getElementById('shippingState').value = document.getElementById('billingState').value;
+                document.getElementById('shippingZip').value = document.getElementById('billingZip').value;
+            }
+
+            function syncShippingState() {
+                const sameAsBilling = document.getElementById('sameAsBilling').checked;
+                const inputs = document.querySelectorAll('#shippingGrid .field-input, #shippingGrid .field-select, #shippingGrid .field-textarea');
+                if (sameAsBilling) copyBillingToShipping();
+                inputs.forEach((input) => {
+                    if (input.id === 'siteNotes' || input.id === 'deliveryType') return;
+                    input.disabled = sameAsBilling;
+                });
+            }
+
+            function handleContinueToPayment() {
+                if (!validateInformationStep()) return;
+                copyBillingToShipping();
+                window.location.href = 'checkout.html?step=payment';
+            }
+
+            function openModal() {
+                document.getElementById('cardModal').classList.add('is-open');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal() {
+                document.getElementById('cardModal').classList.remove('is-open');
+                document.body.style.overflow = '';
+            }
+
+            function addCard() {
+                const number = document.getElementById('cardNumber').value.trim();
+                const expiry = document.getElementById('cardExpiry').value.trim();
+                const cvv = document.getElementById('cardCvv').value.trim();
+                const name = document.getElementById('cardholderName').value.trim();
+                if (!number || !expiry || !cvv || !name) return;
+
+                PAYMENT_METHODS.forEach((method) => { method.selected = false; });
+                PAYMENT_METHODS.push({
+                    id: `card-${Date.now()}`,
+                    brand: number.startsWith('4') ? 'visa' : 'mastercard',
+                    label: `**** **** **** ${number.slice(-4)}`,
+                    note: `${name} · added now`,
+                    selected: true,
+                });
+                renderPaymentMethods();
+                closeModal();
+            }
+
+            function setStep(step) {
+                const infoStep = document.getElementById('informationStep');
+                const paymentStep = document.getElementById('paymentStep');
+                const titleAccent = document.getElementById('pageTitleAccent');
+                const subtitle = document.getElementById('pageSubtitle');
+                const promoBlock = document.getElementById('promoBlock');
+                const chipInfo = document.getElementById('stepChipInfo');
+                const chipPayment = document.getElementById('stepChipPayment');
+
+                if (step === 'payment') {
+                    infoStep.style.display = 'none';
+                    paymentStep.style.display = '';
+                    titleAccent.textContent = 'Payment';
+                    subtitle.textContent = 'Choose a payment method to complete your order';
+                    promoBlock.style.display = 'none';
+                    chipInfo.classList.add('is-complete');
+                    chipInfo.classList.remove('is-active');
+                    chipPayment.classList.add('is-active');
+                    renderPaymentMethods();
+                } else {
+                    infoStep.style.display = '';
+                    paymentStep.style.display = 'none';
+                    titleAccent.textContent = 'Information';
+                    subtitle.textContent = 'Fill in your details to continue to payment';
+                    promoBlock.style.display = '';
+                    chipInfo.classList.add('is-active');
+                    chipPayment.classList.remove('is-active');
+                }
+
+                renderActions(step);
+            }
+
+            function initPromo() {
+                document.getElementById('applyPromoButton').addEventListener('click', () => {
+                    const input = document.getElementById('promoCode');
+                    const feedback = document.getElementById('promoFeedback');
+                    promoApplied = input.value.trim().toUpperCase() === PROMO_CODE;
+                    feedback.classList.toggle('is-visible', promoApplied);
+                    renderSummaryMetrics();
+                });
+            }
+
+            function initPaymentEvents() {
+                document.addEventListener('click', (event) => {
+                    const paymentButton = event.target.closest('[data-payment-id]');
+                    if (paymentButton) {
+                        const { paymentId } = paymentButton.dataset;
+                        PAYMENT_METHODS.forEach((method) => {
+                            method.selected = method.id === paymentId;
+                        });
+                        renderPaymentMethods();
+                        document.getElementById('paymentError').style.display = 'none';
+                    }
+                });
+
+                document.getElementById('addCardButton').addEventListener('click', openModal);
+                document.getElementById('cancelCardButton').addEventListener('click', closeModal);
+                document.getElementById('saveCardButton').addEventListener('click', addCard);
+                document.getElementById('cardModal').addEventListener('click', (event) => {
+                    if (event.target.id === 'cardModal') closeModal();
+                });
+
+                document.getElementById('payNowButton').addEventListener('click', () => {
+                    const selected = PAYMENT_METHODS.find((method) => method.selected);
+                    if (!selected) {
+                        document.getElementById('paymentError').style.display = 'flex';
+                        return;
+                    }
+                    window.location.href = 'order-status.html?status=success';
+                });
+            }
+
+            function init() {
+                renderSummaryLines();
+                renderSummaryMetrics();
+                initPromo();
+                initPaymentEvents();
+
+                document.getElementById('sameAsBilling').addEventListener('change', syncShippingState);
+                document.querySelectorAll('#billingName, #billingPhone, #billingAddress1, #billingAddress2, #billingCity, #billingState, #billingZip').forEach((input) => {
+                    input.addEventListener('input', () => {
+                        if (document.getElementById('sameAsBilling').checked) copyBillingToShipping();
+                    });
+                });
+
+                const step = new URLSearchParams(window.location.search).get('step') === 'payment' ? 'payment' : 'information';
+                syncShippingState();
+                setStep(step);
+            }
+
+            init();
+        </script>
+    </body>
+</html>

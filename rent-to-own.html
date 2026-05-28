@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Rent-to-Own — NCS Barns</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+            rel="stylesheet" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+            rel="stylesheet" />
+        <script src="nav.js" defer></script>
+
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            :root {
+                --color-burgundy:      #8B1A2A;
+                --color-burgundy-dark: #6D1420;
+                --color-dark:          #1C1F24;
+                --color-gray:          #514C4A;
+                --color-gray-light:    #9A9390;
+                --color-border:        #E6E2DD;
+                --color-bg:            #F8F6F4;
+                --color-bg-hover:      #F4F1EE;
+                --color-bg-menu:       #FAFAF8;
+
+                --font-ui: 'Inter', sans-serif;
+
+                --nav-height: 72px;
+                --max-width:  1440px;
+                --page-px:    40px;
+
+                --t-fast: 0.15s ease;
+                --t-med:  0.22s ease;
+            }
+
+            body {
+                font-family: var(--font-ui);
+                background: var(--color-bg);
+                color: var(--color-dark);
+            }
+
+            /* ─── PAGE SHELL ─── */
+            .sp-page {
+                max-width: var(--max-width);
+                margin: 0 auto;
+                padding: 0 var(--page-px);
+                padding-top: 48px;
+                padding-bottom: 96px;
+            }
+
+            .sp-page-title {
+                font-size: clamp(28px, 3vw, 38px);
+                font-weight: 600;
+                letter-spacing: -0.02em;
+                color: var(--color-dark);
+                line-height: 1.15;
+                margin-bottom: 28px;
+            }
+
+            /* ─── SECTIONS (same as Care Guide) ─── */
+            .sp-section {
+                display: grid;
+                grid-template-columns: 320px 1fr;
+                gap: 64px;
+                padding: 56px 0;
+                border-top: 1px solid var(--color-border);
+            }
+
+            .sp-section:last-of-type {
+                border-bottom: 1px solid var(--color-border);
+            }
+
+            .sp-col-label {
+                padding-top: 4px;
+            }
+
+            .sp-section-heading {
+                font-size: clamp(22px, 2.4vw, 30px);
+                font-weight: 700;
+                letter-spacing: -0.025em;
+                color: var(--color-dark);
+                line-height: 1.2;
+            }
+
+            .sp-section-label {
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                color: var(--color-gray-light);
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            .sp-col-content {
+                display: flex;
+                flex-direction: column;
+                gap: 28px;
+            }
+
+            .sp-body {
+                font-size: 15px;
+                line-height: 1.7;
+                color: var(--color-gray);
+            }
+
+            .sp-tip {
+                background: var(--color-bg-hover);
+                border-left: 3px solid var(--color-border);
+                border-radius: 0 8px 8px 0;
+                padding: 14px 18px;
+                font-size: 14px;
+                line-height: 1.65;
+                color: var(--color-gray);
+            }
+
+            /* ─── NOTICE BOX ─── */
+            .rto-notice {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 32px;
+                background: white;
+                border: 1px solid var(--color-border);
+                border-left: 4px solid var(--color-burgundy);
+                border-radius: 10px;
+                padding: 28px 32px;
+                margin-bottom: 48px;
+            }
+
+            .rto-notice-heading {
+                font-size: 17px;
+                font-weight: 700;
+                color: var(--color-dark);
+                letter-spacing: -0.01em;
+                margin-bottom: 8px;
+            }
+
+            .rto-notice-sub {
+                font-size: 14px;
+                color: var(--color-gray);
+                margin-bottom: 10px;
+            }
+
+            .rto-notice-phone {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 15px;
+                font-weight: 600;
+                color: var(--color-dark);
+                margin-bottom: 10px;
+            }
+
+            .rto-notice-phone i { color: var(--color-burgundy); }
+
+            .rto-notice-phone a {
+                color: var(--color-burgundy);
+                text-decoration: none;
+            }
+
+            .rto-notice-phone span {
+                font-weight: 400;
+                color: var(--color-gray);
+                font-size: 14px;
+            }
+
+            .rto-notice-warning {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 12px;
+                font-weight: 700;
+                color: var(--color-burgundy);
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+            }
+
+            .rto-notice-action {
+                flex-shrink: 0;
+            }
+
+            /* ─── STATS GRID ─── */
+            .rto-stats-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                background: var(--color-border);
+                border: 1px solid var(--color-border);
+                border-radius: 10px;
+                overflow: hidden;
+                gap: 1px;
+            }
+
+            .rto-stat {
+                background: white;
+                padding: 20px 18px;
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .rto-stat-value {
+                font-size: 22px;
+                font-weight: 800;
+                color: var(--color-burgundy);
+                letter-spacing: -0.02em;
+                line-height: 1.1;
+            }
+
+            .rto-stat-label {
+                font-size: 12px;
+                color: var(--color-gray-light);
+                font-weight: 500;
+                line-height: 1.4;
+            }
+
+            /* ─── CHECKLIST ─── */
+            .rto-checklist {
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .rto-checklist li {
+                display: flex;
+                align-items: flex-start;
+                gap: 10px;
+                font-size: 15px;
+                line-height: 1.65;
+                color: var(--color-gray);
+            }
+
+            .rto-checklist li i {
+                font-size: 17px;
+                color: var(--color-burgundy);
+                flex-shrink: 0;
+                margin-top: 2px;
+            }
+
+            /* ─── STEP BADGE ─── */
+            .rto-step-num {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                background: var(--color-burgundy);
+                color: white;
+                font-size: 15px;
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 14px;
+            }
+
+            .rto-step-num--optional {
+                background: transparent;
+                border: 2px solid var(--color-border);
+                color: var(--color-gray-light);
+            }
+
+            .rto-step-desc {
+                font-size: 13px;
+                line-height: 1.6;
+                color: var(--color-gray-light);
+                margin-top: 10px;
+            }
+
+            /* ─── FORM FIELDS ─── */
+            .rto-field-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px 24px;
+            }
+
+            .rto-field {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .rto-field.span-2 {
+                grid-column: 1 / -1;
+            }
+
+            .rto-label {
+                font-size: 13px;
+                font-weight: 600;
+                color: var(--color-gray);
+                letter-spacing: 0.01em;
+            }
+
+            .rto-input,
+            .rto-select,
+            .rto-textarea {
+                width: 100%;
+                padding: 10px 14px;
+                border: 1.5px solid var(--color-border);
+                border-radius: 7px;
+                font-size: 14px;
+                font-family: var(--font-ui);
+                color: var(--color-dark);
+                background: white;
+                transition: border-color var(--t-fast), box-shadow var(--t-fast);
+            }
+
+            .rto-select {
+                appearance: none;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24'%3E%3Cpath fill='%239A9390' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+                background-repeat: no-repeat;
+                background-position: right 12px center;
+                padding-right: 36px;
+                cursor: pointer;
+            }
+
+            .rto-input:focus,
+            .rto-select:focus,
+            .rto-textarea:focus {
+                outline: none;
+                border-color: var(--color-burgundy);
+                box-shadow: 0 0 0 3px rgba(139, 26, 42, 0.07);
+            }
+
+            .rto-input::placeholder,
+            .rto-textarea::placeholder {
+                color: var(--color-gray-light);
+            }
+
+            .rto-textarea {
+                resize: vertical;
+                min-height: 80px;
+                line-height: 1.6;
+            }
+
+            /* ─── RADIO ─── */
+            .rto-radio-group {
+                display: flex;
+                gap: 20px;
+                align-items: center;
+                padding: 9px 0;
+            }
+
+            .rto-radio-label {
+                display: flex;
+                align-items: center;
+                gap: 7px;
+                font-size: 14px;
+                color: var(--color-dark);
+                cursor: pointer;
+            }
+
+            .rto-radio-label input[type="radio"] {
+                accent-color: var(--color-burgundy);
+                width: 16px;
+                height: 16px;
+                cursor: pointer;
+            }
+
+            /* ─── ACCEPTANCE ─── */
+            .rto-acceptance {
+                padding-top: 4px;
+            }
+
+            .rto-acceptance-label {
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 0.04em;
+                text-transform: uppercase;
+                color: var(--color-gray-light);
+                margin-bottom: 12px;
+            }
+
+            .rto-checkbox-row {
+                display: flex;
+                align-items: flex-start;
+                gap: 10px;
+                cursor: pointer;
+            }
+
+            .rto-checkbox-row input[type="checkbox"] {
+                accent-color: var(--color-burgundy);
+                width: 16px;
+                height: 16px;
+                margin-top: 2px;
+                flex-shrink: 0;
+                cursor: pointer;
+            }
+
+            .rto-checkbox-row span {
+                font-size: 14px;
+                color: var(--color-dark);
+                line-height: 1.55;
+            }
+
+            /* ─── CAPTCHA PLACEHOLDER ─── */
+            .rto-captcha-wrap {
+                display: inline-block;
+            }
+
+            .rto-captcha-box {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 24px;
+                padding: 14px 18px;
+                border: 1px solid #d3d3d3;
+                border-radius: 4px;
+                background: #f9f9f9;
+                width: 300px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            }
+
+            .rto-captcha-check {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                cursor: pointer;
+            }
+
+            .rto-captcha-check input[type="checkbox"] {
+                width: 22px;
+                height: 22px;
+                cursor: pointer;
+                flex-shrink: 0;
+            }
+
+            .rto-captcha-check span {
+                font-size: 14px;
+                color: #333;
+            }
+
+            .rto-captcha-brand {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 1px;
+                flex-shrink: 0;
+            }
+
+            .rto-captcha-brand svg {
+                width: 32px;
+                height: 32px;
+            }
+
+            .rto-captcha-rc {
+                font-size: 9px;
+                font-weight: 700;
+                color: #9a9a9a;
+                letter-spacing: 0.02em;
+            }
+
+            .rto-captcha-rc-sub {
+                font-size: 8px;
+                color: #bbb;
+            }
+
+            /* ─── BUTTONS ─── */
+            .rto-btn-primary {
+                display: inline-flex;
+                align-items: center;
+                gap: 7px;
+                padding: 13px 26px;
+                background: var(--color-burgundy);
+                color: white;
+                font-size: 14px;
+                font-weight: 700;
+                font-family: var(--font-ui);
+                border-radius: 9999px;
+                border: none;
+                cursor: pointer;
+                text-decoration: none;
+                transition: background var(--t-fast);
+                white-space: nowrap;
+            }
+
+            .rto-btn-primary:hover {
+                background: var(--color-burgundy-dark);
+            }
+
+            .rto-actions {
+                display: flex;
+                gap: 12px;
+                flex-wrap: wrap;
+            }
+
+            /* ─── FOOTER ─── */
+            .footer-root { background: #000; color: #fff; padding: 72px var(--page-px) 40px; }
+            .footer-inner { max-width: var(--max-width); margin: 0 auto; }
+            .footer-top { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr 1.4fr; gap: 48px; padding-bottom: 52px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 52px; }
+            .footer-brand-logo { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; text-decoration: none; margin-bottom: 16px; }
+            .footer-brand-logo img { width: 50%; height: auto; filter: brightness(0) invert(1) opacity(0.5); }
+            .footer-brand-name { font-size: 16px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+            .footer-brand-desc { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.65; max-width: 220px; }
+            .footer-col-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 18px; }
+            .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+            .footer-links a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-links a:hover { color: #fff; }
+            .footer-contact-item { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+            .footer-contact-item svg { width: 15px; height: 15px; stroke: rgba(255,255,255,0.35); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+            .footer-contact-item a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-contact-item a:hover { color: #fff; }
+            .footer-locations { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 32px; }
+            .footer-loc-name { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+            .footer-loc-addr { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.55; margin-bottom: 8px; }
+            .footer-loc-phone { font-size: 13px; color: rgba(255,255,255,0.45); }
+            .footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+            .footer-copy-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+            .footer-copy { font-size: 13px; color: rgba(255,255,255,0.3); }
+            .footer-legal-link { font-size: 13px; color: rgba(255,255,255,0.3); text-decoration: none; transition: color var(--t-fast); }
+            .footer-legal-link:hover { color: #fff; }
+            .footer-socials { display: flex; gap: 10px; }
+            .footer-social-btn { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid rgba(255,255,255,0.15); text-decoration: none; transition: border-color var(--t-fast), background var(--t-fast); }
+            .footer-social-btn:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.08); }
+            .footer-social-btn i { font-size: 17px; color: rgba(255,255,255,0.6); }
+
+            /* ─── RESPONSIVE ─── */
+            @media (max-width: 900px) {
+                .sp-section { grid-template-columns: 1fr; gap: 28px; }
+                .rto-stats-grid { grid-template-columns: repeat(2, 1fr); }
+            }
+
+            @media (max-width: 768px) {
+                .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+                .footer-top > div:first-child { grid-column: 1/-1; }
+                .footer-locations { grid-template-columns: 1fr; gap: 20px; }
+                .footer-bottom { flex-direction: column; align-items: flex-start; gap: 16px; }
+                .rto-notice { flex-direction: column; align-items: flex-start; gap: 20px; }
+            }
+
+            @media (max-width: 640px) {
+                :root { --page-px: 20px; }
+                .sp-page { padding-top: calc(var(--nav-height) + 32px); padding-bottom: 64px; }
+                .sp-section { padding: 36px 0; gap: 20px; }
+                .rto-field-grid { grid-template-columns: 1fr; }
+                .rto-field.span-2 { grid-column: 1; }
+                .rto-stats-grid { grid-template-columns: repeat(2, 1fr); }
+                .rto-captcha-box { width: 100%; }
+            }
+        </style>
+    </head>
+    <body>
+
+        <ncs-nav data-comment="rto-nav"></ncs-nav>
+
+        <main class="sp-page" data-comment="rto-page">
+
+            <h1 class="sp-page-title" data-comment="rto-page-title">Rent-to-Own</h1>
+
+            <!-- ── PAYMENT NOTICE ── -->
+            <div class="rto-notice" data-comment="rto-notice">
+                <div data-comment="rto-notice-body">
+                    <h2 class="rto-notice-heading" data-comment="rto-notice-heading">Looking To Make a Rent-To-Own Payment?</h2>
+                    <p class="rto-notice-sub" data-comment="rto-notice-sub">NOTICE: We do not have a current lead time on the new accounts yet.</p>
+                    <p class="rto-notice-phone" data-comment="rto-notice-phone">
+                        <i class="ri-phone-fill" data-comment="rto-notice-phone-icon"></i>
+                        <a href="tel:3155599011" data-comment="rto-notice-phone-link">315-559-9011</a>
+                        <span data-comment="rto-notice-hours">&nbsp;·&nbsp; 8:30AM–4:30PM Mon–Fri &nbsp;·&nbsp; 9AM–2PM Sat</span>
+                    </p>
+                    <p class="rto-notice-warning" data-comment="rto-notice-warning">
+                        <i class="ri-alarm-warning-fill" data-comment="rto-notice-warn-icon"></i>
+                        <span data-comment="rto-notice-warn-text">Failure to make your payment will result in an immediate pickup.</span>
+                    </p>
+                </div>
+                <div class="rto-notice-action" data-comment="rto-notice-action">
+                    <a href="https://www.rtowebpay.com/account/login.aspx?id=0C0D4D030B044C02080D"
+                       target="_blank" rel="noopener"
+                       class="rto-btn-primary"
+                       data-comment="rto-btn-portal">
+                        Online Payment Portal
+                        <i class="ri-arrow-right-up-line" data-comment="rto-btn-portal-icon"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- ── ABOUT PROGRAM ── -->
+            <section class="sp-section" data-comment="rto-about-section">
+
+                <div class="sp-col-label" data-comment="rto-about-label">
+                    <span class="sp-section-label" data-comment="rto-about-eyebrow">About the Program</span>
+                    <h2 class="sp-section-heading" data-comment="rto-about-heading">Rent-to-Own<br>Program</h2>
+                </div>
+
+                <div class="sp-col-content" data-comment="rto-about-content">
+
+                    <div class="rto-stats-grid" data-comment="rto-stats-grid">
+                        <div class="rto-stat" data-comment="rto-stat-terms">
+                            <span class="rto-stat-value" data-comment="rto-stat-terms-val">24–60</span>
+                            <span class="rto-stat-label" data-comment="rto-stat-terms-lbl">Month Rental Terms</span>
+                        </div>
+                        <div class="rto-stat" data-comment="rto-stat-amount">
+                            <span class="rto-stat-value" data-comment="rto-stat-amount-val">$15,000</span>
+                            <span class="rto-stat-label" data-comment="rto-stat-amount-lbl">Maximum Available</span>
+                        </div>
+                        <div class="rto-stat" data-comment="rto-stat-deposit">
+                            <span class="rto-stat-value" data-comment="rto-stat-deposit-val">1st Month</span>
+                            <span class="rto-stat-label" data-comment="rto-stat-deposit-lbl">+ Security Deposit Down</span>
+                        </div>
+                        <div class="rto-stat" data-comment="rto-stat-delivery">
+                            <span class="rto-stat-value" data-comment="rto-stat-delivery-val">150 mi</span>
+                            <span class="rto-stat-label" data-comment="rto-stat-delivery-lbl">from Philadelphia, NY</span>
+                        </div>
+                    </div>
+
+                    <p class="sp-body" data-comment="rto-about-intro">
+                        From sheds to playsets, we offer a variety of rental terms to fit your budget. Rent-to-Own is available for structures up to $15,000, with 24, 36, 48, and 60 month plans.
+                    </p>
+
+                    <ul class="rto-checklist" data-comment="rto-about-checklist">
+                        <li data-comment="rto-check-1"><i class="ri-checkbox-circle-line" data-comment="rto-check-1-icon"></i><span data-comment="rto-check-1-text">Pay out the contract early at any time for a significant savings.</span></li>
+                        <li data-comment="rto-check-2"><i class="ri-checkbox-circle-line" data-comment="rto-check-2-icon"></i><span data-comment="rto-check-2-text">Put only the first month's rent and a security deposit down — building delivered straight to your backyard.</span></li>
+                        <li data-comment="rto-check-3"><i class="ri-checkbox-circle-line" data-comment="rto-check-3-icon"></i><span data-comment="rto-check-3-text">Early purchase option available to close out the contract early at a significant discount.</span></li>
+                        <li data-comment="rto-check-4"><i class="ri-checkbox-circle-line" data-comment="rto-check-4-icon"></i><span data-comment="rto-check-4-text">Financial hardship? Simply pay rent through the day of pickup — no further obligation.</span></li>
+                        <li data-comment="rto-check-5"><i class="ri-checkbox-circle-line" data-comment="rto-check-5-icon"></i><span data-comment="rto-check-5-text">Payments are due exactly 30 days from your structure's delivery date.</span></li>
+                    </ul>
+
+                    <div class="sp-tip" data-comment="rto-about-tip">
+                        Delivery must be within NY State and within 150 miles of Philadelphia, NY. By filling out the application below, you are acknowledging interest in renting from North Country Storage Barns.
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ── APPLICATION FORM ── -->
+            <form class="rto-form" data-comment="rto-form" action="#" method="post" novalidate>
+
+                <!-- STEP 1: Building Details -->
+                <section class="sp-section" data-comment="rto-s1">
+                    <div class="sp-col-label" data-comment="rto-s1-label">
+                        <div class="rto-step-num" data-comment="rto-s1-badge">1</div>
+                        <span class="sp-section-label" data-comment="rto-s1-eyebrow">Building Information</span>
+                        <h2 class="sp-section-heading" data-comment="rto-s1-heading">Building<br>Details</h2>
+                        <p class="rto-step-desc" data-comment="rto-s1-desc">Tell us about the structure you're interested in renting.</p>
+                    </div>
+                    <div class="sp-col-content" data-comment="rto-s1-content">
+                        <div class="rto-field-grid" data-comment="rto-s1-grid">
+
+                            <div class="rto-field" data-comment="rto-field-building-type">
+                                <label class="rto-label" for="building-type" data-comment="rto-lbl-building-type">Building Type</label>
+                                <select class="rto-select" id="building-type" name="building_type" data-comment="rto-sel-building-type">
+                                    <option value="">Select a type</option>
+                                    <option value="shed">Shed</option>
+                                    <option value="playset">Playset</option>
+                                    <option value="gazebo">Gazebo / Pergola</option>
+                                    <option value="hunting-blind">Hunting Blind</option>
+                                    <option value="garage">Garage</option>
+                                    <option value="cabin">Cabin</option>
+                                </select>
+                            </div>
+
+                            <div class="rto-field" data-comment="rto-field-size-style">
+                                <label class="rto-label" for="size-style" data-comment="rto-lbl-size-style">Size &amp; Style</label>
+                                <input class="rto-input" type="text" id="size-style" name="size_style" placeholder="Describe the style" data-comment="rto-inp-size-style" />
+                            </div>
+
+                            <div class="rto-field" data-comment="rto-field-spoken-sales">
+                                <label class="rto-label" data-comment="rto-lbl-spoken-sales">Have you spoken to a sales person?</label>
+                                <div class="rto-radio-group" data-comment="rto-radio-spoken">
+                                    <label class="rto-radio-label" data-comment="rto-radio-spoken-yes">
+                                        <input type="radio" name="spoken_to_sales" value="yes" data-comment="rto-radio-spoken-yes-inp" /> Yes
+                                    </label>
+                                    <label class="rto-radio-label" data-comment="rto-radio-spoken-no">
+                                        <input type="radio" name="spoken_to_sales" value="no" data-comment="rto-radio-spoken-no-inp" /> No
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="rto-field" data-comment="rto-field-sales-who">
+                                <label class="rto-label" for="sales-who" data-comment="rto-lbl-sales-who">If Yes, Who?</label>
+                                <select class="rto-select" id="sales-who" name="sales_person" data-comment="rto-sel-sales-who">
+                                    <option value="none">Default – No Sales Person</option>
+                                    <option value="sp1">Sales Person 1</option>
+                                    <option value="sp2">Sales Person 2</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!-- STEP 2: Personal Details -->
+                <section class="sp-section" data-comment="rto-s2">
+                    <div class="sp-col-label" data-comment="rto-s2-label">
+                        <div class="rto-step-num" data-comment="rto-s2-badge">2</div>
+                        <span class="sp-section-label" data-comment="rto-s2-eyebrow">Primary Applicant</span>
+                        <h2 class="sp-section-heading" data-comment="rto-s2-heading">Personal<br>Details</h2>
+                        <p class="rto-step-desc" data-comment="rto-s2-desc">Your identifying information and, if applicable, your spouse's.</p>
+                    </div>
+                    <div class="sp-col-content" data-comment="rto-s2-content">
+                        <div class="rto-field-grid" data-comment="rto-s2-grid">
+
+                            <div class="rto-field" data-comment="rto-field-first-name">
+                                <label class="rto-label" for="first-name" data-comment="rto-lbl-first-name">First Name</label>
+                                <input class="rto-input" type="text" id="first-name" name="first_name" placeholder="First Name" data-comment="rto-inp-first-name" />
+                            </div>
+
+                            <div class="rto-field" data-comment="rto-field-last-name">
+                                <label class="rto-label" for="last-name" data-comment="rto-lbl-last-name">Last Name</label>
+                                <input class="rto-input" type="text" id="last-name" name="last_name" placeholder="Last Name" data-comment="rto-inp-last-name" />
+                            </div>
+
+                            <div class="rto-field" data-comment="rto-field-spouse-first">
+                                <label class="rto-label" for="spouse-first" data-comment="rto-lbl-spouse-first">Spouse's First Name</label>
+                                <input class="rto-input" type="text" id="spouse-first" name="spouse_first_name" placeholder="Spouse's First Name" data-comment="rto-inp-spouse-first" />
+                            </div>
+
+                            <div class="rto-field" data-comment="rto-field-spouse-last">
+                                <label class="rto-label" for="spouse-last" data-comment="rto-lbl-spouse-last">Spouse's Last Name</label>
+                                <input class="rto-input" type="text" id="spouse-last" name="spouse_last_name" placeholder="Spouse's Last Name" data-comment="rto-inp-spouse-last" />
+                            </div>
+
+                            <div class="rto-field" data-comment="rto-field-dob">
+                                <label class="rto-label" for="dob" data-comment="rto-lbl-dob">Primary Applicant Date of Birth</label>
+                                <input class="rto-input" type="text" id="dob" name="date_of_birth" placeholder="MM / DD / YYYY" data-comment="rto-inp-dob" />
+                            </div>
+
+                            <div class="rto-field" data-comment="rto-field-ssn">
+                                <label class="rto-label" for="ssn" data-comment="rto-lbl-ssn">Primary Applicant Social Security Number</label>
+                                <input class="rto-input" type="text" id="ssn" name="ssn" placeholder="XXX-XX-XXXX" data-comment="rto-inp-ssn" />
+                            </div>
+
+                            <div class="rto-field span-2" data-comment="rto-field-dl">
+                                <label class="rto-label" for="dl" data-comment="rto-lbl-dl">Primary Applicant Driver's License Number</label>
+                                <input class="rto-input" type="text" id="dl" name="drivers_license" placeholder="Driver's License Number" data-comment="rto-inp-dl" />
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!-- STEP 3: Contact & Address -->
+                <section class="sp-section" data-comment="rto-s3">
+                    <div class="sp-col-label" data-comment="rto-s3-label">
+                        <div class="rto-step-num" data-comment="rto-s3-badge">3</div>
+                        <span class="sp-section-label" data-comment="rto-s3-eyebrow">Contact &amp; Address</span>
+                        <h2 class="sp-section-heading" data-comment="rto-s3-heading">Current<br>Address</h2>
+                        <p class="rto-step-desc" data-comment="rto-s3-desc">Your current mailing address and contact details.</p>
+                    </div>
+                    <div class="sp-col-content" data-comment="rto-s3-content">
+                        <div class="rto-field-grid" data-comment="rto-s3-grid">
+
+                            <div class="rto-field span-2" data-comment="rto-field-address">
+                                <label class="rto-label" for="address" data-comment="rto-lbl-address">Address</label>
+                                <input class="rto-input" type="text" id="address" name="address" placeholder="Street Address" data-comment="rto-inp-address" />
+                            </div>
+
+                            <div class="rto-field span-2" data-comment="rto-field-address2">
+                                <label class="rto-label" for="address2" data-comment="rto-lbl-address2">Address 2</label>
+                                <input class="rto-input" type="text" id="address2" name="address2" placeholder="Apt, Suite, Unit, etc." data-comment="rto-inp-address2" />
+                            </div>
+
+                            <div class="rto-field" data-comment="rto-field-city">
+                                <label class="rto-label" for="city" data-comment="rto-lbl-city">City</label>
+                                <input class="rto-input" type="text" id="city" name="city" placeholder="City" data-comment="rto-inp-city" />
+                            </div>
+
+                            <div class="rto-field" data-comment="rto-field-state">
+                                <label class="rto-label" for="state" data-comment="rto-lbl-state">State</label>
+                                <input class="rto-input" type="text" id="state" name="state" placeholder="State" data-comment="rto-inp-state" />
+                            </div>
+
+                            <div class="rto-field" data-comment="rto-field-zip">
+                                <label class="rto-label" for="zip" data-comment="rto-lbl-zip">Zip Code</label>
+                                <input class="rto-input" type="text" id="zip" name="zip" placeholder="Zip Code" data-comment="rto-inp-zip" />
+                            </div>
+
+                            <div class="rto-field" data-comment="rto-field-phone">
+                                <label class="rto-label" for="phone" data-comment="rto-lbl-phone">Phone</label>
+                                <input class="rto-input" type="tel" id="phone" name="phone" placeholder="(000) 000-0000" data-comment="rto-inp-phone" />
+                            </div>
+
+                            <div class="rto-field" data-comment="rto-field-email">
+                                <label class="rto-label" for="email" data-comment="rto-lbl-email">Email</label>
+                                <input class="rto-input" type="email" id="email" name="email" placeholder="email@example.com" data-comment="rto-inp-email" />
+                            </div>
+
+                            <div class="rto-field" data-comment="rto-field-email-invoice">
+                                <label class="rto-label" data-comment="rto-lbl-email-invoice">Can We Email Invoice Instead of Mailing?</label>
+                                <div class="rto-radio-group" data-comment="rto-radio-email-invoice">
+                                    <label class="rto-radio-label" data-comment="rto-radio-einv-yes">
+                                        <input type="radio" name="email_invoice" value="yes" data-comment="rto-radio-einv-yes-inp" /> Yes
+                                    </label>
+                                    <label class="rto-radio-label" data-comment="rto-radio-einv-no">
+                                        <input type="radio" name="email_invoice" value="no" data-comment="rto-radio-einv-no-inp" /> No
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="rto-field span-2" data-comment="rto-field-housing">
+                                <label class="rto-label" for="housing" data-comment="rto-lbl-housing">Housing Situation</label>
+                                <select class="rto-select" id="housing" name="housing_situation" data-comment="rto-sel-housing">
+                                    <option value="">Select your situation</option>
+                                    <option value="rent">I rent</option>
+                                    <option value="own">I own</option>
+                                    <option value="family">I live with family</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="rto-field span-2" data-comment="rto-field-landlord">
+                                <label class="rto-label" for="landlord-info" data-comment="rto-lbl-landlord">Landlord / Mortgage Info</label>
+                                <textarea class="rto-textarea" id="landlord-info" name="landlord_info" placeholder="Contact information for your landlord or mortgage lender" rows="3" data-comment="rto-ta-landlord"></textarea>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!-- STEP 4: Previous Address (optional) -->
+                <section class="sp-section" data-comment="rto-s4">
+                    <div class="sp-col-label" data-comment="rto-s4-label">
+                        <div class="rto-step-num rto-step-num--optional" data-comment="rto-s4-badge">4</div>
+                        <span class="sp-section-label" data-comment="rto-s4-eyebrow">If Applicable</span>
+                        <h2 class="sp-section-heading" data-comment="rto-s4-heading">Previous<br>Address</h2>
+                        <p class="rto-step-desc" data-comment="rto-s4-desc">Only required if you've been at your current address for less than 2 years.</p>
+                    </div>
+                    <div class="sp-col-content" data-comment="rto-s4-content">
+
+                        <div class="sp-tip" data-comment="rto-s4-tip">
+                            If less than 2 years at your current address, enter your previous address below.
+                        </div>
+
+                        <div class="rto-field-grid" data-comment="rto-s4-grid">
+
+                            <div class="rto-field span-2" data-comment="rto-field-prev-addr">
+                                <label class="rto-label" for="prev-address" data-comment="rto-lbl-prev-addr">Previous Address</label>
+                                <input class="rto-input" type="text" id="prev-address" name="prev_address" placeholder="Previous Street Address" data-comment="rto-inp-prev-addr" />
+                            </div>
+
+                            <div class="rto-field span-2" data-comment="rto-field-prev-addr2">
+                                <label class="rto-label" for="prev-address2" data-comment="rto-lbl-prev-addr2">Previous Address 2</label>
+                                <input class="rto-input" type="text" id="prev-address2" name="prev_address2" placeholder="Apt, Suite, Unit, etc." data-comment="rto-inp-prev-addr2" />
+                            </div>
+
+                            <div class="rto-field" data-comment="rto-field-prev-city">
+                                <label class="rto-label" for="prev-city" data-comment="rto-lbl-prev-city">City</label>
+                                <input class="rto-input" type="text" id="prev-city" name="prev_city" placeholder="City" data-comment="rto-inp-prev-city" />
+                            </div>
+
+                            <div class="rto-field" data-comment="rto-field-prev-state">
+                                <label class="rto-label" for="prev-state" data-comment="rto-lbl-prev-state">State</label>
+                                <input class="rto-input" type="text" id="prev-state" name="prev_state" placeholder="State" data-comment="rto-inp-prev-state" />
+                            </div>
+
+                            <div class="rto-field" data-comment="rto-field-prev-zip">
+                                <label class="rto-label" for="prev-zip" data-comment="rto-lbl-prev-zip">Zip</label>
+                                <input class="rto-input" type="text" id="prev-zip" name="prev_zip" placeholder="Zip" data-comment="rto-inp-prev-zip" />
+                            </div>
+
+                            <div class="rto-field" data-comment="rto-field-prev-country">
+                                <label class="rto-label" for="prev-country" data-comment="rto-lbl-prev-country">Country</label>
+                                <input class="rto-input" type="text" id="prev-country" name="prev_country" placeholder="Country" data-comment="rto-inp-prev-country" />
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!-- STEP 5: Employment -->
+                <section class="sp-section" data-comment="rto-s5">
+                    <div class="sp-col-label" data-comment="rto-s5-label">
+                        <div class="rto-step-num" data-comment="rto-s5-badge">5</div>
+                        <span class="sp-section-label" data-comment="rto-s5-eyebrow">Employment</span>
+                        <h2 class="sp-section-heading" data-comment="rto-s5-heading">Employment<br>Info</h2>
+                        <p class="rto-step-desc" data-comment="rto-s5-desc">Your current employer and supervisor contact details.</p>
+                    </div>
+                    <div class="sp-col-content" data-comment="rto-s5-content">
+                        <div class="rto-field-grid" data-comment="rto-s5-grid">
+
+                            <div class="rto-field" data-comment="rto-field-employer">
+                                <label class="rto-label" for="employer" data-comment="rto-lbl-employer">Employer</label>
+                                <input class="rto-input" type="text" id="employer" name="employer" placeholder="Employer" data-comment="rto-inp-employer" />
+                            </div>
+
+                            <div class="rto-field" data-comment="rto-field-job-title">
+                                <label class="rto-label" for="job-title" data-comment="rto-lbl-job-title">Job Title</label>
+                                <input class="rto-input" type="text" id="job-title" name="job_title" placeholder="Job Title" data-comment="rto-inp-job-title" />
+                            </div>
+
+                            <div class="rto-field" data-comment="rto-field-job-duration">
+                                <label class="rto-label" for="job-duration" data-comment="rto-lbl-job-duration">How Long at Current Job</label>
+                                <input class="rto-input" type="text" id="job-duration" name="job_duration" placeholder="e.g. 3 years" data-comment="rto-inp-job-duration" />
+                            </div>
+
+                            <div class="rto-field" data-comment="rto-field-supervisor-name">
+                                <label class="rto-label" for="supervisor-name" data-comment="rto-lbl-supervisor-name">Supervisor Name</label>
+                                <input class="rto-input" type="text" id="supervisor-name" name="supervisor_name" placeholder="Supervisor Name" data-comment="rto-inp-supervisor-name" />
+                            </div>
+
+                            <div class="rto-field" data-comment="rto-field-supervisor-phone">
+                                <label class="rto-label" for="supervisor-phone" data-comment="rto-lbl-supervisor-phone">Supervisor Phone</label>
+                                <input class="rto-input" type="tel" id="supervisor-phone" name="supervisor_phone" placeholder="(000) 000-0000" data-comment="rto-inp-supervisor-phone" />
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!-- STEP 6: Reference & Submit -->
+                <section class="sp-section" data-comment="rto-s6">
+                    <div class="sp-col-label" data-comment="rto-s6-label">
+                        <div class="rto-step-num" data-comment="rto-s6-badge">6</div>
+                        <span class="sp-section-label" data-comment="rto-s6-eyebrow">Reference &amp; Submit</span>
+                        <h2 class="sp-section-heading" data-comment="rto-s6-heading">Reference &amp;<br>Submit</h2>
+                        <p class="rto-step-desc" data-comment="rto-s6-desc">Provide one personal reference, then submit your application.</p>
+                    </div>
+                    <div class="sp-col-content" data-comment="rto-s6-content">
+
+                        <div class="rto-field-grid" data-comment="rto-s6-grid">
+
+                            <div class="rto-field" data-comment="rto-field-ref-name">
+                                <label class="rto-label" for="ref-name" data-comment="rto-lbl-ref-name">Provide One Reference</label>
+                                <input class="rto-input" type="text" id="ref-name" name="reference_name" placeholder="Reference Name" data-comment="rto-inp-ref-name" />
+                            </div>
+
+                            <div class="rto-field" data-comment="rto-field-ref-rel">
+                                <label class="rto-label" for="ref-rel" data-comment="rto-lbl-ref-rel">Relationship</label>
+                                <input class="rto-input" type="text" id="ref-rel" name="reference_relationship" placeholder="Reference relationship" data-comment="rto-inp-ref-rel" />
+                            </div>
+
+                            <div class="rto-field" data-comment="rto-field-ref-phone">
+                                <label class="rto-label" for="ref-phone" data-comment="rto-lbl-ref-phone">Reference Phone Number</label>
+                                <input class="rto-input" type="tel" id="ref-phone" name="reference_phone" placeholder="(000) 000-0000" data-comment="rto-inp-ref-phone" />
+                            </div>
+
+                        </div>
+
+                        <!-- Acceptance -->
+                        <div class="rto-acceptance" data-comment="rto-acceptance">
+                            <p class="rto-acceptance-label" data-comment="rto-acceptance-lbl">Acceptance</p>
+                            <label class="rto-checkbox-row" data-comment="rto-checkbox-row">
+                                <input type="checkbox" name="acceptance" data-comment="rto-checkbox-inp" />
+                                <span data-comment="rto-checkbox-text">I authorize complete verification of all information I have provided.</span>
+                            </label>
+                        </div>
+
+                        <!-- reCAPTCHA placeholder -->
+                        <div class="rto-captcha-wrap" data-comment="rto-captcha-wrap">
+                            <div class="rto-captcha-box" data-comment="rto-captcha-box">
+                                <label class="rto-captcha-check" data-comment="rto-captcha-check">
+                                    <input type="checkbox" data-comment="rto-captcha-inp" />
+                                    <span data-comment="rto-captcha-text">I'm not a robot</span>
+                                </label>
+                                <div class="rto-captcha-brand" data-comment="rto-captcha-brand">
+                                    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" data-comment="rto-captcha-svg">
+                                        <circle cx="32" cy="32" r="28" fill="none" stroke="#4A90D9" stroke-width="4"/>
+                                        <path d="M20 32 Q32 16 44 32 Q32 48 20 32Z" fill="#4A90D9" opacity="0.7"/>
+                                    </svg>
+                                    <span class="rto-captcha-rc" data-comment="rto-captcha-rc">reCAPTCHA</span>
+                                    <span class="rto-captcha-rc-sub" data-comment="rto-captcha-rc-sub">Privacy · Terms</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit buttons -->
+                        <div class="rto-actions" data-comment="rto-actions">
+                            <button type="submit" class="rto-btn-primary" data-comment="rto-btn-submit">Submit Application</button>
+                            <button type="button" class="rto-btn-primary" data-comment="rto-btn-print">Printable Application</button>
+                        </div>
+
+                    </div>
+                </section>
+
+            </form>
+
+        </main>
+
+        <footer class="footer-root" data-comment="rto-footer-root">
+            <div class="footer-inner" data-comment="rto-footer-inner">
+                <div class="footer-top" data-comment="rto-footer-top">
+                    <div data-comment="rto-footer-brand">
+                        <a href="index.html" class="footer-brand-logo" data-comment="rto-footer-brand-logo">
+                            <img src="assets/Logo.png" alt="NCS Barns" data-comment="rto-footer-brand-img" />
+                            <span class="footer-brand-name" data-comment="rto-footer-brand-name">NCS Barns</span>
+                        </a>
+                        <p class="footer-brand-desc" data-comment="rto-footer-brand-desc">Handcrafted quality structures for the North Country — family owned &amp; operated since 1993.</p>
+                    </div>
+                    <div data-comment="rto-footer-col-products">
+                        <p class="footer-col-label" data-comment="rto-footer-products-label">Products</p>
+                        <ul class="footer-links" data-comment="rto-footer-products-links">
+                            <li data-comment="rto-fli-sheds"><a href="catalog.html?category=Sheds" data-comment="rto-fl-sheds">Sheds</a></li>
+                            <li data-comment="rto-fli-gazebos"><a href="catalog.html?category=Gazebos" data-comment="rto-fl-gazebos">Gazebos &amp; Pergolas</a></li>
+                            <li data-comment="rto-fli-hunting"><a href="catalog.html?category=Hunting+Blinds" data-comment="rto-fl-hunting">Hunting Blinds</a></li>
+                            <li data-comment="rto-fli-play"><a href="catalog.html?category=Play+Structures" data-comment="rto-fl-play">Play Structures</a></li>
+                            <li data-comment="rto-fli-furniture"><a href="catalog.html?category=Outdoor+Furniture" data-comment="rto-fl-furniture">Furniture</a></li>
+                            <li data-comment="rto-fli-homes"><a href="catalog.html?category=Custom+Homes" data-comment="rto-fl-homes">Homes &amp; Garages</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="rto-footer-col-company">
+                        <p class="footer-col-label" data-comment="rto-footer-company-label">Company</p>
+                        <ul class="footer-links" data-comment="rto-footer-company-links">
+                            <li data-comment="rto-fli-about"><a href="about.html" data-comment="rto-fl-about">About Us</a></li>
+                            <li data-comment="rto-fli-testimonials"><a href="testimonials.html" data-comment="rto-fl-testimonials">Testimonials</a></li>
+                            <li data-comment="rto-fli-gallery"><a href="gallery.html" data-comment="rto-fl-gallery">Gallery</a></li>
+                            <li data-comment="rto-fli-delivery"><a href="delivery.html" data-comment="rto-fl-delivery">Delivery &amp; Relocation</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="rto-footer-col-buying">
+                        <p class="footer-col-label" data-comment="rto-footer-buying-label">Buying Process</p>
+                        <ul class="footer-links" data-comment="rto-footer-buying-links">
+                            <li data-comment="rto-fli-rto"><a href="rent-to-own.html" data-comment="rto-fl-rto">Rent-To-Own</a></li>
+                            <li data-comment="rto-fli-financing"><a href="#" data-comment="rto-fl-financing">Financing Options</a></li>
+                            <li data-comment="rto-fli-siteprep"><a href="site-preparation.html" data-comment="rto-fl-siteprep">Site Preparation</a></li>
+                            <li data-comment="rto-fli-warranty"><a href="warranty.html" data-comment="rto-fl-warranty">Warranty</a></li>
+                            <li data-comment="rto-fli-dealers"><a href="dealers.html" data-comment="rto-fl-dealers">Dealers</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="rto-footer-col-contact">
+                        <p class="footer-col-label" data-comment="rto-footer-contact-label">Contact</p>
+                        <div class="footer-contact-item" data-comment="rto-footer-phone">
+                            <svg viewBox="0 0 24 24" data-comment="rto-footer-phone-icon"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l1.64-1.64a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <a href="tel:3156420209" data-comment="rto-footer-phone-link">(315) 642-0209</a>
+                        </div>
+                        <div class="footer-contact-item" data-comment="rto-footer-email">
+                            <svg viewBox="0 0 24 24" data-comment="rto-footer-email-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            <a href="mailto:sales@ncsbarns.com" data-comment="rto-footer-email-link">sales@ncsbarns.com</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-locations" data-comment="rto-footer-locations">
+                    <div data-comment="rto-footer-loc-phila">
+                        <p class="footer-loc-name" data-comment="rto-footer-loc-phila-name">Philadelphia</p>
+                        <p class="footer-loc-addr" data-comment="rto-footer-loc-phila-addr">32660 US Route 11<br>Philadelphia, NY 13673</p>
+                        <p class="footer-loc-phone" data-comment="rto-footer-loc-phila-phone">(315) 642-0209</p>
+                    </div>
+                    <div data-comment="rto-footer-loc-york">
+                        <p class="footer-loc-name" data-comment="rto-footer-loc-york-name">Yorkville</p>
+                        <p class="footer-loc-addr" data-comment="rto-footer-loc-york-addr">317 Oriskany Blvd<br>Yorkville, NY</p>
+                        <p class="footer-loc-phone" data-comment="rto-footer-loc-york-phone">(315) 793-0726</p>
+                    </div>
+                    <div data-comment="rto-footer-loc-sandy">
+                        <p class="footer-loc-name" data-comment="rto-footer-loc-sandy-name">Sandy Creek</p>
+                        <p class="footer-loc-addr" data-comment="rto-footer-loc-sandy-addr">5780 US Route 11<br>Pulaski, NY 13142</p>
+                        <p class="footer-loc-phone" data-comment="rto-footer-loc-sandy-phone">(315) 387-2092</p>
+                    </div>
+                </div>
+                <div class="footer-bottom" data-comment="rto-footer-bottom">
+                    <div class="footer-copy-row" data-comment="rto-footer-copy-row">
+                        <p class="footer-copy" data-comment="rto-footer-copy">Copyright &copy; 2024 North Country Storage Barns LLC. All rights reserved.</p>
+                        <a href="privacy.html" class="footer-legal-link" data-comment="rto-footer-privacy">Privacy Policy</a>
+                        <a href="terms.html" class="footer-legal-link" data-comment="rto-footer-terms">Terms &amp; Conditions</a>
+                    </div>
+                    <div class="footer-socials" data-comment="rto-footer-socials">
+                        <a href="https://www.tiktok.com/@northcountrystoragebarns" target="_blank" class="footer-social-btn" data-comment="rto-footer-tiktok" aria-label="TikTok"><i class="ri-tiktok-fill" data-comment="rto-footer-tiktok-icon"></i></a>
+                        <a href="https://www.facebook.com/ifyouneedmeillbeinmyshed/" target="_blank" class="footer-social-btn" data-comment="rto-footer-facebook" aria-label="Facebook"><i class="ri-facebook-fill" data-comment="rto-footer-facebook-icon"></i></a>
+                        <a href="https://www.instagram.com/northcountrystoragebarns/" target="_blank" class="footer-social-btn" data-comment="rto-footer-instagram" aria-label="Instagram"><i class="ri-instagram-fill" data-comment="rto-footer-instagram-icon"></i></a>
+                        <a href="#" class="footer-social-btn" data-comment="rto-footer-google" aria-label="Google"><i class="ri-google-fill" data-comment="rto-footer-google-icon"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </body>
+</html>

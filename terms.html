@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Terms &amp; Conditions — NCS Barns</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+            rel="stylesheet" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+            rel="stylesheet" />
+        <script src="nav.js" defer></script>
+
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            :root {
+                --color-burgundy:       #8B1A2A;
+                --color-burgundy-dark:  #6D1420;
+                --color-dark:           #1C1F24;
+                --color-gray:           #514C4A;
+                --color-gray-light:     #9A9390;
+                --color-border:         #E6E2DD;
+                --color-bg:             #F8F6F4;
+                --color-bg-hover:       #F4F1EE;
+                --color-bg-menu:        #FAFAF8;
+
+                --font-ui: 'Inter', sans-serif;
+
+                --nav-height: 72px;
+                --max-width:  1440px;
+                --page-px:    40px;
+
+                --t-fast: 0.15s ease;
+                --t-med:  0.22s ease;
+            }
+
+            body {
+                font-family: var(--font-ui);
+                background: var(--color-bg);
+                color: var(--color-dark);
+            }
+
+            .sp-page {
+                max-width: var(--max-width);
+                margin: 0 auto;
+                padding: 0 var(--page-px);
+                padding-top: 48px;
+                padding-bottom: 96px;
+            }
+
+            .sp-page-title {
+                font-size: clamp(28px, 3vw, 38px);
+                font-weight: 600;
+                letter-spacing: -0.02em;
+                color: var(--color-dark);
+                line-height: 1.15;
+                margin-bottom: 28px;
+            }
+
+            .sp-section {
+                display: grid;
+                grid-template-columns: 320px 1fr;
+                gap: 64px;
+                padding: 56px 0;
+                border-top: 1px solid var(--color-border);
+            }
+
+            .sp-section:last-of-type {
+                border-bottom: 1px solid var(--color-border);
+            }
+
+            .sp-col-label {
+                padding-top: 4px;
+            }
+
+            .sp-section-heading {
+                font-size: clamp(22px, 2.4vw, 30px);
+                font-weight: 700;
+                letter-spacing: -0.025em;
+                color: var(--color-dark);
+                line-height: 1.2;
+            }
+
+            .sp-section-label {
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                color: var(--color-gray-light);
+            }
+
+            .sp-col-content {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .sp-body {
+                font-size: 15px;
+                line-height: 1.7;
+                color: var(--color-gray);
+            }
+
+            .sp-body a {
+                color: var(--color-burgundy);
+                font-weight: 600;
+                text-decoration: none;
+            }
+
+            .sp-body a:hover {
+                text-decoration: underline;
+            }
+
+            .sp-bullet-list {
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .sp-bullet-list li {
+                display: grid;
+                grid-template-columns: 20px 1fr;
+                gap: 8px;
+                font-size: 15px;
+                line-height: 1.7;
+                color: var(--color-gray);
+            }
+
+            .sp-bullet-list li::before {
+                content: '—';
+                font-size: 13px;
+                font-weight: 700;
+                color: var(--color-burgundy);
+                padding-top: 3px;
+            }
+
+            /* ─── FOOTER ─── */
+            .footer-root { background: #000; color: #fff; padding: 72px var(--page-px) 40px; }
+            .footer-inner { max-width: var(--max-width); margin: 0 auto; }
+            .footer-top { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr 1.4fr; gap: 48px; padding-bottom: 52px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 52px; }
+            .footer-brand-logo { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; text-decoration: none; margin-bottom: 16px; }
+            .footer-brand-logo img { width: 50%; height: auto; filter: brightness(0) invert(1) opacity(0.5); }
+            .footer-brand-name { font-size: 16px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+            .footer-brand-desc { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.65; max-width: 220px; }
+            .footer-col-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 18px; }
+            .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+            .footer-links a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-links a:hover { color: #fff; }
+            .footer-contact-item { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+            .footer-contact-item svg { width: 15px; height: 15px; stroke: rgba(255,255,255,0.35); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+            .footer-contact-item a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-contact-item a:hover { color: #fff; }
+            .footer-locations { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 32px; }
+            .footer-loc-name { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+            .footer-loc-addr { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.55; margin-bottom: 8px; }
+            .footer-loc-phone { font-size: 13px; color: rgba(255,255,255,0.45); }
+            .footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+            .footer-copy-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+            .footer-copy { font-size: 13px; color: rgba(255,255,255,0.3); }
+            .footer-legal-link { font-size: 13px; color: rgba(255,255,255,0.3); text-decoration: none; transition: color var(--t-fast); }
+            .footer-legal-link:hover { color: #fff; }
+            .footer-socials { display: flex; gap: 10px; }
+            .footer-social-btn { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid rgba(255,255,255,0.15); text-decoration: none; transition: border-color var(--t-fast), background var(--t-fast); }
+            .footer-social-btn:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.08); }
+            .footer-social-btn i { font-size: 17px; color: rgba(255,255,255,0.6); }
+
+            @media (max-width: 900px) {
+                .sp-section {
+                    grid-template-columns: 1fr;
+                    gap: 28px;
+                }
+                .sp-section-heading {
+                    font-size: clamp(20px, 5vw, 26px);
+                }
+            }
+
+            @media (max-width: 768px) {
+                .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+                .footer-top > div:first-child { grid-column: 1/-1; }
+                .footer-locations { grid-template-columns: 1fr; gap: 20px; }
+                .footer-bottom { flex-direction: column; align-items: flex-start; gap: 16px; }
+            }
+
+            @media (max-width: 640px) {
+                :root { --page-px: 20px; }
+                .sp-page { padding-top: calc(var(--nav-height) + 32px); padding-bottom: 64px; }
+                .sp-section { padding: 36px 0; gap: 20px; }
+            }
+        </style>
+    </head>
+    <body>
+
+        <ncs-nav data-comment="tc-nav"></ncs-nav>
+
+        <main class="sp-page" data-comment="tc-page">
+
+            <h1 class="sp-page-title" data-comment="tc-page-title">Terms &amp; Conditions</h1>
+
+            <!-- ── SECTION 1: Introduction ── -->
+            <section class="sp-section" data-comment="tc-section-intro">
+
+                <div class="sp-col-label" data-comment="tc-intro-label">
+                    <h2 class="sp-section-heading" data-comment="tc-intro-heading">Introduction</h2>
+                </div>
+
+                <div class="sp-col-content" data-comment="tc-intro-content">
+                    <p class="sp-body" data-comment="tc-intro-p1">These Website Standard Terms and Conditions written on this webpage shall manage your use of our website, North Country Storage Barns accessible at <a href="https://ncsbarns.com/">https://ncsbarns.com/</a>.</p>
+                    <p class="sp-body" data-comment="tc-intro-p2">These Terms will be applied fully and affect to your use of this Website. By using this Website, you agreed to accept all terms and conditions written in here. You must not use this Website if you disagree with any of these Website Standard Terms and Conditions.</p>
+                    <p class="sp-body" data-comment="tc-intro-p3">Minors or people below 18 years old are not allowed to use this Website.</p>
+                </div>
+
+            </section>
+
+            <!-- ── SECTION 2: Intellectual Property ── -->
+            <section class="sp-section" data-comment="tc-section-ip">
+
+                <div class="sp-col-label" data-comment="tc-ip-label">
+                    <h2 class="sp-section-heading" data-comment="tc-ip-heading">Intellectual Property Rights</h2>
+                </div>
+
+                <div class="sp-col-content" data-comment="tc-ip-content">
+                    <p class="sp-body" data-comment="tc-ip-p1">Other than the content you own, under these Terms, North Country Storage Barns and/or its licensors own all the intellectual property rights and materials contained in this Website.</p>
+                    <p class="sp-body" data-comment="tc-ip-p2">You are granted limited license only for purposes of viewing the material contained on this Website.</p>
+                </div>
+
+            </section>
+
+            <!-- ── SECTION 3: Restrictions ── -->
+            <section class="sp-section" data-comment="tc-section-restrictions">
+
+                <div class="sp-col-label" data-comment="tc-restrictions-label">
+                    <h2 class="sp-section-heading" data-comment="tc-restrictions-heading">Restrictions</h2>
+                </div>
+
+                <div class="sp-col-content" data-comment="tc-restrictions-content">
+                    <p class="sp-body" data-comment="tc-restrictions-intro">You are specifically restricted from all of the following:</p>
+
+                    <ul class="sp-bullet-list" data-comment="tc-restrictions-list">
+                        <li data-comment="tc-restr-1">publishing any Website material in any other media;</li>
+                        <li data-comment="tc-restr-2">selling, sublicensing and/or otherwise commercializing any Website material;</li>
+                        <li data-comment="tc-restr-3">publicly performing and/or showing any Website material;</li>
+                        <li data-comment="tc-restr-4">using this Website in any way that is or may be damaging to this Website;</li>
+                        <li data-comment="tc-restr-5">using this Website in any way that impacts user access to this Website;</li>
+                        <li data-comment="tc-restr-6">using this Website contrary to applicable laws and regulations, or in any way may cause harm to the Website, or to any person or business entity;</li>
+                        <li data-comment="tc-restr-7">engaging in any data mining, data harvesting, data extracting or any other similar activity in relation to this Website;</li>
+                        <li data-comment="tc-restr-8">using this Website to engage in any advertising or marketing.</li>
+                    </ul>
+
+                    <p class="sp-body" data-comment="tc-restrictions-outro">Certain areas of this Website are restricted from being access by you and North Country Storage Barns may further restrict access by you to any areas of this Website, at any time, in absolute discretion. Any user ID and password you may have for this Website are confidential and you must maintain confidentiality as well.</p>
+                </div>
+
+            </section>
+
+            <!-- ── SECTION 4: Your Content ── -->
+            <section class="sp-section" data-comment="tc-section-content">
+
+                <div class="sp-col-label" data-comment="tc-content-label">
+                    <h2 class="sp-section-heading" data-comment="tc-content-heading">Your Content</h2>
+                </div>
+
+                <div class="sp-col-content" data-comment="tc-content-content">
+                    <p class="sp-body" data-comment="tc-content-p1">In these Website Standard Terms and Conditions, "Your Content" shall mean any audio, video text, images or other material you choose to display on this Website. By displaying Your Content, you grant North Country Storage Barns a non-exclusive, worldwide irrevocable, sub licensable license to use, reproduce, adapt, publish, translate and distribute it in any and all media.</p>
+                    <p class="sp-body" data-comment="tc-content-p2">Your Content must be your own and must not be invading any third-party's rights. North Country Storage Barns reserves the right to remove any of Your Content from this Website at any time without notice.</p>
+                </div>
+
+            </section>
+
+            <!-- ── SECTION 5: No Warranties ── -->
+            <section class="sp-section" data-comment="tc-section-nowarranties">
+
+                <div class="sp-col-label" data-comment="tc-nowarranties-label">
+                    <h2 class="sp-section-heading" data-comment="tc-nowarranties-heading">No Warranties</h2>
+                </div>
+
+                <div class="sp-col-content" data-comment="tc-nowarranties-content">
+                    <p class="sp-body" data-comment="tc-nowarranties-p1">This Website is provided "as is," with all faults, and North Country Storage Barns express no representations or warranties, of any kind related to this Website or the materials contained on this Website. Also, nothing contained on this Website shall be interpreted as advising you.</p>
+                </div>
+
+            </section>
+
+            <!-- ── SECTION 6: Limitation of Liability ── -->
+            <section class="sp-section" data-comment="tc-section-liability">
+
+                <div class="sp-col-label" data-comment="tc-liability-label">
+                    <h2 class="sp-section-heading" data-comment="tc-liability-heading">Limitation of Liability</h2>
+                </div>
+
+                <div class="sp-col-content" data-comment="tc-liability-content">
+                    <p class="sp-body" data-comment="tc-liability-p1">In no event shall North Country Storage Barns, nor any of its officers, directors and employees, shall be held liable for anything arising out of or in any way connected with your use of this Website whether such liability is under contract. North Country Storage Barns, including its officers, directors and employees shall not be held liable for any indirect, consequential or special liability arising out of or in any way related to your use of this Website.</p>
+                </div>
+
+            </section>
+
+            <!-- ── SECTION 7: Indemnification ── -->
+            <section class="sp-section" data-comment="tc-section-indemnification">
+
+                <div class="sp-col-label" data-comment="tc-indem-label">
+                    <h2 class="sp-section-heading" data-comment="tc-indem-heading">Indemnification</h2>
+                </div>
+
+                <div class="sp-col-content" data-comment="tc-indem-content">
+                    <p class="sp-body" data-comment="tc-indem-p1">You hereby indemnify to the fullest extent North Country Storage Barns from and against any and/or all liabilities, costs, demands, causes of action, damages and expenses arising in any way related to your breach of any of the provisions of these Terms.</p>
+                </div>
+
+            </section>
+
+            <!-- ── SECTION 8: Additional Terms ── -->
+            <section class="sp-section" data-comment="tc-section-additional">
+
+                <div class="sp-col-label" data-comment="tc-additional-label">
+                    <h2 class="sp-section-heading" data-comment="tc-additional-label-text">Additional Terms</h2>
+                </div>
+
+                <div class="sp-col-content" data-comment="tc-additional-content">
+                    <p class="sp-body" data-comment="tc-additional-severability"><strong>Severability.</strong> If any provision of these Terms is found to be invalid under any applicable law, such provisions shall be deleted without affecting the remaining provisions herein.</p>
+                    <p class="sp-body" data-comment="tc-additional-variation"><strong>Variation of Terms.</strong> North Country Storage Barns is permitted to revise these Terms at any time as it sees fit, and by using this Website you are expected to review these Terms on a regular basis.</p>
+                    <p class="sp-body" data-comment="tc-additional-assignment"><strong>Assignment.</strong> North Country Storage Barns is allowed to assign, transfer, and subcontract its rights and/or obligations under these Terms without any notification. However, you are not allowed to assign, transfer, or subcontract any of your rights and/or obligations under these Terms.</p>
+                    <p class="sp-body" data-comment="tc-additional-entire"><strong>Entire Agreement.</strong> These Terms constitute the entire agreement between North Country Storage Barns and you in relation to your use of this Website, and supersede all prior agreements and understandings.</p>
+                    <p class="sp-body" data-comment="tc-additional-governing"><strong>Governing Law &amp; Jurisdiction.</strong> These Terms will be governed by and interpreted in accordance with the laws of the State of New York, and you submit to the non-exclusive jurisdiction of the state and federal courts located in New York for the resolution of any disputes.</p>
+                </div>
+
+            </section>
+
+        </main>
+
+        <footer class="footer-root" data-comment="tc-footer-root">
+            <div class="footer-inner" data-comment="tc-footer-inner">
+                <div class="footer-top" data-comment="tc-footer-top">
+                    <div data-comment="tc-footer-brand">
+                        <a href="index.html" class="footer-brand-logo" data-comment="tc-footer-brand-logo">
+                            <img src="assets/Logo.png" alt="NCS Barns" data-comment="tc-footer-brand-img" />
+                            <span class="footer-brand-name" data-comment="tc-footer-brand-name">NCS Barns</span>
+                        </a>
+                        <p class="footer-brand-desc" data-comment="tc-footer-brand-desc">Handcrafted quality structures for the North Country — family owned &amp; operated since 1993.</p>
+                    </div>
+                    <div data-comment="tc-footer-col-products">
+                        <p class="footer-col-label" data-comment="tc-footer-products-label">Products</p>
+                        <ul class="footer-links" data-comment="tc-footer-products-links">
+                            <li data-comment="tc-fli-sheds"><a href="catalog.html?category=Sheds" data-comment="tc-fl-sheds">Sheds</a></li>
+                            <li data-comment="tc-fli-gazebos"><a href="catalog.html?category=Gazebos" data-comment="tc-fl-gazebos">Gazebos &amp; Pergolas</a></li>
+                            <li data-comment="tc-fli-hunting"><a href="catalog.html?category=Hunting+Blinds" data-comment="tc-fl-hunting">Hunting Blinds</a></li>
+                            <li data-comment="tc-fli-play"><a href="catalog.html?category=Play+Structures" data-comment="tc-fl-play">Play Structures</a></li>
+                            <li data-comment="tc-fli-furniture"><a href="catalog.html?category=Outdoor+Furniture" data-comment="tc-fl-furniture">Furniture</a></li>
+                            <li data-comment="tc-fli-homes"><a href="catalog.html?category=Custom+Homes" data-comment="tc-fl-homes">Homes &amp; Garages</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="tc-footer-col-company">
+                        <p class="footer-col-label" data-comment="tc-footer-company-label">Company</p>
+                        <ul class="footer-links" data-comment="tc-footer-company-links">
+                            <li data-comment="tc-fli-about"><a href="#" data-comment="tc-fl-about">About Us</a></li>
+                            <li data-comment="tc-fli-testimonials"><a href="#" data-comment="tc-fl-testimonials">Testimonials</a></li>
+                            <li data-comment="tc-fli-gallery"><a href="gallery.html" data-comment="tc-fl-gallery">Gallery</a></li>
+                            <li data-comment="tc-fli-delivery"><a href="delivery.html" data-comment="tc-fl-delivery">Delivery &amp; Relocation</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="tc-footer-col-buying">
+                        <p class="footer-col-label" data-comment="tc-footer-buying-label">Buying Process</p>
+                        <ul class="footer-links" data-comment="tc-footer-buying-links">
+                            <li data-comment="tc-fli-rto"><a href="#" data-comment="tc-fl-rto">Rent-To-Own</a></li>
+                            <li data-comment="tc-fli-financing"><a href="#" data-comment="tc-fl-financing">Financing Options</a></li>
+                            <li data-comment="tc-fli-siteprep"><a href="site-preparation.html" data-comment="tc-fl-siteprep">Site Preparation</a></li>
+                            <li data-comment="tc-fli-warranty"><a href="warranty.html" data-comment="tc-fl-warranty">Warranty</a></li>
+                            <li data-comment="tc-fli-dealers"><a href="#" data-comment="tc-fl-dealers">Dealers</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="tc-footer-col-contact">
+                        <p class="footer-col-label" data-comment="tc-footer-contact-label">Contact</p>
+                        <div class="footer-contact-item" data-comment="tc-footer-phone">
+                            <svg viewBox="0 0 24 24" data-comment="tc-footer-phone-icon"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l1.64-1.64a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <a href="tel:3156420209" data-comment="tc-footer-phone-link">(315) 642-0209</a>
+                        </div>
+                        <div class="footer-contact-item" data-comment="tc-footer-email">
+                            <svg viewBox="0 0 24 24" data-comment="tc-footer-email-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            <a href="mailto:sales@ncsbarns.com" data-comment="tc-footer-email-link">sales@ncsbarns.com</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-locations" data-comment="tc-footer-locations">
+                    <div data-comment="tc-footer-loc-phila">
+                        <p class="footer-loc-name" data-comment="tc-footer-loc-phila-name">Philadelphia</p>
+                        <p class="footer-loc-addr" data-comment="tc-footer-loc-phila-addr">32660 US Route 11<br>Philadelphia, NY 13673</p>
+                        <p class="footer-loc-phone" data-comment="tc-footer-loc-phila-phone">(315) 642-0209</p>
+                    </div>
+                    <div data-comment="tc-footer-loc-york">
+                        <p class="footer-loc-name" data-comment="tc-footer-loc-york-name">Yorkville</p>
+                        <p class="footer-loc-addr" data-comment="tc-footer-loc-york-addr">317 Oriskany Blvd<br>Yorkville, NY</p>
+                        <p class="footer-loc-phone" data-comment="tc-footer-loc-york-phone">(315) 793-0726</p>
+                    </div>
+                    <div data-comment="tc-footer-loc-sandy">
+                        <p class="footer-loc-name" data-comment="tc-footer-loc-sandy-name">Sandy Creek</p>
+                        <p class="footer-loc-addr" data-comment="tc-footer-loc-sandy-addr">5780 US Route 11<br>Pulaski, NY 13142</p>
+                        <p class="footer-loc-phone" data-comment="tc-footer-loc-sandy-phone">(315) 387-2092</p>
+                    </div>
+                </div>
+                <div class="footer-bottom" data-comment="tc-footer-bottom">
+                    <div class="footer-copy-row" data-comment="tc-footer-copy-row">
+                        <p class="footer-copy" data-comment="tc-footer-copy">Copyright&copy; 2024 North Country Storage Barns LLC. All rights reserved.</p>
+                        <a href="privacy.html" class="footer-legal-link" data-comment="tc-footer-privacy">Privacy Policy</a>
+                        <a href="terms.html" class="footer-legal-link" data-comment="tc-footer-terms">Terms &amp; Conditions</a>
+                    </div>
+                    <div class="footer-socials" data-comment="tc-footer-socials">
+                        <a href="https://www.tiktok.com/@northcountrystoragebarns" target="_blank" class="footer-social-btn" data-comment="tc-footer-tiktok" aria-label="TikTok"><i class="ri-tiktok-fill" data-comment="tc-footer-tiktok-icon"></i></a>
+                        <a href="https://www.facebook.com/ifyouneedmeillbeinmyshed/" target="_blank" class="footer-social-btn" data-comment="tc-footer-facebook" aria-label="Facebook"><i class="ri-facebook-fill" data-comment="tc-footer-facebook-icon"></i></a>
+                        <a href="https://www.instagram.com/northcountrystoragebarns/" target="_blank" class="footer-social-btn" data-comment="tc-footer-instagram" aria-label="Instagram"><i class="ri-instagram-fill" data-comment="tc-footer-instagram-icon"></i></a>
+                        <a href="#" class="footer-social-btn" data-comment="tc-footer-google" aria-label="Google"><i class="ri-google-fill" data-comment="tc-footer-google-icon"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </body>
+</html>

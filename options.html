@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>NCS Barns — Options</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+            rel="stylesheet" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+            rel="stylesheet" />
+        <script src="nav.js" defer></script>
+
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            :root {
+                --color-burgundy:      #8B1A2A;
+                --color-burgundy-dark: #6D1420;
+                --color-dark:          #1C1F24;
+                --color-gray:          #52575F;
+                --color-gray-light:    #9EA4AD;
+                --color-border:        #E6E2DD;
+                --color-bg:            #F8F6F4;
+                --color-bg-hover:      #F4F1EE;
+                --color-bg-menu:       #FAFAF8;
+
+                --font-ui: 'Inter', sans-serif;
+
+                --nav-height: 72px;
+                --max-width:  1440px;
+                --page-px:    40px;
+
+                --t-fast: 0.15s ease;
+                --t-med:  0.22s ease;
+            }
+
+            body {
+                font-family: var(--font-ui);
+                background: var(--color-bg);
+                color: var(--color-dark);
+            }
+
+            .page-inner {
+                max-width: var(--max-width);
+                margin: 0 auto;
+                padding: 0 var(--page-px);
+            }
+
+            /* ─────────────────────────────────────────
+               BREADCRUMB
+            ───────────────────────────────────────── */
+            .op-breadcrumb-bar {
+                background: #fff;
+                border-bottom: 1px solid var(--color-border);
+                padding: 14px 0;
+            }
+            .op-breadcrumb {
+                display: flex; align-items: center; gap: 6px;
+                font-size: 13px; color: var(--color-gray-light);
+            }
+            .op-breadcrumb a {
+                color: var(--color-gray-light); text-decoration: none;
+                transition: color var(--t-fast);
+            }
+            .op-breadcrumb a:hover { color: var(--color-burgundy); }
+            .op-breadcrumb-sep { font-size: 11px; opacity: 0.6; }
+            .op-breadcrumb-current { color: var(--color-dark); font-weight: 500; }
+
+            /* ─────────────────────────────────────────
+               PAGE HEADER
+            ───────────────────────────────────────── */
+            .op-header {
+                background: #fff;
+                padding: 44px 0 32px;
+            }
+            .op-header-title {
+                font-size: clamp(28px, 3vw, 40px);
+                font-weight: 600;
+                color: var(--color-dark);
+                letter-spacing: -0.5px;
+                margin-bottom: 10px;
+            }
+            .op-header-note {
+                font-size: 14px;
+                font-style: italic;
+                color: var(--color-gray);
+            }
+
+            /* ─────────────────────────────────────────
+               CONTENT
+            ───────────────────────────────────────── */
+            .op-content {
+                background: #fff;
+                padding: 32px 0 80px;
+            }
+
+            /* ─────────────────────────────────────────
+               OPTION GROUP
+            ───────────────────────────────────────── */
+            .op-group {
+                margin-bottom: 64px;
+            }
+            .op-group:last-child { margin-bottom: 0; }
+
+            .op-group-title {
+                font-size: clamp(18px, 1.6vw, 22px);
+                font-weight: 600;
+                color: var(--color-dark);
+                letter-spacing: -0.3px;
+                margin-bottom: 28px;
+            }
+
+            /* groups that have subtitle/info use this wrapper */
+            .op-group-head {
+                margin-bottom: 24px;
+            }
+            .op-group-head .op-group-title {
+                margin-bottom: 6px;
+            }
+
+            .op-group-subtitle {
+                font-size: 13px;
+                font-weight: 500;
+                color: var(--color-gray);
+                margin-bottom: 6px;
+            }
+
+            .op-group-info {
+                font-size: 13px;
+                color: var(--color-gray);
+                line-height: 1.65;
+                max-width: 680px;
+            }
+
+            .op-group-info em   { font-style: italic; }
+            .op-group-info b    { font-weight: 600; color: var(--color-dark); }
+
+            /* ─────────────────────────────────────────
+               SUB-GROUP (inside a group)
+            ───────────────────────────────────────── */
+            .op-subgroup {
+                margin-bottom: 48px;
+                padding-top: 40px;
+                border-top: 1px solid var(--color-border);
+            }
+            .op-subgroup:first-child {
+                border-top: none;
+                padding-top: 0;
+            }
+
+            .op-subgroup-title {
+                font-size: clamp(15px, 1.3vw, 18px);
+                font-weight: 600;
+                color: var(--color-dark);
+                letter-spacing: -0.2px;
+                margin-bottom: 28px;
+            }
+            .op-subgroup-head .op-subgroup-title {
+                margin-bottom: 6px;
+            }
+            .op-subgroup-head {
+                margin-bottom: 24px;
+            }
+
+            .op-grid {
+                display: grid;
+                grid-template-columns: repeat(6, 1fr);
+                gap: 20px;
+            }
+
+            /* ─────────────────────────────────────────
+               OPTION CARD
+            ───────────────────────────────────────── */
+            .op-card {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .op-frame {
+                aspect-ratio: 4 / 2;
+                border-radius: 8px;
+                border: 1px solid var(--color-border);
+                background: var(--color-bg-hover);
+                transition: transform var(--t-fast), box-shadow var(--t-fast);
+                /* swap background-image: url(...) when photo ready */
+                background-size: cover;
+                background-position: center;
+            }
+            .op-frame:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            }
+
+            .op-item-name {
+                font-size: 13px;
+                font-weight: 500;
+                color: var(--color-dark);
+                line-height: 1.3;
+            }
+
+            .op-item-meta {
+                font-size: 12px;
+                color: var(--color-gray);
+                line-height: 1.3;
+                margin-top: 2px;
+            }
+
+            /* ─────────────────────────────────────────
+               FOOTER
+            ───────────────────────────────────────── */
+            .footer-root { background: #000; color: #fff; padding: 72px var(--page-px) 40px; }
+            .footer-inner { max-width: var(--max-width); margin: 0 auto; }
+            .footer-top { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr 1.4fr; gap: 48px; padding-bottom: 52px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 52px; }
+            .footer-brand-logo { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; text-decoration: none; margin-bottom: 16px; }
+            .footer-brand-logo img { width: 50%; height: auto; filter: brightness(0) invert(1) opacity(0.5); }
+            .footer-brand-name { font-size: 16px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+            .footer-brand-desc { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.65; max-width: 220px; }
+            .footer-col-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 18px; }
+            .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+            .footer-links a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-links a:hover { color: #fff; }
+            .footer-contact-item { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+            .footer-contact-item svg { width: 15px; height: 15px; flex-shrink: 0; stroke: rgba(255,255,255,0.4); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+            .footer-contact-item a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-contact-item a:hover { color: #fff; }
+            .footer-locations { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 32px; }
+            .footer-loc-name { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.8); margin-bottom: 6px; }
+            .footer-loc-addr { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.6; margin-bottom: 4px; }
+            .footer-loc-phone { font-size: 13px; color: rgba(255,255,255,0.4); }
+            .footer-bottom { display: flex; align-items: center; justify-content: space-between; }
+            .footer-copy-row { display: flex; align-items: center; gap: 24px; }
+            .footer-copy { font-size: 12px; color: rgba(255,255,255,0.3); }
+            .footer-legal-link { font-size: 12px; color: rgba(255,255,255,0.3); text-decoration: none; transition: color var(--t-fast); }
+            .footer-legal-link:hover { color: rgba(255,255,255,0.6); }
+            .footer-socials { display: flex; gap: 8px; }
+            .footer-social-btn { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.5); font-size: 16px; text-decoration: none; transition: background var(--t-fast), color var(--t-fast); }
+            .footer-social-btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
+
+            /* ─────────────────────────────────────────
+               RESPONSIVE
+            ───────────────────────────────────────── */
+            @media (max-width: 1280px) {
+                .op-grid { grid-template-columns: repeat(5, 1fr); }
+            }
+            @media (max-width: 1024px) {
+                .op-grid { grid-template-columns: repeat(4, 1fr); }
+                .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+                .footer-top > div:first-child { grid-column: 1/-1; }
+            }
+            @media (max-width: 768px) {
+                :root { --page-px: 24px; }
+                .op-grid { grid-template-columns: repeat(3, 1fr); }
+                .footer-locations { grid-template-columns: 1fr; gap: 20px; }
+                .footer-bottom { flex-direction: column; align-items: flex-start; gap: 16px; }
+            }
+            @media (max-width: 639px) {
+                :root { --page-px: 16px; }
+                .op-grid { grid-template-columns: repeat(2, 1fr); }
+                .footer-top { grid-template-columns: 1fr; }
+            }
+        </style>
+    </head>
+    <body>
+
+        <ncs-nav></ncs-nav>
+
+        <!-- ════════════════════════════════
+             BREADCRUMB
+        ════════════════════════════════ -->
+        <div class="op-breadcrumb-bar" data-comment="op-breadcrumb-bar">
+            <div class="page-inner" data-comment="op-breadcrumb-inner">
+                <nav class="op-breadcrumb" data-comment="op-breadcrumb" aria-label="Breadcrumb">
+                    <a href="index.html" data-comment="op-bc-home">Home</a>
+                    <span class="op-breadcrumb-sep" data-comment="op-bc-sep">›</span>
+                    <span class="op-breadcrumb-current" data-comment="op-bc-current">Options</span>
+                </nav>
+            </div>
+        </div>
+
+        <!-- ════════════════════════════════
+             PAGE HEADER
+        ════════════════════════════════ -->
+        <section class="op-header" data-comment="op-header-section">
+            <div class="page-inner" data-comment="op-header-inner">
+                <h1 class="op-header-title" data-comment="op-header-title">Options</h1>
+                <p class="op-header-note" data-comment="op-header-note">*Options may vary by product and size.</p>
+            </div>
+        </section>
+
+        <!-- ════════════════════════════════
+             OPTION GROUPS
+        ════════════════════════════════ -->
+        <section class="op-content" data-comment="op-content-section">
+            <div class="page-inner" data-comment="op-content-inner">
+
+                <!-- ── Siding & Trim Materials ── -->
+                <div class="op-group" data-comment="op-group-siding-material">
+                    <h2 class="op-group-title" data-comment="op-group-siding-material-title">Siding &amp; Trim Material</h2>
+                    <div class="op-grid" data-comment="op-group-siding-material-grid">
+
+                        <div class="op-card" data-comment="op-sm-1">
+                            <div class="op-frame" style="background-image:url('assets/materials/siding_board_batten.jpg');background-size:cover;background-position:center;" data-comment="op-sm-1-frame"></div>
+                            <span class="op-item-name" data-comment="op-sm-1-name">Board &amp; Batten (8")</span>
+                        </div>
+                        <div class="op-card" data-comment="op-sm-2">
+                            <div class="op-frame" style="background-image:url('assets/materials/siding_lp_lap.jpg');background-size:cover;background-position:center;" data-comment="op-sm-2-frame"></div>
+                            <span class="op-item-name" data-comment="op-sm-2-name">LP Lap</span>
+                        </div>
+                        <div class="op-card" data-comment="op-sm-3">
+                            <div class="op-frame" style="background-image:url('assets/materials/siding_lp_smart.jpg');background-size:cover;background-position:center;" data-comment="op-sm-3-frame"></div>
+                            <span class="op-item-name" data-comment="op-sm-3-name">Wooden Exterior Siding</span>
+                        </div>
+                        <div class="op-card" data-comment="op-sm-4">
+                            <div class="op-frame" style="background-image:url('assets/materials/Log_Siding.jpeg');background-size:cover;background-position:center;" data-comment="op-sm-4-frame"></div>
+                            <span class="op-item-name" data-comment="op-sm-4-name">Log Siding</span>
+                        </div>
+                        <div class="op-card" data-comment="op-sm-5">
+                            <div class="op-frame" style="background-image:url('assets/materials/siding_vinyl.jpg');background-size:cover;background-position:center;" data-comment="op-sm-5-frame"></div>
+                            <span class="op-item-name" data-comment="op-sm-5-name">Vinyl</span>
+                        </div>
+                        <div class="op-card" data-comment="op-sm-6">
+                            <div class="op-frame" style="background-image:url('assets/materials/siding_vertical_metal.jpg');background-size:cover;background-position:center;" data-comment="op-sm-6-frame"></div>
+                            <span class="op-item-name" data-comment="op-sm-6-name">Metal (Vertical)</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ── Roof Material ── -->
+                <div class="op-group" data-comment="op-group-roof-material">
+                    <h2 class="op-group-title" data-comment="op-group-roof-material-title">Roof Material</h2>
+                    <div class="op-grid" data-comment="op-group-roof-material-grid">
+
+                        <div class="op-card" data-comment="op-rm-1">
+                            <div class="op-frame" style="background-image:url('assets/materials/shingle_architecture.jpg');background-size:cover;background-position:center;" data-comment="op-rm-1-frame"></div>
+                            <span class="op-item-name" data-comment="op-rm-1-name">Shingle (Architectural)</span>
+                        </div>
+                        <div class="op-card" data-comment="op-rm-2">
+                            <div class="op-frame" style="background-image:url('assets/materials/Metal.jpg');background-size:cover;background-position:center;" data-comment="op-rm-2-frame"></div>
+                            <span class="op-item-name" data-comment="op-rm-2-name">Metal</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ── Log Cabin Options ── -->
+                <div class="op-group" data-comment="op-group-log-cabin">
+                    <h2 class="op-group-title" data-comment="op-group-log-cabin-title">Log Cabin Options</h2>
+                    <div class="op-grid" data-comment="op-group-log-cabin-grid">
+
+                        <div class="op-card" data-comment="op-lc-1">
+                            <div class="op-frame" data-comment="op-lc-1-frame"></div>
+                            <span class="op-item-name" data-comment="op-lc-1-name">Corner Logs</span>
+                        </div>
+                        <div class="op-card" data-comment="op-lc-2">
+                            <div class="op-frame" data-comment="op-lc-2-frame"></div>
+                            <span class="op-item-name" data-comment="op-lc-2-name">Log Siding Profile</span>
+                        </div>
+                        <div class="op-card" data-comment="op-lc-3">
+                            <div class="op-frame" data-comment="op-lc-3-frame"></div>
+                            <span class="op-item-name" data-comment="op-lc-3-name">Full Log Look</span>
+                        </div>
+                        <div class="op-card" data-comment="op-lc-4">
+                            <div class="op-frame" data-comment="op-lc-4-frame"></div>
+                            <span class="op-item-name" data-comment="op-lc-4-name">Half-Log Siding</span>
+                        </div>
+                        <div class="op-card" data-comment="op-lc-5">
+                            <div class="op-frame" data-comment="op-lc-5-frame"></div>
+                            <span class="op-item-name" data-comment="op-lc-5-name">Log Trim</span>
+                        </div>
+                        <div class="op-card" data-comment="op-lc-6">
+                            <div class="op-frame" data-comment="op-lc-6-frame"></div>
+                            <span class="op-item-name" data-comment="op-lc-6-name">Cedar Stain</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ── Additional Shed Options ── -->
+                <div class="op-group" data-comment="op-group-shed">
+                    <h2 class="op-group-title" data-comment="op-group-shed-title">Additional Shed Options</h2>
+
+                    <!-- Lofts -->
+                    <div class="op-subgroup" data-comment="op-sg-lofts">
+                        <div class="op-subgroup-head" data-comment="op-sg-lofts-head">
+                            <h3 class="op-subgroup-title" data-comment="op-sg-lofts-title">Lofts</h3>
+                            <p class="op-group-subtitle" data-comment="op-sg-lofts-subtitle">Available in 4'×8' up to 10'×14'</p>
+                            <p class="op-group-info" data-comment="op-sg-lofts-info">Two styles: <b>Cottage</b> and <b>High Wall</b>.</p>
+                        </div>
+                        <div class="op-grid" data-comment="op-sg-lofts-grid">
+                            <div class="op-card" data-comment="op-lf-1">
+                                <div class="op-frame" style="background-image:url('assets/shed-options-images/Lofts - Cottage 1.png');" data-comment="op-lf-1-frame"></div>
+                                <span class="op-item-name" data-comment="op-lf-1-name">Cottage Loft</span>
+                            </div>
+                            <div class="op-card" data-comment="op-lf-2">
+                                <div class="op-frame" style="background-image:url('assets/shed-options-images/Lofts - Cottage 2.png');" data-comment="op-lf-2-frame"></div>
+                                <span class="op-item-name" data-comment="op-lf-2-name">Cottage Loft</span>
+                            </div>
+                            <div class="op-card" data-comment="op-lf-3">
+                                <div class="op-frame" style="background-image:url('assets/shed-options-images/Lofts - High wall 1.png');" data-comment="op-lf-3-frame"></div>
+                                <span class="op-item-name" data-comment="op-lf-3-name">High Wall Loft</span>
+                            </div>
+                            <div class="op-card" data-comment="op-lf-4">
+                                <div class="op-frame" style="background-image:url('assets/shed-options-images/Lofts - High wall 2.png');" data-comment="op-lf-4-frame"></div>
+                                <span class="op-item-name" data-comment="op-lf-4-name">High Wall Loft</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Benches & Shelves -->
+                    <div class="op-subgroup" data-comment="op-sg-benches">
+                        <div class="op-subgroup-head" data-comment="op-sg-benches-head">
+                            <h3 class="op-subgroup-title" data-comment="op-sg-benches-title">Benches &amp; Shelves</h3>
+                            <p class="op-group-subtitle" data-comment="op-sg-benches-subtitle">Available in 8', 10', 12', and 14'</p>
+                            <p class="op-group-info" data-comment="op-sg-benches-info"><em>Let us know how high and how far apart you want them at time of order.</em></p>
+                        </div>
+                        <div class="op-grid" data-comment="op-sg-benches-grid">
+                            <div class="op-card" data-comment="op-bn-1">
+                                <div class="op-frame" style="background-image:url('assets/shed-options-images/Benches/Shelves 1.png');" data-comment="op-bn-1-frame"></div>
+                                <span class="op-item-name" data-comment="op-bn-1-name">Workbench</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bn-2">
+                                <div class="op-frame" style="background-image:url('assets/shed-options-images/Benches/Shelves 2.png');" data-comment="op-bn-2-frame"></div>
+                                <span class="op-item-name" data-comment="op-bn-2-name">Workbench</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bn-3">
+                                <div class="op-frame" style="background-image:url('assets/shed-options-images/Benches/Shelves 3.png');" data-comment="op-bn-3-frame"></div>
+                                <span class="op-item-name" data-comment="op-bn-3-name">Shelving</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bn-4">
+                                <div class="op-frame" style="background-image:url('assets/shed-options-images/Benches/Shelves 4.png');" data-comment="op-bn-4-frame"></div>
+                                <span class="op-item-name" data-comment="op-bn-4-name">Shelving</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Electrical -->
+                    <div class="op-subgroup" data-comment="op-sg-electrical">
+                        <div class="op-subgroup-head" data-comment="op-sg-electrical-head">
+                            <h3 class="op-subgroup-title" data-comment="op-sg-electrical-title">Electrical</h3>
+                            <p class="op-group-subtitle" data-comment="op-sg-electrical-subtitle">3 packages available — all include a 100 amp panel</p>
+                            <p class="op-group-info" data-comment="op-sg-electrical-info">
+                                <b>Package 1</b> — 2 outlets, 1 light, 1 switch &nbsp;·&nbsp;
+                                <b>Package 2</b> — 4 outlets, 2 lights, 1 switch &nbsp;·&nbsp;
+                                <b>Package 3</b> — 6 outlets, 3 lights, 1 switch<br>
+                                <em>NCSB is not permitted to connect the electrical service to the structure.</em>
+                            </p>
+                        </div>
+                        <div class="op-grid" data-comment="op-sg-electrical-grid">
+                            <div class="op-card" data-comment="op-el-1">
+                                <div class="op-frame" style="background-image:url('assets/shed-options-images/Electical 1.png');" data-comment="op-el-1-frame"></div>
+                                <span class="op-item-name" data-comment="op-el-1-name">100 Amp Panel</span>
+                            </div>
+                            <div class="op-card" data-comment="op-el-2">
+                                <div class="op-frame" style="background-image:url('assets/shed-options-images/Electical 2.png');" data-comment="op-el-2-frame"></div>
+                                <span class="op-item-name" data-comment="op-el-2-name">Lighting</span>
+                            </div>
+                            <div class="op-card" data-comment="op-el-3">
+                                <div class="op-frame" style="background-image:url('assets/shed-options-images/Electical 3.png');" data-comment="op-el-3-frame"></div>
+                                <span class="op-item-name" data-comment="op-el-3-name">Outlets &amp; Switch</span>
+                            </div>
+                            <div class="op-card" data-comment="op-el-4">
+                                <div class="op-frame" style="background-image:url('assets/shed-options-images/Electical 4.png');" data-comment="op-el-4-frame"></div>
+                                <span class="op-item-name" data-comment="op-el-4-name">Electrical Interior</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ramps -->
+                    <div class="op-subgroup" data-comment="op-sg-ramps">
+                        <div class="op-subgroup-head" data-comment="op-sg-ramps-head">
+                            <h3 class="op-subgroup-title" data-comment="op-sg-ramps-title">Ramps</h3>
+                            <p class="op-group-subtitle" data-comment="op-sg-ramps-subtitle">Available in 4', 5', 6', and 8' widths</p>
+                            <p class="op-group-info" data-comment="op-sg-ramps-info">All ramps are 4' deep — width listed is approximate. Built with pressure-treated 2"×6" lumber.</p>
+                        </div>
+                        <div class="op-grid" data-comment="op-sg-ramps-grid">
+                            <div class="op-card" data-comment="op-rp-1">
+                                <div class="op-frame" style="background-image:url('assets/shed-options-images/Ramps 1.png');" data-comment="op-rp-1-frame"></div>
+                                <span class="op-item-name" data-comment="op-rp-1-name">Ramp</span>
+                            </div>
+                            <div class="op-card" data-comment="op-rp-2">
+                                <div class="op-frame" style="background-image:url('assets/shed-options-images/Ramps 2.png');" data-comment="op-rp-2-frame"></div>
+                                <span class="op-item-name" data-comment="op-rp-2-name">Ramp</span>
+                            </div>
+                            <div class="op-card" data-comment="op-rp-3">
+                                <div class="op-frame" style="background-image:url('assets/shed-options-images/Ramps 3.png');" data-comment="op-rp-3-frame"></div>
+                                <span class="op-item-name" data-comment="op-rp-3-name">Ramp</span>
+                            </div>
+                            <div class="op-card" data-comment="op-rp-4">
+                                <div class="op-frame" style="background-image:url('assets/shed-options-images/Ramps 4.png');" data-comment="op-rp-4-frame"></div>
+                                <span class="op-item-name" data-comment="op-rp-4-name">Ramp</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shed Siding & Structural -->
+                    <div class="op-subgroup" data-comment="op-sg-shed-siding">
+                        <div class="op-subgroup-head" data-comment="op-sg-shed-siding-head">
+                            <h3 class="op-subgroup-title" data-comment="op-sg-shed-siding-title">Shed Siding &amp; Structural</h3>
+                            <p class="op-group-info" data-comment="op-sg-shed-siding-info">Pricing varies by style — see product listing or contact us for details.</p>
+                        </div>
+                        <div class="op-grid" data-comment="op-sg-shed-siding-grid">
+                            <div class="op-card" data-comment="op-ss-1">
+                                <div class="op-frame" style="background-image:url('assets/shed-options-images/Supports.png');" data-comment="op-ss-1-frame"></div>
+                                <span class="op-item-name" data-comment="op-ss-1-name">Extra 4"×4" Supports</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ss-2">
+                                <div class="op-frame" style="background-image:url('assets/shed-options-images/Log Siding.png');" data-comment="op-ss-2-frame"></div>
+                                <span class="op-item-name" data-comment="op-ss-2-name">Log Siding</span>
+                                <span class="op-item-meta" data-comment="op-ss-2-meta">+25% to structure price</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ss-3">
+                                <div class="op-frame" style="background-image:url('assets/shed-options-images/LP Clapboard.png');" data-comment="op-ss-3-frame"></div>
+                                <span class="op-item-name" data-comment="op-ss-3-name">LP Clapboard</span>
+                                <span class="op-item-meta" data-comment="op-ss-3-meta">+25% to structure price</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ss-4">
+                                <div class="op-frame" style="background-image:url('assets/shed-options-images/Board & Batten.png');" data-comment="op-ss-4-frame"></div>
+                                <span class="op-item-name" data-comment="op-ss-4-name">Board &amp; Batten</span>
+                                <span class="op-item-meta" data-comment="op-ss-4-meta">+15% to structure price</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ss-5">
+                                <div class="op-frame" style="background-image:url('assets/shed-options-images/Overhang.png');" data-comment="op-ss-5-frame"></div>
+                                <span class="op-item-name" data-comment="op-ss-5-name">Overhang</span>
+                                <span class="op-item-meta" data-comment="op-ss-5-meta">12' wide or less — adds a 6" overhang</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ════════════════════════════════
+             FOOTER
+        ════════════════════════════════ -->
+        <footer class="footer-root" data-comment="op-footer-root">
+            <div class="footer-inner" data-comment="op-footer-inner">
+                <div class="footer-top" data-comment="op-footer-top">
+                    <div data-comment="op-footer-brand">
+                        <a href="index.html" class="footer-brand-logo" data-comment="op-footer-brand-logo">
+                            <img src="assets/Logo.png" alt="NCS Barns" data-comment="op-footer-brand-img" />
+                            <span class="footer-brand-name" data-comment="op-footer-brand-name">NCS Barns</span>
+                        </a>
+                        <p class="footer-brand-desc" data-comment="op-footer-brand-desc">Handcrafted quality structures for the North Country — family owned &amp; operated since 1993.</p>
+                    </div>
+                    <div data-comment="op-footer-col-products">
+                        <p class="footer-col-label" data-comment="op-footer-products-label">Products</p>
+                        <ul class="footer-links" data-comment="op-footer-products-links">
+                            <li data-comment="op-fli-sheds"><a href="catalog.html?category=Sheds" data-comment="op-fl-sheds">Sheds</a></li>
+                            <li data-comment="op-fli-gazebos"><a href="catalog.html?category=Gazebos" data-comment="op-fl-gazebos">Gazebos &amp; Pergolas</a></li>
+                            <li data-comment="op-fli-hunting"><a href="catalog.html?category=Hunting+Blinds" data-comment="op-fl-hunting">Hunting Blinds</a></li>
+                            <li data-comment="op-fli-play"><a href="catalog.html?category=Play+Structures" data-comment="op-fl-play">Play Structures</a></li>
+                            <li data-comment="op-fli-furniture"><a href="catalog.html?category=Outdoor+Furniture" data-comment="op-fl-furniture">Furniture</a></li>
+                            <li data-comment="op-fli-homes"><a href="catalog.html?category=Custom+Homes" data-comment="op-fl-homes">Homes &amp; Garages</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="op-footer-col-company">
+                        <p class="footer-col-label" data-comment="op-footer-company-label">Company</p>
+                        <ul class="footer-links" data-comment="op-footer-company-links">
+                            <li data-comment="op-fli-about"><a href="#" data-comment="op-fl-about">About Us</a></li>
+                            <li data-comment="op-fli-testimonials"><a href="#" data-comment="op-fl-testimonials">Testimonials</a></li>
+                            <li data-comment="op-fli-gallery"><a href="gallery.html" data-comment="op-fl-gallery">Gallery</a></li>
+                            <li data-comment="op-fli-delivery"><a href="delivery.html" data-comment="op-fl-delivery">Delivery &amp; Relocation</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="op-footer-col-buying">
+                        <p class="footer-col-label" data-comment="op-footer-buying-label">Buying Process</p>
+                        <ul class="footer-links" data-comment="op-footer-buying-links">
+                            <li data-comment="op-fli-rto"><a href="#" data-comment="op-fl-rto">Rent-To-Own</a></li>
+                            <li data-comment="op-fli-financing"><a href="#" data-comment="op-fl-financing">Financing Options</a></li>
+                            <li data-comment="op-fli-siteprep"><a href="#" data-comment="op-fl-siteprep">Site Preparation</a></li>
+                            <li data-comment="op-fli-warranty"><a href="#" data-comment="op-fl-warranty">Warranty</a></li>
+                            <li data-comment="op-fli-dealers"><a href="#" data-comment="op-fl-dealers">Dealers</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="op-footer-col-contact">
+                        <p class="footer-col-label" data-comment="op-footer-contact-label">Contact</p>
+                        <div class="footer-contact-item" data-comment="op-footer-phone">
+                            <svg viewBox="0 0 24 24" data-comment="op-footer-phone-icon"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l1.64-1.64a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <a href="tel:3156420209" data-comment="op-footer-phone-link">(315) 642-0209</a>
+                        </div>
+                        <div class="footer-contact-item" data-comment="op-footer-email">
+                            <svg viewBox="0 0 24 24" data-comment="op-footer-email-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            <a href="mailto:sales@ncsbarns.com" data-comment="op-footer-email-link">sales@ncsbarns.com</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-locations" data-comment="op-footer-locations">
+                    <div data-comment="op-footer-loc-phila">
+                        <p class="footer-loc-name" data-comment="op-footer-loc-phila-name">Philadelphia</p>
+                        <p class="footer-loc-addr" data-comment="op-footer-loc-phila-addr">32660 US Route 11<br>Philadelphia, NY 13673</p>
+                        <p class="footer-loc-phone" data-comment="op-footer-loc-phila-phone">(315) 642-0209</p>
+                    </div>
+                    <div data-comment="op-footer-loc-york">
+                        <p class="footer-loc-name" data-comment="op-footer-loc-york-name">Yorkville</p>
+                        <p class="footer-loc-addr" data-comment="op-footer-loc-york-addr">317 Oriskany Blvd<br>Yorkville, NY</p>
+                        <p class="footer-loc-phone" data-comment="op-footer-loc-york-phone">(315) 793-0726</p>
+                    </div>
+                    <div data-comment="op-footer-loc-sandy">
+                        <p class="footer-loc-name" data-comment="op-footer-loc-sandy-name">Sandy Creek</p>
+                        <p class="footer-loc-addr" data-comment="op-footer-loc-sandy-addr">5780 US Route 11<br>Pulaski, NY 13142</p>
+                        <p class="footer-loc-phone" data-comment="op-footer-loc-sandy-phone">(315) 387-2092</p>
+                    </div>
+                </div>
+                <div class="footer-bottom" data-comment="op-footer-bottom">
+                    <div class="footer-copy-row" data-comment="op-footer-copy-row">
+                        <p class="footer-copy" data-comment="op-footer-copy">Copyright&copy; 2024 North Country Storage Barns LLC. All rights reserved.</p>
+                        <a href="privacy.html" class="footer-legal-link" href="privacy.html" class="footer-legal-link" data-comment="op-footer-privacy">Privacy Policy</a>
+                        <a href="terms.html" class="footer-legal-link" data-comment="op-footer-terms">Terms &amp; Conditions</a>
+                    </div>
+                    <div class="footer-socials" data-comment="op-footer-socials">
+                        <a href="https://www.tiktok.com/@northcountrystoragebarns" target="_blank" class="footer-social-btn" data-comment="op-footer-tiktok" aria-label="TikTok"><i class="ri-tiktok-fill" data-comment="op-footer-tiktok-icon"></i></a>
+                        <a href="https://www.facebook.com/ifyouneedmeillbeinmyshed/" target="_blank" class="footer-social-btn" data-comment="op-footer-facebook" aria-label="Facebook"><i class="ri-facebook-fill" data-comment="op-footer-facebook-icon"></i></a>
+                        <a href="https://www.instagram.com/northcountrystoragebarns/" target="_blank" class="footer-social-btn" data-comment="op-footer-instagram" aria-label="Instagram"><i class="ri-instagram-fill" data-comment="op-footer-instagram-icon"></i></a>
+                        <a href="#" class="footer-social-btn" data-comment="op-footer-google" aria-label="Google"><i class="ri-google-fill" data-comment="op-footer-google-icon"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </body>
+</html>

@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>NCS Barns — Our Partners</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+            rel="stylesheet" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+            rel="stylesheet" />
+        <script src="nav.js" defer></script>
+
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            :root {
+                --color-burgundy:       #8B1A2A;
+                --color-burgundy-dark:  #6D1420;
+                --color-dark:           #1C1F24;
+                --color-gray:           #514C4A;
+                --color-gray-light:     #9A9390;
+                --color-border:         #E6E2DD;
+                --color-bg:             #F8F6F4;
+                --color-bg-hover:       #F4F1EE;
+                --color-bg-menu:        #FAFAF8;
+                --color-white:          #fff;
+                --font-ui: 'Inter', sans-serif;
+                --nav-height: 72px;
+                --max-width:  1440px;
+                --page-px:    40px;
+                --t-fast: 0.15s ease;
+                --t-med:  0.22s ease;
+            }
+
+            body {
+                font-family: var(--font-ui);
+                background: var(--color-bg);
+                color: var(--color-dark);
+            }
+
+            .section-inner {
+                max-width: var(--max-width);
+                margin: 0 auto;
+                padding: 0 var(--page-px);
+            }
+
+            /* ─── PAGE HERO ─── */
+            .page-hero-section {
+                padding: 12px var(--page-px) 0;
+            }
+            .page-hero-wrap {
+                position: relative;
+                border-radius: 20px;
+                overflow: hidden;
+                height: clamp(200px, 22vw, 280px);
+                background: var(--color-dark);
+            }
+            .page-hero-overlay {
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(
+                    to top,
+                    rgba(10,8,7,0.85) 0%,
+                    rgba(10,8,7,0.55) 55%,
+                    rgba(10,8,7,0.25) 100%
+                );
+            }
+            .page-hero-content {
+                position: absolute;
+                inset: 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                padding: 44px 48px;
+            }
+            .page-hero-eyebrow {
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 1.4px;
+                text-transform: uppercase;
+                color: rgba(255,255,255,0.55);
+                margin-bottom: 12px;
+            }
+            .page-hero-heading {
+                font-size: clamp(28px, 3.8vw, 52px);
+                font-weight: 800;
+                letter-spacing: -1.5px;
+                line-height: 1.06;
+                color: #fff;
+            }
+
+            /* decorative dot-grid hero bg */
+            .page-hero-pattern {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+            }
+            .page-hero-bg {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+            }
+
+            /* ─── INTRO ─── */
+            .intro-section {
+                padding: 72px 0 56px;
+            }
+            .intro-inner {
+                max-width: var(--max-width);
+                margin: 0 auto;
+                padding: 0 var(--page-px);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                max-width: 680px;
+            }
+            .intro-eyebrow {
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 1.2px;
+                text-transform: uppercase;
+                color: var(--color-burgundy);
+                margin-bottom: 16px;
+            }
+            .intro-heading {
+                font-size: clamp(22px, 2.4vw, 32px);
+                font-weight: 700;
+                letter-spacing: -0.6px;
+                line-height: 1.2;
+                color: var(--color-dark);
+                margin-bottom: 20px;
+            }
+            .intro-body {
+                font-size: 16px;
+                line-height: 1.75;
+                color: var(--color-gray);
+            }
+
+            /* ─── BRANDS GRID ─── */
+            .brands-section {
+                padding: 0 0 96px;
+            }
+            .brands-grid {
+                max-width: var(--max-width);
+                margin: 0 auto;
+                padding: 0 var(--page-px);
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 24px;
+            }
+
+            .brand-card {
+                background: var(--color-white);
+                border: 1.5px solid var(--color-border);
+                border-radius: 16px;
+                padding: 32px 24px 28px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 16px;
+                text-align: center;
+                transition: border-color var(--t-fast), box-shadow var(--t-fast);
+            }
+            .brand-card:hover {
+                border-color: #D4D0CB;
+                box-shadow: 0 4px 20px rgba(28,31,36,0.07);
+            }
+
+            .brand-logo-placeholder {
+                width: 120px;
+                height: 80px;
+                border-radius: 10px;
+                background: var(--color-bg-hover);
+                border: 1.5px dashed var(--color-border);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+            .brand-logo-placeholder i {
+                font-size: 28px;
+                color: var(--color-gray-light);
+            }
+            .brand-logo-img {
+                width: 120px;
+                height: 80px;
+                object-fit: contain;
+                border-radius: 10px;
+            }
+
+            .brand-name {
+                font-size: 14px;
+                font-weight: 600;
+                color: var(--color-dark);
+                line-height: 1.35;
+            }
+
+            /* ─── FOOTER ─── */
+            .footer-root { background: #000; color: #fff; padding: 72px var(--page-px) 40px; }
+            .footer-inner { max-width: var(--max-width); margin: 0 auto; }
+            .footer-top { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr 1.4fr; gap: 48px; padding-bottom: 52px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 52px; }
+            .footer-brand-logo { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; text-decoration: none; margin-bottom: 16px; }
+            .footer-brand-logo img { width: 50%; height: auto; filter: brightness(0) invert(1) opacity(0.5); }
+            .footer-brand-name { font-size: 16px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+            .footer-brand-desc { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.65; max-width: 220px; }
+            .footer-col-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 18px; }
+            .footer-links { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+            .footer-links a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-links a:hover { color: #fff; }
+            .footer-contact-item { font-size: 14px; color: rgba(255,255,255,0.65); margin-bottom: 10px; display: flex; align-items: flex-start; gap: 8px; }
+            .footer-contact-item svg { width: 15px; height: 15px; stroke: rgba(255,255,255,0.35); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; margin-top: 1px; }
+            .footer-contact-item a { color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-contact-item a:hover { color: #fff; }
+            .footer-locations { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 32px; }
+            .footer-loc-name { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+            .footer-loc-addr { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.55; margin-bottom: 8px; }
+            .footer-loc-phone { font-size: 13px; color: rgba(255,255,255,0.45); }
+            .footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+            .footer-copy-row { display: flex; align-items: center; gap: 20px; }
+            .footer-copy { font-size: 13px; color: rgba(255,255,255,0.35); }
+            .footer-legal-link { font-size: 13px; color: rgba(255,255,255,0.35); text-decoration: none; transition: color var(--t-fast); }
+            .footer-legal-link:hover { color: rgba(255,255,255,0.7); }
+            .footer-socials { display: flex; gap: 10px; }
+            .footer-social-btn { width: 36px; height: 36px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; text-decoration: none; transition: border-color var(--t-fast), background var(--t-fast); }
+            .footer-social-btn:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.08); }
+            .footer-social-btn i { font-size: 17px; color: rgba(255,255,255,0.6); }
+
+
+            @media (max-width: 1024px) { .footer-top { grid-template-columns: 1fr 1fr 1fr; gap: 32px; } .footer-top > div:first-child { grid-column: 1 / -1; } }
+            @media (max-width: 768px) { .footer-top { grid-template-columns: 1fr 1fr; gap: 28px; } .footer-locations { grid-template-columns: 1fr; } .footer-bottom { flex-direction: column; align-items: flex-start; gap: 16px; } .brands-grid { grid-template-columns: repeat(2, 1fr); } }
+            @media (max-width: 640px) { :root { --page-px: 16px; } .footer-top { grid-template-columns: 1fr; } .brands-grid { grid-template-columns: 1fr 1fr; } }
+        </style>
+    </head>
+
+    <body data-comment="dealers-page-body">
+
+        <ncs-nav></ncs-nav>
+
+        <!-- ─── HERO ─── -->
+        <section class="page-hero-section" data-comment="dealers-hero-section">
+            <div class="page-hero-wrap" data-comment="dealers-hero-wrap">
+                <!-- decorative bg -->
+                <svg class="page-hero-pattern" viewBox="0 0 1440 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" data-comment="dealers-hero-svg">
+                    <rect width="1440" height="400" fill="#1C1F24"/>
+                    <defs>
+                        <pattern id="dg-dealers" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+                            <circle cx="16" cy="16" r="1.2" fill="rgba(255,255,255,0.06)"/>
+                        </pattern>
+                    </defs>
+                    <rect width="1440" height="400" fill="url(#dg-dealers)"/>
+                    <rect x="0" y="260" width="1440" height="140" fill="url(#fade-dealers)" opacity="0.7"/>
+                </svg>
+
+                <img src="assets/partners-hero.jpg.jpg" alt="" class="page-hero-bg" data-comment="dealers-hero-bg" />
+                <div class="page-hero-overlay" data-comment="dealers-hero-overlay"></div>
+                <div class="page-hero-content" data-comment="dealers-hero-content">
+                    <p class="page-hero-eyebrow" data-comment="dealers-hero-eyebrow">About NCS Barns</p>
+                    <h1 class="page-hero-heading" data-comment="dealers-hero-heading">Our Partners</h1>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── INTRO ─── -->
+        <section class="intro-section" data-comment="dealers-intro-section">
+            <div class="intro-inner" data-comment="dealers-intro-inner">
+                <p class="intro-eyebrow" data-comment="dealers-intro-eyebrow">Our Partners</p>
+                <h2 class="intro-heading" data-comment="dealers-intro-heading">Products from makers we trust</h2>
+                <p class="intro-body" data-comment="dealers-intro-body">
+                    We're proud to be an authorized dealer for each of the companies below.
+                    Have a question about a specific brand or product? Reach out to us — we're happy to help you find exactly what you're looking for.
+                </p>
+            </div>
+        </section>
+
+        <!-- ─── BRANDS GRID ─── -->
+        <section class="brands-section" data-comment="dealers-brands-section">
+            <div class="brands-grid" data-comment="dealers-brands-grid">
+
+                <div class="brand-card" data-comment="brand-card-daybreak">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-daybreak"><i class="ri-image-line"></i></div>
+                    <p class="brand-name" data-comment="brand-name-daybreak">Daybreak Poly Furniture</p>
+                </div>
+
+                <div class="brand-card" data-comment="brand-card-over-ez">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-over-ez"><i class="ri-image-line"></i></div>
+                    <p class="brand-name" data-comment="brand-name-over-ez">Over EZ Chicken Coops</p>
+                </div>
+
+                <div class="brand-card" data-comment="brand-card-cozy-cabin">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-cozy-cabin"><i class="ri-image-line"></i></div>
+                    <p class="brand-name" data-comment="brand-name-cozy-cabin">Cozy Cabin</p>
+                </div>
+
+                <div class="brand-card" data-comment="brand-card-kinzer">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-kinzer"><i class="ri-image-line"></i></div>
+                    <p class="brand-name" data-comment="brand-name-kinzer">Kinzer Woodworking</p>
+                </div>
+
+                <div class="brand-card" data-comment="brand-card-360-hunting">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-360-hunting"><i class="ri-image-line"></i></div>
+                    <p class="brand-name" data-comment="brand-name-360-hunting">360 Hunting Blinds</p>
+                </div>
+
+                <div class="brand-card" data-comment="brand-card-massarellis">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-massarellis"><i class="ri-image-line"></i></div>
+                    <p class="brand-name" data-comment="brand-name-massarellis">Massarelli's</p>
+                </div>
+
+                <div class="brand-card" data-comment="brand-card-appalachian">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-appalachian"><i class="ri-image-line"></i></div>
+                    <p class="brand-name" data-comment="brand-name-appalachian">Appalachian Woodcrafts</p>
+                </div>
+
+                <div class="brand-card" data-comment="brand-card-bih-kennels">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-bih-kennels"><i class="ri-image-line"></i></div>
+                    <p class="brand-name" data-comment="brand-name-bih-kennels">Bird-In Hand Pet Structures — Dog Kennels</p>
+                </div>
+
+                <div class="brand-card" data-comment="brand-card-beaver-dam">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-beaver-dam"><i class="ri-image-line"></i></div>
+                    <p class="brand-name" data-comment="brand-name-beaver-dam">Beaver Dam Woodworks</p>
+                </div>
+
+                <div class="brand-card" data-comment="brand-card-bih-chickens">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-bih-chickens"><i class="ri-image-line"></i></div>
+                    <p class="brand-name" data-comment="brand-name-bih-chickens">Bird-In Hand Pet Structures — Chicken Coops</p>
+                </div>
+
+                <div class="brand-card" data-comment="brand-card-hershberger">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-hershberger"><i class="ri-image-line"></i></div>
+                    <p class="brand-name" data-comment="brand-name-hershberger">Hershberger Lawn Structures</p>
+                </div>
+
+                <div class="brand-card" data-comment="brand-card-lambright">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-lambright"><i class="ri-image-line"></i></div>
+                    <p class="brand-name" data-comment="brand-name-lambright">Lambright Country Chimes</p>
+                </div>
+
+                <div class="brand-card" data-comment="brand-card-lancaster-showcase">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-lancaster-showcase"><i class="ri-image-line"></i></div>
+                    <p class="brand-name" data-comment="brand-name-lancaster-showcase">Lancaster County Showcase LLC</p>
+                </div>
+
+                <div class="brand-card" data-comment="brand-card-lapps-toys">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-lapps-toys"><i class="ri-image-line"></i></div>
+                    <p class="brand-name" data-comment="brand-name-lapps-toys">Lapp's Wooden Toys</p>
+                </div>
+
+                <div class="brand-card" data-comment="brand-card-strasburg">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-strasburg"><i class="ri-image-line"></i></div>
+                    <p class="brand-name" data-comment="brand-name-strasburg">Strasburg Country Crafts</p>
+                </div>
+
+                <div class="brand-card" data-comment="brand-card-swing-kingdom">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-swing-kingdom"><i class="ri-image-line"></i></div>
+                    <p class="brand-name" data-comment="brand-name-swing-kingdom">Swing Kingdom LLC</p>
+                </div>
+
+                <div class="brand-card" data-comment="brand-card-welsh-mountain">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-welsh-mountain"><i class="ri-image-line"></i></div>
+                    <p class="brand-name" data-comment="brand-name-welsh-mountain">Welsh Mountain Woodworking</p>
+                </div>
+
+                <div class="brand-card" data-comment="brand-card-victorian">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-victorian"><i class="ri-image-line"></i></div>
+                    <p class="brand-name" data-comment="brand-name-victorian">Victorian Buildings</p>
+                </div>
+
+                <div class="brand-card" data-comment="brand-card-lawn-swings">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-lawn-swings"><i class="ri-image-line"></i></div>
+                    <p class="brand-name" data-comment="brand-name-lawn-swings">Lawn Swings</p>
+                </div>
+
+                <div class="brand-card" data-comment="brand-card-bylers-bent-oak">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-bylers-bent-oak"><i class="ri-image-line"></i></div>
+                    <p class="brand-name" data-comment="brand-name-bylers-bent-oak">Byler's Bent Oak</p>
+                </div>
+
+                <div class="brand-card" data-comment="brand-card-bylers-rustic">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-bylers-rustic"><i class="ri-image-line"></i></div>
+                    <p class="brand-name" data-comment="brand-name-bylers-rustic">Byler's Rustic Furniture</p>
+                </div>
+
+                <div class="brand-card" data-comment="brand-card-ebersol">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-ebersol"><i class="ri-image-line"></i></div>
+                    <p class="brand-name" data-comment="brand-name-ebersol">Ebersol Poly Craft</p>
+                </div>
+
+                <div class="brand-card" data-comment="brand-card-eshs-toys">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-eshs-toys"><i class="ri-image-line"></i></div>
+                    <p class="brand-name" data-comment="brand-name-eshs-toys">Esh's Toys LLC</p>
+                </div>
+
+                <div class="brand-card" data-comment="brand-card-country-view">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-country-view"><i class="ri-image-line"></i></div>
+                    <p class="brand-name" data-comment="brand-name-country-view">Country View Lawn Furniture</p>
+                </div>
+
+                <div class="brand-card" data-comment="brand-card-hillside">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-hillside"><i class="ri-image-line"></i></div>
+                    <p class="brand-name" data-comment="brand-name-hillside">Hillside Woodwork</p>
+                </div>
+
+                <div class="brand-card" data-comment="brand-card-honey-brook">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-honey-brook"><i class="ri-image-line"></i></div>
+                    <p class="brand-name" data-comment="brand-name-honey-brook">Honey Brook Woodworks</p>
+                </div>
+
+                <div class="brand-card" data-comment="brand-card-lc-cupolas">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-lc-cupolas"><i class="ri-image-line"></i></div>
+                    <p class="brand-name" data-comment="brand-name-lc-cupolas">Lancaster County Custom Cupolas</p>
+                </div>
+
+                <div class="brand-card" data-comment="brand-card-quality-hillside">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-quality-hillside"><i class="ri-image-line"></i></div>
+                    <p class="brand-name" data-comment="brand-name-quality-hillside">Quality Hillside Woodworks</p>
+                </div>
+
+                <div class="brand-card" data-comment="brand-card-lapps-woodworking">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-lapps-woodworking"><i class="ri-image-line"></i></div>
+                    <p class="brand-name" data-comment="brand-name-lapps-woodworking">Lapps Woodworking</p>
+                </div>
+
+            </div>
+        </section>
+
+        <footer class="footer-root" data-comment="dealers-footer">
+            <div class="footer-inner" data-comment="dealers-footer-inner">
+                <div class="footer-top" data-comment="dealers-footer-top">
+                    <div data-comment="dealers-footer-brand">
+                        <a href="index.html" class="footer-brand-logo" data-comment="dealers-footer-brand-logo">
+                            <img src="assets/Logo.png" alt="NCS Barns" data-comment="dealers-footer-brand-logo-image" />
+                            <span class="footer-brand-name" data-comment="dealers-footer-brand-logo-name">NCS Barns</span>
+                        </a>
+                        <p class="footer-brand-desc" data-comment="dealers-footer-brand-desc">Handcrafted quality structures for the North Country — family owned &amp; operated since 1993.</p>
+                    </div>
+                    <div data-comment="dealers-footer-col-products">
+                        <p class="footer-col-label" data-comment="dealers-footer-col-products-label">Products</p>
+                        <ul class="footer-links" data-comment="dealers-footer-links-products">
+                            <li><a href="#" data-comment="dealers-footer-link-sheds">Sheds</a></li>
+                            <li><a href="#" data-comment="dealers-footer-link-gazebos">Gazebos &amp; Pergolas</a></li>
+                            <li><a href="#" data-comment="dealers-footer-link-hunting">Hunting Blinds</a></li>
+                            <li><a href="#" data-comment="dealers-footer-link-play">Play Structures</a></li>
+                            <li><a href="#" data-comment="dealers-footer-link-furniture">Furniture</a></li>
+                            <li><a href="#" data-comment="dealers-footer-link-homes">Homes &amp; Garages</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="dealers-footer-col-company">
+                        <p class="footer-col-label" data-comment="dealers-footer-col-company-label">Company</p>
+                        <ul class="footer-links" data-comment="dealers-footer-links-company">
+                            <li><a href="about.html" data-comment="dealers-footer-link-about">About Us</a></li>
+                            <li><a href="testimonials.html" data-comment="dealers-footer-link-testimonials">Testimonials</a></li>
+                            <li><a href="gallery.html" data-comment="dealers-footer-link-gallery">Gallery</a></li>
+                            <li><a href="dealers.html" data-comment="dealers-footer-link-dealers">Our Partners</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="dealers-footer-col-buying">
+                        <p class="footer-col-label" data-comment="dealers-footer-col-buying-label">Buying Process</p>
+                        <ul class="footer-links" data-comment="dealers-footer-links-buying">
+                            <li><a href="#" data-comment="dealers-footer-link-rto">Rent-To-Own</a></li>
+                            <li><a href="#" data-comment="dealers-footer-link-financing">Financing Options</a></li>
+                            <li><a href="#" data-comment="dealers-footer-link-siteprep">Site Preparation</a></li>
+                            <li><a href="#" data-comment="dealers-footer-link-warranty">Warranty</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="dealers-footer-col-contact">
+                        <p class="footer-col-label" data-comment="dealers-footer-col-contact-label">Contact</p>
+                        <div class="footer-contact-item" data-comment="dealers-footer-contact-phone">
+                            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l1.64-1.64a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <a href="tel:3156420209" data-comment="dealers-footer-contact-phone-link">(315) 642-0209</a>
+                        </div>
+                        <div class="footer-contact-item" data-comment="dealers-footer-contact-email">
+                            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            <a href="mailto:sales@ncsbarns.com" data-comment="dealers-footer-contact-email-link">sales@ncsbarns.com</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-locations" data-comment="dealers-footer-locations">
+                    <div data-comment="dealers-footer-loc-philadelphia">
+                        <p class="footer-loc-name" data-comment="dealers-footer-loc-philadelphia-name">Philadelphia</p>
+                        <p class="footer-loc-addr" data-comment="dealers-footer-loc-philadelphia-addr">32660 US Route 11<br>Philadelphia, NY 13673</p>
+                        <p class="footer-loc-phone" data-comment="dealers-footer-loc-philadelphia-phone">(315) 642-0209</p>
+                    </div>
+                    <div data-comment="dealers-footer-loc-yorkville">
+                        <p class="footer-loc-name" data-comment="dealers-footer-loc-yorkville-name">Yorkville</p>
+                        <p class="footer-loc-addr" data-comment="dealers-footer-loc-yorkville-addr">317 Oriskany Blvd<br>Yorkville, NY</p>
+                        <p class="footer-loc-phone" data-comment="dealers-footer-loc-yorkville-phone">(315) 793-0726</p>
+                    </div>
+                    <div data-comment="dealers-footer-loc-sandycreek">
+                        <p class="footer-loc-name" data-comment="dealers-footer-loc-sandycreek-name">Sandy Creek</p>
+                        <p class="footer-loc-addr" data-comment="dealers-footer-loc-sandycreek-addr">5780 US Route 11<br>Pulaski, NY 13142</p>
+                        <p class="footer-loc-phone" data-comment="dealers-footer-loc-sandycreek-phone">(315) 387-2092</p>
+                    </div>
+                </div>
+                <div class="footer-bottom" data-comment="dealers-footer-bottom">
+                    <div class="footer-copy-row" data-comment="dealers-footer-copy-row">
+                        <p class="footer-copy" data-comment="dealers-footer-copy">Copyright&copy; 2024 North Country Storage Barns LLC. All rights reserved.</p>
+                        <a href="privacy.html" class="footer-legal-link" href="privacy.html" class="footer-legal-link" data-comment="dealers-footer-privacy">Privacy Policy</a>
+                        <a href="terms.html" class="footer-legal-link" data-comment="dealers-footer-terms">Terms &amp; Conditions</a>
+                    </div>
+                    <div class="footer-socials" data-comment="dealers-footer-socials">
+                        <a href="https://www.tiktok.com/@northcountrystoragebarns" target="_blank" class="footer-social-btn" aria-label="TikTok" data-comment="dealers-footer-social-tiktok"><i class="ri-tiktok-fill"></i></a>
+                        <a href="https://www.facebook.com/ifyouneedmeillbeinmyshed/" target="_blank" class="footer-social-btn" aria-label="Facebook" data-comment="dealers-footer-social-facebook"><i class="ri-facebook-fill"></i></a>
+                        <a href="https://www.instagram.com/northcountrystoragebarns/" target="_blank" class="footer-social-btn" aria-label="Instagram" data-comment="dealers-footer-social-instagram"><i class="ri-instagram-fill"></i></a>
+                        <a href="#" target="_blank" class="footer-social-btn" aria-label="Google" data-comment="dealers-footer-social-google"><i class="ri-google-fill"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </body>
+</html>

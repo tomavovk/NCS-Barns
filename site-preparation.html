@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Site Preparation — NCS Barns</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+            rel="stylesheet" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+            rel="stylesheet" />
+        <script src="nav.js" defer></script>
+
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            :root {
+                --color-burgundy:       #8B1A2A;
+                --color-burgundy-dark:  #6D1420;
+                --color-dark:           #1C1F24;
+                --color-gray:           #514C4A;
+                --color-gray-light:     #9A9390;
+                --color-border:         #E6E2DD;
+                --color-bg:             #F8F6F4;
+                --color-bg-hover:       #F4F1EE;
+                --color-bg-menu:        #FAFAF8;
+
+                --font-ui: 'Inter', sans-serif;
+
+                --nav-height: 72px;
+                --max-width:  1440px;
+                --page-px:    40px;
+
+                --t-fast: 0.15s ease;
+                --t-med:  0.22s ease;
+            }
+
+            body {
+                font-family: var(--font-ui);
+                background: var(--color-bg);
+                color: var(--color-dark);
+            }
+
+            /* ─── PAGE WRAPPER ─── */
+            .sp-page {
+                max-width: var(--max-width);
+                margin: 0 auto;
+                padding: 0 var(--page-px);
+                padding-top: 48px;
+                padding-bottom: 96px;
+            }
+
+            /* ─── PAGE TITLE ─── */
+            .sp-page-title {
+                font-size: clamp(28px, 3vw, 38px);
+                font-weight: 600;
+                letter-spacing: -0.02em;
+                color: var(--color-dark);
+                line-height: 1.15;
+                margin-bottom: 28px;
+            }
+
+            /* ─── HERO IMAGE ─── */
+            .sp-hero-img {
+                width: 100%;
+                border-radius: 16px;
+                overflow: hidden;
+                margin-bottom: 48px;
+            }
+
+            .sp-hero-img img {
+                width: 100%;
+                height: 420px;
+                object-fit: cover;
+                display: block;
+            }
+
+            /* ─── NOTICE BANNER ─── */
+            .sp-notice {
+                display: flex;
+                align-items: flex-start;
+                gap: 14px;
+                background: #FDF4F5;
+                border: 1.5px solid #D9929B;
+                border-left: 4px solid var(--color-burgundy);
+                border-radius: 12px;
+                padding: 18px 22px;
+                margin-bottom: 64px;
+            }
+
+            .sp-notice-icon {
+                flex-shrink: 0;
+                width: 20px;
+                height: 20px;
+                color: var(--color-burgundy);
+                margin-top: 1px;
+            }
+
+            .sp-notice-text {
+                font-size: 14px;
+                line-height: 1.6;
+                color: var(--color-dark);
+            }
+
+            .sp-notice-text strong {
+                font-weight: 600;
+            }
+
+            /* ─── EDITORIAL TWO-COL ─── */
+            .sp-section {
+                display: grid;
+                grid-template-columns: 320px 1fr;
+                gap: 64px;
+                padding: 56px 0;
+                border-top: 1px solid var(--color-border);
+            }
+
+            .sp-section:last-of-type {
+                border-bottom: 1px solid var(--color-border);
+            }
+
+            /* Left column */
+            .sp-col-label {
+                padding-top: 4px;
+            }
+
+            .sp-section-heading {
+                font-size: clamp(22px, 2.4vw, 30px);
+                font-weight: 700;
+                letter-spacing: -0.025em;
+                color: var(--color-dark);
+                line-height: 1.2;
+            }
+
+            .sp-section-label {
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                color: var(--color-gray-light);
+            }
+
+            /* Right column */
+            .sp-col-content {
+                display: flex;
+                flex-direction: column;
+                gap: 28px;
+            }
+
+            /* Sub-headings within right col */
+            .sp-sub-heading {
+                font-size: 16px;
+                font-weight: 650;
+                color: var(--color-dark);
+                letter-spacing: -0.01em;
+                margin-bottom: 8px;
+            }
+
+            .sp-body {
+                font-size: 15px;
+                line-height: 1.7;
+                color: var(--color-gray);
+            }
+
+            /* Group divider within steps */
+            .sp-group {
+                display: flex;
+                flex-direction: column;
+                gap: 28px;
+            }
+
+            .sp-group-header {
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 0.04em;
+                text-transform: uppercase;
+                color: var(--color-gray-light);
+                padding-bottom: 16px;
+                border-bottom: 1px solid var(--color-border);
+            }
+
+            .sp-group + .sp-group {
+                margin-top: 12px;
+                padding-top: 40px;
+                border-top: 1px solid var(--color-border);
+            }
+
+            /* Step item */
+            .sp-step {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .sp-step-chip {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: var(--color-burgundy);
+                margin-bottom: 4px;
+            }
+
+            .sp-step-chip::before {
+                content: '';
+                display: inline-block;
+                width: 16px;
+                height: 2px;
+                background: var(--color-burgundy);
+                border-radius: 2px;
+            }
+
+            /* Image placeholder */
+            .sp-img-placeholder {
+                width: 100%;
+                border-radius: 12px;
+                overflow: hidden;
+                background: #EDE9E5;
+                border: 1.5px dashed var(--color-border);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                aspect-ratio: 16 / 9;
+                color: var(--color-gray-light);
+                font-size: 13px;
+                font-weight: 500;
+                letter-spacing: 0.04em;
+                gap: 8px;
+            }
+
+            .sp-img-placeholder i {
+                font-size: 20px;
+            }
+
+            /* Image block */
+            .sp-img-block {
+                width: 100%;
+                border-radius: 12px;
+                overflow: hidden;
+                margin: 0;
+            }
+
+            .sp-img-block img {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 16 / 9;
+                object-fit: cover;
+                display: block;
+            }
+
+            /* CTA button */
+            .sp-cta {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 13px 24px;
+                background: var(--color-burgundy);
+                color: #fff;
+                border-radius: 10px;
+                font-size: 14px;
+                font-weight: 600;
+                text-decoration: none;
+                letter-spacing: -0.01em;
+                transition: background var(--t-fast), transform var(--t-fast);
+                align-self: flex-start;
+            }
+
+            .sp-cta:hover {
+                background: var(--color-burgundy-dark);
+                transform: translateY(-1px);
+            }
+
+            /* ─── FOOTER ─── */
+            .footer-root { background: #000; color: #fff; padding: 72px var(--page-px) 40px; }
+            .footer-inner { max-width: var(--max-width); margin: 0 auto; }
+            .footer-top { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr 1.4fr; gap: 48px; padding-bottom: 52px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 52px; }
+            .footer-brand-logo { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; text-decoration: none; margin-bottom: 16px; }
+            .footer-brand-logo img { width: 50%; height: auto; filter: brightness(0) invert(1) opacity(0.5); }
+            .footer-brand-name { font-size: 16px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+            .footer-brand-desc { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.65; max-width: 220px; }
+            .footer-col-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 18px; }
+            .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+            .footer-links a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-links a:hover { color: #fff; }
+            .footer-contact-item { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+            .footer-contact-item svg { width: 15px; height: 15px; stroke: rgba(255,255,255,0.35); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+            .footer-contact-item a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-contact-item a:hover { color: #fff; }
+            .footer-locations { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 32px; }
+            .footer-loc-name { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+            .footer-loc-addr { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.55; margin-bottom: 8px; }
+            .footer-loc-phone { font-size: 13px; color: rgba(255,255,255,0.45); }
+            .footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+            .footer-copy-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+            .footer-copy { font-size: 13px; color: rgba(255,255,255,0.3); }
+            .footer-legal-link { font-size: 13px; color: rgba(255,255,255,0.3); text-decoration: none; transition: color var(--t-fast); }
+            .footer-legal-link:hover { color: #fff; }
+            .footer-socials { display: flex; gap: 10px; }
+            .footer-social-btn { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid rgba(255,255,255,0.15); text-decoration: none; transition: border-color var(--t-fast), background var(--t-fast); }
+            .footer-social-btn:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.08); }
+            .footer-social-btn i { font-size: 17px; color: rgba(255,255,255,0.6); }
+
+            /* ─── RESPONSIVE ─── */
+            @media (max-width: 900px) {
+                .sp-section {
+                    grid-template-columns: 1fr;
+                    gap: 28px;
+                }
+
+                .sp-section-heading {
+                    font-size: clamp(20px, 5vw, 26px);
+                }
+            }
+
+            @media (max-width: 768px) {
+                .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+                .footer-top > div:first-child { grid-column: 1/-1; }
+                .footer-locations { grid-template-columns: 1fr; gap: 20px; }
+                .footer-bottom { flex-direction: column; align-items: flex-start; gap: 16px; }
+            }
+
+            @media (max-width: 640px) {
+                :root {
+                    --page-px: 20px;
+                }
+
+                .sp-page {
+                    padding-top: calc(var(--nav-height) + 32px);
+                    padding-bottom: 64px;
+                }
+
+                .sp-hero-img img {
+                    height: 240px;
+                }
+
+                .sp-section {
+                    padding: 36px 0;
+                    gap: 20px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+
+        <ncs-nav data-comment="sp-nav"></ncs-nav>
+
+        <main class="sp-page" data-comment="sp-page">
+
+            <!-- Page Title -->
+            <h1 class="sp-page-title" data-comment="sp-page-title">Site Preparation</h1>
+
+            <!-- Notice Banner -->
+            <div class="sp-notice" data-comment="sp-notice">
+                <i class="ri-information-line sp-notice-icon" data-comment="sp-notice-icon"></i>
+                <p class="sp-notice-text" data-comment="sp-notice-text">
+                    <strong>Update:</strong> As of 2026 we no longer offer site prep services. We do have local contractors we can recommend — <a href="index.html#contact" style="color:var(--color-burgundy);font-weight:600;">contact us for a referral</a>.
+                </p>
+            </div>
+
+            <!-- ── SECTION 1: Intro ── -->
+            <section class="sp-section" data-comment="sp-section-intro">
+
+                <div class="sp-col-label" data-comment="sp-intro-label">
+                    <h2 class="sp-section-heading" data-comment="sp-intro-heading">Setting Up Your Site Is Crucial</h2>
+                </div>
+
+                <div class="sp-col-content" data-comment="sp-intro-content">
+
+                    <p class="sp-body" data-comment="sp-intro-p1">
+                        The foundation under a shed is no different than the foundation under your home. Your shed and home will be as good as the foundation underneath them. Site preparation is a very important part of a lasting and sturdy shed. If you want the shed to last for generations, then you will want to take your time on placement, positioning, and the preparation of the site where the storage shed will be placed. If the shed is properly set up with a good foundation, the windows and doors will function properly. Also, when you set nails or screws on the workbench, they won't roll away!
+                    </p>
+
+                    <p class="sp-body" data-comment="sp-intro-p2">
+                        Some might say "Ah… it's only a shed. Just drop it over there… that spot looks pretty level!" If you plan on using the shed for a very short term and then having us move it elsewhere, this plan might work for a little while, but most customers want to place a shed and use it for a lifetime or longer.
+                    </p>
+
+                    <p class="sp-body" data-comment="sp-intro-p3">
+                        If you are worried about a wooden structure on the ground, no need! The pressure-treated lumber is what makes contact with the ground. Everything else is built and designed to resist the elements and the North Country rodents and insects. Our LP Smartside wall panels have proven durability to resist harsh weather, rich cedar grain texture for enhanced beauty, and SmartGuard® treatment for protection against rot and termites.
+                    </p>
+
+                    <figure class="sp-img-block" data-comment="sp-intro-img">
+                        <img
+                            src="https://images.unsplash.com/photo-1516880711640-ef7db81be3e1?w=1200&auto=format&fit=crop&q=80"
+                            alt="Workers constructing a wooden barn frame structure"
+                            loading="lazy"
+                            width="1200"
+                            height="675"
+                        />
+                    </figure>
+
+                </div>
+            </section>
+
+            <!-- ── SECTION 2: Steps ── -->
+            <section class="sp-section" data-comment="sp-section-steps">
+
+                <div class="sp-col-label" data-comment="sp-steps-label">
+                    <h2 class="sp-section-heading" data-comment="sp-steps-heading">Steps</h2>
+                </div>
+
+                <div class="sp-col-content" data-comment="sp-steps-content">
+
+                    <!-- Group A: Customer steps -->
+                    <div class="sp-group" data-comment="sp-group-customer">
+                        <p class="sp-group-header" data-comment="sp-group-customer-header">
+                            These steps need to be completed by you, the customer
+                        </p>
+
+                        <div class="sp-step" data-comment="sp-step-1">
+                            <span class="sp-step-chip" data-comment="sp-step-1-chip">Step 1</span>
+                            <h3 class="sp-sub-heading" data-comment="sp-step-1-heading">Check Codes</h3>
+                            <p class="sp-body" data-comment="sp-step-1-body">
+                                You'll need to check with your local official for placement of the structure purchased and get approval.
+                            </p>
+                        </div>
+
+                        <div class="sp-step" data-comment="sp-step-2">
+                            <span class="sp-step-chip" data-comment="sp-step-2-chip">Step 2</span>
+                            <h3 class="sp-sub-heading" data-comment="sp-step-2-heading">Clear Site</h3>
+                            <p class="sp-body" data-comment="sp-step-2-body">
+                                Clear out any trees, shrubs, or brush in that area.
+                            </p>
+                        </div>
+
+                        <div class="sp-step" data-comment="sp-step-3">
+                            <span class="sp-step-chip" data-comment="sp-step-3-chip">Step 3</span>
+                            <h3 class="sp-sub-heading" data-comment="sp-step-3-heading">Stake Out Dimensions</h3>
+                            <p class="sp-body" data-comment="sp-step-3-body">
+                                Stake out the exact dimensions of your structure. Add 1' to the length and width of the structure. This allows for optimum drainage. If this is not done, the drainage from the roof will create puddles / ruts in the ground. They will splash up on the bottom sides of the structure during every storm. The gravel base will prolong the life of your new structure.
+                            </p>
+                        </div>
+
+                        <figure class="sp-img-block" data-comment="sp-steps-customer-img">
+                            <img
+                                src="https://images.unsplash.com/photo-1613928270169-4e4462c75a79?w=1200&auto=format&fit=crop&q=80"
+                                alt="Excavator grading land for construction site preparation"
+                                loading="lazy"
+                                width="1200"
+                                height="675"
+                            />
+                        </figure>
+                    </div>
+
+                    <!-- Group B: Optional steps -->
+                    <div class="sp-group" data-comment="sp-group-optional">
+                        <p class="sp-group-header" data-comment="sp-group-optional-header">
+                            The following steps can be completed by yourself or contracted out
+                        </p>
+
+                        <div class="sp-step" data-comment="sp-step-4">
+                            <span class="sp-step-chip" data-comment="sp-step-4-chip">Step 4</span>
+                            <h3 class="sp-sub-heading" data-comment="sp-step-4-heading">Remove 4" to 6" of Sod / Lawn</h3>
+                            <p class="sp-body" data-comment="sp-step-4-body">
+                                Before the shed is delivered, remove 4" to 6" of sod or lawn using a truck and trailer with proper equipment. Let the contractor know where you want it. Additional fees apply to take it away and dispose of it.
+                            </p>
+                        </div>
+
+                        <div class="sp-step" data-comment="sp-step-5">
+                            <span class="sp-step-chip" data-comment="sp-step-5-chip">Step 5</span>
+                            <h3 class="sp-sub-heading" data-comment="sp-step-5-heading">Fill Area with Crushed Stone</h3>
+                            <p class="sp-body" data-comment="sp-step-5-body">
+                                Fill the area with ¾" – 1½" crusher run stone (commonly called #2 crusher run at gravel yards). The stone will be tamped down and laser leveled to ensure the designated spot is perfectly level, at least 4" to 6" in thickness. Additional stone may be required to make the location level. <strong>Your site must be within 6" of level</strong> to avoid additional loads of stone and associated charges.
+                            </p>
+                        </div>
+
+                        <figure class="sp-img-block" data-comment="sp-steps-optional-img">
+                            <img
+                                src="https://images.unsplash.com/photo-1762608676460-5fd5aafa5ce1?w=1200&auto=format&fit=crop&q=80"
+                                alt="Construction site with gravel and crushed stone for foundation base"
+                                loading="lazy"
+                                width="1200"
+                                height="675"
+                            />
+                        </figure>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ── SECTION 3: Please Note ── -->
+            <section class="sp-section" data-comment="sp-section-note">
+
+                <div class="sp-col-label" data-comment="sp-note-label">
+                    <span class="sp-section-label" data-comment="sp-note-label-text">Please Note</span>
+                </div>
+
+                <div class="sp-col-content" data-comment="sp-note-content">
+
+                    <p class="sp-body" data-comment="sp-note-p1">
+                        Cinder blocks are not recommended. If you block and level smaller units, patio pavers are the best product for this application.
+                    </p>
+
+                    <p class="sp-body" data-comment="sp-note-p2">
+                        North Country Storage Barns is not responsible for ruts or damage to the lawn during site preparation or delivery.
+                    </p>
+
+                    <a href="index.html#contact" class="sp-cta" data-comment="sp-cta-contact">
+                        Contact Us
+                        <i class="ri-arrow-right-line"></i>
+                    </a>
+
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="footer-root" data-comment="sp-footer-root">
+            <div class="footer-inner" data-comment="sp-footer-inner">
+                <div class="footer-top" data-comment="sp-footer-top">
+                    <div data-comment="sp-footer-brand">
+                        <a href="index.html" class="footer-brand-logo" data-comment="sp-footer-brand-logo">
+                            <img src="assets/Logo.png" alt="NCS Barns" data-comment="sp-footer-brand-img" />
+                            <span class="footer-brand-name" data-comment="sp-footer-brand-name">NCS Barns</span>
+                        </a>
+                        <p class="footer-brand-desc" data-comment="sp-footer-brand-desc">Handcrafted quality structures for the North Country — family owned &amp; operated since 1993.</p>
+                    </div>
+                    <div data-comment="sp-footer-col-products">
+                        <p class="footer-col-label" data-comment="sp-footer-products-label">Products</p>
+                        <ul class="footer-links" data-comment="sp-footer-products-links">
+                            <li data-comment="sp-fli-sheds"><a href="catalog.html?category=Sheds" data-comment="sp-fl-sheds">Sheds</a></li>
+                            <li data-comment="sp-fli-gazebos"><a href="catalog.html?category=Gazebos" data-comment="sp-fl-gazebos">Gazebos &amp; Pergolas</a></li>
+                            <li data-comment="sp-fli-hunting"><a href="catalog.html?category=Hunting+Blinds" data-comment="sp-fl-hunting">Hunting Blinds</a></li>
+                            <li data-comment="sp-fli-play"><a href="catalog.html?category=Play+Structures" data-comment="sp-fl-play">Play Structures</a></li>
+                            <li data-comment="sp-fli-furniture"><a href="catalog.html?category=Outdoor+Furniture" data-comment="sp-fl-furniture">Furniture</a></li>
+                            <li data-comment="sp-fli-homes"><a href="catalog.html?category=Custom+Homes" data-comment="sp-fl-homes">Homes &amp; Garages</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="sp-footer-col-company">
+                        <p class="footer-col-label" data-comment="sp-footer-company-label">Company</p>
+                        <ul class="footer-links" data-comment="sp-footer-company-links">
+                            <li data-comment="sp-fli-about"><a href="#" data-comment="sp-fl-about">About Us</a></li>
+                            <li data-comment="sp-fli-testimonials"><a href="#" data-comment="sp-fl-testimonials">Testimonials</a></li>
+                            <li data-comment="sp-fli-gallery"><a href="gallery.html" data-comment="sp-fl-gallery">Gallery</a></li>
+                            <li data-comment="sp-fli-delivery"><a href="delivery.html" data-comment="sp-fl-delivery">Delivery &amp; Relocation</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="sp-footer-col-buying">
+                        <p class="footer-col-label" data-comment="sp-footer-buying-label">Buying Process</p>
+                        <ul class="footer-links" data-comment="sp-footer-buying-links">
+                            <li data-comment="sp-fli-rto"><a href="#" data-comment="sp-fl-rto">Rent-To-Own</a></li>
+                            <li data-comment="sp-fli-financing"><a href="#" data-comment="sp-fl-financing">Financing Options</a></li>
+                            <li data-comment="sp-fli-siteprep"><a href="site-preparation.html" data-comment="sp-fl-siteprep">Site Preparation</a></li>
+                            <li data-comment="sp-fli-warranty"><a href="#" data-comment="sp-fl-warranty">Warranty</a></li>
+                            <li data-comment="sp-fli-dealers"><a href="#" data-comment="sp-fl-dealers">Dealers</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="sp-footer-col-contact">
+                        <p class="footer-col-label" data-comment="sp-footer-contact-label">Contact</p>
+                        <div class="footer-contact-item" data-comment="sp-footer-phone">
+                            <svg viewBox="0 0 24 24" data-comment="sp-footer-phone-icon"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l1.64-1.64a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <a href="tel:3156420209" data-comment="sp-footer-phone-link">(315) 642-0209</a>
+                        </div>
+                        <div class="footer-contact-item" data-comment="sp-footer-email">
+                            <svg viewBox="0 0 24 24" data-comment="sp-footer-email-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            <a href="mailto:sales@ncsbarns.com" data-comment="sp-footer-email-link">sales@ncsbarns.com</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-locations" data-comment="sp-footer-locations">
+                    <div data-comment="sp-footer-loc-phila">
+                        <p class="footer-loc-name" data-comment="sp-footer-loc-phila-name">Philadelphia</p>
+                        <p class="footer-loc-addr" data-comment="sp-footer-loc-phila-addr">32660 US Route 11<br>Philadelphia, NY 13673</p>
+                        <p class="footer-loc-phone" data-comment="sp-footer-loc-phila-phone">(315) 642-0209</p>
+                    </div>
+                    <div data-comment="sp-footer-loc-york">
+                        <p class="footer-loc-name" data-comment="sp-footer-loc-york-name">Yorkville</p>
+                        <p class="footer-loc-addr" data-comment="sp-footer-loc-york-addr">317 Oriskany Blvd<br>Yorkville, NY</p>
+                        <p class="footer-loc-phone" data-comment="sp-footer-loc-york-phone">(315) 793-0726</p>
+                    </div>
+                    <div data-comment="sp-footer-loc-sandy">
+                        <p class="footer-loc-name" data-comment="sp-footer-loc-sandy-name">Sandy Creek</p>
+                        <p class="footer-loc-addr" data-comment="sp-footer-loc-sandy-addr">5780 US Route 11<br>Pulaski, NY 13142</p>
+                        <p class="footer-loc-phone" data-comment="sp-footer-loc-sandy-phone">(315) 387-2092</p>
+                    </div>
+                </div>
+                <div class="footer-bottom" data-comment="sp-footer-bottom">
+                    <div class="footer-copy-row" data-comment="sp-footer-copy-row">
+                        <p class="footer-copy" data-comment="sp-footer-copy">Copyright&copy; 2024 North Country Storage Barns LLC. All rights reserved.</p>
+                        <a href="privacy.html" class="footer-legal-link" href="privacy.html" class="footer-legal-link" data-comment="sp-footer-privacy">Privacy Policy</a>
+                        <a href="terms.html" class="footer-legal-link" data-comment="sp-footer-terms">Terms &amp; Conditions</a>
+                    </div>
+                    <div class="footer-socials" data-comment="sp-footer-socials">
+                        <a href="https://www.tiktok.com/@northcountrystoragebarns" target="_blank" class="footer-social-btn" data-comment="sp-footer-tiktok" aria-label="TikTok"><i class="ri-tiktok-fill" data-comment="sp-footer-tiktok-icon"></i></a>
+                        <a href="https://www.facebook.com/ifyouneedmeillbeinmyshed/" target="_blank" class="footer-social-btn" data-comment="sp-footer-facebook" aria-label="Facebook"><i class="ri-facebook-fill" data-comment="sp-footer-facebook-icon"></i></a>
+                        <a href="https://www.instagram.com/northcountrystoragebarns/" target="_blank" class="footer-social-btn" data-comment="sp-footer-instagram" aria-label="Instagram"><i class="ri-instagram-fill" data-comment="sp-footer-instagram-icon"></i></a>
+                        <a href="#" class="footer-social-btn" data-comment="sp-footer-google" aria-label="Google"><i class="ri-google-fill" data-comment="sp-footer-google-icon"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </body>
+</html>

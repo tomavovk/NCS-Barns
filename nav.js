@@ -1,12 +1,104 @@
 (function () {
   const NAV_CSS = `
     /* ─────────────────────────────────────────
+       TOPBAR
+    ───────────────────────────────────────── */
+    :root { --topbar-height: 36px; }
+
+    .nav-topbar {
+        position: sticky;
+        top: 0;
+        z-index: 1001;
+        background: var(--color-burgundy);
+        color: #fff;
+        font-size: 12.5px;
+        font-weight: 500;
+        height: var(--topbar-height);
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-topbar-inner {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding: 0 var(--page-px);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        height: 100%;
+    }
+
+    .nav-topbar-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .nav-topbar-phone {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: rgba(255,255,255,0.85);
+        text-decoration: none;
+        padding-right: 16px;
+        margin-right: 4px;
+        border-right: 1px solid rgba(255,255,255,0.18);
+        transition: color var(--t-fast);
+        white-space: nowrap;
+    }
+    .nav-topbar-phone:hover { color: #fff; }
+    .nav-topbar-phone i { font-size: 13px; }
+
+    .nav-topbar-links {
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-topbar-link {
+        color: rgba(255,255,255,0.72);
+        text-decoration: none;
+        padding: 0 14px;
+        border-left: 1px solid rgba(255,255,255,0.18);
+        line-height: 1;
+        transition: color var(--t-fast);
+        white-space: nowrap;
+    }
+    .nav-topbar-link:first-child { border-left: none; padding-left: 0; }
+    .nav-topbar-link:hover { color: #fff; }
+
+    .nav-topbar-right {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .nav-topbar-sale-badge {
+        background: rgba(255,255,255,0.14);
+        border: 1px solid rgba(255,255,255,0.22);
+        border-radius: 4px;
+        padding: 2px 7px;
+        font-size: 10.5px;
+        font-weight: 700;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+        color: #fff;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .nav-topbar-sale-text {
+        color: rgba(255,255,255,0.85);
+        white-space: nowrap;
+    }
+
+    /* ─────────────────────────────────────────
        BACKDROP
     ───────────────────────────────────────── */
     [data-comment="nav-backdrop"] {
         position: fixed;
         inset: 0;
-        top: var(--nav-height);
+        top: calc(var(--topbar-height) + var(--nav-height));
         background: rgba(20, 18, 16, 0.18);
         backdrop-filter: blur(2px);
         -webkit-backdrop-filter: blur(2px);
@@ -25,7 +117,7 @@
     ───────────────────────────────────────── */
     [data-comment="nav-root"] {
         position: sticky;
-        top: 0;
+        top: var(--topbar-height);
         z-index: 1000;
         background: #ffffff;
         border-bottom: 1px solid #EAE6E3;
@@ -198,13 +290,14 @@
     .nav-cart-badge {
         display: none;
         position: absolute;
-        top: 7px;
-        right: 7px;
-        width: 7px;
-        height: 7px;
-        background: var(--color-burgundy);
+        bottom: 5px;
+        right: 5px;
+        width: 9px;
+        height: 9px;
+        background: #8B1A2A;
         border-radius: 50%;
-        border: 1.5px solid var(--color-bg);
+        border: 1.5px solid #fff;
+        pointer-events: none;
     }
 
     /* ─────────────────────────────────────────
@@ -212,11 +305,11 @@
     ───────────────────────────────────────── */
     .nav-mega {
         position: fixed;
-        top: var(--nav-height);
+        top: calc(var(--topbar-height) + var(--nav-height));
         left: 0;
         right: 0;
         z-index: 999;
-        background: var(--color-bg);
+        background: #ffffff;
         border-bottom: 1px solid var(--color-border);
         box-shadow: 0 12px 48px rgba(0, 0, 0, 0.09), 0 2px 8px rgba(0, 0, 0, 0.04);
         opacity: 0;
@@ -237,6 +330,7 @@
         display: flex;
         align-items: stretch;
         gap: 48px;
+        min-height: 369px;
     }
 
     .nav-mega-body {
@@ -333,6 +427,7 @@
     /* ── CTA card ── */
     .nav-mega-cta {
         width: 232px;
+        aspect-ratio: 593 / 840;
         flex-shrink: 0;
         border-radius: 14px;
         overflow: hidden;
@@ -344,7 +439,7 @@
         flex-direction: column;
         justify-content: flex-end;
         padding: 20px;
-        align-self: stretch;
+        align-self: center;
         margin: 8px 8px 8px 0;
     }
 
@@ -431,6 +526,13 @@
     }
 
     /* ── Light illustration CTA cards ── */
+    .nav-mega-cta--no-fade::before { display: none; }
+
+    .nav-mega-cta--dark-text .nav-mega-cta-label   { color: var(--color-gray); }
+    .nav-mega-cta--dark-text .nav-mega-cta-heading  { color: var(--color-dark); }
+    .nav-mega-cta--dark-text .nav-mega-cta-note     { color: var(--color-gray); }
+    .nav-mega-cta--dark-text .btn-cta-card           { background: var(--color-burgundy); color: #fff; }
+
     .nav-mega-cta--light {
         background-color: #F4F1EE;
         background-image: none !important;
@@ -807,6 +909,26 @@
   `;
 
   const NAV_HTML = `
+        <!-- ── TOPBAR ── -->
+        <div class="nav-topbar" data-comment="nav-topbar">
+            <div class="nav-topbar-inner" data-comment="nav-topbar-inner">
+                <div class="nav-topbar-left" data-comment="nav-topbar-left">
+                    <span class="nav-topbar-sale-badge" data-comment="nav-topbar-sale-badge">Spring Sale</span>
+                    <span class="nav-topbar-sale-text" data-comment="nav-topbar-sale-text">Save Up to 20% — Ends May 31</span>
+                </div>
+                <div class="nav-topbar-right" data-comment="nav-topbar-right">
+                    <a href="tel:+13156420209" class="nav-topbar-phone" data-comment="nav-topbar-phone">
+                        <i class="ri-phone-line"></i>
+                        (315) 642-0209
+                    </a>
+                    <nav class="nav-topbar-links" data-comment="nav-topbar-links">
+                        <a href="colors.html" class="nav-topbar-link" data-comment="nav-topbar-link-colors">Colors</a>
+                        <a href="options.html" class="nav-topbar-link" data-comment="nav-topbar-link-options">Options</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
         <!-- ── BACKDROP ── -->
         <div data-comment="nav-backdrop" id="navBackdrop"></div>
 
@@ -894,13 +1016,16 @@
                                         <p class="nav-mega-col-title" data-comment="nav-mega-col-title-homes">Homes &amp; Garages</p>
                                         <ul class="nav-mega-list" data-comment="nav-mega-list-homes">
                                             <li data-comment="nav-mega-li-custom-homes">
-                                                <a href="catalog.html?category=Custom+Homes" class="nav-mega-link" data-comment="nav-mega-link-custom-homes">Custom Built Homes</a>
+                                                <a href="custom-built-homes.html" class="nav-mega-link" data-comment="nav-mega-link-custom-homes">Custom Built Homes</a>
                                             </li>
                                             <li data-comment="nav-mega-li-modular-homes">
                                                 <a href="catalog.html?category=Log+Homes" class="nav-mega-link" data-comment="nav-mega-link-modular-homes">Modular Log Homes</a>
                                             </li>
                                             <li data-comment="nav-mega-li-garages">
                                                 <a href="catalog.html?category=Garages" class="nav-mega-link" data-comment="nav-mega-link-garages">Garages</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-bill-lake">
+                                                <a href="https://www.billlakehomes.com/" target="_blank" rel="noopener noreferrer" class="nav-mega-link" data-comment="nav-mega-link-bill-lake">Bill Lake Homes <i class="ri-arrow-right-up-line" data-comment="nav-mega-link-bill-lake-arrow"></i></a>
                                             </li>
                                         </ul>
                                     </div>
@@ -910,13 +1035,10 @@
                                         <p class="nav-mega-col-title" data-comment="nav-mega-col-title-options">Options</p>
                                         <ul class="nav-mega-list" data-comment="nav-mega-list-options">
                                             <li data-comment="nav-mega-li-colors">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-colors">Colors</a>
+                                                <a href="colors.html" class="nav-mega-link" data-comment="nav-mega-link-colors">Colors</a>
                                             </li>
-                                            <li data-comment="nav-mega-li-log-cabin">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-log-cabin">Log Cabin Options</a>
-                                            </li>
-                                            <li data-comment="nav-mega-li-shed-options">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-shed-options">Additional Shed Options</a>
+                                            <li data-comment="nav-mega-li-options">
+                                                <a href="options.html" class="nav-mega-link" data-comment="nav-mega-link-options">Options</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -925,65 +1047,11 @@
                                 </div><!-- /nav-mega-body -->
 
                                     <!-- CTA -->
-                                    <div class="nav-mega-cta nav-mega-cta--light" data-comment="nav-mega-cta">
-                                        <div class="nav-mega-cta-bg" data-comment="nav-mega-cta-bg">
-                                            <svg viewBox="0 0 232 175" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <defs>
-                                                    <linearGradient id="fp3" x1="0" y1="0" x2="0" y2="1"><stop offset="0.36" stop-color="#F4F1EE" stop-opacity="0"/><stop offset="0.74" stop-color="#F4F1EE"/></linearGradient>
-                                                </defs>
-                                                <rect width="232" height="175" fill="#F4F1EE"/>
-                                                <rect x="16" y="15" width="202" height="156" rx="12" fill="#1C1F24" fill-opacity="0.045"/>
-                                                <rect x="14" y="12" width="202" height="156" rx="12" fill="white" stroke="#E8E4DF" stroke-width="1"/>
-                                                <text x="26" y="32" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#1C1F24">Style</text>
-                                                <circle cx="203" cy="30" r="9" fill="#F4F1EE" stroke="#E8E4DF" stroke-width="0.75"/>
-                                                <line x1="199.5" y1="26.5" x2="206.5" y2="33.5" stroke="#9EA4AD" stroke-width="1.25" stroke-linecap="round"/>
-                                                <line x1="206.5" y1="26.5" x2="199.5" y2="33.5" stroke="#9EA4AD" stroke-width="1.25" stroke-linecap="round"/>
-                                                <line x1="14" y1="44" x2="216" y2="44" stroke="#E8E4DF" stroke-width="0.75"/>
-                                                <rect x="22" y="51" width="40" height="46" rx="5" fill="#FBF3F4" stroke="#8B1A2A" stroke-width="1.5"/>
-                                                <polygon points="22,77 42,62 62,77" fill="#E4D5D7" stroke="#CCB0B5" stroke-width="0.75"/>
-                                                <rect x="30" y="76" width="24" height="15" fill="#EDE3E5" stroke="#CCB0B5" stroke-width="0.75"/>
-                                                <rect x="38" y="82" width="8" height="9" rx="1" fill="#8B1A2A" fill-opacity="0.45"/>
-                                                <circle cx="58" cy="57" r="7.5" fill="#8B1A2A"/>
-                                                <polyline points="54,57 57,60.5 63,52.5" stroke="white" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                                                <rect x="70" y="51" width="40" height="46" rx="5" fill="#F8F7F5" stroke="#E8E4DF" stroke-width="0.75"/>
-                                                <polygon points="70,77 90,60 110,77" fill="#E6E3DF" stroke="#D0CDC8" stroke-width="0.75"/>
-                                                <rect x="78" y="76" width="24" height="15" fill="#ECEAE6" stroke="#D0CDC8" stroke-width="0.75"/>
-                                                <rect x="86" y="82" width="8" height="9" rx="1" fill="#C8C4BE"/>
-                                                <rect x="118" y="51" width="40" height="46" rx="5" fill="#F8F7F5" stroke="#E8E4DF" stroke-width="0.75"/>
-                                                <polygon points="118,77 138,68 158,77" fill="#E6E3DF" stroke="#D0CDC8" stroke-width="0.75"/>
-                                                <rect x="126" y="76" width="24" height="15" fill="#ECEAE6" stroke="#D0CDC8" stroke-width="0.75"/>
-                                                <rect x="129" y="79" width="7" height="12" rx="1" fill="#D0CDC8" stroke="#C4C0BA" stroke-width="0.5"/>
-                                                <rect x="139" y="79" width="7" height="12" rx="1" fill="#D0CDC8" stroke="#C4C0BA" stroke-width="0.5"/>
-                                                <rect x="166" y="51" width="40" height="46" rx="5" fill="#F8F7F5" stroke="#E8E4DF" stroke-width="0.75"/>
-                                                <polygon points="166,77 186,60 206,77" fill="#E6E3DF" stroke="#D0CDC8" stroke-width="0.75"/>
-                                                <rect x="174" y="70" width="24" height="21" fill="#ECEAE6" stroke="#D0CDC8" stroke-width="0.75"/>
-                                                <rect x="182" y="77" width="8" height="14" rx="1" fill="#C8C4BE"/>
-                                                <line x1="14" y1="104" x2="216" y2="104" stroke="#E8E4DF" stroke-width="0.75"/>
-                                                <text x="26" y="121" font-family="Inter,sans-serif" font-size="11" font-weight="500" fill="#1C1F24">Size</text>
-                                                <text x="150" y="121" font-family="Inter,sans-serif" font-size="11" fill="#9EA4AD">10' \xd7 16'</text>
-                                                <circle cx="204" cy="118" r="8.5" fill="none" stroke="#E8E4DF" stroke-width="0.75"/>
-                                                <line x1="200" y1="118" x2="208" y2="118" stroke="#9EA4AD" stroke-width="1.25" stroke-linecap="round"/>
-                                                <line x1="204" y1="114" x2="204" y2="122" stroke="#9EA4AD" stroke-width="1.25" stroke-linecap="round"/>
-                                                <line x1="14" y1="132" x2="216" y2="132" stroke="#E8E4DF" stroke-width="0.75"/>
-                                                <text x="26" y="148" font-family="Inter,sans-serif" font-size="11" font-weight="500" fill="#1C1F24">Color</text>
-                                                <circle cx="157" cy="145" r="4.5" fill="#8B1A2A"/>
-                                                <circle cx="168" cy="145" r="4.5" fill="#52575F"/>
-                                                <circle cx="179" cy="145" r="4.5" fill="#E6E2DD" stroke="#C8C4BE" stroke-width="0.5"/>
-                                                <circle cx="204" cy="145" r="8.5" fill="none" stroke="#E8E4DF" stroke-width="0.75"/>
-                                                <line x1="200" y1="145" x2="208" y2="145" stroke="#9EA4AD" stroke-width="1.25" stroke-linecap="round"/>
-                                                <line x1="204" y1="141" x2="204" y2="149" stroke="#9EA4AD" stroke-width="1.25" stroke-linecap="round"/>
-                                                <line x1="14" y1="159" x2="216" y2="159" stroke="#E8E4DF" stroke-width="0.75"/>
-                                                <text x="26" y="174" font-family="Inter,sans-serif" font-size="11" font-weight="500" fill="#1C1F24">Exterior</text>
-                                                <circle cx="204" cy="171" r="8.5" fill="none" stroke="#E8E4DF" stroke-width="0.75"/>
-                                                <line x1="200" y1="171" x2="208" y2="171" stroke="#9EA4AD" stroke-width="1.25" stroke-linecap="round"/>
-                                                <rect width="232" height="175" fill="url(#fp3)"/>
-                                            </svg>
-                                        </div>
+                                    <div class="nav-mega-cta nav-mega-cta--no-fade nav-mega-cta--dark-text" style="background-image:url('assets/Navigation/Navigation Visual/Product.png?v=5');background-size:100% auto;background-position:top center;background-color:#F4F1EE;" data-comment="nav-mega-cta">
                                         <div class="nav-mega-cta-content" data-comment="nav-mega-cta-content">
-                                            <p class="nav-mega-cta-label" data-comment="nav-mega-cta-label">Build yours</p>
                                             <p class="nav-mega-cta-heading" data-comment="nav-mega-cta-heading">Design Your Own Shed</p>
                                             <p class="nav-mega-cta-note" data-comment="nav-mega-cta-note">Interactive 3D configurator with AR preview</p>
-                                            <a href="#" class="btn-cta-card" data-comment="nav-mega-cta-btn">
+                                            <a href="https://ncsbarns.shedpro.co/" target="_blank" rel="noopener" class="btn-cta-card" data-comment="nav-mega-cta-btn">
                                                 <svg data-comment="nav-mega-cta-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
                                                 Customize Shed
                                             </a>
@@ -1017,30 +1085,23 @@
                                         <p class="nav-mega-col-title" data-comment="nav-mega-col-title-company">Company</p>
                                         <ul class="nav-mega-list" data-comment="nav-mega-list-company">
                                             <li data-comment="nav-mega-li-about-company">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-about-company">About Company</a>
+                                                <a href="about.html" class="nav-mega-link" data-comment="nav-mega-link-about-company">About Company</a>
                                             </li>
                                             <li data-comment="nav-mega-li-testimonials">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-testimonials">Testimonials</a>
+                                                <a href="testimonials.html" class="nav-mega-link" data-comment="nav-mega-link-testimonials">Testimonials</a>
                                             </li>
                                             <li data-comment="nav-mega-li-gallery">
                                                 <a href="gallery.html" class="nav-mega-link" data-comment="nav-mega-link-gallery">Gallery</a>
                                             </li>
-                                        </ul>
-                                    </div>
-
-                                    <!-- Services -->
-                                    <div class="nav-mega-col" data-comment="nav-mega-col-services">
-                                        <p class="nav-mega-col-title" data-comment="nav-mega-col-title-services">Services</p>
-                                        <ul class="nav-mega-list" data-comment="nav-mega-list-services">
-                                            <li data-comment="nav-mega-li-delivery-reloc">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-delivery-reloc">Delivery &amp; Relocation</a>
+                                            <li data-comment="nav-mega-li-dealers">
+                                                <a href="dealers.html" class="nav-mega-link" data-comment="nav-mega-link-dealers">Our Partners</a>
                                             </li>
                                         </ul>
                                     </div>
 
                                     <!-- Care Guide -->
                                     <div class="nav-mega-col" data-comment="nav-mega-col-care-guide">
-                                        <p class="nav-mega-col-title" data-comment="nav-mega-col-title-care-guide">Care Guide</p>
+                                        <p class="nav-mega-col-title" data-comment="nav-mega-col-title-care-guide">Product Info</p>
                                         <ul class="nav-mega-list" data-comment="nav-mega-list-care-guide">
                                             <li data-comment="nav-mega-li-care-guide">
                                                 <a href="care-guide.html" class="nav-mega-link" data-comment="nav-mega-link-care-guide">Care Guide</a>
@@ -1052,40 +1113,8 @@
                                 </div><!-- /nav-mega-about-body -->
 
                                     <!-- CTA -->
-                                    <div class="nav-mega-cta nav-mega-cta--light" data-comment="nav-mega-about-cta">
-                                        <div class="nav-mega-cta-bg" data-comment="nav-mega-about-cta-bg">
-                                            <svg viewBox="0 0 232 148" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <defs>
-                                                    <pattern id="dg3" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1.2" fill="#D4D0CB"/></pattern>
-                                                    <linearGradient id="fa3" x1="0" y1="0" x2="0" y2="1"><stop offset="0.38" stop-color="#F4F1EE" stop-opacity="0"/><stop offset="0.78" stop-color="#F4F1EE"/></linearGradient>
-                                                </defs>
-                                                <rect width="232" height="148" fill="#F4F1EE"/>
-                                                <rect width="232" height="148" fill="url(#dg3)"/>
-                                                <path d="M 0,72 Q 55,66 92,74 Q 132,82 185,70 Q 210,65 232,68" stroke="#C8C4BE" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-                                                <path d="M 82,0 Q 86,32 90,72 Q 93,102 86,148" stroke="#C8C4BE" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-                                                <path d="M 0,105 Q 55,99 110,106 Q 162,112 232,100" stroke="#C8C4BE" stroke-width="1" stroke-linecap="round" fill="none" stroke-dasharray="5 4"/>
-                                                <g transform="translate(44,90)">
-                                                    <circle cx="0" cy="-7" r="7" fill="none" stroke="#C8C4BE" stroke-width="1.25"/>
-                                                    <polygon points="-4,-1 4,-1 0,8" fill="#EAE7E3" stroke="#C8C4BE" stroke-width="1" stroke-linejoin="round"/>
-                                                    <circle cx="0" cy="-7" r="2.5" fill="#D4D0CB"/>
-                                                </g>
-                                                <g transform="translate(163,68)">
-                                                    <circle cx="0" cy="-7" r="7" fill="none" stroke="#C8C4BE" stroke-width="1.25"/>
-                                                    <polygon points="-4,-1 4,-1 0,8" fill="#EAE7E3" stroke="#C8C4BE" stroke-width="1" stroke-linejoin="round"/>
-                                                    <circle cx="0" cy="-7" r="2.5" fill="#D4D0CB"/>
-                                                </g>
-                                                <g transform="translate(92,50)">
-                                                    <circle cx="0" cy="-10" r="10.5" fill="#8B1A2A"/>
-                                                    <polygon points="-5.5,-1.5 5.5,-1.5 0,11" fill="#8B1A2A"/>
-                                                    <circle cx="0" cy="-10" r="3.8" fill="white"/>
-                                                </g>
-                                                <circle cx="92" cy="40" r="18" fill="none" stroke="#8B1A2A" stroke-width="0.75" stroke-opacity="0.2"/>
-                                                <circle cx="92" cy="40" r="26" fill="none" stroke="#8B1A2A" stroke-width="0.5" stroke-opacity="0.1"/>
-                                                <rect width="232" height="148" fill="url(#fa3)"/>
-                                            </svg>
-                                        </div>
+                                    <div class="nav-mega-cta nav-mega-cta--no-fade nav-mega-cta--dark-text" style="background-image:url('assets/Navigation/Navigation Visual/About.png?v=5');background-size:100% auto;background-position:top center;background-color:#F4F1EE;" data-comment="nav-mega-about-cta">
                                         <div class="nav-mega-cta-content" data-comment="nav-mega-about-cta-content">
-                                            <p class="nav-mega-cta-label" data-comment="nav-mega-about-cta-label">Locations</p>
                                             <p class="nav-mega-cta-heading" data-comment="nav-mega-about-cta-heading">Visit Us Today</p>
                                             <p class="nav-mega-cta-note" data-comment="nav-mega-about-cta-note">3 locations across New York State</p>
                                             <a href="#" class="btn-cta-card" data-comment="nav-mega-about-cta-btn">
@@ -1122,7 +1151,7 @@
                                         <p class="nav-mega-col-title" data-comment="nav-mega-col-title-financial">Financing</p>
                                         <ul class="nav-mega-list" data-comment="nav-mega-list-financial">
                                             <li data-comment="nav-mega-li-rto">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-rto">Rent-To-Own Program</a>
+                                                <a href="rent-to-own.html" class="nav-mega-link" data-comment="nav-mega-link-rto">Rent-To-Own Program</a>
                                             </li>
                                             <li data-comment="nav-mega-li-ncu">
                                                 <a href="#" class="nav-mega-link" data-comment="nav-mega-link-ncu">Northern Credit Union <i class="ri-arrow-right-up-line" data-comment="nav-mega-link-ncu-icon"></i></a>
@@ -1143,17 +1172,14 @@
                                     <div class="nav-mega-col" data-comment="nav-mega-col-process">
                                         <p class="nav-mega-col-title" data-comment="nav-mega-col-title-process">Process</p>
                                         <ul class="nav-mega-list" data-comment="nav-mega-list-process">
-                                            <li data-comment="nav-mega-li-dealers">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-dealers">Dealers</a>
-                                            </li>
                                             <li data-comment="nav-mega-li-site-prep">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-site-prep">Site Preparation</a>
+                                                <a href="site-preparation.html" class="nav-mega-link" data-comment="nav-mega-link-site-prep">Site Preparation</a>
                                             </li>
                                             <li data-comment="nav-mega-li-delivery">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-delivery">Delivery</a>
+                                                <a href="delivery.html" class="nav-mega-link" data-comment="nav-mega-link-delivery">Delivery</a>
                                             </li>
                                             <li data-comment="nav-mega-li-warranty">
-                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-warranty">Warranty</a>
+                                                <a href="warranty.html" class="nav-mega-link" data-comment="nav-mega-link-warranty">Warranty</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -1162,37 +1188,8 @@
                                 </div><!-- /nav-mega-buying-body -->
 
                                     <!-- CTA -->
-                                    <div class="nav-mega-cta nav-mega-cta--light" data-comment="nav-mega-buying-cta">
-                                        <div class="nav-mega-cta-bg" data-comment="nav-mega-buying-cta-bg">
-                                            <svg viewBox="0 0 232 175" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <defs>
-                                                    <linearGradient id="fb3" x1="0" y1="0" x2="0" y2="1"><stop offset="0.36" stop-color="#F4F1EE" stop-opacity="0"/><stop offset="0.74" stop-color="#F4F1EE"/></linearGradient>
-                                                </defs>
-                                                <rect width="232" height="175" fill="#F4F1EE"/>
-                                                <rect x="15" y="15" width="204" height="134" rx="12" fill="#1C1F24" fill-opacity="0.045"/>
-                                                <rect x="13" y="13" width="204" height="134" rx="12" fill="white" stroke="#E8E4DF" stroke-width="1"/>
-                                                <text x="25" y="33" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#1C1F24">Rent-to-Own Plans</text>
-                                                <line x1="13" y1="46" x2="217" y2="46" stroke="#E8E4DF" stroke-width="0.75"/>
-                                                <rect x="13" y="46" width="204" height="34" fill="#FBF3F4"/>
-                                                <circle cx="29" cy="63" r="7.5" fill="none" stroke="#8B1A2A" stroke-width="1.5"/>
-                                                <circle cx="29" cy="63" r="3.5" fill="#8B1A2A"/>
-                                                <text x="44" y="60" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#1C1F24">24 months</text>
-                                                <text x="44" y="72" font-family="Inter,sans-serif" font-size="10" fill="#9EA4AD">from $291 / mo</text>
-                                                <rect x="148" y="54" width="60" height="17" rx="8.5" fill="#8B1A2A" fill-opacity="0.1"/>
-                                                <text x="178" y="66" font-family="Inter,sans-serif" font-size="9.5" font-weight="500" fill="#8B1A2A" text-anchor="middle">No deposit</text>
-                                                <line x1="13" y1="80" x2="217" y2="80" stroke="#E8E4DF" stroke-width="0.75"/>
-                                                <circle cx="29" cy="97" r="7.5" fill="none" stroke="#D0CDC8" stroke-width="1.25"/>
-                                                <text x="44" y="94" font-family="Inter,sans-serif" font-size="11" font-weight="500" fill="#1C1F24">36 months</text>
-                                                <text x="44" y="106" font-family="Inter,sans-serif" font-size="10" fill="#9EA4AD">from $194 / mo</text>
-                                                <line x1="13" y1="113" x2="217" y2="113" stroke="#E8E4DF" stroke-width="0.75"/>
-                                                <circle cx="29" cy="130" r="7.5" fill="none" stroke="#D0CDC8" stroke-width="1.25"/>
-                                                <text x="44" y="127" font-family="Inter,sans-serif" font-size="11" font-weight="500" fill="#1C1F24">60 months</text>
-                                                <text x="44" y="139" font-family="Inter,sans-serif" font-size="10" fill="#9EA4AD">from $117 / mo</text>
-                                                <rect width="232" height="175" fill="url(#fb3)"/>
-                                            </svg>
-                                        </div>
+                                    <div class="nav-mega-cta nav-mega-cta--no-fade nav-mega-cta--dark-text" style="background-image:url('assets/Navigation/Navigation Visual/Buying Process.png?v=2');background-size:100% auto;background-position:top center;background-color:#F4F1EE;" data-comment="nav-mega-buying-cta">
                                         <div class="nav-mega-cta-content" data-comment="nav-mega-buying-cta-content">
-                                            <p class="nav-mega-cta-label" data-comment="nav-mega-buying-cta-label">Financing</p>
                                             <p class="nav-mega-cta-heading" data-comment="nav-mega-buying-cta-heading">Start Today</p>
                                             <p class="nav-mega-cta-note" data-comment="nav-mega-buying-cta-note">Rent-to-own from 24 to 60 months — no large upfront cost</p>
                                             <a href="#" class="btn-cta-card" data-comment="nav-mega-buying-cta-btn">
@@ -1208,7 +1205,7 @@
 
                     <!-- CONTACT -->
                     <li class="nav-item" data-comment="nav-item-contact">
-                        <a href="#" class="nav-trigger" data-comment="nav-link-contact">Contact</a>
+                        <a href="contact.html" class="nav-trigger" data-comment="nav-link-contact">Contact</a>
                     </li>
 
                 </ul><!-- /nav-links -->
@@ -1246,7 +1243,7 @@
                         <i class="ri-user-line" data-comment="nav-account-icon"></i>
                     </a>
 
-                    <a href="#" class="btn-primary nav-customize-btn" data-comment="nav-customize-btn"><i class="ri-box-3-line"></i> Customize Shed</a>
+                    <a href="https://ncsbarns.shedpro.co/" target="_blank" rel="noopener" class="btn-primary nav-customize-btn" data-comment="nav-customize-btn"><i class="ri-box-3-line"></i> Customize Shed</a>
 
                     <!-- Hamburger (mobile only) -->
                     <button class="nav-hamburger" id="navHamburger" data-comment="nav-hamburger" aria-label="Open navigation" aria-expanded="false">
@@ -1281,13 +1278,13 @@
                 <li data-comment="mobile-nav-li-gallery"><a href="gallery.html" data-comment="mobile-nav-link-gallery">Gallery</a></li>
                 <li data-comment="mobile-nav-li-events"><a href="#" data-comment="mobile-nav-link-events">Events</a></li>
                 <li data-comment="mobile-nav-li-blog"><a href="#" data-comment="mobile-nav-link-blog">Blog</a></li>
-                <li data-comment="mobile-nav-li-contact"><a href="#" data-comment="mobile-nav-link-contact">Contact</a></li>
+                <li data-comment="mobile-nav-li-contact"><a href="contact.html" data-comment="mobile-nav-link-contact">Contact</a></li>
             </ul>
 
             <hr class="mobile-nav-divider" data-comment="mobile-nav-divider" />
 
             <!-- CTA -->
-            <a href="#" class="btn-primary mobile-nav-cta" data-comment="mobile-nav-cta"><i class="ri-box-3-line"></i> Customize Shed</a>
+            <a href="https://ncsbarns.shedpro.co/" target="_blank" rel="noopener" class="btn-primary mobile-nav-cta" data-comment="mobile-nav-cta"><i class="ri-box-3-line"></i> Customize Shed</a>
 
             <!-- Icon actions -->
             <div class="mobile-nav-actions" data-comment="mobile-nav-actions">
@@ -1318,6 +1315,7 @@
       this._initScroll();
       this._initHamburger();
       this._initSearch();
+      this._updateCartBadge();
     }
 
     _initMegaMenus() {
@@ -1421,6 +1419,14 @@
         if (!q) return;
         window.location.href = 'search.html?q=' + encodeURIComponent(q);
       });
+    }
+
+    _updateCartBadge() {
+      const cart  = JSON.parse(localStorage.getItem('ncs_cart') || '[]');
+      const count = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+      const badge = this.querySelector('.nav-cart-badge');
+      if (!badge) return;
+      badge.style.display = count > 0 ? 'block' : 'none';
     }
   }
 

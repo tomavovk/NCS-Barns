@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>NCS Barns — Search Results</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+            rel="stylesheet" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+            rel="stylesheet" />
+        <script src="nav.js" defer></script>
+
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            :root {
+                --color-burgundy:      #8B1A2A;
+                --color-burgundy-dark: #6D1420;
+                --color-dark:          #1C1F24;
+                --color-gray:          #52575F;
+                --color-gray-light:    #9EA4AD;
+                --color-border:        #E6E2DD;
+                --color-bg:            #FFFFFF;
+                --color-bg-hover:      #F4F1EE;
+                --color-bg-menu:       #FAFAF8;
+
+                --font-ui: 'Inter', sans-serif;
+
+                --nav-height: 72px;
+                --max-width:  1440px;
+                --page-px:    40px;
+
+                --t-fast: 0.15s ease;
+                --t-med:  0.22s ease;
+            }
+
+            body {
+                font-family: var(--font-ui);
+                background: var(--color-bg);
+                color: var(--color-dark);
+            }
+
+            /* ─────────────────────────────────────────
+               SEARCH PAGE LAYOUT
+            ───────────────────────────────────────── */
+            .sr-page {
+                max-width: var(--max-width);
+                margin: 0 auto;
+                padding: 52px var(--page-px) 96px;
+            }
+
+            /* Heading */
+            .sr-heading-block {
+                margin-bottom: 36px;
+            }
+            .sr-heading {
+                font-size: 2rem;
+                font-weight: 700;
+                color: var(--color-dark);
+                letter-spacing: -0.5px;
+                line-height: 1.2;
+                margin-bottom: 0;
+            }
+
+            /* Search bar row */
+            .sr-bar-row {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+                margin-bottom: 10px;
+            }
+            .sr-search-wrap {
+                flex: 1;
+                max-width: 640px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                background: var(--color-bg);
+                border: 1.5px solid var(--color-border);
+                border-radius: 10px;
+                padding: 10px 16px;
+                transition: border-color var(--t-fast);
+            }
+            .sr-search-wrap:focus-within { border-color: var(--color-burgundy); }
+            .sr-search-icon {
+                width: 16px;
+                height: 16px;
+                flex-shrink: 0;
+                stroke: var(--color-gray);
+                stroke-width: 2;
+                fill: none;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+            }
+            .sr-search-input {
+                flex: 1;
+                border: none;
+                outline: none;
+                font-family: var(--font-ui);
+                font-size: 14px;
+                color: var(--color-dark);
+                background: none;
+            }
+            .sr-search-input::placeholder { color: var(--color-gray-light); }
+            .sr-clear-btn {
+                width: 22px;
+                height: 22px;
+                border-radius: 50%;
+                background: var(--color-border);
+                border: none;
+                cursor: pointer;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                color: var(--color-gray);
+                font-size: 13px;
+                flex-shrink: 0;
+                transition: background var(--t-fast);
+            }
+            .sr-clear-btn.visible { display: flex; }
+            .sr-clear-btn:hover { background: #ddd; }
+
+            .sr-count {
+                font-size: 13px;
+                color: var(--color-gray);
+                white-space: nowrap;
+            }
+            .sr-count strong { color: var(--color-dark); font-weight: 600; }
+
+            /* Filters + Sort row */
+            .sr-toolbar {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 16px;
+                padding: 16px 0 24px;
+                border-bottom: 1px solid var(--color-border);
+                margin-bottom: 32px;
+            }
+            .sr-filters {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+            .sr-filter-chip {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                padding: 7px 14px;
+                border: 1.5px solid var(--color-border);
+                border-radius: 100px;
+                font-size: 13px;
+                font-weight: 500;
+                color: var(--color-gray);
+                background: var(--color-bg);
+                cursor: pointer;
+                transition: border-color var(--t-fast), color var(--t-fast), background var(--t-fast);
+                white-space: nowrap;
+            }
+            .sr-filter-chip:hover,
+            .sr-filter-chip.active {
+                border-color: var(--color-burgundy);
+                color: var(--color-burgundy);
+                background: #fcf5f5;
+            }
+            .sr-filter-chip .ri-close-line { font-size: 12px; }
+
+            .sr-sort-wrap {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            .sr-sort-label {
+                font-size: 13px;
+                color: var(--color-gray);
+                white-space: nowrap;
+            }
+            .sr-sort-select {
+                appearance: none;
+                -webkit-appearance: none;
+                border: 1.5px solid var(--color-border);
+                border-radius: 8px;
+                padding: 7px 32px 7px 12px;
+                font-family: var(--font-ui);
+                font-size: 13px;
+                font-weight: 500;
+                color: var(--color-dark);
+                background: var(--color-bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239EA4AD' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 10px center;
+                cursor: pointer;
+                outline: none;
+                transition: border-color var(--t-fast);
+            }
+            .sr-sort-select:focus { border-color: var(--color-burgundy); }
+
+            /* Product grid */
+            .sr-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 24px;
+                margin-bottom: 48px;
+            }
+
+            @media (min-width: 1280px) {
+                .sr-grid { grid-template-columns: repeat(4, 1fr); }
+            }
+            @media (max-width: 768px) {
+                .sr-grid { grid-template-columns: repeat(2, 1fr); }
+            }
+
+            @media (max-width: 1024px) {
+                :root { --page-px: 24px; }
+            }
+
+            .sr-card {
+                border: 1.5px solid var(--color-border);
+                border-radius: 14px;
+                overflow: hidden;
+                background: var(--color-bg);
+                cursor: pointer;
+                transition: border-color var(--t-fast), box-shadow var(--t-fast), transform var(--t-fast);
+                text-decoration: none;
+                display: block;
+            }
+            .sr-card:hover {
+                border-color: #d0c8c0;
+                box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+                transform: translateY(-2px);
+            }
+
+            .sr-card-image {
+                aspect-ratio: 4 / 3;
+                background: var(--color-bg-hover);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 52px;
+                line-height: 1;
+                border-bottom: 1px solid var(--color-border);
+                position: relative;
+                overflow: hidden;
+            }
+            .sr-card-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+            .sr-card-badge {
+                position: absolute;
+                top: 12px;
+                left: 12px;
+                background: var(--color-burgundy);
+                color: #fff;
+                font-size: 10px;
+                font-weight: 700;
+                letter-spacing: 0.5px;
+                text-transform: uppercase;
+                padding: 4px 9px;
+                border-radius: 100px;
+            }
+
+            .sr-card-body {
+                padding: 16px;
+            }
+            .sr-card-cat {
+                font-size: 11px;
+                font-weight: 500;
+                color: var(--color-gray-light);
+                text-transform: uppercase;
+                letter-spacing: 0.6px;
+                margin-bottom: 6px;
+            }
+            .sr-card-name {
+                font-size: 14.5px;
+                font-weight: 600;
+                color: var(--color-dark);
+                line-height: 1.35;
+                margin-bottom: 10px;
+            }
+            .sr-card-prices {
+                display: flex;
+                align-items: baseline;
+                gap: 8px;
+            }
+            .sr-card-price {
+                font-size: 15px;
+                font-weight: 700;
+                color: var(--color-dark);
+            }
+            .sr-card-price.is-sale { color: var(--color-burgundy); }
+            .sr-card-price-old {
+                font-size: 13px;
+                color: var(--color-gray-light);
+                text-decoration: line-through;
+            }
+
+            /* Empty state */
+            .sr-empty {
+                padding: 80px 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 16px;
+            }
+            .sr-empty-icon {
+                font-size: 48px;
+                line-height: 1;
+                margin-bottom: 8px;
+            }
+            .sr-empty-heading {
+                font-size: 22px;
+                font-weight: 700;
+                color: var(--color-dark);
+                letter-spacing: -0.5px;
+            }
+            .sr-empty-body {
+                font-size: 14.5px;
+                color: var(--color-gray);
+                max-width: 360px;
+                line-height: 1.6;
+            }
+            .sr-empty-suggestions {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
+                margin-top: 8px;
+            }
+            .sr-suggestion-chip {
+                padding: 7px 16px;
+                border: 1.5px solid var(--color-border);
+                border-radius: 100px;
+                font-size: 13px;
+                font-weight: 500;
+                color: var(--color-gray);
+                cursor: pointer;
+                text-decoration: none;
+                transition: border-color var(--t-fast), color var(--t-fast);
+            }
+            .sr-suggestion-chip:hover {
+                border-color: var(--color-burgundy);
+                color: var(--color-burgundy);
+            }
+
+            /* Pagination */
+            .sr-pagination {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 4px;
+            }
+            .sr-page-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 38px;
+                height: 38px;
+                border: 1.5px solid var(--color-border);
+                border-radius: 9px;
+                background: var(--color-bg);
+                font-family: var(--font-ui);
+                font-size: 13.5px;
+                font-weight: 500;
+                color: var(--color-gray);
+                cursor: pointer;
+                transition: border-color var(--t-fast), color var(--t-fast), background var(--t-fast);
+                text-decoration: none;
+            }
+            .sr-page-btn:hover {
+                border-color: var(--color-dark);
+                color: var(--color-dark);
+            }
+            .sr-page-btn.active {
+                background: var(--color-dark);
+                border-color: var(--color-dark);
+                color: #fff;
+            }
+            .sr-page-btn.arrow svg {
+                width: 15px;
+                height: 15px;
+                stroke: currentColor;
+                stroke-width: 2;
+                fill: none;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+            }
+            .sr-page-ellipsis {
+                width: 38px;
+                height: 38px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 13px;
+                color: var(--color-gray-light);
+            }
+        </style>
+    </head>
+    <body>
+
+        <ncs-nav></ncs-nav>
+
+        <!-- ════════════════════════════════
+             SEARCH RESULTS PAGE
+        ════════════════════════════════ -->
+        <main class="sr-page" data-comment="sr-page">
+
+            <!-- Heading -->
+            <div class="sr-heading-block" data-comment="sr-heading-block">
+                <h1 class="sr-heading" data-comment="sr-heading" id="srHeading">
+                    Search Results
+                </h1>
+            </div>
+
+            <!-- Search bar row -->
+            <div class="sr-bar-row" data-comment="sr-bar-row">
+                <div class="sr-search-wrap" data-comment="sr-search-wrap">
+                    <svg class="sr-search-icon" data-comment="sr-search-icon" viewBox="0 0 24 24">
+                        <circle cx="11" cy="11" r="8"/>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                    </svg>
+                    <input type="text" class="sr-search-input" id="srSearchInput" placeholder="Search products…" autocomplete="off" data-comment="sr-search-input" />
+                    <button class="sr-clear-btn" id="srClearBtn" data-comment="sr-clear-btn" aria-label="Clear">×</button>
+                </div>
+                <p class="sr-count" id="srCount" data-comment="sr-count"></p>
+            </div>
+
+            <!-- Filters + Sort -->
+            <div class="sr-toolbar" data-comment="sr-toolbar">
+                <div class="sr-filters" data-comment="sr-filters" id="srFilters">
+                    <button class="sr-filter-chip active" data-comment="sr-filter-all" data-filter="all">All</button>
+                    <button class="sr-filter-chip" data-comment="sr-filter-structures" data-filter="Structures">Structures</button>
+                    <button class="sr-filter-chip" data-comment="sr-filter-sheds" data-filter="Sheds">Sheds</button>
+                    <button class="sr-filter-chip" data-comment="sr-filter-furniture" data-filter="Furniture">Furniture</button>
+                    <button class="sr-filter-chip" data-comment="sr-filter-homes" data-filter="Homes & Garages">Homes & Garages</button>
+                    <button class="sr-filter-chip" data-comment="sr-filter-sale" data-filter="sale">On Sale</button>
+                </div>
+                <div class="sr-sort-wrap" data-comment="sr-sort-wrap">
+                    <span class="sr-sort-label" data-comment="sr-sort-label">Sort by:</span>
+                    <select class="sr-sort-select" id="srSort" data-comment="sr-sort-select">
+                        <option value="relevance">Relevance</option>
+                        <option value="price-asc">Price: Low to High</option>
+                        <option value="price-desc">Price: High to Low</option>
+                        <option value="name">Name A–Z</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Grid / Empty state -->
+            <div id="srResults" data-comment="sr-results"></div>
+
+            <!-- Pagination -->
+            <nav class="sr-pagination" id="srPagination" data-comment="sr-pagination" aria-label="Pagination"></nav>
+
+        </main>
+
+        <script>
+            const PRODUCTS = [
+                { id: 1,  name: 'Classic Barn Shed 10×12',        category: 'Sheds',             price: 4800,  sale: null,  icon: '🏚️' },
+                { id: 2,  name: 'Lofted Barn Cabin 12×24',        category: 'Structures',        price: 12500, sale: 10800, icon: '🏠' },
+                { id: 3,  name: 'Dutch Barn Gazebo 12×16',        category: 'Gazebos',           price: 6200,  sale: null,  icon: '⛺' },
+                { id: 4,  name: 'Hunting Blind Pro',               category: 'Hunting Blinds',    price: 2800,  sale: null,  icon: '🎯' },
+                { id: 5,  name: 'Modular Log Home 24×48',         category: 'Homes & Garages',   price: 45000, sale: 38500, icon: '🏡' },
+                { id: 6,  name: 'Outdoor Adirondack Set',         category: 'Outdoor Furniture', price: 890,   sale: null,  icon: '🪑' },
+                { id: 7,  name: 'Adventure Playground Structure', category: 'Play Structures',   price: 3200,  sale: null,  icon: '🛝' },
+                { id: 8,  name: 'Premium Chicken Coop',           category: 'Animal Structures', price: 1400,  sale: 1100,  icon: '🐔' },
+                { id: 9,  name: 'Garden Storage Shed 8×10',       category: 'Sheds',             price: 3200,  sale: null,  icon: '🏚️' },
+                { id: 10, name: 'Two-Car Garage 24×24',           category: 'Homes & Garages',   price: 18000, sale: null,  icon: '🚗' },
+                { id: 11, name: 'Pergola Kit 12×12',              category: 'Gazebos',           price: 4200,  sale: 3600,  icon: '⛺' },
+                { id: 12, name: 'Indoor Dining Set — Oak',        category: 'Indoor Furniture',  price: 1200,  sale: null,  icon: '🪵' },
+                { id: 13, name: 'Saltbox Storage Barn',           category: 'Sheds',             price: 5400,  sale: null,  icon: '🏚️' },
+                { id: 14, name: 'Log Cabin Kit 16×20',            category: 'Structures',        price: 22000, sale: 18500, icon: '🏠' },
+                { id: 15, name: 'Rabbit & Small Animal Hutch',    category: 'Animal Structures', price: 680,   sale: null,  icon: '🐰' },
+                { id: 16, name: 'Cedar Barn Shed 12×16',          category: 'Sheds',             price: 6800,  sale: 5900,  icon: '🏚️' },
+                { id: 17, name: 'One-Car Garage 12×20',           category: 'Homes & Garages',   price: 9500,  sale: null,  icon: '🚗' },
+                { id: 18, name: 'Adirondack Rocking Chair',       category: 'Outdoor Furniture', price: 320,   sale: null,  icon: '🪑' },
+                { id: 19, name: 'Custom Built Home — Estimate',   category: 'Homes & Garages',   price: 85000, sale: null,  icon: '🏡' },
+                { id: 20, name: 'A-Frame Pavilion 16×24',         category: 'Gazebos',           price: 8800,  sale: 7400,  icon: '⛺' },
+            ];
+
+            const HISTORY_KEY = 'ncs_search_history';
+            const PER_PAGE = 9;
+
+            let currentQuery  = '';
+            let currentFilter = 'all';
+            let currentSort   = 'relevance';
+            let currentPage   = 1;
+
+            function getHistory() {
+                try { return JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; }
+                catch { return []; }
+            }
+            function addToHistory(q) {
+                if (!q.trim()) return;
+                const h = getHistory().filter(x => x.toLowerCase() !== q.toLowerCase());
+                h.unshift(q.trim());
+                localStorage.setItem(HISTORY_KEY, JSON.stringify(h.slice(0, 6)));
+            }
+            function fmt(n) {
+                return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            }
+
+            function getFiltered() {
+                let items = PRODUCTS;
+
+                if (currentQuery.trim()) {
+                    const q = currentQuery.toLowerCase();
+                    items = items.filter(p =>
+                        p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q)
+                    );
+                }
+
+                if (currentFilter !== 'all') {
+                    if (currentFilter === 'sale') {
+                        items = items.filter(p => p.sale !== null);
+                    } else {
+                        items = items.filter(p => p.category === currentFilter ||
+                            (currentFilter === 'Furniture' && (p.category === 'Outdoor Furniture' || p.category === 'Indoor Furniture'))
+                        );
+                    }
+                }
+
+                if (currentSort === 'price-asc') items = [...items].sort((a, b) => (a.sale || a.price) - (b.sale || b.price));
+                else if (currentSort === 'price-desc') items = [...items].sort((a, b) => (b.sale || b.price) - (a.sale || a.price));
+                else if (currentSort === 'name') items = [...items].sort((a, b) => a.name.localeCompare(b.name));
+
+                return items;
+            }
+
+            function renderPage() {
+                const filtered = getFiltered();
+                const total    = filtered.length;
+                const totalPages = Math.ceil(total / PER_PAGE) || 1;
+                if (currentPage > totalPages) currentPage = 1;
+
+                const start   = (currentPage - 1) * PER_PAGE;
+                const pageItems = filtered.slice(start, start + PER_PAGE);
+
+                /* count */
+                const countEl = document.getElementById('srCount');
+                countEl.innerHTML = `<strong>${total}</strong> result${total !== 1 ? 's' : ''}`;
+
+                /* grid */
+                const resultsEl = document.getElementById('srResults');
+                if (!pageItems.length) {
+                    resultsEl.innerHTML = `
+                        <div class="sr-empty" data-comment="sr-empty">
+                            <div class="sr-empty-icon" data-comment="sr-empty-icon">🔍</div>
+                            <h2 class="sr-empty-heading" data-comment="sr-empty-heading">No results found</h2>
+                            <p class="sr-empty-body" data-comment="sr-empty-body">We couldn't find anything matching "${currentQuery}". Try a different search or browse our categories.</p>
+                            <div class="sr-empty-suggestions" data-comment="sr-empty-suggestions">
+                                <a href="search.html?q=shed" class="sr-suggestion-chip" data-comment="sr-suggestion-sheds">Sheds</a>
+                                <a href="search.html?q=cabin" class="sr-suggestion-chip" data-comment="sr-suggestion-cabin">Cabin</a>
+                                <a href="search.html?q=garage" class="sr-suggestion-chip" data-comment="sr-suggestion-garage">Garage</a>
+                                <a href="search.html?q=furniture" class="sr-suggestion-chip" data-comment="sr-suggestion-furniture">Furniture</a>
+                            </div>
+                        </div>`;
+                } else {
+                    resultsEl.innerHTML = `
+                        <div class="sr-grid" data-comment="sr-grid">
+                            ${pageItems.map((p, i) => `
+                            <a href="#" class="sr-card" data-comment="sr-card-${start + i + 1}">
+                                <div class="sr-card-image" data-comment="sr-card-image-${start + i + 1}">
+                                    <span data-comment="sr-card-icon-${start + i + 1}">${p.icon}</span>
+                                    ${p.sale ? `<span class="sr-card-badge" data-comment="sr-card-badge-${start + i + 1}">Sale</span>` : ''}
+                                </div>
+                                <div class="sr-card-body" data-comment="sr-card-body-${start + i + 1}">
+                                    <p class="sr-card-cat" data-comment="sr-card-cat-${start + i + 1}">${p.category}</p>
+                                    <p class="sr-card-name" data-comment="sr-card-name-${start + i + 1}">${p.name}</p>
+                                    <div class="sr-card-prices" data-comment="sr-card-prices-${start + i + 1}">
+                                        ${p.sale ? `<span class="sr-card-price-old" data-comment="sr-card-price-old-${start + i + 1}">${fmt(p.price)}</span>` : ''}
+                                        <span class="sr-card-price${p.sale ? ' is-sale' : ''}" data-comment="sr-card-price-${start + i + 1}">${fmt(p.sale || p.price)}</span>
+                                    </div>
+                                </div>
+                            </a>`).join('')}
+                        </div>`;
+                }
+
+                /* pagination */
+                const pagEl = document.getElementById('srPagination');
+                if (totalPages <= 1) { pagEl.innerHTML = ''; return; }
+
+                function pageBtn(n, label, extraClass = '') {
+                    const active = n === currentPage ? ' active' : '';
+                    return `<button class="sr-page-btn${active}${extraClass ? ' ' + extraClass : ''}" data-comment="sr-page-btn-${n}" onclick="goPage(${n})">${label}</button>`;
+                }
+
+                let pages = '';
+                pages += `<button class="sr-page-btn arrow" data-comment="sr-page-prev" onclick="goPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled style="opacity:.35;pointer-events:none"' : ''}>
+                    <svg viewBox="0 0 24 24" data-comment="sr-page-prev-icon"><polyline points="15 18 9 12 15 6"/></svg>
+                </button>`;
+
+                const range = [];
+                for (let i = 1; i <= totalPages; i++) {
+                    if (i === 1 || i === totalPages || Math.abs(i - currentPage) <= 1) range.push(i);
+                    else if (range[range.length - 1] !== '…') range.push('…');
+                }
+                range.forEach((r, ri) => {
+                    if (r === '…') pages += `<span class="sr-page-ellipsis" data-comment="sr-page-ellipsis-${ri}">…</span>`;
+                    else pages += pageBtn(r, r);
+                });
+
+                pages += `<button class="sr-page-btn arrow" data-comment="sr-page-next" onclick="goPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled style="opacity:.35;pointer-events:none"' : ''}>
+                    <svg viewBox="0 0 24 24" data-comment="sr-page-next-icon"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>`;
+
+                pagEl.innerHTML = pages;
+            }
+
+            function goPage(n) {
+                const filtered = getFiltered();
+                const totalPages = Math.ceil(filtered.length / PER_PAGE) || 1;
+                if (n < 1 || n > totalPages) return;
+                currentPage = n;
+                renderPage();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            /* ── Init from URL ── */
+            const params = new URLSearchParams(window.location.search);
+            const urlQuery = params.get('q') || '';
+            currentQuery = urlQuery;
+            if (urlQuery) addToHistory(urlQuery);
+
+            const srInput = document.getElementById('srSearchInput');
+            const srClear = document.getElementById('srClearBtn');
+            srInput.value = urlQuery;
+            srClear.classList.toggle('visible', urlQuery.length > 0);
+
+            renderPage();
+
+            srInput.addEventListener('input', () => {
+                currentQuery = srInput.value;
+                currentPage  = 1;
+                srClear.classList.toggle('visible', currentQuery.length > 0);
+                renderPage();
+            });
+            srInput.addEventListener('keydown', e => {
+                if (e.key === 'Enter' && srInput.value.trim()) {
+                    addToHistory(srInput.value.trim());
+                    history.replaceState(null, '', 'search.html?q=' + encodeURIComponent(srInput.value.trim()));
+                }
+            });
+            srClear.addEventListener('click', () => {
+                srInput.value = '';
+                currentQuery = '';
+                currentPage  = 1;
+                srClear.classList.remove('visible');
+                renderPage();
+            });
+
+            /* Filter chips */
+            document.getElementById('srFilters').addEventListener('click', e => {
+                const chip = e.target.closest('.sr-filter-chip');
+                if (!chip) return;
+                document.querySelectorAll('.sr-filter-chip').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                currentFilter = chip.dataset.filter;
+                currentPage   = 1;
+                renderPage();
+            });
+
+            /* Sort */
+            document.getElementById('srSort').addEventListener('change', e => {
+                currentSort = e.target.value;
+                currentPage = 1;
+                renderPage();
+            });
+
+        </script>
+
+    </body>
+</html>

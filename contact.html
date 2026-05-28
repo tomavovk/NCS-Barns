@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>NCS Barns — Contact Us</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+            rel="stylesheet" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+            rel="stylesheet" />
+        <script src="nav.js" defer></script>
+
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            :root {
+                /* Colors */
+                --color-burgundy:       #8B1A2A;
+                --color-burgundy-dark:  #6D1420;
+                --color-dark:           #1C1F24;
+                --color-gray:           #514C4A;
+                --color-gray-light:     #9A9390;
+                --color-border:         #E6E2DD;
+                --color-bg:             #F8F6F4;
+                --color-bg-hover:       #F4F1EE;
+                --color-bg-menu:        #FAFAF8;
+                --color-white:          #fff;
+
+                /* Typography */
+                --font-ui: 'Inter', sans-serif;
+
+                /* Layout */
+                --nav-height: 72px;
+                --max-width:  1440px;
+                --page-px:    40px;
+
+                /* Transitions */
+                --t-fast: 0.15s ease;
+                --t-med:  0.22s ease;
+            }
+
+            body {
+                font-family: var(--font-ui);
+                background: var(--color-bg);
+                color: var(--color-dark);
+            }
+
+            /* ─────────────────────────────────────────
+               GLOBAL UTILITIES
+            ───────────────────────────────────────── */
+            .section-eyebrow {
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 1.2px;
+                text-transform: uppercase;
+                color: var(--color-burgundy);
+                margin-bottom: 12px;
+            }
+
+            .btn-primary {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 13px 24px;
+                background: var(--color-burgundy);
+                color: #fff;
+                font-size: 14px;
+                font-weight: 600;
+                border-radius: 10px;
+                border: none;
+                cursor: pointer;
+                text-decoration: none;
+                transition: background var(--t-fast);
+            }
+            .btn-primary:hover { background: var(--color-burgundy-dark); }
+
+            /* ─────────────────────────────────────────
+               CONTACT HERO
+               Left: form panel · Right: shed photo
+            ───────────────────────────────────────── */
+            .contact-hero {
+                padding: 28px var(--page-px) 0;
+            }
+            .contact-hero-wrap {
+                max-width: var(--max-width);
+                margin: 0 auto;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+                min-height: clamp(560px, 64vw, 760px);
+            }
+
+            /* Left panel */
+            .ch-left {
+                background: var(--color-white);
+                border: 1px solid var(--color-border);
+                border-radius: 20px;
+                padding: 52px 52px 52px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            .ch-heading {
+                font-size: clamp(28px, 3.2vw, 46px);
+                font-weight: 800;
+                letter-spacing: -1.5px;
+                line-height: 1.1;
+                color: var(--color-dark);
+                margin-bottom: 12px;
+            }
+            .ch-subhead {
+                font-size: 15px;
+                line-height: 1.7;
+                color: var(--color-gray);
+                margin-bottom: 36px;
+                max-width: 420px;
+            }
+
+            /* Quick contact row */
+            .ch-contact-row {
+                display: flex;
+                gap: 10px;
+                margin-bottom: 36px;
+                flex-wrap: wrap;
+            }
+            .ch-contact-pill {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 9px 16px;
+                background: var(--color-bg);
+                border: 1.5px solid var(--color-border);
+                border-radius: 100px;
+                font-size: 13px;
+                font-weight: 600;
+                color: var(--color-dark);
+                text-decoration: none;
+                transition: border-color var(--t-fast), background var(--t-fast);
+            }
+            .ch-contact-pill i { font-size: 15px; color: var(--color-burgundy); }
+            .ch-contact-pill:hover { border-color: var(--color-burgundy); background: #FDF0F1; }
+
+            /* Form */
+            .ch-form { display: flex; flex-direction: column; gap: 14px; }
+            .ch-form-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+            .ch-form-group {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+            .ch-form-label {
+                font-size: 12px;
+                font-weight: 600;
+                color: var(--color-dark);
+                letter-spacing: 0.2px;
+            }
+            .ch-form-input,
+            .ch-form-select,
+            .ch-form-textarea {
+                font-family: var(--font-ui);
+                font-size: 14px;
+                color: var(--color-dark);
+                background: var(--color-bg);
+                border: 1.5px solid var(--color-border);
+                border-radius: 10px;
+                padding: 11px 14px;
+                outline: none;
+                transition: border-color var(--t-fast), background var(--t-fast);
+                width: 100%;
+            }
+            .ch-form-input::placeholder,
+            .ch-form-textarea::placeholder { color: var(--color-gray-light); }
+            .ch-form-input:focus,
+            .ch-form-select:focus,
+            .ch-form-textarea:focus { border-color: var(--color-burgundy); background: #fff; }
+            .ch-form-select { appearance: none; cursor: pointer; }
+            .ch-form-select-wrap { position: relative; }
+            .ch-form-select-wrap::after {
+                content: '';
+                position: absolute;
+                right: 14px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 0; height: 0;
+                border-left: 4px solid transparent;
+                border-right: 4px solid transparent;
+                border-top: 5px solid var(--color-gray-light);
+                pointer-events: none;
+            }
+            .ch-form-textarea { resize: vertical; min-height: 100px; }
+            .ch-form-footer {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 16px;
+                margin-top: 4px;
+            }
+            .ch-form-note {
+                font-size: 12px;
+                color: var(--color-gray-light);
+                line-height: 1.5;
+            }
+
+            /* Success state */
+            .ch-form-success {
+                display: none;
+                text-align: center;
+                padding: 40px 0;
+            }
+            .ch-success-icon {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                background: #E8F5E9;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 18px;
+            }
+            .ch-success-icon i { font-size: 26px; color: #2E7D32; }
+            .ch-success-heading { font-size: 20px; font-weight: 700; color: var(--color-dark); margin-bottom: 8px; }
+            .ch-success-body { font-size: 14px; line-height: 1.7; color: var(--color-gray); }
+
+            /* Right panel — shed photo */
+            .ch-right {
+                position: relative;
+                border-radius: 20px;
+                overflow: hidden;
+                background: var(--color-dark);
+            }
+            .ch-photo {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center center;
+            }
+            .ch-photo-overlay {
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(
+                    to top,
+                    rgba(10,8,7,0.65) 0%,
+                    rgba(10,8,7,0.15) 55%,
+                    transparent 100%
+                );
+            }
+            .ch-photo-badge {
+                position: absolute;
+                bottom: 36px;
+                left: 36px;
+                right: 36px;
+                display: flex;
+                align-items: center;
+                gap: 16px;
+                background: rgba(255,255,255,0.1);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                border: 1px solid rgba(255,255,255,0.18);
+                border-radius: 16px;
+                padding: 20px 24px;
+            }
+            .ch-badge-icon {
+                width: 44px;
+                height: 44px;
+                border-radius: 10px;
+                background: var(--color-burgundy);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+            .ch-badge-icon i { font-size: 20px; color: #fff; }
+            .ch-badge-stat { font-size: 24px; font-weight: 800; color: #fff; letter-spacing: -0.8px; line-height: 1; }
+            .ch-badge-label { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 3px; }
+
+            /* ─────────────────────────────────────────
+               FAQ SECTION
+            ───────────────────────────────────────── */
+            .faq-section {
+                padding: 100px 0 100px;
+            }
+            .faq-inner {
+                max-width: 920px;
+                margin: 0 auto;
+                padding: 0 var(--page-px);
+            }
+            .faq-header {
+                text-align: center;
+                margin-bottom: 56px;
+            }
+            .faq-heading {
+                font-size: clamp(26px, 3vw, 38px);
+                font-weight: 800;
+                letter-spacing: -1px;
+                line-height: 1.15;
+                color: var(--color-dark);
+                margin-bottom: 14px;
+            }
+            .faq-subhead {
+                font-size: 16px;
+                line-height: 1.65;
+                color: var(--color-gray);
+            }
+            .faq-list {
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+                border: 1px solid var(--color-border);
+                border-radius: 16px;
+                overflow: hidden;
+                background: var(--color-white);
+            }
+            .faq-item {
+                border-bottom: 1px solid var(--color-border);
+            }
+            .faq-item:last-child { border-bottom: none; }
+            .faq-question {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 16px;
+                padding: 22px 28px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                text-align: left;
+                transition: background var(--t-fast);
+            }
+            .faq-question:hover { background: var(--color-bg); }
+            .faq-question.is-open { background: var(--color-bg); }
+            .faq-q-text {
+                font-size: 15px;
+                font-weight: 600;
+                color: var(--color-dark);
+                line-height: 1.4;
+            }
+            .faq-icon {
+                width: 30px;
+                height: 30px;
+                border-radius: 8px;
+                background: var(--color-bg-hover);
+                border: 1.5px solid var(--color-border);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                transition: background var(--t-fast), border-color var(--t-fast), transform var(--t-med);
+            }
+            .faq-icon i { font-size: 16px; color: var(--color-gray); transition: color var(--t-fast); }
+            .faq-question.is-open .faq-icon {
+                background: #FDF0F1;
+                border-color: var(--color-burgundy);
+                transform: rotate(45deg);
+            }
+            .faq-question.is-open .faq-icon i { color: var(--color-burgundy); }
+            .faq-answer {
+                display: none;
+                padding: 0 28px 22px;
+            }
+            .faq-answer.is-open { display: block; }
+            .faq-a-text {
+                font-size: 14px;
+                line-height: 1.75;
+                color: var(--color-gray);
+            }
+
+            /* ─────────────────────────────────────────
+               FOOTER
+            ───────────────────────────────────────── */
+            .footer-root { background: #000; color: #fff; padding: 72px var(--page-px) 40px; }
+            .footer-inner { max-width: var(--max-width); margin: 0 auto; }
+            .footer-top { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr 1.4fr; gap: 48px; padding-bottom: 52px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 52px; }
+            .footer-brand-logo { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; text-decoration: none; margin-bottom: 16px; }
+            .footer-brand-logo img { width: 50%; height: auto; filter: brightness(0) invert(1) opacity(0.5); }
+            .footer-brand-name { font-size: 16px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+            .footer-brand-desc { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.65; max-width: 220px; }
+            .footer-col-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 18px; }
+            .footer-links { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+            .footer-links a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-links a:hover { color: #fff; }
+            .footer-contact-item { font-size: 14px; color: rgba(255,255,255,0.65); margin-bottom: 10px; display: flex; align-items: flex-start; gap: 8px; }
+            .footer-contact-item svg { width: 15px; height: 15px; stroke: rgba(255,255,255,0.35); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; margin-top: 1px; }
+            .footer-contact-item a { color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-contact-item a:hover { color: #fff; }
+            .footer-locations { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 32px; }
+            .footer-loc-name { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+            .footer-loc-addr { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.55; margin-bottom: 8px; }
+            .footer-loc-phone { font-size: 13px; color: rgba(255,255,255,0.45); }
+            .footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+            .footer-copy-row { display: flex; align-items: center; gap: 20px; }
+            .footer-copy { font-size: 13px; color: rgba(255,255,255,0.35); }
+            .footer-legal-link { font-size: 13px; color: rgba(255,255,255,0.35); text-decoration: none; transition: color var(--t-fast); }
+            .footer-legal-link:hover { color: rgba(255,255,255,0.7); }
+            .footer-socials { display: flex; gap: 10px; }
+            .footer-social-btn { width: 36px; height: 36px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; text-decoration: none; transition: border-color var(--t-fast), background var(--t-fast); }
+            .footer-social-btn:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.08); }
+            .footer-social-btn i { font-size: 17px; color: rgba(255,255,255,0.6); }
+
+            /* ─────────────────────────────────────────
+               RESPONSIVE
+            ───────────────────────────────────────── */
+            @media (max-width: 1024px) { /* lg */
+                :root { --page-px: 24px; }
+                .contact-hero-wrap { grid-template-columns: 1fr; min-height: auto; }
+                .ch-right { min-height: 360px; }
+                .ch-photo-badge { left: 24px; right: 24px; bottom: 24px; }
+                .footer-top { grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+                .footer-top > div:first-child { grid-column: 1 / -1; }
+            }
+
+            @media (max-width: 768px) { /* md */
+                :root { --page-px: 20px; --nav-height: 64px; }
+                .ch-left { padding: 36px 28px; }
+                .ch-form-row { grid-template-columns: 1fr; }
+                .faq-section { padding: 64px 0; }
+                .footer-top { grid-template-columns: 1fr 1fr; gap: 28px; }
+                .footer-locations { grid-template-columns: 1fr; }
+                .footer-bottom { flex-direction: column; align-items: flex-start; gap: 16px; }
+            }
+
+            @media (max-width: 640px) { /* sm */
+                :root { --page-px: 16px; }
+                .ch-left { padding: 28px 20px; }
+                .ch-heading { letter-spacing: -1px; }
+                .ch-form-footer { flex-direction: column; align-items: stretch; }
+                .ch-form-footer .btn-primary { justify-content: center; }
+                .faq-question { padding: 18px 20px; }
+                .faq-answer { padding: 0 20px 18px; }
+                .footer-top { grid-template-columns: 1fr; }
+            }
+        </style>
+    </head>
+    <body>
+        <ncs-nav></ncs-nav>
+
+        <main data-comment="main-content">
+
+            <!-- ════════════════════════════════
+                 CONTACT HERO
+            ════════════════════════════════ -->
+            <section class="contact-hero" data-comment="contact-hero-section">
+                <div class="contact-hero-wrap" data-comment="contact-hero-wrap">
+
+                    <!-- Left: form panel -->
+                    <div class="ch-left" data-comment="ch-left">
+                        <p class="section-eyebrow" data-comment="ch-eyebrow">Contact Us</p>
+                        <h1 class="ch-heading" data-comment="ch-heading">We'd love to<br>hear from you</h1>
+                        <p class="ch-subhead" data-comment="ch-subhead">Have a question about our sheds, gazebos, or pricing? Ready to start a custom build? Drop us a message and we'll get back to you within one business day.</p>
+
+                        <div class="ch-contact-row" data-comment="ch-contact-row">
+                            <a href="tel:3156420209" class="ch-contact-pill" data-comment="ch-pill-phone">
+                                <i class="ri-phone-line" data-comment="ch-pill-phone-icon"></i>
+                                (315) 642-0209
+                            </a>
+                            <a href="mailto:sales@ncsbarns.com" class="ch-contact-pill" data-comment="ch-pill-email">
+                                <i class="ri-mail-line" data-comment="ch-pill-email-icon"></i>
+                                sales@ncsbarns.com
+                            </a>
+                        </div>
+
+                        <div id="chFormBody" data-comment="ch-form-body">
+                            <form class="ch-form" data-comment="ch-form" onsubmit="return false;">
+                                <div class="ch-form-row" data-comment="ch-form-row-name">
+                                    <div class="ch-form-group" data-comment="ch-form-group-firstname">
+                                        <label class="ch-form-label" data-comment="ch-form-label-firstname" for="chFirstName">First Name</label>
+                                        <input class="ch-form-input" data-comment="ch-form-input-firstname" type="text" id="chFirstName" placeholder="John" />
+                                    </div>
+                                    <div class="ch-form-group" data-comment="ch-form-group-lastname">
+                                        <label class="ch-form-label" data-comment="ch-form-label-lastname" for="chLastName">Last Name</label>
+                                        <input class="ch-form-input" data-comment="ch-form-input-lastname" type="text" id="chLastName" placeholder="Smith" />
+                                    </div>
+                                </div>
+                                <div class="ch-form-row" data-comment="ch-form-row-contact">
+                                    <div class="ch-form-group" data-comment="ch-form-group-email">
+                                        <label class="ch-form-label" data-comment="ch-form-label-email" for="chEmail">Email Address</label>
+                                        <input class="ch-form-input" data-comment="ch-form-input-email" type="email" id="chEmail" placeholder="john@example.com" />
+                                    </div>
+                                    <div class="ch-form-group" data-comment="ch-form-group-phone">
+                                        <label class="ch-form-label" data-comment="ch-form-label-phone" for="chPhone">Phone Number</label>
+                                        <input class="ch-form-input" data-comment="ch-form-input-phone" type="tel" id="chPhone" placeholder="(315) 000-0000" />
+                                    </div>
+                                </div>
+                                <div class="ch-form-group" data-comment="ch-form-group-topic">
+                                    <label class="ch-form-label" data-comment="ch-form-label-topic" for="chTopic">What can we help you with?</label>
+                                    <div class="ch-form-select-wrap" data-comment="ch-form-select-wrap-topic">
+                                        <select class="ch-form-select" data-comment="ch-form-select-topic" id="chTopic">
+                                            <option value="" data-comment="ch-option-topic-placeholder">Select a topic…</option>
+                                            <option value="shed" data-comment="ch-option-topic-shed">Sheds &amp; Storage</option>
+                                            <option value="gazebo" data-comment="ch-option-topic-gazebo">Gazebos &amp; Pergolas</option>
+                                            <option value="playset" data-comment="ch-option-topic-play">Play Structures</option>
+                                            <option value="furniture" data-comment="ch-option-topic-furniture">Outdoor Furniture</option>
+                                            <option value="rto" data-comment="ch-option-topic-rto">Rent-To-Own / Financing</option>
+                                            <option value="delivery" data-comment="ch-option-topic-delivery">Delivery &amp; Relocation</option>
+                                            <option value="custom" data-comment="ch-option-topic-custom">Custom Build / Quote</option>
+                                            <option value="other" data-comment="ch-option-topic-other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="ch-form-group" data-comment="ch-form-group-message">
+                                    <label class="ch-form-label" data-comment="ch-form-label-message" for="chMessage">Message</label>
+                                    <textarea class="ch-form-textarea" data-comment="ch-form-textarea-message" id="chMessage" placeholder="Tell us what you're looking for…"></textarea>
+                                </div>
+                                <div class="ch-form-footer" data-comment="ch-form-footer">
+                                    <p class="ch-form-note" data-comment="ch-form-note">We'll respond within one business day. Your info is never shared.</p>
+                                    <button type="button" class="btn-primary" data-comment="ch-form-submit-btn" id="chSubmitBtn">
+                                        <i class="ri-send-plane-line" data-comment="ch-form-submit-icon"></i> Send Message
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Success state -->
+                        <div class="ch-form-success" id="chFormSuccess" data-comment="ch-form-success">
+                            <div class="ch-success-icon" data-comment="ch-success-icon">
+                                <i class="ri-checkbox-circle-line" data-comment="ch-success-check-icon"></i>
+                            </div>
+                            <h3 class="ch-success-heading" data-comment="ch-success-heading">Message sent!</h3>
+                            <p class="ch-success-body" data-comment="ch-success-body">Thanks for reaching out. One of our friendly team members will be in touch with you soon.</p>
+                        </div>
+                    </div>
+
+                    <!-- Right: shed photo -->
+                    <div class="ch-right" data-comment="ch-right">
+                        <img
+                            src="assets/Shed (for navigation).jpg"
+                            alt="A beautiful NCS Barns storage shed"
+                            class="ch-photo"
+                            data-comment="ch-photo" />
+                        <div class="ch-photo-overlay" data-comment="ch-photo-overlay"></div>
+                        <div class="ch-photo-badge" data-comment="ch-photo-badge">
+                            <div class="ch-badge-icon" data-comment="ch-badge-icon">
+                                <i class="ri-home-smile-line" data-comment="ch-badge-icon-ri"></i>
+                            </div>
+                            <div data-comment="ch-badge-text">
+                                <div class="ch-badge-stat" data-comment="ch-badge-stat">30+</div>
+                                <div class="ch-badge-label" data-comment="ch-badge-label">Years of craftsmanship · Family owned since 1993</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ════════════════════════════════
+                 FAQ
+            ════════════════════════════════ -->
+            <section class="faq-section" data-comment="faq-section">
+                <div class="faq-inner" data-comment="faq-inner">
+                    <div class="faq-header" data-comment="faq-header">
+                        <p class="section-eyebrow" data-comment="faq-eyebrow">FAQ</p>
+                        <h2 class="faq-heading" data-comment="faq-heading">Frequently asked questions</h2>
+                        <p class="faq-subhead" data-comment="faq-subhead">Can't find what you're looking for? Call us or send a message using the form above.</p>
+                    </div>
+
+                    <div class="faq-list" data-comment="faq-list">
+
+                        <!-- Q1 -->
+                        <div class="faq-item" data-comment="faq-item-1">
+                            <button class="faq-question" data-comment="faq-question-1" aria-expanded="false">
+                                <span class="faq-q-text" data-comment="faq-q-text-1">How long does it take to get my shed delivered?</span>
+                                <span class="faq-icon" data-comment="faq-icon-1"><i class="ri-add-line" data-comment="faq-icon-ri-1"></i></span>
+                            </button>
+                            <div class="faq-answer" data-comment="faq-answer-1">
+                                <p class="faq-a-text" data-comment="faq-a-text-1">Lead times vary by product and season. In-stock sheds can often be delivered within 1–2 weeks. Custom builds typically take 4–8 weeks depending on size and options. Our team will give you an accurate timeline when you place your order.</p>
+                            </div>
+                        </div>
+
+                        <!-- Q2 -->
+                        <div class="faq-item" data-comment="faq-item-2">
+                            <button class="faq-question" data-comment="faq-question-2" aria-expanded="false">
+                                <span class="faq-q-text" data-comment="faq-q-text-2">Do you offer rent-to-own or financing options?</span>
+                                <span class="faq-icon" data-comment="faq-icon-2"><i class="ri-add-line" data-comment="faq-icon-ri-2"></i></span>
+                            </button>
+                            <div class="faq-answer" data-comment="faq-answer-2">
+                                <p class="faq-a-text" data-comment="faq-a-text-2">Yes! We offer flexible Rent-To-Own (RTO) programs with no credit check required, as well as traditional financing options. Many customers find RTO a great way to get the structure they need with affordable monthly payments. Ask us about current rates when you visit or reach out.</p>
+                            </div>
+                        </div>
+
+                        <!-- Q3 -->
+                        <div class="faq-item" data-comment="faq-item-3">
+                            <button class="faq-question" data-comment="faq-question-3" aria-expanded="false">
+                                <span class="faq-q-text" data-comment="faq-q-text-3">Can I customize my shed — size, color, doors, windows?</span>
+                                <span class="faq-icon" data-comment="faq-icon-3"><i class="ri-add-line" data-comment="faq-icon-ri-3"></i></span>
+                            </button>
+                            <div class="faq-answer" data-comment="faq-answer-3">
+                                <p class="faq-a-text" data-comment="faq-a-text-3">Absolutely. We offer a wide range of customization options including size, siding color, roofing style, door placement, windows, lofts, shelving, and more. Visit any of our three locations and sit down with one of our friendly salespeople to design your ideal structure.</p>
+                            </div>
+                        </div>
+
+                        <!-- Q4 -->
+                        <div class="faq-item" data-comment="faq-item-4">
+                            <button class="faq-question" data-comment="faq-question-4" aria-expanded="false">
+                                <span class="faq-q-text" data-comment="faq-q-text-4">What do I need to prepare my site before delivery?</span>
+                                <span class="faq-icon" data-comment="faq-icon-4"><i class="ri-add-line" data-comment="faq-icon-ri-4"></i></span>
+                            </button>
+                            <div class="faq-answer" data-comment="faq-answer-4">
+                                <p class="faq-a-text" data-comment="faq-a-text-4">Your site should be level and accessible to our delivery truck. A gravel pad, concrete slab, or treated timber foundation works well. We recommend clearing the area and ensuring there's enough overhead clearance for delivery. Check our Site Preparation guide for detailed instructions.</p>
+                            </div>
+                        </div>
+
+                        <!-- Q5 -->
+                        <div class="faq-item" data-comment="faq-item-5">
+                            <button class="faq-question" data-comment="faq-question-5" aria-expanded="false">
+                                <span class="faq-q-text" data-comment="faq-q-text-5">Do your sheds come with a warranty?</span>
+                                <span class="faq-icon" data-comment="faq-icon-5"><i class="ri-add-line" data-comment="faq-icon-ri-5"></i></span>
+                            </button>
+                            <div class="faq-answer" data-comment="faq-answer-5">
+                                <p class="faq-a-text" data-comment="faq-a-text-5">Yes, all of our structures come with a workmanship warranty. Specific terms vary by product type and manufacturer. We stand behind the quality of everything we build and sell — if something isn't right, we'll make it right.</p>
+                            </div>
+                        </div>
+
+                        <!-- Q6 -->
+                        <div class="faq-item" data-comment="faq-item-6">
+                            <button class="faq-question" data-comment="faq-question-6" aria-expanded="false">
+                                <span class="faq-q-text" data-comment="faq-q-text-6">Do you deliver to Canada?</span>
+                                <span class="faq-icon" data-comment="faq-icon-6"><i class="ri-add-line" data-comment="faq-icon-ri-6"></i></span>
+                            </button>
+                            <div class="faq-answer" data-comment="faq-answer-6">
+                                <p class="faq-a-text" data-comment="faq-a-text-6">We service select dealers across the St. Lawrence River in Canada. Contact us directly to find out if we can serve your area or connect you with a local dealer near you.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- ════════════════════════════════
+             FOOTER
+        ════════════════════════════════ -->
+        <footer class="footer-root" data-comment="contact-footer">
+            <div class="footer-inner" data-comment="contact-footer-inner">
+                <div class="footer-top" data-comment="contact-footer-top">
+                    <div data-comment="contact-footer-brand">
+                        <a href="index.html" class="footer-brand-logo" data-comment="contact-footer-brand-logo">
+                            <img src="assets/Logo.png" alt="NCS Barns" data-comment="contact-footer-brand-logo-image" />
+                            <span class="footer-brand-name" data-comment="contact-footer-brand-logo-name">NCS Barns</span>
+                        </a>
+                        <p class="footer-brand-desc" data-comment="contact-footer-brand-desc">Handcrafted quality structures for the North Country — family owned &amp; operated since 1993.</p>
+                    </div>
+                    <div data-comment="contact-footer-col-products">
+                        <p class="footer-col-label" data-comment="contact-footer-col-products-label">Products</p>
+                        <ul class="footer-links" data-comment="contact-footer-links-products">
+                            <li><a href="#" data-comment="contact-footer-link-sheds">Sheds</a></li>
+                            <li><a href="#" data-comment="contact-footer-link-gazebos">Gazebos &amp; Pergolas</a></li>
+                            <li><a href="#" data-comment="contact-footer-link-hunting">Hunting Blinds</a></li>
+                            <li><a href="#" data-comment="contact-footer-link-play">Play Structures</a></li>
+                            <li><a href="#" data-comment="contact-footer-link-furniture">Furniture</a></li>
+                            <li><a href="#" data-comment="contact-footer-link-homes">Homes &amp; Garages</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="contact-footer-col-company">
+                        <p class="footer-col-label" data-comment="contact-footer-col-company-label">Company</p>
+                        <ul class="footer-links" data-comment="contact-footer-links-company">
+                            <li><a href="about.html" data-comment="contact-footer-link-about">About Us</a></li>
+                            <li><a href="testimonials.html" data-comment="contact-footer-link-testimonials">Testimonials</a></li>
+                            <li><a href="gallery.html" data-comment="contact-footer-link-gallery">Gallery</a></li>
+                            <li><a href="#" data-comment="contact-footer-link-delivery">Delivery &amp; Relocation</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="contact-footer-col-buying">
+                        <p class="footer-col-label" data-comment="contact-footer-col-buying-label">Buying Process</p>
+                        <ul class="footer-links" data-comment="contact-footer-links-buying">
+                            <li><a href="#" data-comment="contact-footer-link-rto">Rent-To-Own</a></li>
+                            <li><a href="#" data-comment="contact-footer-link-financing">Financing Options</a></li>
+                            <li><a href="#" data-comment="contact-footer-link-siteprep">Site Preparation</a></li>
+                            <li><a href="#" data-comment="contact-footer-link-warranty">Warranty</a></li>
+                            <li><a href="#" data-comment="contact-footer-link-dealers">Dealers</a></li>
+                        </ul>
+                    </div>
+                    <div data-comment="contact-footer-col-contact">
+                        <p class="footer-col-label" data-comment="contact-footer-col-contact-label">Contact</p>
+                        <div class="footer-contact-item" data-comment="contact-footer-contact-phone">
+                            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l1.64-1.64a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <a href="tel:3156420209" data-comment="contact-footer-contact-phone-link">(315) 642-0209</a>
+                        </div>
+                        <div class="footer-contact-item" data-comment="contact-footer-contact-email">
+                            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            <a href="mailto:sales@ncsbarns.com" data-comment="contact-footer-contact-email-link">sales@ncsbarns.com</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-locations" data-comment="contact-footer-locations">
+                    <div data-comment="contact-footer-loc-philadelphia">
+                        <p class="footer-loc-name" data-comment="contact-footer-loc-philadelphia-name">Philadelphia</p>
+                        <p class="footer-loc-addr" data-comment="contact-footer-loc-philadelphia-addr">32660 US Route 11<br>Philadelphia, NY 13673</p>
+                        <p class="footer-loc-phone" data-comment="contact-footer-loc-philadelphia-phone">(315) 642-0209</p>
+                    </div>
+                    <div data-comment="contact-footer-loc-yorkville">
+                        <p class="footer-loc-name" data-comment="contact-footer-loc-yorkville-name">Yorkville</p>
+                        <p class="footer-loc-addr" data-comment="contact-footer-loc-yorkville-addr">317 Oriskany Blvd<br>Yorkville, NY</p>
+                        <p class="footer-loc-phone" data-comment="contact-footer-loc-yorkville-phone">(315) 793-0726</p>
+                    </div>
+                    <div data-comment="contact-footer-loc-sandycreek">
+                        <p class="footer-loc-name" data-comment="contact-footer-loc-sandycreek-name">Sandy Creek / Pulaski</p>
+                        <p class="footer-loc-addr" data-comment="contact-footer-loc-sandycreek-addr">5780 US Route 11<br>Pulaski, NY</p>
+                        <p class="footer-loc-phone" data-comment="contact-footer-loc-sandycreek-phone">(315) 387-2092</p>
+                    </div>
+                </div>
+                <div class="footer-bottom" data-comment="contact-footer-bottom">
+                    <div class="footer-copy-row" data-comment="contact-footer-copy-row">
+                        <span class="footer-copy" data-comment="contact-footer-copy">&copy; 2025 North Country Storage Barns. All rights reserved.</span>
+                        <a href="privacy.html" class="footer-legal-link" href="privacy.html" class="footer-legal-link" data-comment="contact-footer-link-privacy">Privacy Policy</a>
+                        <a href="terms.html" class="footer-legal-link" data-comment="contact-footer-link-terms">Terms of Use</a>
+                    </div>
+                    <div class="footer-socials" data-comment="contact-footer-socials">
+                        <a href="#" class="footer-social-btn" data-comment="contact-footer-social-facebook" aria-label="Facebook">
+                            <i class="ri-facebook-fill" data-comment="contact-footer-social-facebook-icon"></i>
+                        </a>
+                        <a href="#" class="footer-social-btn" data-comment="contact-footer-social-instagram" aria-label="Instagram">
+                            <i class="ri-instagram-line" data-comment="contact-footer-social-instagram-icon"></i>
+                        </a>
+                        <a href="#" class="footer-social-btn" data-comment="contact-footer-social-tiktok" aria-label="TikTok">
+                            <i class="ri-tiktok-line" data-comment="contact-footer-social-tiktok-icon"></i>
+                        </a>
+                        <a href="#" class="footer-social-btn" data-comment="contact-footer-social-youtube" aria-label="YouTube">
+                            <i class="ri-youtube-line" data-comment="contact-footer-social-youtube-icon"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            // FAQ accordion
+            document.querySelectorAll('.faq-question').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var isOpen = this.classList.contains('is-open');
+                    // close all
+                    document.querySelectorAll('.faq-question').forEach(function(q) {
+                        q.classList.remove('is-open');
+                        q.setAttribute('aria-expanded', 'false');
+                        q.nextElementSibling.classList.remove('is-open');
+                    });
+                    // open clicked if it was closed
+                    if (!isOpen) {
+                        this.classList.add('is-open');
+                        this.setAttribute('aria-expanded', 'true');
+                        this.nextElementSibling.classList.add('is-open');
+                    }
+                });
+            });
+
+            // Form submit mock
+            document.getElementById('chSubmitBtn').addEventListener('click', function() {
+                document.getElementById('chFormBody').style.display = 'none';
+                document.getElementById('chFormSuccess').style.display = 'block';
+            });
+        </script>
+    </body>
+</html>
