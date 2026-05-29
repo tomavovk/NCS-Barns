@@ -1263,7 +1263,394 @@
     </head>
     <body>
 
-        <ncs-nav data-comment="sp-nav"></ncs-nav>
+        <!-- ── TOPBAR ── -->
+        <div class="nav-topbar" data-comment="nav-topbar">
+            <div class="nav-topbar-inner" data-comment="nav-topbar-inner">
+                <div class="nav-topbar-left" data-comment="nav-topbar-left">
+                    <span class="nav-topbar-sale-badge" data-comment="nav-topbar-sale-badge">Spring Sale</span>
+                    <span class="nav-topbar-sale-text" data-comment="nav-topbar-sale-text">Save Up to 20% — Ends May 31</span>
+                </div>
+                <div class="nav-topbar-right" data-comment="nav-topbar-right">
+                    <a href="tel:+13156420209" class="nav-topbar-phone" data-comment="nav-topbar-phone">
+                        <i class="ri-phone-line"></i>
+                        (315) 642-0209
+                    </a>
+                    <nav class="nav-topbar-links" data-comment="nav-topbar-links">
+                        <a href="colors.html" class="nav-topbar-link" data-comment="nav-topbar-link-colors">Colors</a>
+                        <a href="options.html" class="nav-topbar-link" data-comment="nav-topbar-link-options">Options</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── BACKDROP ── -->
+        <div data-comment="nav-backdrop" id="navBackdrop"></div>
+
+        <!-- ════════════════════════════════
+             HEADER / NAV
+        ════════════════════════════════ -->
+        <header data-comment="nav-root" id="navRoot">
+            <div class="nav-inner" data-comment="nav-inner">
+
+                <!-- Logo -->
+                <a href="home.html" class="nav-logo" data-comment="nav-logo">
+                    <img
+                        src="assets/Logo.png"
+                        alt="NCS Barns"
+                        class="nav-logo-img"
+                        data-comment="nav-logo-img" />
+                    <span class="nav-logo-name" data-comment="nav-logo-name">NCS Barns</span>
+                </a>
+
+                <!-- ── Main links ── -->
+                <ul class="nav-links" data-comment="nav-links">
+
+                    <!-- PRODUCTS -->
+                    <li class="nav-item" id="navProducts" data-comment="nav-item-products">
+                        <button class="nav-trigger" data-comment="nav-trigger-products">
+                            Products
+                        </button>
+
+                        <!-- Mega menu -->
+                        <div class="nav-mega" data-comment="nav-mega-products">
+                            <div class="nav-mega-inner" data-comment="nav-mega-products-inner">
+
+                                <div class="nav-mega-body" data-comment="nav-mega-products-body">
+                                <div class="nav-mega-header" data-comment="nav-mega-header">
+                                    <span class="nav-mega-eyebrow" data-comment="nav-mega-eyebrow">
+                                        Explore NCS Barns
+                                    </span>
+                                </div>
+
+                                <div class="nav-mega-cols" data-comment="nav-mega-cols">
+
+                                    <!-- Structures -->
+                                    <div class="nav-mega-col" data-comment="nav-mega-col-structures">
+                                        <p class="nav-mega-col-title" data-comment="nav-mega-col-title-structures">Structures</p>
+                                        <ul class="nav-mega-list" data-comment="nav-mega-list-structures">
+                                            <li data-comment="nav-mega-li-sheds">
+                                                <a href="catalog.html?category=Sheds" class="nav-mega-link" data-comment="nav-mega-link-sheds">Sheds</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-gazebos">
+                                                <a href="catalog.html?category=Gazebos" class="nav-mega-link" data-comment="nav-mega-link-gazebos">Gazebos / Pergolas / Pavilions</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-hunting">
+                                                <a href="catalog.html?category=Hunting+Blinds" class="nav-mega-link" data-comment="nav-mega-link-hunting">Hunting Blinds</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-play">
+                                                <a href="catalog.html?category=Play+Structures" class="nav-mega-link" data-comment="nav-mega-link-play">Play Structures</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-animal">
+                                                <a href="catalog.html?category=Animal+Structures" class="nav-mega-link" data-comment="nav-mega-link-animal">Animal Structures</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-rentals">
+                                                <a href="catalog.html?category=Returned+Rentals" class="nav-mega-link" data-comment="nav-mega-link-rentals">Returned Rentals</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Furniture -->
+                                    <div class="nav-mega-col" data-comment="nav-mega-col-furniture">
+                                        <p class="nav-mega-col-title" data-comment="nav-mega-col-title-furniture">Furniture</p>
+                                        <ul class="nav-mega-list" data-comment="nav-mega-list-furniture">
+                                            <li data-comment="nav-mega-li-indoor">
+                                                <a href="catalog.html?category=Indoor+Furniture" class="nav-mega-link" data-comment="nav-mega-link-indoor">Indoor Furniture</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-outdoor">
+                                                <a href="catalog.html?category=Outdoor+Furniture" class="nav-mega-link" data-comment="nav-mega-link-outdoor">Outdoor Furniture</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-decor">
+                                                <a href="catalog.html?category=Decor" class="nav-mega-link" data-comment="nav-mega-link-decor">Decor &amp; More</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Homes & Garages -->
+                                    <div class="nav-mega-col" data-comment="nav-mega-col-homes">
+                                        <p class="nav-mega-col-title" data-comment="nav-mega-col-title-homes">Homes &amp; Garages</p>
+                                        <ul class="nav-mega-list" data-comment="nav-mega-list-homes">
+                                            <li data-comment="nav-mega-li-custom-homes">
+                                                <a href="custom-built-homes.html" class="nav-mega-link" data-comment="nav-mega-link-custom-homes">Custom Built Homes</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-modular-homes">
+                                                <a href="catalog.html?category=Log+Homes" class="nav-mega-link" data-comment="nav-mega-link-modular-homes">Modular Log Homes</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-garages">
+                                                <a href="catalog.html?category=Garages" class="nav-mega-link" data-comment="nav-mega-link-garages">Garages</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-bill-lake">
+                                                <a href="https://www.billlakehomes.com/" target="_blank" rel="noopener noreferrer" class="nav-mega-link" data-comment="nav-mega-link-bill-lake">Bill Lake Homes <i class="ri-arrow-right-up-line" data-comment="nav-mega-link-bill-lake-arrow"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Options -->
+                                    <div class="nav-mega-col" data-comment="nav-mega-col-options">
+                                        <p class="nav-mega-col-title" data-comment="nav-mega-col-title-options">Options</p>
+                                        <ul class="nav-mega-list" data-comment="nav-mega-list-options">
+                                            <li data-comment="nav-mega-li-colors">
+                                                <a href="colors.html" class="nav-mega-link" data-comment="nav-mega-link-colors">Colors</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-options">
+                                                <a href="options.html" class="nav-mega-link" data-comment="nav-mega-link-options">Options</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div><!-- /nav-mega-cols -->
+                                </div><!-- /nav-mega-body -->
+
+                                    <!-- CTA -->
+                                    <div class="nav-mega-cta nav-mega-cta--no-fade nav-mega-cta--dark-text" style="background-image:url('assets/Navigation/Navigation Visual/Product.png?v=5');background-size:100% auto;background-position:top center;background-color:#F4F1EE;" data-comment="nav-mega-cta">
+                                        <div class="nav-mega-cta-content" data-comment="nav-mega-cta-content">
+                                            <p class="nav-mega-cta-heading" data-comment="nav-mega-cta-heading">Design Your Own Shed</p>
+                                            <p class="nav-mega-cta-note" data-comment="nav-mega-cta-note">Interactive 3D configurator with AR preview</p>
+                                            <a href="https://ncsbarns.shedpro.co/" target="_blank" rel="noopener" class="btn-cta-card" data-comment="nav-mega-cta-btn">
+                                                <svg data-comment="nav-mega-cta-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                                                Customize Shed
+                                            </a>
+                                        </div>
+                                    </div>
+
+                            </div><!-- /nav-mega-inner -->
+                        </div><!-- /nav-mega -->
+                    </li>
+
+                    <!-- ABOUT -->
+                    <li class="nav-item" id="navAbout" data-comment="nav-item-about">
+                        <button class="nav-trigger" data-comment="nav-trigger-about">
+                            About
+                        </button>
+
+                        <div class="nav-mega" data-comment="nav-mega-about">
+                            <div class="nav-mega-inner" data-comment="nav-mega-about-inner">
+
+                                <div class="nav-mega-body" data-comment="nav-mega-about-body">
+                                <div class="nav-mega-header" data-comment="nav-mega-about-header">
+                                    <span class="nav-mega-eyebrow" data-comment="nav-mega-about-eyebrow">
+                                        About NCS Barns
+                                    </span>
+                                </div>
+
+                                <div class="nav-mega-cols nav-mega-cols--about" data-comment="nav-mega-about-cols">
+
+                                    <!-- Company -->
+                                    <div class="nav-mega-col" data-comment="nav-mega-col-company">
+                                        <p class="nav-mega-col-title" data-comment="nav-mega-col-title-company">Company</p>
+                                        <ul class="nav-mega-list" data-comment="nav-mega-list-company">
+                                            <li data-comment="nav-mega-li-about-company">
+                                                <a href="about.html" class="nav-mega-link" data-comment="nav-mega-link-about-company">About Company</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-testimonials">
+                                                <a href="testimonials.html" class="nav-mega-link" data-comment="nav-mega-link-testimonials">Testimonials</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-gallery">
+                                                <a href="gallery.html" class="nav-mega-link" data-comment="nav-mega-link-gallery">Gallery</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-dealers">
+                                                <a href="dealers.html" class="nav-mega-link" data-comment="nav-mega-link-dealers">Our Partners</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Care Guide -->
+                                    <div class="nav-mega-col" data-comment="nav-mega-col-care-guide">
+                                        <p class="nav-mega-col-title" data-comment="nav-mega-col-title-care-guide">Product Info</p>
+                                        <ul class="nav-mega-list" data-comment="nav-mega-list-care-guide">
+                                            <li data-comment="nav-mega-li-care-guide">
+                                                <a href="care-guide.html" class="nav-mega-link" data-comment="nav-mega-link-care-guide">Care Guide</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div><!-- /nav-mega-about-cols -->
+                                </div><!-- /nav-mega-about-body -->
+
+                                    <!-- CTA -->
+                                    <div class="nav-mega-cta nav-mega-cta--no-fade nav-mega-cta--dark-text" style="background-image:url('assets/Navigation/Navigation Visual/About.png?v=5');background-size:100% auto;background-position:top center;background-color:#F4F1EE;" data-comment="nav-mega-about-cta">
+                                        <div class="nav-mega-cta-content" data-comment="nav-mega-about-cta-content">
+                                            <p class="nav-mega-cta-heading" data-comment="nav-mega-about-cta-heading">Visit Us Today</p>
+                                            <p class="nav-mega-cta-note" data-comment="nav-mega-about-cta-note">3 locations across New York State</p>
+                                            <a href="#" class="btn-cta-card" data-comment="nav-mega-about-cta-btn">
+                                                <i class="ri-map-pin-line" data-comment="nav-mega-about-cta-btn-icon"></i>
+                                                Contact Us
+                                            </a>
+                                        </div>
+                                    </div>
+
+                            </div><!-- /nav-mega-about-inner -->
+                        </div><!-- /nav-mega-about -->
+                    </li>
+
+                    <!-- BUYING PROCESS -->
+                    <li class="nav-item" id="navBuying" data-comment="nav-item-buying">
+                        <button class="nav-trigger" data-comment="nav-trigger-buying">
+                            Buying Process
+                        </button>
+
+                        <div class="nav-mega" data-comment="nav-mega-buying">
+                            <div class="nav-mega-inner" data-comment="nav-mega-buying-inner">
+
+                                <div class="nav-mega-body" data-comment="nav-mega-buying-body">
+                                <div class="nav-mega-header" data-comment="nav-mega-buying-header">
+                                    <span class="nav-mega-eyebrow" data-comment="nav-mega-buying-eyebrow">
+                                        How to Buy
+                                    </span>
+                                </div>
+
+                                <div class="nav-mega-cols nav-mega-cols--buying" data-comment="nav-mega-buying-cols">
+
+                                    <!-- Financing -->
+                                    <div class="nav-mega-col" data-comment="nav-mega-col-financial">
+                                        <p class="nav-mega-col-title" data-comment="nav-mega-col-title-financial">Financing</p>
+                                        <ul class="nav-mega-list" data-comment="nav-mega-list-financial">
+                                            <li data-comment="nav-mega-li-rto">
+                                                <a href="rent-to-own.html" class="nav-mega-link" data-comment="nav-mega-link-rto">Rent-To-Own Program</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-ncu">
+                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-ncu">Northern Credit Union <i class="ri-arrow-right-up-line" data-comment="nav-mega-link-ncu-icon"></i></a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-byf">
+                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-byf">Back Yard Finance <i class="ri-arrow-right-up-line" data-comment="nav-mega-link-byf-icon"></i></a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-uf">
+                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-uf">Upgrade Finance <i class="ri-arrow-right-up-line" data-comment="nav-mega-link-uf-icon"></i></a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-jmoney">
+                                                <a href="#" class="nav-mega-link" data-comment="nav-mega-link-jmoney">J-Money Financing <i class="ri-arrow-right-up-line" data-comment="nav-mega-link-jmoney-icon"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Process -->
+                                    <div class="nav-mega-col" data-comment="nav-mega-col-process">
+                                        <p class="nav-mega-col-title" data-comment="nav-mega-col-title-process">Process</p>
+                                        <ul class="nav-mega-list" data-comment="nav-mega-list-process">
+                                            <li data-comment="nav-mega-li-site-prep">
+                                                <a href="site-preparation.html" class="nav-mega-link" data-comment="nav-mega-link-site-prep">Site Preparation</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-delivery">
+                                                <a href="delivery.html" class="nav-mega-link" data-comment="nav-mega-link-delivery">Delivery</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-warranty">
+                                                <a href="warranty.html" class="nav-mega-link" data-comment="nav-mega-link-warranty">Warranty</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div><!-- /nav-mega-buying-cols -->
+                                </div><!-- /nav-mega-buying-body -->
+
+                                    <!-- CTA -->
+                                    <div class="nav-mega-cta nav-mega-cta--no-fade nav-mega-cta--dark-text" style="background-image:url('assets/Navigation/Navigation Visual/Buying Process.png?v=2');background-size:100% auto;background-position:top center;background-color:#F4F1EE;" data-comment="nav-mega-buying-cta">
+                                        <div class="nav-mega-cta-content" data-comment="nav-mega-buying-cta-content">
+                                            <p class="nav-mega-cta-heading" data-comment="nav-mega-buying-cta-heading">Start Today</p>
+                                            <p class="nav-mega-cta-note" data-comment="nav-mega-buying-cta-note">Rent-to-own from 24 to 60 months — no large upfront cost</p>
+                                            <a href="#" class="btn-cta-card" data-comment="nav-mega-buying-cta-btn">
+                                                <i class="ri-price-tag-3-line" data-comment="nav-mega-buying-cta-btn-icon"></i>
+                                                Get a Quote
+                                            </a>
+                                        </div>
+                                    </div>
+
+                            </div><!-- /nav-mega-buying-inner -->
+                        </div><!-- /nav-mega-buying -->
+                    </li>
+
+                    <!-- CONTACT -->
+                    <li class="nav-item" data-comment="nav-item-contact">
+                        <a href="contact.html" class="nav-trigger" data-comment="nav-link-contact">Contact</a>
+                    </li>
+
+                </ul><!-- /nav-links -->
+
+                <!-- ── Right side ── -->
+                <div class="nav-right" data-comment="nav-right">
+
+                    <div class="nav-search-wrap" data-comment="nav-search-wrap">
+                        <div class="nav-search" data-comment="nav-search">
+                            <svg class="nav-search-icon" data-comment="nav-search-icon" viewBox="0 0 24 24">
+                                <circle cx="11" cy="11" r="8"/>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                            </svg>
+                            <input
+                                type="text"
+                                class="nav-search-input"
+                                id="navSearchInput"
+                                placeholder="Search products…"
+                                autocomplete="off"
+                                data-comment="nav-search-input" />
+                        </div>
+
+                        <!-- Search Dropdown -->
+                        <div class="sd-dropdown" id="searchDropdown" data-comment="search-dropdown">
+                            <div class="sd-body" id="sdBody" data-comment="search-dropdown-body"></div>
+                        </div>
+                    </div>
+
+                    <a href="cart.html" class="nav-icon-btn" data-comment="nav-cart-btn" title="Cart" aria-label="Open cart">
+                        <i class="ri-shopping-bag-line" data-comment="nav-cart-icon"></i>
+                        <span class="nav-cart-badge" data-comment="nav-cart-badge"></span>
+                    </a>
+
+                    <a href="account.html" class="nav-icon-btn" data-comment="nav-account-btn" title="My Account" aria-label="My Account">
+                        <i class="ri-user-line" data-comment="nav-account-icon"></i>
+                    </a>
+
+                    <a href="https://ncsbarns.shedpro.co/" target="_blank" rel="noopener" class="btn-primary nav-customize-btn" data-comment="nav-customize-btn"><i class="ri-box-3-line"></i> Customize Shed</a>
+
+                    <!-- Hamburger (mobile only) -->
+                    <button class="nav-hamburger" id="navHamburger" data-comment="nav-hamburger" aria-label="Open navigation" aria-expanded="false">
+                        <i class="ri-menu-line"></i>
+                    </button>
+
+                </div><!-- /nav-right -->
+
+            </div><!-- /nav-inner -->
+        </header>
+
+        <!-- ── MOBILE NAV OVERLAY ── -->
+        <div class="mobile-nav-overlay" id="mobileNavOverlay" data-comment="mobile-nav-overlay"></div>
+
+        <!-- ── MOBILE NAV DRAWER ── -->
+        <nav class="mobile-nav" id="mobileNav" data-comment="mobile-nav" aria-label="Mobile navigation">
+
+            <!-- Header -->
+            <div class="mobile-nav-header" data-comment="mobile-nav-header">
+                <a href="home.html" class="mobile-nav-logo" data-comment="mobile-nav-logo">
+                    <img src="assets/Logo.png" alt="NCS Barns" class="mobile-nav-logo-img" data-comment="mobile-nav-logo-img" />
+                    <span class="mobile-nav-logo-name" data-comment="mobile-nav-logo-name">NCS Barns</span>
+                </a>
+                <button class="mobile-nav-close" id="mobileNavClose" data-comment="mobile-nav-close" aria-label="Close navigation">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+
+            <!-- Nav links -->
+            <ul class="mobile-nav-links" data-comment="mobile-nav-links">
+                <li data-comment="mobile-nav-li-products"><a href="#" data-comment="mobile-nav-link-products">Products</a></li>
+                <li data-comment="mobile-nav-li-gallery"><a href="gallery.html" data-comment="mobile-nav-link-gallery">Gallery</a></li>
+                <li data-comment="mobile-nav-li-events"><a href="#" data-comment="mobile-nav-link-events">Events</a></li>
+                <li data-comment="mobile-nav-li-blog"><a href="#" data-comment="mobile-nav-link-blog">Blog</a></li>
+                <li data-comment="mobile-nav-li-contact"><a href="contact.html" data-comment="mobile-nav-link-contact">Contact</a></li>
+            </ul>
+
+            <hr class="mobile-nav-divider" data-comment="mobile-nav-divider" />
+
+            <!-- CTA -->
+            <a href="https://ncsbarns.shedpro.co/" target="_blank" rel="noopener" class="btn-primary mobile-nav-cta" data-comment="mobile-nav-cta"><i class="ri-box-3-line"></i> Customize Shed</a>
+
+            <!-- Icon actions -->
+            <div class="mobile-nav-actions" data-comment="mobile-nav-actions">
+                <a href="cart.html" class="nav-icon-btn" data-comment="mobile-nav-cart-btn" title="Cart" aria-label="Open cart" style="flex:1; border-radius:9px; border:1.5px solid var(--color-border); background:var(--color-bg);">
+                    <i class="ri-shopping-bag-line" data-comment="mobile-nav-cart-icon"></i>
+                </a>
+                <a href="account.html" class="nav-icon-btn" data-comment="mobile-nav-account-btn" title="My Account" aria-label="My Account" style="flex:1; border-radius:9px; border:1.5px solid var(--color-border); background:var(--color-bg);">
+                    <i class="ri-user-line" data-comment="mobile-nav-account-icon"></i>
+                </a>
+            </div>
+
+        </nav><!-- /mobile-nav -->
 
         <main class="sp-page" data-comment="sp-page">
 
