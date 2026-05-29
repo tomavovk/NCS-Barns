@@ -902,7 +902,7 @@
     .mobile-nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
     .mobile-nav-logo-img { height: 32px; width: auto; }
     .mobile-nav-logo-name { font-size: 16px; font-weight: 600; color: var(--color-dark); letter-spacing: -0.3px; }
-    .mobile-nav-close { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: none; background: none; cursor: pointer; border-radius: 8px; color: var(--color-dark); font-size: 20px; transition: background var(--t-fast), color var(--t-fast); flex-shrink: 0; }
+    .mobile-nav-close { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: none; background: none; cursor: pointer; border-radius: 8px; color: var(--color-dark); font-size: 20px; transition: background var(--t-fast), color var(--t-fast); flex-shrink: 0; }
     .mobile-nav-close:hover { background: var(--color-bg-hover); color: var(--color-burgundy); }
     .mobile-nav-links { list-style: none; flex: 1; }
     .mobile-nav-links li { border-bottom: 1px solid var(--color-border); }
@@ -921,6 +921,14 @@
         .nav-links { display: none; }
         .nav-hamburger { display: flex; }
         .nav-customize-btn { display: none; }
+    }
+    @media (max-width: 768px) {
+        .nav-topbar-phone { display: none; }
+        .nav-topbar-links { display: none; }
+        .nav-topbar { overflow: hidden; }
+    }
+    @media (max-width: 480px) {
+        .nav-topbar-sale-text { display: none; }
     }
         /* ── End nav styles ── */
 
@@ -1331,7 +1339,7 @@
                                                 <a href="gallery.html" class="nav-mega-link" data-comment="nav-mega-link-gallery">Gallery</a>
                                             </li>
                                             <li data-comment="nav-mega-li-dealers">
-                                                <a href="dealers.html" class="nav-mega-link" data-comment="nav-mega-link-dealers">Our Partners</a>
+                                                <a href="partners.html" class="nav-mega-link" data-comment="nav-mega-link-dealers">Our Partners</a>
                                             </li>
                                         </ul>
                                     </div>

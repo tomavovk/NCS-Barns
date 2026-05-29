@@ -902,7 +902,7 @@
     .mobile-nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
     .mobile-nav-logo-img { height: 32px; width: auto; }
     .mobile-nav-logo-name { font-size: 16px; font-weight: 600; color: var(--color-dark); letter-spacing: -0.3px; }
-    .mobile-nav-close { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: none; background: none; cursor: pointer; border-radius: 8px; color: var(--color-dark); font-size: 20px; transition: background var(--t-fast), color var(--t-fast); flex-shrink: 0; }
+    .mobile-nav-close { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: none; background: none; cursor: pointer; border-radius: 8px; color: var(--color-dark); font-size: 20px; transition: background var(--t-fast), color var(--t-fast); flex-shrink: 0; }
     .mobile-nav-close:hover { background: var(--color-bg-hover); color: var(--color-burgundy); }
     .mobile-nav-links { list-style: none; flex: 1; }
     .mobile-nav-links li { border-bottom: 1px solid var(--color-border); }
@@ -921,6 +921,14 @@
         .nav-links { display: none; }
         .nav-hamburger { display: flex; }
         .nav-customize-btn { display: none; }
+    }
+    @media (max-width: 768px) {
+        .nav-topbar-phone { display: none; }
+        .nav-topbar-links { display: none; }
+        .nav-topbar { overflow: hidden; }
+    }
+    @media (max-width: 480px) {
+        .nav-topbar-sale-text { display: none; }
     }
         /* ── End nav styles ── */
 
@@ -1081,7 +1089,7 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                gap: 16px;
+                gap: 8px;
                 text-align: center;
                 transition: border-color var(--t-fast), box-shadow var(--t-fast);
             }
@@ -1091,11 +1099,8 @@
             }
 
             .brand-logo-placeholder {
-                width: 120px;
-                height: 80px;
-                border-radius: 10px;
-                background: var(--color-bg-hover);
-                border: 1.5px dashed var(--color-border);
+                width: 100%;
+                aspect-ratio: 4 / 3;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -1343,7 +1348,7 @@
                                                 <a href="gallery.html" class="nav-mega-link" data-comment="nav-mega-link-gallery">Gallery</a>
                                             </li>
                                             <li data-comment="nav-mega-li-dealers">
-                                                <a href="dealers.html" class="nav-mega-link" data-comment="nav-mega-link-dealers">Our Partners</a>
+                                                <a href="partners.html" class="nav-mega-link" data-comment="nav-mega-link-dealers">Our Partners</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -1548,30 +1553,7 @@
         </nav><!-- /mobile-nav -->
 
         <!-- ─── HERO ─── -->
-        <section class="page-hero-section" data-comment="dealers-hero-section">
-            <div class="page-hero-wrap" data-comment="dealers-hero-wrap">
-                <!-- decorative bg -->
-                <svg class="page-hero-pattern" viewBox="0 0 1440 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" data-comment="dealers-hero-svg">
-                    <rect width="1440" height="400" fill="#1C1F24"/>
-                    <defs>
-                        <pattern id="dg-dealers" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
-                            <circle cx="16" cy="16" r="1.2" fill="rgba(255,255,255,0.06)"/>
-                        </pattern>
-                    </defs>
-                    <rect width="1440" height="400" fill="url(#dg-dealers)"/>
-                    <rect x="0" y="260" width="1440" height="140" fill="url(#fade-dealers)" opacity="0.7"/>
-                </svg>
-
-                <img src="assets/partners-hero.jpg.jpg" alt="" class="page-hero-bg" data-comment="dealers-hero-bg" />
-                <div class="page-hero-overlay" data-comment="dealers-hero-overlay"></div>
-                <div class="page-hero-content" data-comment="dealers-hero-content">
-                    <p class="page-hero-eyebrow" data-comment="dealers-hero-eyebrow">About NCS Barns</p>
-                    <h1 class="page-hero-heading" data-comment="dealers-hero-heading">Our Partners</h1>
-                </div>
-            </div>
-        </section>
-
-        <!-- ─── INTRO ─── -->
+<!-- ─── INTRO ─── -->
         <section class="intro-section" data-comment="dealers-intro-section">
             <div class="intro-inner" data-comment="dealers-intro-inner">
                 <p class="intro-eyebrow" data-comment="dealers-intro-eyebrow">Our Partners</p>
@@ -1588,147 +1570,137 @@
             <div class="brands-grid" data-comment="dealers-brands-grid">
 
                 <div class="brand-card" data-comment="brand-card-daybreak">
-                    <div class="brand-logo-placeholder" data-comment="brand-logo-daybreak"><i class="ri-image-line"></i></div>
-                    <p class="brand-name" data-comment="brand-name-daybreak">Daybreak Poly Furniture</p>
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-daybreak"><img src="assets/Logos for Our partners page/Daybreak.png" alt="Daybreak" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
+                    <p class="brand-name" data-comment="brand-name-daybreak">Daybreak</p>
                 </div>
 
                 <div class="brand-card" data-comment="brand-card-over-ez">
-                    <div class="brand-logo-placeholder" data-comment="brand-logo-over-ez"><i class="ri-image-line"></i></div>
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-over-ez"><img src="assets/Logos for Our partners page/Over EZ Chicken Coops.png" alt="Over EZ Chicken Coops" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
                     <p class="brand-name" data-comment="brand-name-over-ez">Over EZ Chicken Coops</p>
                 </div>
 
                 <div class="brand-card" data-comment="brand-card-cozy-cabin">
-                    <div class="brand-logo-placeholder" data-comment="brand-logo-cozy-cabin"><i class="ri-image-line"></i></div>
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-cozy-cabin"><img src="assets/Logos for Our partners page/Cozy Cabin.png" alt="Cozy Cabin" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
                     <p class="brand-name" data-comment="brand-name-cozy-cabin">Cozy Cabin</p>
                 </div>
 
                 <div class="brand-card" data-comment="brand-card-kinzer">
-                    <div class="brand-logo-placeholder" data-comment="brand-logo-kinzer"><i class="ri-image-line"></i></div>
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-kinzer"><img src="assets/Logos for Our partners page/Kinzer Woodworking.png" alt="Kinzer Woodworking" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
                     <p class="brand-name" data-comment="brand-name-kinzer">Kinzer Woodworking</p>
                 </div>
 
                 <div class="brand-card" data-comment="brand-card-360-hunting">
-                    <div class="brand-logo-placeholder" data-comment="brand-logo-360-hunting"><i class="ri-image-line"></i></div>
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-360-hunting"><img src="assets/Logos for Our partners page/360 Hunting Blinds.png" alt="360 Hunting Blinds" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
                     <p class="brand-name" data-comment="brand-name-360-hunting">360 Hunting Blinds</p>
                 </div>
 
                 <div class="brand-card" data-comment="brand-card-massarellis">
-                    <div class="brand-logo-placeholder" data-comment="brand-logo-massarellis"><i class="ri-image-line"></i></div>
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-massarellis"><img src="assets/Logos for Our partners page/Massarelli's.png" alt="Massarelli's" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
                     <p class="brand-name" data-comment="brand-name-massarellis">Massarelli's</p>
                 </div>
 
                 <div class="brand-card" data-comment="brand-card-appalachian">
-                    <div class="brand-logo-placeholder" data-comment="brand-logo-appalachian"><i class="ri-image-line"></i></div>
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-appalachian"><img src="assets/Logos for Our partners page/Appalachian Woodcrafts.png" alt="Appalachian Woodcrafts" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
                     <p class="brand-name" data-comment="brand-name-appalachian">Appalachian Woodcrafts</p>
                 </div>
 
                 <div class="brand-card" data-comment="brand-card-bih-kennels">
-                    <div class="brand-logo-placeholder" data-comment="brand-logo-bih-kennels"><i class="ri-image-line"></i></div>
-                    <p class="brand-name" data-comment="brand-name-bih-kennels">Bird-In Hand Pet Structures — Dog Kennels</p>
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-bih-kennels"><img src="assets/Logos for Our partners page/Dog Kennel.png" alt="Dog Kennel" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
+                    <p class="brand-name" data-comment="brand-name-bih-kennels">Dog Kennel</p>
                 </div>
 
                 <div class="brand-card" data-comment="brand-card-beaver-dam">
-                    <div class="brand-logo-placeholder" data-comment="brand-logo-beaver-dam"><i class="ri-image-line"></i></div>
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-beaver-dam"><img src="assets/Logos for Our partners page/Beaver Dam Woodworks.png" alt="Beaver Dam Woodworks" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
                     <p class="brand-name" data-comment="brand-name-beaver-dam">Beaver Dam Woodworks</p>
                 </div>
 
-                <div class="brand-card" data-comment="brand-card-bih-chickens">
-                    <div class="brand-logo-placeholder" data-comment="brand-logo-bih-chickens"><i class="ri-image-line"></i></div>
-                    <p class="brand-name" data-comment="brand-name-bih-chickens">Bird-In Hand Pet Structures — Chicken Coops</p>
-                </div>
-
-                <div class="brand-card" data-comment="brand-card-hershberger">
-                    <div class="brand-logo-placeholder" data-comment="brand-logo-hershberger"><i class="ri-image-line"></i></div>
+<div class="brand-card" data-comment="brand-card-hershberger">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-hershberger"><img src="assets/Logos for Our partners page/Hershberger Lawn Structures.png" alt="Hershberger Lawn Structures" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
                     <p class="brand-name" data-comment="brand-name-hershberger">Hershberger Lawn Structures</p>
                 </div>
 
                 <div class="brand-card" data-comment="brand-card-lambright">
-                    <div class="brand-logo-placeholder" data-comment="brand-logo-lambright"><i class="ri-image-line"></i></div>
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-lambright"><img src="assets/Logos for Our partners page/Lambright Country Chimes.png" alt="Lambright Country Chimes" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
                     <p class="brand-name" data-comment="brand-name-lambright">Lambright Country Chimes</p>
                 </div>
 
                 <div class="brand-card" data-comment="brand-card-lancaster-showcase">
-                    <div class="brand-logo-placeholder" data-comment="brand-logo-lancaster-showcase"><i class="ri-image-line"></i></div>
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-lancaster-showcase"><img src="assets/Logos for Our partners page/Lancaster County Showcase LLC.png" alt="Lancaster County Showcase LLC" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
                     <p class="brand-name" data-comment="brand-name-lancaster-showcase">Lancaster County Showcase LLC</p>
                 </div>
 
                 <div class="brand-card" data-comment="brand-card-lapps-toys">
-                    <div class="brand-logo-placeholder" data-comment="brand-logo-lapps-toys"><i class="ri-image-line"></i></div>
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-lapps-toys"><img src="assets/Logos for Our partners page/Lapp's Wooden Toys.png" alt="Lapp's Wooden Toys" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
                     <p class="brand-name" data-comment="brand-name-lapps-toys">Lapp's Wooden Toys</p>
                 </div>
 
                 <div class="brand-card" data-comment="brand-card-strasburg">
-                    <div class="brand-logo-placeholder" data-comment="brand-logo-strasburg"><i class="ri-image-line"></i></div>
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-strasburg"><img src="assets/Logos for Our partners page/Strasburg Country Crafts.png" alt="Strasburg Country Crafts" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
                     <p class="brand-name" data-comment="brand-name-strasburg">Strasburg Country Crafts</p>
                 </div>
 
                 <div class="brand-card" data-comment="brand-card-swing-kingdom">
-                    <div class="brand-logo-placeholder" data-comment="brand-logo-swing-kingdom"><i class="ri-image-line"></i></div>
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-swing-kingdom"><img src="assets/Logos for Our partners page/Swing Kingdom LLC.png" alt="Swing Kingdom LLC" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
                     <p class="brand-name" data-comment="brand-name-swing-kingdom">Swing Kingdom LLC</p>
                 </div>
 
                 <div class="brand-card" data-comment="brand-card-welsh-mountain">
-                    <div class="brand-logo-placeholder" data-comment="brand-logo-welsh-mountain"><i class="ri-image-line"></i></div>
+                    <div data-comment="brand-logo-welsh-mountain" class="brand-logo-placeholder" style="font-size:1.75rem;font-weight:700;letter-spacing:0.05em;color:#111827;">WMW</div>
                     <p class="brand-name" data-comment="brand-name-welsh-mountain">Welsh Mountain Woodworking</p>
                 </div>
 
                 <div class="brand-card" data-comment="brand-card-victorian">
-                    <div class="brand-logo-placeholder" data-comment="brand-logo-victorian"><i class="ri-image-line"></i></div>
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-victorian"><img src="assets/Logos for Our partners page/Victorian Buildings.png" alt="Victorian Buildings" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
                     <p class="brand-name" data-comment="brand-name-victorian">Victorian Buildings</p>
                 </div>
 
                 <div class="brand-card" data-comment="brand-card-lawn-swings">
-                    <div class="brand-logo-placeholder" data-comment="brand-logo-lawn-swings"><i class="ri-image-line"></i></div>
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-lawn-swings"><img src="assets/Logos for Our partners page/Lawn Swings.png" alt="Lawn Swings" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
                     <p class="brand-name" data-comment="brand-name-lawn-swings">Lawn Swings</p>
                 </div>
 
-                <div class="brand-card" data-comment="brand-card-bylers-bent-oak">
-                    <div class="brand-logo-placeholder" data-comment="brand-logo-bylers-bent-oak"><i class="ri-image-line"></i></div>
-                    <p class="brand-name" data-comment="brand-name-bylers-bent-oak">Byler's Bent Oak</p>
-                </div>
-
-                <div class="brand-card" data-comment="brand-card-bylers-rustic">
-                    <div class="brand-logo-placeholder" data-comment="brand-logo-bylers-rustic"><i class="ri-image-line"></i></div>
-                    <p class="brand-name" data-comment="brand-name-bylers-rustic">Byler's Rustic Furniture</p>
+                <div class="brand-card" data-comment="brand-card-bylers">
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-bylers"><img src="assets/Logos for Our partners page/Byler's.png" alt="Byler's" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
+                    <p class="brand-name" data-comment="brand-name-bylers">Byler's</p>
                 </div>
 
                 <div class="brand-card" data-comment="brand-card-ebersol">
-                    <div class="brand-logo-placeholder" data-comment="brand-logo-ebersol"><i class="ri-image-line"></i></div>
+                    <div data-comment="brand-logo-ebersol" class="brand-logo-placeholder" style="font-size:1.75rem;font-weight:700;letter-spacing:0.05em;color:#111827;">EPC</div>
                     <p class="brand-name" data-comment="brand-name-ebersol">Ebersol Poly Craft</p>
                 </div>
 
                 <div class="brand-card" data-comment="brand-card-eshs-toys">
-                    <div class="brand-logo-placeholder" data-comment="brand-logo-eshs-toys"><i class="ri-image-line"></i></div>
+                    <div data-comment="brand-logo-eshs-toys" class="brand-logo-placeholder" style="font-size:1.75rem;font-weight:700;letter-spacing:0.05em;color:#111827;">ET LLC</div>
                     <p class="brand-name" data-comment="brand-name-eshs-toys">Esh's Toys LLC</p>
                 </div>
 
                 <div class="brand-card" data-comment="brand-card-country-view">
-                    <div class="brand-logo-placeholder" data-comment="brand-logo-country-view"><i class="ri-image-line"></i></div>
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-country-view"><img src="assets/Logos for Our partners page/Country View Lawn Furniture.png" alt="Country View Lawn Furniture" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
                     <p class="brand-name" data-comment="brand-name-country-view">Country View Lawn Furniture</p>
                 </div>
 
                 <div class="brand-card" data-comment="brand-card-hillside">
-                    <div class="brand-logo-placeholder" data-comment="brand-logo-hillside"><i class="ri-image-line"></i></div>
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-hillside"><img src="assets/Logos for Our partners page/Hillside Woodwork.png" alt="Hillside Woodwork" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
                     <p class="brand-name" data-comment="brand-name-hillside">Hillside Woodwork</p>
                 </div>
 
                 <div class="brand-card" data-comment="brand-card-honey-brook">
-                    <div class="brand-logo-placeholder" data-comment="brand-logo-honey-brook"><i class="ri-image-line"></i></div>
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-honey-brook"><img src="assets/Logos for Our partners page/Honey Brook Woodworks.png" alt="Honey Brook Woodworks" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
                     <p class="brand-name" data-comment="brand-name-honey-brook">Honey Brook Woodworks</p>
                 </div>
 
                 <div class="brand-card" data-comment="brand-card-lc-cupolas">
-                    <div class="brand-logo-placeholder" data-comment="brand-logo-lc-cupolas"><i class="ri-image-line"></i></div>
+                    <div data-comment="brand-logo-lc-cupolas" class="brand-logo-placeholder" style="font-size:1.75rem;font-weight:700;letter-spacing:0.05em;color:#111827;">LCCC</div>
                     <p class="brand-name" data-comment="brand-name-lc-cupolas">Lancaster County Custom Cupolas</p>
                 </div>
 
                 <div class="brand-card" data-comment="brand-card-quality-hillside">
-                    <div class="brand-logo-placeholder" data-comment="brand-logo-quality-hillside"><i class="ri-image-line"></i></div>
+                    <div class="brand-logo-placeholder" data-comment="brand-logo-quality-hillside"><img src="assets/Logos for Our partners page/Quality Hillside Woodworks.png" alt="Quality Hillside Woodworks" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
                     <p class="brand-name" data-comment="brand-name-quality-hillside">Quality Hillside Woodworks</p>
                 </div>
 
                 <div class="brand-card" data-comment="brand-card-lapps-woodworking">
-                    <div class="brand-logo-placeholder" data-comment="brand-logo-lapps-woodworking"><i class="ri-image-line"></i></div>
+                    <div data-comment="brand-logo-lapps-woodworking" class="brand-logo-placeholder" style="font-size:1.75rem;font-weight:700;letter-spacing:0.05em;color:#111827;">LW</div>
                     <p class="brand-name" data-comment="brand-name-lapps-woodworking">Lapps Woodworking</p>
                 </div>
 
@@ -1762,7 +1734,7 @@
                             <li><a href="about.html" data-comment="dealers-footer-link-about">About Us</a></li>
                             <li><a href="testimonials.html" data-comment="dealers-footer-link-testimonials">Testimonials</a></li>
                             <li><a href="gallery.html" data-comment="dealers-footer-link-gallery">Gallery</a></li>
-                            <li><a href="dealers.html" data-comment="dealers-footer-link-dealers">Our Partners</a></li>
+                            <li><a href="partners.html" data-comment="dealers-footer-link-dealers">Our Partners</a></li>
                         </ul>
                     </div>
                     <div data-comment="dealers-footer-col-buying">
