@@ -8,7 +8,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Roboto+Mono:wght@400;500;700&display=swap"
             rel="stylesheet" />
         <link
             href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
@@ -904,11 +904,25 @@
     .mobile-nav-logo-name { font-size: 16px; font-weight: 600; color: var(--color-dark); letter-spacing: -0.3px; }
     .mobile-nav-close { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: none; background: none; cursor: pointer; border-radius: 8px; color: var(--color-dark); font-size: 20px; transition: background var(--t-fast), color var(--t-fast); flex-shrink: 0; }
     .mobile-nav-close:hover { background: var(--color-bg-hover); color: var(--color-burgundy); }
-    .mobile-nav-links { list-style: none; flex: 1; }
-    .mobile-nav-links li { border-bottom: 1px solid var(--color-border); }
-    .mobile-nav-links a { display: block; font-size: 16px; font-weight: 500; padding: 14px 0; color: var(--color-dark); text-decoration: none; transition: color var(--t-fast); }
-    .mobile-nav-links a:hover { color: var(--color-burgundy); }
-    .mobile-nav-divider { border: none; border-top: 1px solid var(--color-border); margin: 24px 0; flex-shrink: 0; }
+    .mobile-nav-links { list-style: none; flex: 1; overflow-y: auto; }
+    .mobile-nav-links > li { border-bottom: 1px solid var(--color-border); }
+    .mobile-nav-links > li:last-child { border-bottom: none; }
+    .mobile-nav-links > li > a { display: block; font-size: 16px; font-weight: 500; padding: 14px 0; color: var(--color-dark); text-decoration: none; transition: color var(--t-fast); }
+    .mobile-nav-links > li > a:hover { color: var(--color-burgundy); }
+    /* Accordion section button */
+    .mobile-nav-section-btn { display: flex; align-items: center; justify-content: space-between; width: 100%; font-size: 16px; font-weight: 500; padding: 14px 0; color: var(--color-dark); background: none; border: none; cursor: pointer; font-family: var(--font-ui); text-align: left; transition: color var(--t-fast); }
+    .mobile-nav-section-btn:hover { color: var(--color-burgundy); }
+    .mobile-nav-chevron { font-size: 18px; transition: transform 0.22s ease; flex-shrink: 0; color: var(--color-gray-light); }
+    .mobile-nav-item.is-open > .mobile-nav-section-btn { color: var(--color-burgundy); }
+    .mobile-nav-item.is-open .mobile-nav-chevron { transform: rotate(180deg); }
+    /* Sub-panel */
+    .mobile-nav-sub { display: none; padding-bottom: 8px; }
+    .mobile-nav-item.is-open .mobile-nav-sub { display: block; }
+    .mobile-nav-sub-group { padding: 4px 0 2px; }
+    .mobile-nav-sub-title { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--color-gray-light); padding: 6px 12px 4px; }
+    .mobile-nav-sub-link { display: block; font-size: 14px; font-weight: 500; padding: 8px 12px; color: var(--color-dark); text-decoration: none; border-radius: 6px; transition: background var(--t-fast), color var(--t-fast); }
+    .mobile-nav-sub-link:hover { background: var(--color-bg-hover); color: var(--color-burgundy); }
+    .mobile-nav-divider { border: none; border-top: 1px solid var(--color-border); margin: 20px 0; flex-shrink: 0; }
     .mobile-nav-cta { display: block; text-align: center; margin-bottom: 20px; flex-shrink: 0; }
     .mobile-nav-actions { display: flex; gap: 10px; flex-shrink: 0; }
 
@@ -920,7 +934,7 @@
         .nav-mega { display: none; }
         .nav-links { display: none; }
         .nav-hamburger { display: flex; }
-        .nav-customize-btn { display: none; }
+        .nav-customize-btn { display: none !important; }
     }
     @media (max-width: 768px) {
         .nav-topbar-phone { display: none; }
@@ -1025,9 +1039,31 @@
                OPTION GROUP
             ───────────────────────────────────────── */
             .op-group {
-                margin-bottom: 64px;
+                margin-bottom: 80px;
             }
             .op-group:last-child { margin-bottom: 0; }
+
+            /* ── Chapter heading (Shed Options / Custom Built Home Options) ── */
+            .op-chapter-header {
+                padding-top: 72px;
+                margin-bottom: 48px;
+            }
+            .op-chapter-title {
+                font-size: clamp(30px, 3.2vw, 44px);
+                font-weight: 800;
+                color: var(--color-dark);
+                letter-spacing: -0.8px;
+                line-height: 1.1;
+            }
+            .op-chapter-eyebrow {
+                font-family: 'Roboto Mono', monospace;
+                font-size: 11px;
+                font-weight: 500;
+                letter-spacing: 0.8px;
+                text-transform: uppercase;
+                color: var(--color-gray-light);
+                margin-bottom: 10px;
+            }
 
             .op-group-title {
                 font-size: clamp(18px, 1.6vw, 22px);
@@ -1036,6 +1072,63 @@
                 letter-spacing: -0.3px;
                 margin-bottom: 28px;
             }
+
+            /* ── Anchor navigation ── */
+            .op-anchor-nav {
+                position: sticky;
+                top: calc(var(--topbar-height) + var(--nav-height));
+                z-index: 90;
+                background: #fff;
+                border-bottom: 1px solid var(--color-border);
+                box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            }
+            .op-anchor-nav-inner {
+                max-width: var(--max-width);
+                margin: 0 auto;
+                padding: 0 var(--page-px);
+                display: flex;
+                gap: 0;
+                overflow-x: auto;
+                scrollbar-width: none;
+            }
+            .op-anchor-nav-inner::-webkit-scrollbar { display: none; }
+            .op-anchor-tab {
+                flex-shrink: 0;
+                padding: 13px 18px 11px;
+                background: none;
+                border: none;
+                border-bottom: 2px solid transparent;
+                border-radius: 0 !important;
+                font-family: var(--font-ui);
+                font-size: 13.5px;
+                font-weight: 500;
+                color: var(--color-gray-light);
+                cursor: pointer;
+                white-space: nowrap;
+                text-decoration: none;
+                transition: color var(--t-fast), border-color var(--t-fast);
+                display: inline-flex;
+                align-items: center;
+            }
+            .op-anchor-tab:hover { color: var(--color-dark); }
+            .op-anchor-tab.is-active {
+                color: var(--color-burgundy);
+                border-bottom-color: var(--color-burgundy);
+                font-weight: 600;
+            }
+            .op-anchor-label {
+                flex-shrink: 0;
+                display: flex;
+                align-items: center;
+                padding: 0 14px;
+                font-size: 11px;
+                font-weight: 400;
+                font-style: italic;
+                letter-spacing: 0;
+                color: var(--color-gray-light);
+                white-space: nowrap;
+            }
+            .op-anchor-label:first-child { padding-left: 0; }
 
             /* groups that have subtitle/info use this wrapper */
             .op-group-head {
@@ -1066,12 +1159,10 @@
                SUB-GROUP (inside a group)
             ───────────────────────────────────────── */
             .op-subgroup {
-                margin-bottom: 48px;
-                padding-top: 40px;
-                border-top: 1px solid var(--color-border);
+                margin-bottom: 56px;
+                padding-top: 48px;
             }
             .op-subgroup:first-child {
-                border-top: none;
                 padding-top: 0;
             }
 
@@ -1186,7 +1277,159 @@
                 .op-grid { grid-template-columns: repeat(2, 1fr); }
                 .footer-top { grid-template-columns: 1fr; }
             }
-        </style>
+
+            /* ── Lightbox ── */
+            .op-lightbox {
+                display: none;
+                position: fixed;
+                inset: 0;
+                z-index: 3000;
+                align-items: center;
+                justify-content: center;
+            }
+            .op-lightbox.is-open { display: flex; }
+            .op-lightbox-overlay {
+                position: absolute;
+                inset: 0;
+                background: rgba(10, 8, 8, 0.88);
+                cursor: pointer;
+            }
+            .op-lightbox-panel {
+                position: relative;
+                z-index: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 14px;
+                max-width: 92vw;
+                max-height: 92vh;
+            }
+            .op-lightbox-close {
+                position: absolute;
+                top: -44px;
+                right: 0;
+                width: 36px;
+                height: 36px;
+                background: rgba(255,255,255,0.12);
+                border: 1px solid rgba(255,255,255,0.2);
+                border-radius: 50% !important;
+                color: #fff;
+                font-size: 20px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: background var(--t-fast);
+            }
+            .op-lightbox-close:hover { background: rgba(255,255,255,0.22); }
+            .op-lightbox-img {
+                display: block;
+                max-width: 88vw;
+                max-height: 82vh;
+                width: auto;
+                height: auto;
+                object-fit: contain;
+                border-radius: 10px;
+                box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+            }
+            .op-lightbox-caption {
+                font-size: 13px;
+                color: rgba(255,255,255,0.55);
+                text-align: center;
+                max-width: 400px;
+            }
+
+            /* ── Option Slider ── */
+            .op-frame--slider {
+                position: relative;
+                overflow: hidden;
+                background: none !important;
+            }
+            .op-slide {
+                position: absolute;
+                inset: 0;
+                background-size: cover;
+                background-position: center;
+                opacity: 0;
+                transition: opacity 0.7s ease;
+            }
+            .op-slide.is-active { opacity: 1; }
+
+            /* ── Section divider (kept for backwards compat, now hidden) ── */
+            .op-section-divider { display: none; }
+
+
+        /* ── Radius overrides ── */
+        :root {
+            --radius-block: 12px;
+            --radius-control: 8px;
+        }
+
+        .nav-mega-cta,
+        .sd-dropdown,
+        .sd-result-thumb,
+        .panel,
+        .summary-card,
+        .summary-block,
+        .callout,
+        .payment-option,
+        .modal-card,
+        .status-card,
+        .status-summary,
+        .contact-form,
+        .account-form,
+        .cbh-form,
+        .ch-form,
+        .quote-form,
+        .quote-modal,
+        .rto-form,
+        .t-form-wrap,
+        .form-inner,
+        .form-success,
+        .orders-table-wrap,
+        .order-items-table-wrap,
+        .gallery-lightbox-panel,
+        .video-wrap,
+        .video-iframe-wrap,
+        [class*="-card"]:not([class*="badge"]):not([class*="btn"]),
+        [class*="-panel"],
+        [class*="-modal"],
+        [class*="-summary"],
+        [class*="-thumb"] {
+            border-radius: var(--radius-block);
+        }
+
+        button,
+        .btn,
+        .btn-primary,
+        .btn-outline,
+        .btn-outline-dark,
+        .btn-outline-white,
+        .btn-cta-card,
+        .nav-trigger,
+        .nav-search,
+        .nav-icon-btn,
+        .nav-mega-link,
+        .nav-hamburger,
+        .mobile-nav-close,
+        .footer-social-btn,
+        .carousel-btn,
+        .qty-control,
+        [class*="-btn"],
+        [class*="-input"],
+        [class*="-select"],
+        [class*="-textarea"],
+        [class*="-field"],
+        [class*="-close"],
+        [class*="-delete"],
+        [class*="-arrow"],
+        input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+        select,
+        textarea {
+            border-radius: var(--radius-control);
+        }
+
+    </style>
     </head>
     <body>
 
@@ -1555,11 +1798,92 @@
 
             <!-- Nav links -->
             <ul class="mobile-nav-links" data-comment="mobile-nav-links">
-                <li data-comment="mobile-nav-li-products"><a href="#" data-comment="mobile-nav-link-products">Products</a></li>
-                <li data-comment="mobile-nav-li-gallery"><a href="gallery.html" data-comment="mobile-nav-link-gallery">Gallery</a></li>
-                <li data-comment="mobile-nav-li-events"><a href="#" data-comment="mobile-nav-link-events">Events</a></li>
-                <li data-comment="mobile-nav-li-blog"><a href="#" data-comment="mobile-nav-link-blog">Blog</a></li>
+
+                <!-- PRODUCTS -->
+                <li class="mobile-nav-item" data-comment="mobile-nav-li-products">
+                    <button class="mobile-nav-section-btn" data-comment="mobile-nav-btn-products" aria-expanded="false">
+                        Products
+                        <i class="ri-arrow-down-s-line mobile-nav-chevron" data-comment="mobile-nav-chevron-products"></i>
+                    </button>
+                    <div class="mobile-nav-sub" data-comment="mobile-nav-sub-products">
+                        <div class="mobile-nav-sub-group" data-comment="mobile-nav-subgroup-structures">
+                            <span class="mobile-nav-sub-title" data-comment="mobile-nav-sub-title-structures">Structures</span>
+                            <a href="catalog.html?category=Sheds" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-sheds">Sheds</a>
+                            <a href="catalog.html?category=Gazebos" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-gazebos">Gazebos / Pergolas / Pavilions</a>
+                            <a href="catalog.html?category=Hunting+Blinds" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-hunting">Hunting Blinds</a>
+                            <a href="catalog.html?category=Play+Structures" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-play">Play Structures</a>
+                            <a href="catalog.html?category=Animal+Structures" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-animal">Animal Structures</a>
+                            <a href="catalog.html?category=Returned+Rentals" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-rentals">Returned Rentals</a>
+                        </div>
+                        <div class="mobile-nav-sub-group" data-comment="mobile-nav-subgroup-furniture">
+                            <span class="mobile-nav-sub-title" data-comment="mobile-nav-sub-title-furniture">Furniture</span>
+                            <a href="catalog.html?category=Indoor+Furniture" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-indoor">Indoor Furniture</a>
+                            <a href="catalog.html?category=Outdoor+Furniture" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-outdoor">Outdoor Furniture</a>
+                            <a href="catalog.html?category=Decor" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-decor">Decor &amp; More</a>
+                        </div>
+                        <div class="mobile-nav-sub-group" data-comment="mobile-nav-subgroup-homes">
+                            <span class="mobile-nav-sub-title" data-comment="mobile-nav-sub-title-homes">Homes &amp; Garages</span>
+                            <a href="custom-built-homes.html" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-custom-homes">Custom Built Homes</a>
+                            <a href="catalog.html?category=Log+Homes" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-log-homes">Modular Log Homes</a>
+                            <a href="catalog.html?category=Garages" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-garages">Garages</a>
+                            <a href="https://www.billlakehomes.com/" target="_blank" rel="noopener" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-bill-lake">Bill Lake Homes <i class="ri-arrow-right-up-line"></i></a>
+                        </div>
+                        <div class="mobile-nav-sub-group" data-comment="mobile-nav-subgroup-options">
+                            <span class="mobile-nav-sub-title" data-comment="mobile-nav-sub-title-options">Options</span>
+                            <a href="colors.html" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-colors">Colors</a>
+                            <a href="options.html" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-options">Options</a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- ABOUT -->
+                <li class="mobile-nav-item" data-comment="mobile-nav-li-about">
+                    <button class="mobile-nav-section-btn" data-comment="mobile-nav-btn-about" aria-expanded="false">
+                        About
+                        <i class="ri-arrow-down-s-line mobile-nav-chevron" data-comment="mobile-nav-chevron-about"></i>
+                    </button>
+                    <div class="mobile-nav-sub" data-comment="mobile-nav-sub-about">
+                        <div class="mobile-nav-sub-group" data-comment="mobile-nav-subgroup-company">
+                            <span class="mobile-nav-sub-title" data-comment="mobile-nav-sub-title-company">Company</span>
+                            <a href="about.html" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-about">About Company</a>
+                            <a href="testimonials.html" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-testimonials">Testimonials</a>
+                            <a href="gallery.html" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-gallery">Gallery</a>
+                            <a href="partners.html" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-partners">Our Partners</a>
+                        </div>
+                        <div class="mobile-nav-sub-group" data-comment="mobile-nav-subgroup-product-info">
+                            <span class="mobile-nav-sub-title" data-comment="mobile-nav-sub-title-product-info">Product Info</span>
+                            <a href="care-guide.html" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-care-guide">Care Guide</a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- BUYING PROCESS -->
+                <li class="mobile-nav-item" data-comment="mobile-nav-li-buying">
+                    <button class="mobile-nav-section-btn" data-comment="mobile-nav-btn-buying" aria-expanded="false">
+                        Buying Process
+                        <i class="ri-arrow-down-s-line mobile-nav-chevron" data-comment="mobile-nav-chevron-buying"></i>
+                    </button>
+                    <div class="mobile-nav-sub" data-comment="mobile-nav-sub-buying">
+                        <div class="mobile-nav-sub-group" data-comment="mobile-nav-subgroup-financing">
+                            <span class="mobile-nav-sub-title" data-comment="mobile-nav-sub-title-financing">Financing</span>
+                            <a href="rent-to-own.html" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-rto">Rent-To-Own Program</a>
+                            <a href="#" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-ncu">Northern Credit Union <i class="ri-arrow-right-up-line"></i></a>
+                            <a href="#" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-byf">Back Yard Finance <i class="ri-arrow-right-up-line"></i></a>
+                            <a href="#" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-uf">Upgrade Finance <i class="ri-arrow-right-up-line"></i></a>
+                            <a href="#" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-jmoney">J-Money Financing <i class="ri-arrow-right-up-line"></i></a>
+                        </div>
+                        <div class="mobile-nav-sub-group" data-comment="mobile-nav-subgroup-process">
+                            <span class="mobile-nav-sub-title" data-comment="mobile-nav-sub-title-process">Process</span>
+                            <a href="site-preparation.html" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-site-prep">Site Preparation</a>
+                            <a href="delivery.html" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-delivery">Delivery</a>
+                            <a href="warranty.html" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-warranty">Warranty</a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Direct links -->
                 <li data-comment="mobile-nav-li-contact"><a href="contact.html" data-comment="mobile-nav-link-contact">Contact</a></li>
+
             </ul>
 
             <hr class="mobile-nav-divider" data-comment="mobile-nav-divider" />
@@ -1569,10 +1893,10 @@
 
             <!-- Icon actions -->
             <div class="mobile-nav-actions" data-comment="mobile-nav-actions">
-                <a href="cart.html" class="nav-icon-btn" data-comment="mobile-nav-cart-btn" title="Cart" aria-label="Open cart" style="flex:1; border-radius:9px; border:1.5px solid var(--color-border); background:var(--color-bg);">
+                <a href="cart.html" class="nav-icon-btn" data-comment="mobile-nav-cart-btn" title="Cart" aria-label="Open cart" style="flex:1; border-radius:8px; border:1.5px solid var(--color-border); background:var(--color-bg);">
                     <i class="ri-shopping-bag-line" data-comment="mobile-nav-cart-icon"></i>
                 </a>
-                <a href="account.html" class="nav-icon-btn" data-comment="mobile-nav-account-btn" title="My Account" aria-label="My Account" style="flex:1; border-radius:9px; border:1.5px solid var(--color-border); background:var(--color-bg);">
+                <a href="account.html" class="nav-icon-btn" data-comment="mobile-nav-account-btn" title="My Account" aria-label="My Account" style="flex:1; border-radius:8px; border:1.5px solid var(--color-border); background:var(--color-bg);">
                     <i class="ri-user-line" data-comment="mobile-nav-account-icon"></i>
                 </a>
             </div>
@@ -1603,13 +1927,39 @@
         </section>
 
         <!-- ════════════════════════════════
+             ANCHOR NAVIGATION
+        ════════════════════════════════ -->
+        <nav class="op-anchor-nav" data-comment="op-anchor-nav" aria-label="Jump to section">
+            <div class="op-anchor-nav-inner" data-comment="op-anchor-nav-inner">
+                <span class="op-anchor-label" data-comment="op-anchor-label-shed">Shed Options</span>
+                <button class="op-anchor-tab is-active" data-target="op-siding-trim" data-comment="op-anchor-siding">Siding &amp; Trim</button>
+                <button class="op-anchor-tab" data-target="op-roof-material" data-comment="op-anchor-roof">Roof Material</button>
+                <button class="op-anchor-tab" data-target="op-shed-options" data-comment="op-anchor-shed">Shed Options</button>
+                <span class="op-anchor-label" data-comment="op-anchor-label-home">Home Options</span>
+                <button class="op-anchor-tab" data-target="op-countertop" data-comment="op-anchor-countertop">Countertops</button>
+                <button class="op-anchor-tab" data-target="op-profile" data-comment="op-anchor-profile">Profiles</button>
+                <button class="op-anchor-tab" data-target="op-flooring" data-comment="op-anchor-flooring">Flooring</button>
+                <button class="op-anchor-tab" data-target="op-kitchen" data-comment="op-anchor-kitchen">Kitchen</button>
+                <button class="op-anchor-tab" data-target="op-bathroom" data-comment="op-anchor-bathroom">Bathroom</button>
+                <button class="op-anchor-tab" data-target="op-interior" data-comment="op-anchor-interior">Interior</button>
+                <button class="op-anchor-tab" data-target="op-exterior" data-comment="op-anchor-exterior">Exterior</button>
+            </div>
+        </nav>
+
+        <!-- ════════════════════════════════
              OPTION GROUPS
         ════════════════════════════════ -->
         <section class="op-content" data-comment="op-content-section">
             <div class="page-inner" data-comment="op-content-inner">
 
+                <!-- ── Shed chapter ── -->
+                <div class="op-chapter-header" style="padding-top: 40px;" data-comment="op-chapter-shed">
+                    <p class="op-chapter-eyebrow" data-comment="op-chapter-shed-eyebrow">Structures</p>
+                    <h2 class="op-chapter-title" data-comment="op-chapter-shed-title">Shed Options</h2>
+                </div>
+
                 <!-- ── Siding & Trim Materials ── -->
-                <div class="op-group" data-comment="op-group-siding-material">
+                <div class="op-group" id="op-siding-trim" data-comment="op-group-siding-material">
                     <h2 class="op-group-title" data-comment="op-group-siding-material-title">Siding &amp; Trim Material</h2>
                     <div class="op-grid" data-comment="op-group-siding-material-grid">
 
@@ -1642,7 +1992,7 @@
                 </div>
 
                 <!-- ── Roof Material ── -->
-                <div class="op-group" data-comment="op-group-roof-material">
+                <div class="op-group" id="op-roof-material" data-comment="op-group-roof-material">
                     <h2 class="op-group-title" data-comment="op-group-roof-material-title">Roof Material</h2>
                     <div class="op-grid" data-comment="op-group-roof-material-grid">
 
@@ -1658,41 +2008,8 @@
                     </div>
                 </div>
 
-                <!-- ── Log Cabin Options ── -->
-                <div class="op-group" data-comment="op-group-log-cabin">
-                    <h2 class="op-group-title" data-comment="op-group-log-cabin-title">Log Cabin Options</h2>
-                    <div class="op-grid" data-comment="op-group-log-cabin-grid">
-
-                        <div class="op-card" data-comment="op-lc-1">
-                            <div class="op-frame" data-comment="op-lc-1-frame"></div>
-                            <span class="op-item-name" data-comment="op-lc-1-name">Corner Logs</span>
-                        </div>
-                        <div class="op-card" data-comment="op-lc-2">
-                            <div class="op-frame" data-comment="op-lc-2-frame"></div>
-                            <span class="op-item-name" data-comment="op-lc-2-name">Log Siding Profile</span>
-                        </div>
-                        <div class="op-card" data-comment="op-lc-3">
-                            <div class="op-frame" data-comment="op-lc-3-frame"></div>
-                            <span class="op-item-name" data-comment="op-lc-3-name">Full Log Look</span>
-                        </div>
-                        <div class="op-card" data-comment="op-lc-4">
-                            <div class="op-frame" data-comment="op-lc-4-frame"></div>
-                            <span class="op-item-name" data-comment="op-lc-4-name">Half-Log Siding</span>
-                        </div>
-                        <div class="op-card" data-comment="op-lc-5">
-                            <div class="op-frame" data-comment="op-lc-5-frame"></div>
-                            <span class="op-item-name" data-comment="op-lc-5-name">Log Trim</span>
-                        </div>
-                        <div class="op-card" data-comment="op-lc-6">
-                            <div class="op-frame" data-comment="op-lc-6-frame"></div>
-                            <span class="op-item-name" data-comment="op-lc-6-name">Cedar Stain</span>
-                        </div>
-
-                    </div>
-                </div>
-
                 <!-- ── Additional Shed Options ── -->
-                <div class="op-group" data-comment="op-group-shed">
+                <div class="op-group" id="op-shed-options" data-comment="op-group-shed">
                     <h2 class="op-group-title" data-comment="op-group-shed-title">Additional Shed Options</h2>
 
                     <!-- Lofts -->
@@ -1844,6 +2161,1108 @@
 
                 </div>
 
+                <!-- ════════════════════════════════
+                     CUSTOM BUILT HOME OPTIONS
+                ════════════════════════════════ -->
+                <div class="op-chapter-header" data-comment="op-chapter-custom-homes">
+                    <p class="op-chapter-eyebrow" data-comment="op-chapter-custom-homes-eyebrow">Custom Built Homes</p>
+                    <h2 class="op-chapter-title" data-comment="op-chapter-custom-homes-title">Home Options</h2>
+                </div>
+
+                <!-- ── Countertop Options ── -->
+                <div class="op-group" id="op-countertop" data-comment="op-group-countertop">
+                    <h2 class="op-group-title" data-comment="op-group-countertop-title">Countertop Options</h2>
+
+                    <!-- Butcher Block -->
+                    <div class="op-subgroup" data-comment="op-sg-ct-bb">
+                        <h3 class="op-subgroup-title" data-comment="op-sg-ct-bb-title">Butcher Block Island Tops</h3>
+                        <div class="op-grid" data-comment="op-sg-ct-bb-grid">
+                            <div class="op-card" data-comment="op-ct-bb-maple">
+                                <div class="op-frame op-frame--slider" data-comment="op-ct-bb-maple-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Counter-Top-BB-Maple-Thumbnail.jpg');" data-comment="op-ct-bb-maple-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Counter-top-BB-Maple-1.jpg');" data-comment="op-ct-bb-maple-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ct-bb-maple-name">Maple BB</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ct-bb-walnut">
+                                <div class="op-frame op-frame--slider" data-comment="op-ct-bb-walnut-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Counter-Top-BB-Walnut-Thumbnail.jpg');" data-comment="op-ct-bb-walnut-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Counter-Top-BB-Walnut.jpg');" data-comment="op-ct-bb-walnut-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ct-bb-walnut-name">Walnut BB</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Laminate Tops -->
+                    <div class="op-subgroup" data-comment="op-sg-ct-lam">
+                        <h3 class="op-subgroup-title" data-comment="op-sg-ct-lam-title">Laminate Tops</h3>
+                        <div class="op-grid" data-comment="op-sg-ct-lam-grid">
+                            <div class="op-card" data-comment="op-ct-lam-bella-capri">
+                                <div class="op-frame op-frame--slider" data-comment="op-ct-lam-bella-capri-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Counter-Top-Lam-Thumbnail-Bella-Capri.jpg');" data-comment="op-ct-lam-bella-capri-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Counter-Top-Lam-Bella-Capri.jpg');" data-comment="op-ct-lam-bella-capri-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ct-lam-bella-capri-name">Bella Capri</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ct-lam-black-alicante">
+                                <div class="op-frame op-frame--slider" data-comment="op-ct-lam-black-alicante-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Counter-Top-Lam-Thumbnail-Black-Alicante.jpg');" data-comment="op-ct-lam-black-alicante-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Counter-Top-Lam-Black-Alicante.jpg');" data-comment="op-ct-lam-black-alicante-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ct-lam-black-alicante-name">Black Alicante</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ct-lam-ebony-fusion">
+                                <div class="op-frame op-frame--slider" data-comment="op-ct-lam-ebony-fusion-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Counter-Top-Lam-Thumbnail-Ebony-Fusion.jpg');" data-comment="op-ct-lam-ebony-fusion-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Counter-Top-Lam-Ebony-Fusion.jpg');" data-comment="op-ct-lam-ebony-fusion-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ct-lam-ebony-fusion-name">Ebony Fusion</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ct-lam-granito-amarelo">
+                                <div class="op-frame op-frame--slider" data-comment="op-ct-lam-granito-amarelo-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Counter-Top-Lam-Thumbnail-Granito-Amarelo-1-1.jpg');" data-comment="op-ct-lam-granito-amarelo-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Counter-Top-Lam-Granito-Amarelo.jpg');" data-comment="op-ct-lam-granito-amarelo-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ct-lam-granito-amarelo-name">Granito Amarelo</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ct-lam-old-mill-oak">
+                                <div class="op-frame op-frame--slider" data-comment="op-ct-lam-old-mill-oak-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Counter-Top-Lam-Thumbnail-Old-Mill-Oak.png');" data-comment="op-ct-lam-old-mill-oak-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Counter-Top-Lam-Old-Mill-Oak.jpg');" data-comment="op-ct-lam-old-mill-oak-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ct-lam-old-mill-oak-name">Old Mill Oak</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ct-lam-winter-carnival">
+                                <div class="op-frame op-frame--slider" data-comment="op-ct-lam-winter-carnival-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Counter-Top-Lam-Thumbnail-Winter-Carnival.jpg');" data-comment="op-ct-lam-winter-carnival-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Counter-Top-Lam-Winter-Carnival-1.jpg');" data-comment="op-ct-lam-winter-carnival-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ct-lam-winter-carnival-name">Winter Carnival</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quartz Tops -->
+                    <div class="op-subgroup" data-comment="op-sg-ct-qu">
+                        <h3 class="op-subgroup-title" data-comment="op-sg-ct-qu-title">Quartz Tops</h3>
+                        <div class="op-grid" data-comment="op-sg-ct-qu-grid">
+                            <div class="op-card" data-comment="op-ct-qu-charlestown">
+                                <div class="op-frame op-frame--slider" data-comment="op-ct-qu-charlestown-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Counter-Top-QU-Thumbnail-Charlestown.jpg');" data-comment="op-ct-qu-charlestown-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Counter-Top-QU-Charlestown.jpg');" data-comment="op-ct-qu-charlestown-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ct-qu-charlestown-name">Charlestown</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ct-qu-bellingham">
+                                <div class="op-frame op-frame--slider" data-comment="op-ct-qu-bellingham-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Counter-Top-Qu-Thumbnail-Bellingham.jpg');" data-comment="op-ct-qu-bellingham-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Counter-Top-QU-Bellingham.jpg');" data-comment="op-ct-qu-bellingham-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ct-qu-bellingham-name">Bellingham</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ct-qu-clovelly">
+                                <div class="op-frame op-frame--slider" data-comment="op-ct-qu-clovelly-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Counter-Top-QU-Thumbnail-Clovelly.jpg');" data-comment="op-ct-qu-clovelly-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Counter-Top-QU-Clovelly.jpg');" data-comment="op-ct-qu-clovelly-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ct-qu-clovelly-name">Clovelly</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ct-qu-ellesmere">
+                                <div class="op-frame op-frame--slider" data-comment="op-ct-qu-ellesmere-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Counter-Top-QU-Thumbnail-Ellesmere.jpg');" data-comment="op-ct-qu-ellesmere-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Counter-Top-QU-Ellesmere.jpg');" data-comment="op-ct-qu-ellesmere-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ct-qu-ellesmere-name">Ellesmere</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ct-qu-galloway">
+                                <div class="op-frame op-frame--slider" data-comment="op-ct-qu-galloway-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Counter-Top-QU-Thumbnail-Galloway.jpg');" data-comment="op-ct-qu-galloway-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Counter-Top-QU-Galloway.jpg');" data-comment="op-ct-qu-galloway-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ct-qu-galloway-name">Galloway</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ct-qu-langdon">
+                                <div class="op-frame op-frame--slider" data-comment="op-ct-qu-langdon-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Counter-Top-QU-Thumbnail-Langdon.jpg');" data-comment="op-ct-qu-langdon-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Counter-Top-QU-Langdon.jpg');" data-comment="op-ct-qu-langdon-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ct-qu-langdon-name">Langdon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Solid Surface Tops -->
+                    <div class="op-subgroup" data-comment="op-sg-ct-ss">
+                        <h3 class="op-subgroup-title" data-comment="op-sg-ct-ss-title">Solid Surface Tops</h3>
+                        <div class="op-grid" data-comment="op-sg-ct-ss-grid">
+                            <div class="op-card" data-comment="op-ct-ss-ash">
+                                <div class="op-frame op-frame--slider" data-comment="op-ct-ss-ash-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Counter-Top-SS-Thumbnail-Ash-Aggregate.png');" data-comment="op-ct-ss-ash-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Counter-Top-SS-Ash-Aggregate.jpg');" data-comment="op-ct-ss-ash-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ct-ss-ash-name">Ash Aggregate</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ct-ss-cosmos">
+                                <div class="op-frame op-frame--slider" data-comment="op-ct-ss-cosmos-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Counter-Top-SS-Thumbnail-Cosmos-Prima.png');" data-comment="op-ct-ss-cosmos-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Counter-Top-SS-Cosmos-Prima.jpg');" data-comment="op-ct-ss-cosmos-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ct-ss-cosmos-name">Cosmos Prima</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ct-ss-hazelnut">
+                                <div class="op-frame op-frame--slider" data-comment="op-ct-ss-hazelnut-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Counter-Top-SS-Thumbnail-Hazelnut.jpg');" data-comment="op-ct-ss-hazelnut-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Counter-Top-SS-Hazelnut.jpg');" data-comment="op-ct-ss-hazelnut-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ct-ss-hazelnut-name">Hazelnut</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ct-ss-lava-rock">
+                                <div class="op-frame op-frame--slider" data-comment="op-ct-ss-lava-rock-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Counter-Top-SS-Thumbnail-Lava-Rock.jpg');" data-comment="op-ct-ss-lava-rock-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Counter-Top-SS-Lava-rock.jpg');" data-comment="op-ct-ss-lava-rock-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ct-ss-lava-rock-name">Lava Rock</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ct-ss-rosemary">
+                                <div class="op-frame op-frame--slider" data-comment="op-ct-ss-rosemary-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Counter-Top-SS-Thumbnail-Rosemary.jpg');" data-comment="op-ct-ss-rosemary-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Counter-Top-SS-Rosemary.jpg');" data-comment="op-ct-ss-rosemary-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ct-ss-rosemary-name">Rosemary</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ct-ss-sorrel">
+                                <div class="op-frame op-frame--slider" data-comment="op-ct-ss-sorrel-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Counter-Top-SS-Thumbnail-Sorrel.jpg');" data-comment="op-ct-ss-sorrel-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Counter-Top-SS-Sorrel.jpg');" data-comment="op-ct-ss-sorrel-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ct-ss-sorrel-name">Sorrel</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── Countertop Profile Options ── -->
+                <div class="op-group" id="op-profile" data-comment="op-group-profile">
+                    <h2 class="op-group-title" data-comment="op-group-profile-title">Countertop Profile Options</h2>
+
+                    <div class="op-subgroup" data-comment="op-sg-prof-lam">
+                        <h3 class="op-subgroup-title" data-comment="op-sg-prof-lam-title">Laminate Profiles</h3>
+                        <div class="op-grid" data-comment="op-sg-prof-lam-grid">
+                            <div class="op-card" data-comment="op-prof-lam-gem-lock">
+                                <div class="op-frame" style="background-image:url('assets/options/Profile-Lam-Gem-Lock.png');" data-comment="op-prof-lam-gem-lock-frame"></div>
+                                <span class="op-item-name" data-comment="op-prof-lam-gem-lock-name">Gem-Lock</span>
+                            </div>
+                            <div class="op-card" data-comment="op-prof-lam-beveled">
+                                <div class="op-frame" style="background-image:url('assets/options/Profile-Lam-Beveled.png');" data-comment="op-prof-lam-beveled-frame"></div>
+                                <span class="op-item-name" data-comment="op-prof-lam-beveled-name">Beveled</span>
+                            </div>
+                            <div class="op-card" data-comment="op-prof-lam-crescent">
+                                <div class="op-frame" style="background-image:url('assets/options/Profile-Lam-Crescent.png');" data-comment="op-prof-lam-crescent-frame"></div>
+                                <span class="op-item-name" data-comment="op-prof-lam-crescent-name">Crescent</span>
+                            </div>
+                            <div class="op-card" data-comment="op-prof-lam-square">
+                                <div class="op-frame" style="background-image:url('assets/options/Profile-Lam-Square.png');" data-comment="op-prof-lam-square-frame"></div>
+                                <span class="op-item-name" data-comment="op-prof-lam-square-name">Square</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="op-subgroup" data-comment="op-sg-prof-qu">
+                        <h3 class="op-subgroup-title" data-comment="op-sg-prof-qu-title">Quartz Profiles</h3>
+                        <div class="op-grid" data-comment="op-sg-prof-qu-grid">
+                            <div class="op-card" data-comment="op-prof-qu-ogee">
+                                <div class="op-frame" style="background-image:url('assets/options/Profile-QU-Ogee.png');" data-comment="op-prof-qu-ogee-frame"></div>
+                                <span class="op-item-name" data-comment="op-prof-qu-ogee-name">Ogee</span>
+                            </div>
+                            <div class="op-card" data-comment="op-prof-qu-quarter-round">
+                                <div class="op-frame" style="background-image:url('assets/options/Profile-QU-Quarter-Round.png');" data-comment="op-prof-qu-quarter-round-frame"></div>
+                                <span class="op-item-name" data-comment="op-prof-qu-quarter-round-name">Quarter Round</span>
+                            </div>
+                            <div class="op-card" data-comment="op-prof-qu-beveled">
+                                <div class="op-frame" style="background-image:url('assets/options/Profile-QU-Beveled.png');" data-comment="op-prof-qu-beveled-frame"></div>
+                                <span class="op-item-name" data-comment="op-prof-qu-beveled-name">Beveled</span>
+                            </div>
+                            <div class="op-card" data-comment="op-prof-qu-demi-bullnose">
+                                <div class="op-frame" style="background-image:url('assets/options/Profile-QU-Demi-Bullnose.png');" data-comment="op-prof-qu-demi-bullnose-frame"></div>
+                                <span class="op-item-name" data-comment="op-prof-qu-demi-bullnose-name">Demi-Bullnose</span>
+                            </div>
+                            <div class="op-card" data-comment="op-prof-qu-eased">
+                                <div class="op-frame" style="background-image:url('assets/options/Profile-QU-Eased.png');" data-comment="op-prof-qu-eased-frame"></div>
+                                <span class="op-item-name" data-comment="op-prof-qu-eased-name">Eased</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="op-subgroup" data-comment="op-sg-prof-ss">
+                        <h3 class="op-subgroup-title" data-comment="op-sg-prof-ss-title">Solid Surface Profiles</h3>
+                        <div class="op-grid" data-comment="op-sg-prof-ss-grid">
+                            <div class="op-card" data-comment="op-prof-ss-1">
+                                <div class="op-frame" style="background-image:url('assets/options/Profile-SS-1.png');" data-comment="op-prof-ss-1-frame"></div>
+                                <span class="op-item-name" data-comment="op-prof-ss-1-name">#1</span>
+                            </div>
+                            <div class="op-card" data-comment="op-prof-ss-2">
+                                <div class="op-frame" style="background-image:url('assets/options/Profile-SS-2.png');" data-comment="op-prof-ss-2-frame"></div>
+                                <span class="op-item-name" data-comment="op-prof-ss-2-name">#2</span>
+                            </div>
+                            <div class="op-card" data-comment="op-prof-ss-3">
+                                <div class="op-frame" style="background-image:url('assets/options/Profile-SS-3.png');" data-comment="op-prof-ss-3-frame"></div>
+                                <span class="op-item-name" data-comment="op-prof-ss-3-name">#3</span>
+                            </div>
+                            <div class="op-card" data-comment="op-prof-ss-6">
+                                <div class="op-frame" style="background-image:url('assets/options/Profile-SS-6.png');" data-comment="op-prof-ss-6-frame"></div>
+                                <span class="op-item-name" data-comment="op-prof-ss-6-name">#6</span>
+                            </div>
+                            <div class="op-card" data-comment="op-prof-ss-8">
+                                <div class="op-frame" style="background-image:url('assets/options/Profile-SS-8.png');" data-comment="op-prof-ss-8-frame"></div>
+                                <span class="op-item-name" data-comment="op-prof-ss-8-name">#8</span>
+                            </div>
+                            <div class="op-card" data-comment="op-prof-ss-9">
+                                <div class="op-frame" style="background-image:url('assets/options/Profile-SS-9.png');" data-comment="op-prof-ss-9-frame"></div>
+                                <span class="op-item-name" data-comment="op-prof-ss-9-name">#9</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── Flooring Options ── -->
+                <div class="op-group" id="op-flooring" data-comment="op-group-flooring">
+                    <h2 class="op-group-title" data-comment="op-group-flooring-title">Flooring Options</h2>
+                    <div class="op-grid" data-comment="op-group-flooring-grid">
+                        <div class="op-card" data-comment="op-fl-hickory-natural">
+                            <div class="op-frame op-frame--slider" data-comment="op-fl-hickory-natural-frame">
+                                <div class="op-slide is-active" style="background-image:url('assets/options/Floor-Hickory-Natural-Thumbnail.jpg');" data-comment="op-fl-hickory-natural-s1"></div>
+                                <div class="op-slide" style="background-image:url('assets/options/Floor-Hickory-Natural.jpg');" data-comment="op-fl-hickory-natural-s2"></div>
+                            </div>
+                            <span class="op-item-name" data-comment="op-fl-hickory-natural-name">Hickory Natural</span>
+                        </div>
+                        <div class="op-card" data-comment="op-fl-white-oak">
+                            <div class="op-frame op-frame--slider" data-comment="op-fl-white-oak-frame">
+                                <div class="op-slide is-active" style="background-image:url('assets/options/Floor-White-Oak-Thumbnail.jpg');" data-comment="op-fl-white-oak-s1"></div>
+                                <div class="op-slide" style="background-image:url('assets/options/Floor-White-Oak.jpg');" data-comment="op-fl-white-oak-s2"></div>
+                            </div>
+                            <span class="op-item-name" data-comment="op-fl-white-oak-name">White Oak</span>
+                        </div>
+                        <div class="op-card" data-comment="op-fl-hickory-saddle">
+                            <div class="op-frame op-frame--slider" data-comment="op-fl-hickory-saddle-frame">
+                                <div class="op-slide is-active" style="background-image:url('assets/options/Floor-Hickory-Saddle-Thumbnail.jpg');" data-comment="op-fl-hickory-saddle-s1"></div>
+                                <div class="op-slide" style="background-image:url('assets/options/Floor-Hickory-Saddle.jpg');" data-comment="op-fl-hickory-saddle-s2"></div>
+                            </div>
+                            <span class="op-item-name" data-comment="op-fl-hickory-saddle-name">Hickory Saddle</span>
+                        </div>
+                        <div class="op-card" data-comment="op-fl-vinyl-hemlock">
+                            <div class="op-frame op-frame--slider" data-comment="op-fl-vinyl-hemlock-frame">
+                                <div class="op-slide is-active" style="background-image:url('assets/options/Floor-Vinyl-Plank-Hemlock-Thumbnail.jpg');" data-comment="op-fl-vinyl-hemlock-s1"></div>
+                                <div class="op-slide" style="background-image:url('assets/options/Floor-Vinyl-Plank-Hemlock.jpg');" data-comment="op-fl-vinyl-hemlock-s2"></div>
+                            </div>
+                            <span class="op-item-name" data-comment="op-fl-vinyl-hemlock-name">Vinyl Plank Hemlock</span>
+                        </div>
+                        <div class="op-card" data-comment="op-fl-vinyl-hickory">
+                            <div class="op-frame op-frame--slider" data-comment="op-fl-vinyl-hickory-frame">
+                                <div class="op-slide is-active" style="background-image:url('assets/options/Floor-Vinyl-Plank-Hickory-Thumbnail.jpg');" data-comment="op-fl-vinyl-hickory-s1"></div>
+                                <div class="op-slide" style="background-image:url('assets/options/Floor-Vinyl-Plank-Hickory.jpg');" data-comment="op-fl-vinyl-hickory-s2"></div>
+                            </div>
+                            <span class="op-item-name" data-comment="op-fl-vinyl-hickory-name">Vinyl Plank Hickory</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── Kitchen Options ── -->
+                <div class="op-group" id="op-kitchen" data-comment="op-group-kitchen">
+                    <h2 class="op-group-title" data-comment="op-group-kitchen-title">Kitchen Options</h2>
+
+                    <!-- Cabinets -->
+                    <div class="op-subgroup" data-comment="op-sg-kit-cabinets">
+                        <h3 class="op-subgroup-title" data-comment="op-sg-kit-cabinets-title">Cabinets</h3>
+                        <div class="op-grid" data-comment="op-sg-kit-cabinets-grid">
+                            <div class="op-card" data-comment="op-kit-cab-beaded-pine">
+                                <div class="op-frame op-frame--slider" data-comment="op-kit-cab-beaded-pine-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Kitchen-Beaded-Pine-Thumbnail.jpg');" data-comment="op-kit-cab-beaded-pine-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Kitchen-Beaded-Pine.jpg');" data-comment="op-kit-cab-beaded-pine-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-kit-cab-beaded-pine-name">Beaded Pine</span>
+                            </div>
+                            <div class="op-card" data-comment="op-kit-cab-coppertone">
+                                <div class="op-frame op-frame--slider" data-comment="op-kit-cab-coppertone-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Kitchen-Coppertone-Thumbnail.jpg');" data-comment="op-kit-cab-coppertone-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Kitchen-Coppertone-Pine.jpg');" data-comment="op-kit-cab-coppertone-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-kit-cab-coppertone-name">Coppertone Pine</span>
+                            </div>
+                            <div class="op-card" data-comment="op-kit-cab-homestead-hickory">
+                                <div class="op-frame op-frame--slider" data-comment="op-kit-cab-homestead-hickory-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Kitchen-Homestead-Hickory-Thumbnail.png');" data-comment="op-kit-cab-homestead-hickory-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Kitchen-Homestead-Hickory.jpg');" data-comment="op-kit-cab-homestead-hickory-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-kit-cab-homestead-hickory-name">Homestead Hickory</span>
+                            </div>
+                            <div class="op-card" data-comment="op-kit-cab-maple-arctic-white">
+                                <div class="op-frame op-frame--slider" data-comment="op-kit-cab-maple-arctic-white-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Kitchen-Maple-Arctic-White-Thumbnail.jpg');" data-comment="op-kit-cab-maple-arctic-white-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Kitchen-Maple-Arctic-White.jpg');" data-comment="op-kit-cab-maple-arctic-white-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-kit-cab-maple-arctic-white-name">Maple Arctic White</span>
+                            </div>
+                            <div class="op-card" data-comment="op-kit-cab-maple-autumn-wheat">
+                                <div class="op-frame op-frame--slider" data-comment="op-kit-cab-maple-autumn-wheat-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Kitchen-Maple-Autumn-Wheat-Thumbnail.jpg');" data-comment="op-kit-cab-maple-autumn-wheat-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Kitchen-Maple-Autumn-Wheat.jpg');" data-comment="op-kit-cab-maple-autumn-wheat-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-kit-cab-maple-autumn-wheat-name">Maple Autumn Wheat</span>
+                            </div>
+                            <div class="op-card" data-comment="op-kit-cab-maple-black-distressed">
+                                <div class="op-frame op-frame--slider" data-comment="op-kit-cab-maple-black-distressed-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Kitchen-Maple-Black-Distressed-Thumbnail.jpg');" data-comment="op-kit-cab-maple-black-distressed-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Kitchen-Maple-Black-Distressed-scaled.jpg');" data-comment="op-kit-cab-maple-black-distressed-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-kit-cab-maple-black-distressed-name">Maple Black Distressed</span>
+                            </div>
+                            <div class="op-card" data-comment="op-kit-cab-maple-greystone">
+                                <div class="op-frame op-frame--slider" data-comment="op-kit-cab-maple-greystone-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Kitchen-Maple-Greystone-Thumbnail.jpg');" data-comment="op-kit-cab-maple-greystone-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Kitchen-Maple-Greystone.jpg');" data-comment="op-kit-cab-maple-greystone-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-kit-cab-maple-greystone-name">Maple Greystone</span>
+                            </div>
+                            <div class="op-card" data-comment="op-kit-cab-maple-sweet-basil">
+                                <div class="op-frame op-frame--slider" data-comment="op-kit-cab-maple-sweet-basil-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Kitchen-Maple-Sweet-Basil-Thumbnail.jpg');" data-comment="op-kit-cab-maple-sweet-basil-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Kitchen-Maple-Sweet-Basil.jpg');" data-comment="op-kit-cab-maple-sweet-basil-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-kit-cab-maple-sweet-basil-name">Maple Sweet Basil</span>
+                            </div>
+                            <div class="op-card" data-comment="op-kit-cab-rustic-hickory">
+                                <div class="op-frame op-frame--slider" data-comment="op-kit-cab-rustic-hickory-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Kitchen-Rustic-Hickory-Thumbnail.jpg');" data-comment="op-kit-cab-rustic-hickory-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Kitchen-Rustic-Hickory.jpg');" data-comment="op-kit-cab-rustic-hickory-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-kit-cab-rustic-hickory-name">Rustic Hickory</span>
+                            </div>
+                            <div class="op-card" data-comment="op-kit-cab-vintage-burgundy">
+                                <div class="op-frame op-frame--slider" data-comment="op-kit-cab-vintage-burgundy-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Kitchen-Vintage-Burgundy-Thumbnail.jpg');" data-comment="op-kit-cab-vintage-burgundy-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Kitchen-Vintage-Burgundy.jpg');" data-comment="op-kit-cab-vintage-burgundy-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-kit-cab-vintage-burgundy-name">Vintage Burgundy</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kitchen Faucets -->
+                    <div class="op-subgroup" data-comment="op-sg-kit-faucets">
+                        <h3 class="op-subgroup-title" data-comment="op-sg-kit-faucets-title">Kitchen Faucets</h3>
+                        <div class="op-grid" data-comment="op-sg-kit-faucets-grid">
+                            <div class="op-card" data-comment="op-kit-fau-bn">
+                                <div class="op-frame op-frame--slider" data-comment="op-kit-fau-bn-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Faucet-Kit-BN-Thumbnail.jpg');" data-comment="op-kit-fau-bn-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Faucet-Kit-BN.jpg');" data-comment="op-kit-fau-bn-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-kit-fau-bn-name">Brushed Nickel</span>
+                            </div>
+                            <div class="op-card" data-comment="op-kit-fau-bl">
+                                <div class="op-frame op-frame--slider" data-comment="op-kit-fau-bl-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Faucet-Kit-BL-Thumbnail.jpg');" data-comment="op-kit-fau-bl-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Faucet-Kit-BL.jpg');" data-comment="op-kit-fau-bl-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-kit-fau-bl-name">Black</span>
+                            </div>
+                            <div class="op-card" data-comment="op-kit-fau-orbb">
+                                <div class="op-frame op-frame--slider" data-comment="op-kit-fau-orbb-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Faucet-Kit-ORBB-Thumbnail.jpg');" data-comment="op-kit-fau-orbb-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Faucet-Kit-ORBB.jpg');" data-comment="op-kit-fau-orbb-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-kit-fau-orbb-name">Oil Rubbed Bronze</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Laundry Faucet -->
+                    <div class="op-subgroup" data-comment="op-sg-laundry-faucet">
+                        <h3 class="op-subgroup-title" data-comment="op-sg-laundry-faucet-title">Laundry Room Faucet</h3>
+                        <div class="op-grid" data-comment="op-sg-laundry-faucet-grid">
+                            <div class="op-card" data-comment="op-laundry-fau-dartmoor">
+                                <div class="op-frame op-frame--slider" data-comment="op-laundry-fau-dartmoor-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Faucet-Laudry-Thumbnail.jpg');" data-comment="op-laundry-fau-dartmoor-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Faucet-laundry.jpg');" data-comment="op-laundry-fau-dartmoor-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-laundry-fau-dartmoor-name">Dartmoor</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Kitchen Options -->
+                    <div class="op-subgroup" data-comment="op-sg-kit-misc">
+                        <h3 class="op-subgroup-title" data-comment="op-sg-kit-misc-title">Additional Kitchen Options</h3>
+                        <div class="op-grid" data-comment="op-sg-kit-misc-grid">
+                            <div class="op-card" data-comment="op-kit-misc-appliance-garage">
+                                <div class="op-frame" style="background-image:url('assets/options/Kitchen-Option-Appliance-Garage.jpg');" data-comment="op-kit-misc-appliance-garage-frame"></div>
+                                <span class="op-item-name" data-comment="op-kit-misc-appliance-garage-name">Appliance Garage</span>
+                            </div>
+                            <div class="op-card" data-comment="op-kit-misc-chimney-hood">
+                                <div class="op-frame" style="background-image:url('assets/options/Kitchen-Option-Chimeny-Hood-scaled.jpg');" data-comment="op-kit-misc-chimney-hood-frame"></div>
+                                <span class="op-item-name" data-comment="op-kit-misc-chimney-hood-name">Chimney Hood</span>
+                            </div>
+                            <div class="op-card" data-comment="op-kit-misc-fridge-enclosure">
+                                <div class="op-frame" style="background-image:url('assets/options/Kitchen-Option-Fridge-enclosure.jpg');" data-comment="op-kit-misc-fridge-enclosure-frame"></div>
+                                <span class="op-item-name" data-comment="op-kit-misc-fridge-enclosure-name">Fridge Enclosure</span>
+                            </div>
+                            <div class="op-card" data-comment="op-kit-misc-glass-door">
+                                <div class="op-frame" style="background-image:url('assets/options/Kitchen-Option-Glass-Door.jpg');" data-comment="op-kit-misc-glass-door-frame"></div>
+                                <span class="op-item-name" data-comment="op-kit-misc-glass-door-name">Glass Door</span>
+                            </div>
+                            <div class="op-card" data-comment="op-kit-misc-island">
+                                <div class="op-frame" style="background-image:url('assets/options/Kitchen-Option-Island.jpg');" data-comment="op-kit-misc-island-frame"></div>
+                                <span class="op-item-name" data-comment="op-kit-misc-island-name">Kitchen Island</span>
+                            </div>
+                            <div class="op-card" data-comment="op-kit-misc-micro-drawer">
+                                <div class="op-frame" style="background-image:url('assets/options/Kitchen-Option-Micro-Drawer.jpg');" data-comment="op-kit-misc-micro-drawer-frame"></div>
+                                <span class="op-item-name" data-comment="op-kit-misc-micro-drawer-name">Micro Drawer</span>
+                            </div>
+                            <div class="op-card" data-comment="op-kit-misc-open-shelves">
+                                <div class="op-frame" style="background-image:url('assets/options/Kitchen-Option-Open-Shelves-scaled.jpg');" data-comment="op-kit-misc-open-shelves-frame"></div>
+                                <span class="op-item-name" data-comment="op-kit-misc-open-shelves-name">Open Shelves</span>
+                            </div>
+                            <div class="op-card" data-comment="op-kit-misc-pantry">
+                                <div class="op-frame" style="background-image:url('assets/options/Kitchen-Option-Pantry.jpg');" data-comment="op-kit-misc-pantry-frame"></div>
+                                <span class="op-item-name" data-comment="op-kit-misc-pantry-name">Pantry</span>
+                            </div>
+                            <div class="op-card" data-comment="op-kit-misc-pull-out-shelves">
+                                <div class="op-frame" style="background-image:url('assets/options/Kitchen-Option-pull-out-shelves.jpg');" data-comment="op-kit-misc-pull-out-shelves-frame"></div>
+                                <span class="op-item-name" data-comment="op-kit-misc-pull-out-shelves-name">Pull Out Shelves</span>
+                            </div>
+                            <div class="op-card" data-comment="op-kit-misc-single-bowl">
+                                <div class="op-frame" style="background-image:url('assets/options/Kitchen-Option-Single-Bowl.jpg');" data-comment="op-kit-misc-single-bowl-frame"></div>
+                                <span class="op-item-name" data-comment="op-kit-misc-single-bowl-name">Single Bowl Sink</span>
+                            </div>
+                            <div class="op-card" data-comment="op-kit-misc-tiered-island">
+                                <div class="op-frame" style="background-image:url('assets/options/Kitchen-Option-Teired-Island.jpg');" data-comment="op-kit-misc-tiered-island-frame"></div>
+                                <span class="op-item-name" data-comment="op-kit-misc-tiered-island-name">Tiered Island</span>
+                            </div>
+                            <div class="op-card" data-comment="op-kit-misc-tipouts">
+                                <div class="op-frame" style="background-image:url('assets/options/Kitchen-Option-Tipouts.jpg');" data-comment="op-kit-misc-tipouts-frame"></div>
+                                <span class="op-item-name" data-comment="op-kit-misc-tipouts-name">Tipout Drawers</span>
+                            </div>
+                            <div class="op-card" data-comment="op-kit-misc-trash-can">
+                                <div class="op-frame" style="background-image:url('assets/options/Kitchen-Option-Trash-Can.jpg');" data-comment="op-kit-misc-trash-can-frame"></div>
+                                <span class="op-item-name" data-comment="op-kit-misc-trash-can-name">Trash Can</span>
+                            </div>
+                            <div class="op-card" data-comment="op-kit-misc-under-cabinet-lighting">
+                                <div class="op-frame" style="background-image:url('assets/options/Kitchen-Option-Under-Cabinet-Lighting.jpg');" data-comment="op-kit-misc-under-cabinet-lighting-frame"></div>
+                                <span class="op-item-name" data-comment="op-kit-misc-under-cabinet-lighting-name">Under Cabinet Lighting</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── Bathroom Options ── -->
+                <div class="op-group" id="op-bathroom" data-comment="op-group-bathroom">
+                    <h2 class="op-group-title" data-comment="op-group-bathroom-title">Bathroom Options</h2>
+
+                    <!-- Fixtures & Tubs -->
+                    <div class="op-subgroup" data-comment="op-sg-bath-fixtures">
+                        <h3 class="op-subgroup-title" data-comment="op-sg-bath-fixtures-title">Fixtures &amp; Tubs</h3>
+                        <div class="op-grid" data-comment="op-sg-bath-fixtures-grid">
+                            <div class="op-card" data-comment="op-bath-freestanding-tub">
+                                <div class="op-frame" style="background-image:url('assets/options/Option-Freestanding-Tubs-scaled.jpg');" data-comment="op-bath-freestanding-tub-frame"></div>
+                                <span class="op-item-name" data-comment="op-bath-freestanding-tub-name">Freestanding Tub</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-tub">
+                                <div class="op-frame" style="background-image:url('assets/options/Option-Tub-1-scaled.jpg');" data-comment="op-bath-tub-frame"></div>
+                                <span class="op-item-name" data-comment="op-bath-tub-name">Bath Tub</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-tile-shower">
+                                <div class="op-frame" style="background-image:url('assets/options/Option-Tile-shower-1-scaled.jpg');" data-comment="op-bath-tile-shower-frame"></div>
+                                <span class="op-item-name" data-comment="op-bath-tile-shower-name">Tile Shower</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Laminate Shower Options -->
+                    <div class="op-subgroup" data-comment="op-sg-bath-lam-shower">
+                        <h3 class="op-subgroup-title" data-comment="op-sg-bath-lam-shower-title">Laminate Shower Options</h3>
+                        <div class="op-grid" data-comment="op-sg-bath-lam-shower-grid">
+                            <div class="op-card" data-comment="op-bath-lam-shower-seat">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-lam-shower-seat-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Lam-shower-option-seat-thumbnail.png');" data-comment="op-bath-lam-shower-seat-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Lam-Shower-Option-Seat.jpg');" data-comment="op-bath-lam-shower-seat-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-lam-shower-seat-name">Shower Seat</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-lam-neiche">
+                                <div class="op-frame" style="background-image:url('assets/options/Lam-Shower-Option-Neiche.png');" data-comment="op-bath-lam-neiche-frame"></div>
+                                <span class="op-item-name" data-comment="op-bath-lam-neiche-name">Niche</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-lam-torrone-marble">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-lam-torrone-marble-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Lam-Shower-Thumbnail-Torrone-Marble.jpg');" data-comment="op-bath-lam-torrone-marble-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Lam-Shower-Torrone-Marble.jpg');" data-comment="op-bath-lam-torrone-marble-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-lam-torrone-marble-name">Torrone Marble</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-lam-arezzo">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-lam-arezzo-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Lam-Shower-Thumbnail-Arezzo.jpg');" data-comment="op-bath-lam-arezzo-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Lam-Shower-Arezzo.jpg');" data-comment="op-bath-lam-arezzo-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-lam-arezzo-name">Arezzo</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-lam-augusta">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-lam-augusta-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Lam-Shower-Thumbnail-Augusta-Calacatta.jpg');" data-comment="op-bath-lam-augusta-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Lam-Shower-Augusta-Calacatta.jpg');" data-comment="op-bath-lam-augusta-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-lam-augusta-name">Augusta Calacatta</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-lam-legacy-ash">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-lam-legacy-ash-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Lam-Shower-Thumbnail-Legacy-Ash.jpg');" data-comment="op-bath-lam-legacy-ash-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Lam-Shower-Legacy-Ash.jpg');" data-comment="op-bath-lam-legacy-ash-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-lam-legacy-ash-name">Legacy Ash</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-lam-cosenza">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-lam-cosenza-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Lam-Shower-Thumbnail-Cosenza.jpg');" data-comment="op-bath-lam-cosenza-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Lam-Shower-Cosenza.jpg');" data-comment="op-bath-lam-cosenza-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-lam-cosenza-name">Cosenza</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tile -->
+                    <div class="op-subgroup" data-comment="op-sg-bath-tile">
+                        <h3 class="op-subgroup-title" data-comment="op-sg-bath-tile-title">Tile</h3>
+                        <div class="op-grid" data-comment="op-sg-bath-tile-grid">
+                            <div class="op-card" data-comment="op-bath-tile-american-estates">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-tile-american-estates-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Tile-Thumbnail-American-Estates-Saddle.jpg');" data-comment="op-bath-tile-american-estates-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Tile-American-Estates-Saddle.jpg');" data-comment="op-bath-tile-american-estates-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-tile-american-estates-name">American Estates Saddle</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-tile-cavatina">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-tile-cavatina-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Tile-Thumbnail-Cavatina-Encore.jpg');" data-comment="op-bath-tile-cavatina-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Tile-Cavatina-Encore.jpg');" data-comment="op-bath-tile-cavatina-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-tile-cavatina-name">Cavatina Encore</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-tile-chaco-pinwheel">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-tile-chaco-pinwheel-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Tile-Thumbnail-Chaco-Canyon-pinwheel.jpg');" data-comment="op-bath-tile-chaco-pinwheel-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Tile-Choco-Canyon-pinwheel.jpg');" data-comment="op-bath-tile-chaco-pinwheel-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-tile-chaco-pinwheel-name">Chaco Canyon Pinwheel</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-tile-chaco-square">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-tile-chaco-square-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Tile-Thumbnail-Choco-Canyon-square.jpg');" data-comment="op-bath-tile-chaco-square-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Tile-Choco-Canyon-square.jpg');" data-comment="op-bath-tile-chaco-square-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-tile-chaco-square-name">Chaco Canyon Square</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-tile-marble-palazzo">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-tile-marble-palazzo-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Tile-Thumbnail-Class.-Marbel-Palazzo-White.jpg');" data-comment="op-bath-tile-marble-palazzo-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Tile-Class-Marble-Palazzo-White.jpg');" data-comment="op-bath-tile-marble-palazzo-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-tile-marble-palazzo-name">White Marble Palazzo</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-tile-haven-point">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-tile-haven-point-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Tile-Thumbnail-Haven-Point-Candid-Heather.jpg');" data-comment="op-bath-tile-haven-point-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Tile-Haven-Point-Candid-Heather.jpg');" data-comment="op-bath-tile-haven-point-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-tile-haven-point-name">Haven Point Candid Heather</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-tile-subway">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-tile-subway-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Tile-Thumbnail-Subway-scaled.jpg');" data-comment="op-bath-tile-subway-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Tile-Subway.png');" data-comment="op-bath-tile-subway-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-tile-subway-name">Subway</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-tile-urban-garden">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-tile-urban-garden-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Tile-Thumbnail-Urban-District-Garden.jpg');" data-comment="op-bath-tile-urban-garden-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Tile-Urban-District-Garden.jpg');" data-comment="op-bath-tile-urban-garden-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-tile-urban-garden-name">Urban District Garden</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-tile-urban-midtown">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-tile-urban-midtown-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Tile-Thumbnail-Urban-District-Midtown.jpg');" data-comment="op-bath-tile-urban-midtown-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Tile-Urban-District-Midtown.jpg');" data-comment="op-bath-tile-urban-midtown-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-tile-urban-midtown-name">Urban District Midtown</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-tile-zen-bora">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-tile-zen-bora-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Tile-Thumbnail-Zen-Bora-Wilderness.jpg');" data-comment="op-bath-tile-zen-bora-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Tile-Zen-Bora-Wilderness-Pebbles.jpg');" data-comment="op-bath-tile-zen-bora-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-tile-zen-bora-name">Zen Bora Wilderness</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-tile-zen-tahitian">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-tile-zen-tahitian-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Tile-Thumbnail-Zen-Tahitian-Black.jpg');" data-comment="op-bath-tile-zen-tahitian-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Tile-Zen-Tahitian-Black.jpg');" data-comment="op-bath-tile-zen-tahitian-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-tile-zen-tahitian-name">Zen Tahitian Black</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vanity Tops -->
+                    <div class="op-subgroup" data-comment="op-sg-bath-vanity">
+                        <h3 class="op-subgroup-title" data-comment="op-sg-bath-vanity-title">Vanity Tops</h3>
+                        <div class="op-grid" data-comment="op-sg-bath-vanity-grid">
+                            <div class="op-card" data-comment="op-bath-vanity-quartz">
+                                <div class="op-frame" style="background-image:url('assets/options/Option-Quartz-Vanity-Top.jpg');" data-comment="op-bath-vanity-quartz-frame"></div>
+                                <span class="op-item-name" data-comment="op-bath-vanity-quartz-name">Quartz Vanity Top</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-vanity-white-biscuit">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-vanity-white-biscuit-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Vanity-Top-Thumbnail-White-on-Biscuit.jpg');" data-comment="op-bath-vanity-white-biscuit-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Vanity-Top-White-on-Biscuit.jpg');" data-comment="op-bath-vanity-white-biscuit-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-vanity-white-biscuit-name">White on Biscuit</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-vanity-cookies-cream">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-vanity-cookies-cream-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Vanity-Top-Thumbnail-Cookies-and-Cream.jpg');" data-comment="op-bath-vanity-cookies-cream-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Vanity-top-Cookies-Cream.jpg');" data-comment="op-bath-vanity-cookies-cream-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-vanity-cookies-cream-name">Cookies &amp; Cream</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-vanity-deep-nebula">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-vanity-deep-nebula-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Vanity-Top-Thumbnail-Deep-Nebula.jpg');" data-comment="op-bath-vanity-deep-nebula-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Vanity-Top-Deep-Nebula.jpg');" data-comment="op-bath-vanity-deep-nebula-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-vanity-deep-nebula-name">Deep Nebula</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-vanity-latte">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-vanity-latte-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Vanity-Top-Thumbnail-Latte.jpg');" data-comment="op-bath-vanity-latte-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Vanity-top-Latte.jpg');" data-comment="op-bath-vanity-latte-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-vanity-latte-name">Latte</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-vanity-shell">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-vanity-shell-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Vanity-Top-Thumbnail-Shell.jpg');" data-comment="op-bath-vanity-shell-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Vanity-Top-Shell.jpg');" data-comment="op-bath-vanity-shell-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-vanity-shell-name">Shell</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-vanity-stellar">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-vanity-stellar-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Vanity-Top-Thumbnail-Stellar.jpg');" data-comment="op-bath-vanity-stellar-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Vanity-Top-Stellar.jpg');" data-comment="op-bath-vanity-stellar-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-vanity-stellar-name">Stellar</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bath Faucets -->
+                    <div class="op-subgroup" data-comment="op-sg-bath-faucets">
+                        <h3 class="op-subgroup-title" data-comment="op-sg-bath-faucets-title">Bath Faucets</h3>
+                        <div class="op-grid" data-comment="op-sg-bath-faucets-grid">
+                            <div class="op-card" data-comment="op-bath-fau-bn">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-fau-bn-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Faucet-Bath-Thumbnail-BN.jpg');" data-comment="op-bath-fau-bn-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Faucet-Bath-BN.jpg');" data-comment="op-bath-fau-bn-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-fau-bn-name">Brushed Nickel</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-fau-bl">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-fau-bl-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Faucet-Bath-Thumbnail-BL.jpg');" data-comment="op-bath-fau-bl-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Faucet-Bath-BL.jpg');" data-comment="op-bath-fau-bl-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-fau-bl-name">Black</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-fau-orrb">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-fau-orrb-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Faucet-Bath-Thumbnail-ORRB.jpg');" data-comment="op-bath-fau-orrb-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Faucet-Bath-ORRB.jpg');" data-comment="op-bath-fau-orrb-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-fau-orrb-name">Oil Rubbed Bronze</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shower Faucets -->
+                    <div class="op-subgroup" data-comment="op-sg-shower-faucets">
+                        <h3 class="op-subgroup-title" data-comment="op-sg-shower-faucets-title">Shower Faucets</h3>
+                        <div class="op-grid" data-comment="op-sg-shower-faucets-grid">
+                            <div class="op-card" data-comment="op-shower-fau-bn">
+                                <div class="op-frame op-frame--slider" data-comment="op-shower-fau-bn-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Faucet-Shower-thumbnail-BN.jpg');" data-comment="op-shower-fau-bn-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Faucet-Shower-BN.jpg');" data-comment="op-shower-fau-bn-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-shower-fau-bn-name">Brushed Nickel</span>
+                            </div>
+                            <div class="op-card" data-comment="op-shower-fau-bl">
+                                <div class="op-frame op-frame--slider" data-comment="op-shower-fau-bl-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Faucet-Shower-thumbnail-BL.jpg');" data-comment="op-shower-fau-bl-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Faucet-Shower-BL.jpg');" data-comment="op-shower-fau-bl-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-shower-fau-bl-name">Black</span>
+                            </div>
+                            <div class="op-card" data-comment="op-shower-fau-orbb">
+                                <div class="op-frame op-frame--slider" data-comment="op-shower-fau-orbb-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Faucet-Shower-thumbnail-ORBB.jpg');" data-comment="op-shower-fau-orbb-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Faucet-Shower-ORBB.jpg');" data-comment="op-shower-fau-orbb-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-shower-fau-orbb-name">Oil Rubbed Bronze</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bathroom Flooring & Hardware -->
+                    <div class="op-subgroup" data-comment="op-sg-bath-flooring-hardware">
+                        <h3 class="op-subgroup-title" data-comment="op-sg-bath-flooring-hardware-title">Flooring &amp; Hardware</h3>
+                        <div class="op-grid" data-comment="op-sg-bath-flooring-hardware-grid">
+                            <div class="op-card" data-comment="op-bath-fl-vinyl">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-fl-vinyl-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Floor-Bath-Vinyl-Thumbnail.jpg');" data-comment="op-bath-fl-vinyl-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Floor-Bath-Vinyl.jpg');" data-comment="op-bath-fl-vinyl-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-fl-vinyl-name">Bathroom Vinyl</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-hw-black-bar-pulls">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-hw-black-bar-pulls-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Hardware-Black-Bar-Pulls-Thumbnail.jpg');" data-comment="op-bath-hw-black-bar-pulls-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Hardware-Black-Bar-Pull.jpg');" data-comment="op-bath-hw-black-bar-pulls-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-hw-black-bar-pulls-name">Black Bar Pulls</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-hw-blackrock">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-hw-blackrock-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Hardware-Blackrock-Thumbnail.png');" data-comment="op-bath-hw-blackrock-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Hardware-Blackrock.jpg');" data-comment="op-bath-hw-blackrock-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-hw-blackrock-name">Blackrock</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-hw-inspirations">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-hw-inspirations-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Hardware-Inspirations-Thumbnail.png');" data-comment="op-bath-hw-inspirations-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Hardware-Inspirations.jpg');" data-comment="op-bath-hw-inspirations-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-hw-inspirations-name">Inspirations</span>
+                            </div>
+                            <div class="op-card" data-comment="op-bath-hw-ss-bar-pulls">
+                                <div class="op-frame op-frame--slider" data-comment="op-bath-hw-ss-bar-pulls-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Hardware-SS-Bar-Pulls-Thumbnail.png');" data-comment="op-bath-hw-ss-bar-pulls-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Hardware-SS-Bar-Pulls.jpg');" data-comment="op-bath-hw-ss-bar-pulls-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-bath-hw-ss-bar-pulls-name">Stainless Bar Pulls</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── Interior Options ── -->
+                <div class="op-group" id="op-interior" data-comment="op-group-interior">
+                    <h2 class="op-group-title" data-comment="op-group-interior-title">Interior Options</h2>
+                    <div class="op-grid" data-comment="op-group-interior-grid">
+                        <div class="op-card" data-comment="op-int-barn-door">
+                            <div class="op-frame" style="background-image:url('assets/options/Option-Barn-door.jpg');" data-comment="op-int-barn-door-frame"></div>
+                            <span class="op-item-name" data-comment="op-int-barn-door-name">Barn Door</span>
+                        </div>
+                        <div class="op-card" data-comment="op-int-baseboard">
+                            <div class="op-frame" style="background-image:url('assets/options/Option-Baseboard.jpg');" data-comment="op-int-baseboard-frame"></div>
+                            <span class="op-item-name" data-comment="op-int-baseboard-name">Baseboard Heat</span>
+                        </div>
+                        <div class="op-card" data-comment="op-int-chair-rail">
+                            <div class="op-frame" style="background-image:url('assets/options/Option-Chair-Rail.jpg');" data-comment="op-int-chair-rail-frame"></div>
+                            <span class="op-item-name" data-comment="op-int-chair-rail-name">Chair Rail</span>
+                        </div>
+                        <div class="op-card" data-comment="op-int-linear-fireplace">
+                            <div class="op-frame" style="background-image:url('assets/options/Option-Linear-Fireplace.jpg');" data-comment="op-int-linear-fireplace-frame"></div>
+                            <span class="op-item-name" data-comment="op-int-linear-fireplace-name">Linear Fireplace</span>
+                        </div>
+                        <div class="op-card" data-comment="op-int-pocket-door">
+                            <div class="op-frame" style="background-image:url('assets/options/Option-Pocket-Door.jpg');" data-comment="op-int-pocket-door-frame"></div>
+                            <span class="op-item-name" data-comment="op-int-pocket-door-name">Pocket Door</span>
+                        </div>
+                        <div class="op-card" data-comment="op-int-knee-wall-door">
+                            <div class="op-frame" style="background-image:url('assets/options/Option-knee-wall-door.jpg');" data-comment="op-int-knee-wall-door-frame"></div>
+                            <span class="op-item-name" data-comment="op-int-knee-wall-door-name">Knee Wall Door</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── Exterior Options ── -->
+                <div class="op-group" id="op-exterior" data-comment="op-group-exterior">
+                    <h2 class="op-group-title" data-comment="op-group-exterior-title">Exterior Options</h2>
+
+                    <!-- Structural / Architectural -->
+                    <div class="op-subgroup" data-comment="op-sg-ext-structural">
+                        <h3 class="op-subgroup-title" data-comment="op-sg-ext-structural-title">Structural &amp; Architectural</h3>
+                        <div class="op-grid" data-comment="op-sg-ext-structural-grid">
+                            <div class="op-card" data-comment="op-ext-a-frame-dormer">
+                                <div class="op-frame op-frame--slider" data-comment="op-ext-a-frame-dormer-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Option-A-Frame-dromer-e1685735440675.jpg');" data-comment="op-ext-a-frame-dormer-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Option-A-Frame-dromer.jpg');" data-comment="op-ext-a-frame-dormer-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ext-a-frame-dormer-name">A-Frame Dormer</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-bump-out">
+                                <div class="op-frame" style="background-image:url('assets/options/Option-Bump-out-scaled.jpg');" data-comment="op-ext-bump-out-frame"></div>
+                                <span class="op-item-name" data-comment="op-ext-bump-out-name">Bump Out</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-chimney">
+                                <div class="op-frame" style="background-image:url('assets/options/Option-Chimney.jpg');" data-comment="op-ext-chimney-frame"></div>
+                                <span class="op-item-name" data-comment="op-ext-chimney-name">Chimney</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-composite-decking">
+                                <div class="op-frame" style="background-image:url('assets/options/Option-Composite-Decking.jpg');" data-comment="op-ext-composite-decking-frame"></div>
+                                <span class="op-item-name" data-comment="op-ext-composite-decking-name">Composite Decking</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-custom-door">
+                                <div class="op-frame" style="background-image:url('assets/options/Option-Custom-Door-scaled.jpg');" data-comment="op-ext-custom-door-frame"></div>
+                                <span class="op-item-name" data-comment="op-ext-custom-door-name">Custom Door</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-french-door">
+                                <div class="op-frame" style="background-image:url('assets/options/Option-French-Door.png');" data-comment="op-ext-french-door-frame"></div>
+                                <span class="op-item-name" data-comment="op-ext-french-door-name">French Doors</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-log-corners">
+                                <div class="op-frame" style="background-image:url('assets/options/Option-Log-corners.jpg');" data-comment="op-ext-log-corners-frame"></div>
+                                <span class="op-item-name" data-comment="op-ext-log-corners-name">Log Corners</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-metal-railing">
+                                <div class="op-frame" style="background-image:url('assets/options/Option-Metal-Railing.jpg');" data-comment="op-ext-metal-railing-frame"></div>
+                                <span class="op-item-name" data-comment="op-ext-metal-railing-name">Metal Railing</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-outdoor-ceiling-fan">
+                                <div class="op-frame" style="background-image:url('assets/options/Option-Outdoor-ceiling-fans.jpg');" data-comment="op-ext-outdoor-ceiling-fan-frame"></div>
+                                <span class="op-item-name" data-comment="op-ext-outdoor-ceiling-fan-name">Outdoor Ceiling Fan</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-patio-door">
+                                <div class="op-frame" style="background-image:url('assets/options/Option-Patio-door.jpg');" data-comment="op-ext-patio-door-frame"></div>
+                                <span class="op-item-name" data-comment="op-ext-patio-door-name">Patio Door</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-prow">
+                                <div class="op-frame" style="background-image:url('assets/options/Option-Prow.jpg');" data-comment="op-ext-prow-frame"></div>
+                                <span class="op-item-name" data-comment="op-ext-prow-name">Prow</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-prow-lights">
+                                <div class="op-frame" style="background-image:url('assets/options/Option-Prow-Lights.jpg');" data-comment="op-ext-prow-lights-frame"></div>
+                                <span class="op-item-name" data-comment="op-ext-prow-lights-name">Prow Lights</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-screened-porch">
+                                <div class="op-frame" style="background-image:url('assets/options/Option-Screened-Porch.png');" data-comment="op-ext-screened-porch-frame"></div>
+                                <span class="op-item-name" data-comment="op-ext-screened-porch-name">Screened Porch</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-shed-dormer">
+                                <div class="op-frame" style="background-image:url('assets/options/Option-Shed-Dormer.png');" data-comment="op-ext-shed-dormer-frame"></div>
+                                <span class="op-item-name" data-comment="op-ext-shed-dormer-name">Shed Dormer</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-steel-roof">
+                                <div class="op-frame" style="background-image:url('assets/options/Option-Steel-Roof.jpg');" data-comment="op-ext-steel-roof-frame"></div>
+                                <span class="op-item-name" data-comment="op-ext-steel-roof-name">Steel Roof</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-stone">
+                                <div class="op-frame" style="background-image:url('assets/options/Option-Stone.jpg');" data-comment="op-ext-stone-frame"></div>
+                                <span class="op-item-name" data-comment="op-ext-stone-name">Stone</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-storm-door">
+                                <div class="op-frame" style="background-image:url('assets/options/Option-storm-door.jpg');" data-comment="op-ext-storm-door-frame"></div>
+                                <span class="op-item-name" data-comment="op-ext-storm-door-name">Storm Door</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ProVia Entry Doors -->
+                    <div class="op-subgroup" data-comment="op-sg-ext-provia">
+                        <h3 class="op-subgroup-title" data-comment="op-sg-ext-provia-title">ProVia Entry Doors</h3>
+                        <div class="op-grid" data-comment="op-sg-ext-provia-grid">
+                            <div class="op-card" data-comment="op-ext-provia-forest-green">
+                                <div class="op-frame op-frame--slider" data-comment="op-ext-provia-forest-green-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/ProVia-Entry-Thumbnail-Forest-Green.jpg');" data-comment="op-ext-provia-forest-green-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/ProVia-Entry_Forest-Green.jpg');" data-comment="op-ext-provia-forest-green-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ext-provia-forest-green-name">Forest Green</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-provia-coal-black">
+                                <div class="op-frame op-frame--slider" data-comment="op-ext-provia-coal-black-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/ProVia-Entry-Thumbnail-Coal-Black.jpg');" data-comment="op-ext-provia-coal-black-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/ProVia-Entry_Coal-Black.jpg');" data-comment="op-ext-provia-coal-black-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ext-provia-coal-black-name">Coal Black</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-provia-mountain-berry">
+                                <div class="op-frame op-frame--slider" data-comment="op-ext-provia-mountain-berry-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/ProVia-Entry-Thumbnail-Mountain-Berry.jpg');" data-comment="op-ext-provia-mountain-berry-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/ProVia-Entry_Mountain-Berry.jpg');" data-comment="op-ext-provia-mountain-berry-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ext-provia-mountain-berry-name">Mountain Berry</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-provia-sandstone">
+                                <div class="op-frame op-frame--slider" data-comment="op-ext-provia-sandstone-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/ProVia-Entry-Thumbnail-Sandstone.jpg');" data-comment="op-ext-provia-sandstone-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/ProVia-Entry_Sandstone.jpg');" data-comment="op-ext-provia-sandstone-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ext-provia-sandstone-name">Sandstone</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-provia-tudor-brown">
+                                <div class="op-frame op-frame--slider" data-comment="op-ext-provia-tudor-brown-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/ProVia-Entry-Thumbnail-Tudor-Brown.jpg');" data-comment="op-ext-provia-tudor-brown-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/ProVia-Entry_Tudor-Brown.jpg');" data-comment="op-ext-provia-tudor-brown-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ext-provia-tudor-brown-name">Tudor Brown</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shingles -->
+                    <div class="op-subgroup" data-comment="op-sg-ext-shingles">
+                        <h3 class="op-subgroup-title" data-comment="op-sg-ext-shingles-title">Shingles</h3>
+                        <div class="op-grid" data-comment="op-sg-ext-shingles-grid">
+                            <div class="op-card" data-comment="op-ext-shingle-weathered-wood">
+                                <div class="op-frame op-frame--slider" data-comment="op-ext-shingle-weathered-wood-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Shingle-Thumbnail-Weathered-Wood.jpg');" data-comment="op-ext-shingle-weathered-wood-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Shingle-Weathered-Wood.jpg');" data-comment="op-ext-shingle-weathered-wood-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ext-shingle-weathered-wood-name">Weathered Wood</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-shingle-charcoal">
+                                <div class="op-frame op-frame--slider" data-comment="op-ext-shingle-charcoal-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Shingle-Thumbnail-Charcoal.jpg');" data-comment="op-ext-shingle-charcoal-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Shingle-Charcoal.jpg');" data-comment="op-ext-shingle-charcoal-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ext-shingle-charcoal-name">Charcoal</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-shingle-hickory">
+                                <div class="op-frame op-frame--slider" data-comment="op-ext-shingle-hickory-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Shingle-Thumbnail-Hickory.jpg');" data-comment="op-ext-shingle-hickory-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Shingle-Hickory.jpg');" data-comment="op-ext-shingle-hickory-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ext-shingle-hickory-name">Hickory</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-shingle-hunter-green">
+                                <div class="op-frame op-frame--slider" data-comment="op-ext-shingle-hunter-green-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Shingle-Thumbnail-Hunter-Green.jpg');" data-comment="op-ext-shingle-hunter-green-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Shingle-Hunter-Green.jpg');" data-comment="op-ext-shingle-hunter-green-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ext-shingle-hunter-green-name">Hunter Green</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-shingle-patriot-red">
+                                <div class="op-frame op-frame--slider" data-comment="op-ext-shingle-patriot-red-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Shingle-Thumbnail-Patriot-Red.jpg');" data-comment="op-ext-shingle-patriot-red-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Shingle-Patriot-Red.jpg');" data-comment="op-ext-shingle-patriot-red-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ext-shingle-patriot-red-name">Patriot Red</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-shingle-shakewood">
+                                <div class="op-frame op-frame--slider" data-comment="op-ext-shingle-shakewood-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Shingle-Thumbnail-Shakewood.jpg');" data-comment="op-ext-shingle-shakewood-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Shingle-Shakewood.jpg');" data-comment="op-ext-shingle-shakewood-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ext-shingle-shakewood-name">Shakewood</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shutters -->
+                    <div class="op-subgroup" data-comment="op-sg-ext-shutters">
+                        <h3 class="op-subgroup-title" data-comment="op-sg-ext-shutters-title">Shutters</h3>
+                        <div class="op-grid" data-comment="op-sg-ext-shutters-grid">
+                            <div class="op-card" data-comment="op-ext-shutter-black">
+                                <div class="op-frame op-frame--slider" data-comment="op-ext-shutter-black-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Shutter-Black-Thumbnail.jpg');" data-comment="op-ext-shutter-black-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Shutter-Black.jpg');" data-comment="op-ext-shutter-black-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ext-shutter-black-name">Black</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-shutter-brown">
+                                <div class="op-frame op-frame--slider" data-comment="op-ext-shutter-brown-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Shutter-Brown-Thumbnail.jpg');" data-comment="op-ext-shutter-brown-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Shutter-Brown.jpg');" data-comment="op-ext-shutter-brown-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ext-shutter-brown-name">Brown</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-shutter-green">
+                                <div class="op-frame op-frame--slider" data-comment="op-ext-shutter-green-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Shutter-Green-Thumbnail.jpg');" data-comment="op-ext-shutter-green-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Shutter-Green.jpg');" data-comment="op-ext-shutter-green-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ext-shutter-green-name">Green</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-shutter-red">
+                                <div class="op-frame op-frame--slider" data-comment="op-ext-shutter-red-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Shutter-Red-Thumbnail.jpg');" data-comment="op-ext-shutter-red-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Shutter-Red.jpg');" data-comment="op-ext-shutter-red-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ext-shutter-red-name">Red</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Steel Siding -->
+                    <div class="op-subgroup" data-comment="op-sg-ext-steel-siding">
+                        <h3 class="op-subgroup-title" data-comment="op-sg-ext-steel-siding-title">Steel Siding</h3>
+                        <div class="op-grid" data-comment="op-sg-ext-steel-siding-grid">
+                            <div class="op-card" data-comment="op-ext-steel-black">
+                                <div class="op-frame op-frame--slider" data-comment="op-ext-steel-black-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Steel-Black-Thumbnail.jpg');" data-comment="op-ext-steel-black-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Steel-Black.jpg');" data-comment="op-ext-steel-black-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ext-steel-black-name">Black</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-steel-burgundy">
+                                <div class="op-frame op-frame--slider" data-comment="op-ext-steel-burgundy-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Steel-Burgundy-Thumbnail.jpg');" data-comment="op-ext-steel-burgundy-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Steel-Burgundy.jpg');" data-comment="op-ext-steel-burgundy-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ext-steel-burgundy-name">Burgundy</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-steel-bronze">
+                                <div class="op-frame op-frame--slider" data-comment="op-ext-steel-bronze-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Steel-Bronze-Thumbnail.jpg');" data-comment="op-ext-steel-bronze-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Steel-Bronze.jpg');" data-comment="op-ext-steel-bronze-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ext-steel-bronze-name">Bronze</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-steel-colonial-red">
+                                <div class="op-frame op-frame--slider" data-comment="op-ext-steel-colonial-red-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Steel-Colonial-Red-Thumbnail.jpg');" data-comment="op-ext-steel-colonial-red-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Steel-Colonial-Red.jpg');" data-comment="op-ext-steel-colonial-red-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ext-steel-colonial-red-name">Colonial Red</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-steel-evergreen">
+                                <div class="op-frame op-frame--slider" data-comment="op-ext-steel-evergreen-frame">
+                                    <div class="op-slide is-active" style="background-image:url('assets/options/Steel-Evergreen-Thumbnail.jpg');" data-comment="op-ext-steel-evergreen-s1"></div>
+                                    <div class="op-slide" style="background-image:url('assets/options/Steel-Evergreen.jpg');" data-comment="op-ext-steel-evergreen-s2"></div>
+                                </div>
+                                <span class="op-item-name" data-comment="op-ext-steel-evergreen-name">Evergreen</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stains -->
+                    <div class="op-subgroup" data-comment="op-sg-ext-stains">
+                        <h3 class="op-subgroup-title" data-comment="op-sg-ext-stains-title">Stains</h3>
+                        <div class="op-grid" data-comment="op-sg-ext-stains-grid">
+                            <div class="op-card" data-comment="op-ext-stain-bark">
+                                <div class="op-frame" style="background-image:url('assets/options/Stain-Bark.png');" data-comment="op-ext-stain-bark-frame"></div>
+                                <span class="op-item-name" data-comment="op-ext-stain-bark-name">Bark</span>
+                            </div>
+                            <div class="op-card" data-comment="op-ext-stain-butternut">
+                                <div class="op-frame" style="background-image:url('assets/options/Stain-Butternut.png');" data-comment="op-ext-stain-butternut-frame"></div>
+                                <span class="op-item-name" data-comment="op-ext-stain-butternut-name">Butternut</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -1935,6 +3354,18 @@
             </div>
         </footer>
 
+        <!-- ── Lightbox ── -->
+        <div class="op-lightbox" id="opLightbox" data-comment="op-lightbox">
+            <div class="op-lightbox-overlay" data-comment="op-lightbox-overlay"></div>
+            <div class="op-lightbox-panel" data-comment="op-lightbox-panel">
+                <button class="op-lightbox-close" data-comment="op-lightbox-close" aria-label="Close">
+                    <i class="ri-close-line"></i>
+                </button>
+                <img class="op-lightbox-img" id="opLightboxImg" src="" alt="" data-comment="op-lightbox-img" />
+                <p class="op-lightbox-caption" id="opLightboxCaption" data-comment="op-lightbox-caption"></p>
+            </div>
+        </div>
+
     <script>
 
   // ── Nav JS (inlined from nav.js) ──
@@ -1998,6 +3429,23 @@
     }, { passive: true });
   }
 
+  function initMobileAccordion() {
+    document.querySelectorAll('.mobile-nav-section-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var item = btn.closest('.mobile-nav-item');
+        var isOpen = item.classList.contains('is-open');
+        document.querySelectorAll('.mobile-nav-item.is-open').forEach(function(openItem) {
+          openItem.classList.remove('is-open');
+          openItem.querySelector('.mobile-nav-section-btn').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('is-open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  }
+
   function initHamburger() {
     const hamburger = document.getElementById('navHamburger');
     const mobileNav = document.getElementById('mobileNav');
@@ -2042,6 +3490,7 @@
   }
 
   function updateCartBadge(el) {
+    if (!el) return;
     const cart  = JSON.parse(localStorage.getItem('ncs_cart') || '[]');
     const count = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
     const badge = el.querySelector('.nav-cart-badge');
@@ -2053,12 +3502,107 @@
     document.querySelectorAll('ncs-nav').forEach(mountNav);
   }
 
+  function initAnchorNav() {
+    var tabs = document.querySelectorAll('.op-anchor-tab');
+
+    function getStickyOffset() {
+      var topbar  = document.querySelector('[data-comment="nav-topbar"]');
+      var navRoot = document.getElementById('navRoot');
+      var anchor  = document.querySelector('.op-anchor-nav');
+      return (topbar  ? topbar.offsetHeight  : 36)
+           + (navRoot ? navRoot.offsetHeight  : 72)
+           + (anchor  ? anchor.offsetHeight   : 48)
+           + 24;
+    }
+
+    tabs.forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        var el = document.getElementById(tab.dataset.target);
+        if (!el) return;
+        var top = el.getBoundingClientRect().top + window.scrollY - getStickyOffset();
+        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+      });
+    });
+
+    var sections = Array.from(document.querySelectorAll('.op-group[id]'));
+    if (!sections.length || !('IntersectionObserver' in window)) return;
+
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var id = entry.target.id;
+          tabs.forEach(function(t) {
+            var active = t.dataset.target === id;
+            t.classList.toggle('is-active', active);
+            if (active) t.scrollIntoView({ block: 'nearest', inline: 'center' });
+          });
+        }
+      });
+    }, { rootMargin: '-' + getStickyOffset() + 'px 0px -55% 0px', threshold: 0 });
+
+    sections.forEach(function(s) { observer.observe(s); });
+  }
+
+  function initLightbox() {
+    var lb      = document.getElementById('opLightbox');
+    var lbImg   = document.getElementById('opLightboxImg');
+    var lbCap   = document.getElementById('opLightboxCaption');
+    if (!lb) return;
+
+    function openLb(src, name) {
+      lbImg.src = src;
+      lbCap.textContent = name || '';
+      lb.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLb() {
+      lb.classList.remove('is-open');
+      setTimeout(function() { lbImg.src = ''; }, 300);
+      document.body.style.overflow = '';
+    }
+
+    lb.querySelector('.op-lightbox-overlay').addEventListener('click', closeLb);
+    lb.querySelector('.op-lightbox-close').addEventListener('click', closeLb);
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLb(); });
+
+    document.querySelectorAll('.op-frame').forEach(function(frame) {
+      var hasImg = frame.style.backgroundImage || frame.querySelector('.op-slide');
+      if (!hasImg) return;
+      frame.style.cursor = 'pointer';
+      frame.addEventListener('click', function() {
+        var bgRaw, name = '';
+        var card = frame.closest('.op-card');
+        if (card) {
+          var nameEl = card.querySelector('.op-item-name');
+          if (nameEl) name = nameEl.textContent;
+        }
+        var activeSlide = frame.querySelector('.op-slide.is-active');
+        bgRaw = activeSlide ? activeSlide.style.backgroundImage : frame.style.backgroundImage;
+        var src = bgRaw.replace(/url\(["']?(.*?)["']?\).*/, '$1');
+        if (src) openLb(src, name);
+      });
+    });
+  }
+
+  function initOptionSliders() {
+    document.querySelectorAll('.op-frame--slider').forEach(function(frame) {
+      var slides = frame.querySelectorAll('.op-slide');
+      if (slides.length < 2) return;
+      var current = 0;
+      setInterval(function() {
+        slides[current].classList.remove('is-active');
+        current = (current + 1) % slides.length;
+        slides[current].classList.add('is-active');
+      }, 3000);
+    });
+  }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
-      initMegaMenus(); initScroll(); initHamburger(); initSearch(); updateCartBadge();
+      initMegaMenus(); initScroll(); initHamburger(); initMobileAccordion(); initSearch(); updateCartBadge(); initOptionSliders(); initAnchorNav(); initLightbox();
     });
   } else {
-    initMegaMenus(); initScroll(); initHamburger(); initSearch(); updateCartBadge();
+    initMegaMenus(); initScroll(); initHamburger(); initMobileAccordion(); initSearch(); updateCartBadge(); initOptionSliders(); initAnchorNav(); initLightbox();
   }
   })();
 </script>
