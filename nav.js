@@ -74,6 +74,7 @@
     }
 
     .nav-topbar-sale-badge {
+        font-family: 'Roboto Mono', monospace;
         background: rgba(255,255,255,0.14);
         border: 1px solid rgba(255,255,255,0.22);
         border-radius: 4px;
@@ -219,7 +220,7 @@
         gap: 8px;
         background: var(--color-bg);
         border: 1.5px solid transparent;
-        border-radius: 9px;
+        border-radius: 8px;
         padding: 7px 13px;
         transition: border-color var(--t-fast), background var(--t-fast);
         width: 260px;
@@ -267,7 +268,7 @@
         border: none;
         background: none;
         cursor: pointer;
-        border-radius: 9px;
+        border-radius: 8px;
         color: var(--color-dark);
         text-decoration: none;
         transition: background var(--t-fast), color var(--t-fast);
@@ -378,6 +379,7 @@
     }
 
     .nav-mega-col-title {
+        font-family: 'Roboto Mono', monospace;
         font-size: 10.5px;
         font-weight: 500;
         letter-spacing: 0.9px;
@@ -400,7 +402,7 @@
         justify-content: space-between;
         gap: 8px;
         padding: 7px 10px;
-        border-radius: 7px;
+        border-radius: 8px;
         font-size: 14px;
         font-weight: 500;
         color: var(--color-dark);
@@ -429,7 +431,7 @@
         width: 232px;
         aspect-ratio: 593 / 840;
         flex-shrink: 0;
-        border-radius: 14px;
+        border-radius: 12px;
         overflow: hidden;
         position: relative;
         background-color: var(--color-dark);
@@ -610,7 +612,7 @@
         align-items: center;
         gap: 8px;
         padding: 12px 22px;
-        border-radius: 10px;
+        border-radius: 8px;
         font-family: var(--font-ui);
         font-size: 14px;
         font-weight: 600;
@@ -658,7 +660,7 @@
         width: 260px;
         background: #fff;
         border: 1px solid var(--color-border);
-        border-radius: 10px;
+        border-radius: 12px;
         box-shadow: 0 16px 48px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.05);
         overflow: hidden;
         opacity: 0;
@@ -775,7 +777,7 @@
     .sd-result-thumb {
         width: 52px;
         height: 52px;
-        border-radius: 9px;
+        border-radius: 12px;
         background: var(--color-bg-hover);
         border: 1px solid var(--color-border);
         flex-shrink: 0;
@@ -843,7 +845,7 @@
         background: var(--color-dark);
         color: #fff;
         border: none;
-        border-radius: 10px;
+        border-radius: 8px;
         font-family: var(--font-ui);
         font-size: 14px;
         font-weight: 600;
@@ -876,7 +878,7 @@
     /* ─────────────────────────────────────────
        HAMBURGER + MOBILE NAV
     ───────────────────────────────────────── */
-    .nav-hamburger { display: none; align-items: center; justify-content: center; width: 40px; height: 40px; border: none; background: transparent; cursor: pointer; border-radius: 9px; color: var(--color-dark); font-size: 22px; transition: background var(--t-fast), color var(--t-fast); flex-shrink: 0; }
+    .nav-hamburger { display: none; align-items: center; justify-content: center; width: 40px; height: 40px; border: none; background: transparent; cursor: pointer; border-radius: 8px; color: var(--color-dark); font-size: 22px; transition: background var(--t-fast), color var(--t-fast); flex-shrink: 0; }
     .nav-hamburger:hover { background: var(--color-bg-hover); color: var(--color-burgundy); }
     .mobile-nav-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 1500; opacity: 0; visibility: hidden; transition: opacity var(--t-med), visibility var(--t-med); }
     .mobile-nav-overlay.is-open { opacity: 1; visibility: visible; }
@@ -888,11 +890,25 @@
     .mobile-nav-logo-name { font-size: 16px; font-weight: 600; color: var(--color-dark); letter-spacing: -0.3px; }
     .mobile-nav-close { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: none; background: none; cursor: pointer; border-radius: 8px; color: var(--color-dark); font-size: 20px; transition: background var(--t-fast), color var(--t-fast); flex-shrink: 0; }
     .mobile-nav-close:hover { background: var(--color-bg-hover); color: var(--color-burgundy); }
-    .mobile-nav-links { list-style: none; flex: 1; }
-    .mobile-nav-links li { border-bottom: 1px solid var(--color-border); }
-    .mobile-nav-links a { display: block; font-size: 16px; font-weight: 500; padding: 14px 0; color: var(--color-dark); text-decoration: none; transition: color var(--t-fast); }
-    .mobile-nav-links a:hover { color: var(--color-burgundy); }
-    .mobile-nav-divider { border: none; border-top: 1px solid var(--color-border); margin: 24px 0; flex-shrink: 0; }
+    .mobile-nav-links { list-style: none; flex: 1; overflow-y: auto; }
+    .mobile-nav-links > li { border-bottom: 1px solid var(--color-border); }
+    .mobile-nav-links > li:last-child { border-bottom: none; }
+    .mobile-nav-links > li > a { display: block; font-size: 16px; font-weight: 500; padding: 14px 0; color: var(--color-dark); text-decoration: none; transition: color var(--t-fast); }
+    .mobile-nav-links > li > a:hover { color: var(--color-burgundy); }
+    /* Accordion section button */
+    .mobile-nav-section-btn { display: flex; align-items: center; justify-content: space-between; width: 100%; font-size: 16px; font-weight: 500; padding: 14px 0; color: var(--color-dark); background: none; border: none; cursor: pointer; font-family: var(--font-ui); text-align: left; transition: color var(--t-fast); }
+    .mobile-nav-section-btn:hover { color: var(--color-burgundy); }
+    .mobile-nav-chevron { font-size: 18px; transition: transform 0.22s ease; flex-shrink: 0; color: var(--color-gray-light); }
+    .mobile-nav-item.is-open > .mobile-nav-section-btn { color: var(--color-burgundy); }
+    .mobile-nav-item.is-open .mobile-nav-chevron { transform: rotate(180deg); }
+    /* Sub-panel */
+    .mobile-nav-sub { display: none; padding-bottom: 8px; }
+    .mobile-nav-item.is-open .mobile-nav-sub { display: block; }
+    .mobile-nav-sub-group { padding: 4px 0 2px; }
+    .mobile-nav-sub-title { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--color-gray-light); padding: 6px 12px 4px; }
+    .mobile-nav-sub-link { display: block; font-size: 14px; font-weight: 500; padding: 8px 12px; color: var(--color-dark); text-decoration: none; border-radius: 6px; transition: background var(--t-fast), color var(--t-fast); }
+    .mobile-nav-sub-link:hover { background: var(--color-bg-hover); color: var(--color-burgundy); }
+    .mobile-nav-divider { border: none; border-top: 1px solid var(--color-border); margin: 20px 0; flex-shrink: 0; }
     .mobile-nav-cta { display: block; text-align: center; margin-bottom: 20px; flex-shrink: 0; }
     .mobile-nav-actions { display: flex; gap: 10px; flex-shrink: 0; }
 
@@ -904,7 +920,7 @@
         .nav-mega { display: none; }
         .nav-links { display: none; }
         .nav-hamburger { display: flex; }
-        .nav-customize-btn { display: none; }
+        .nav-customize-btn { display: none !important; }
     }
     @media (max-width: 768px) {
         .nav-topbar-phone { display: none; }
@@ -1282,11 +1298,92 @@
 
             <!-- Nav links -->
             <ul class="mobile-nav-links" data-comment="mobile-nav-links">
-                <li data-comment="mobile-nav-li-products"><a href="#" data-comment="mobile-nav-link-products">Products</a></li>
-                <li data-comment="mobile-nav-li-gallery"><a href="gallery.html" data-comment="mobile-nav-link-gallery">Gallery</a></li>
-                <li data-comment="mobile-nav-li-events"><a href="#" data-comment="mobile-nav-link-events">Events</a></li>
-                <li data-comment="mobile-nav-li-blog"><a href="#" data-comment="mobile-nav-link-blog">Blog</a></li>
+
+                <!-- PRODUCTS -->
+                <li class="mobile-nav-item" data-comment="mobile-nav-li-products">
+                    <button class="mobile-nav-section-btn" data-comment="mobile-nav-btn-products" aria-expanded="false">
+                        Products
+                        <i class="ri-arrow-down-s-line mobile-nav-chevron" data-comment="mobile-nav-chevron-products"></i>
+                    </button>
+                    <div class="mobile-nav-sub" data-comment="mobile-nav-sub-products">
+                        <div class="mobile-nav-sub-group" data-comment="mobile-nav-subgroup-structures">
+                            <span class="mobile-nav-sub-title" data-comment="mobile-nav-sub-title-structures">Structures</span>
+                            <a href="catalog.html?category=Sheds" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-sheds">Sheds</a>
+                            <a href="catalog.html?category=Gazebos" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-gazebos">Gazebos / Pergolas / Pavilions</a>
+                            <a href="catalog.html?category=Hunting+Blinds" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-hunting">Hunting Blinds</a>
+                            <a href="catalog.html?category=Play+Structures" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-play">Play Structures</a>
+                            <a href="catalog.html?category=Animal+Structures" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-animal">Animal Structures</a>
+                            <a href="catalog.html?category=Returned+Rentals" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-rentals">Returned Rentals</a>
+                        </div>
+                        <div class="mobile-nav-sub-group" data-comment="mobile-nav-subgroup-furniture">
+                            <span class="mobile-nav-sub-title" data-comment="mobile-nav-sub-title-furniture">Furniture</span>
+                            <a href="catalog.html?category=Indoor+Furniture" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-indoor">Indoor Furniture</a>
+                            <a href="catalog.html?category=Outdoor+Furniture" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-outdoor">Outdoor Furniture</a>
+                            <a href="catalog.html?category=Decor" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-decor">Decor &amp; More</a>
+                        </div>
+                        <div class="mobile-nav-sub-group" data-comment="mobile-nav-subgroup-homes">
+                            <span class="mobile-nav-sub-title" data-comment="mobile-nav-sub-title-homes">Homes &amp; Garages</span>
+                            <a href="custom-built-homes.html" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-custom-homes">Custom Built Homes</a>
+                            <a href="catalog.html?category=Log+Homes" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-log-homes">Modular Log Homes</a>
+                            <a href="catalog.html?category=Garages" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-garages">Garages</a>
+                            <a href="https://www.billlakehomes.com/" target="_blank" rel="noopener" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-bill-lake">Bill Lake Homes <i class="ri-arrow-right-up-line"></i></a>
+                        </div>
+                        <div class="mobile-nav-sub-group" data-comment="mobile-nav-subgroup-options">
+                            <span class="mobile-nav-sub-title" data-comment="mobile-nav-sub-title-options">Options</span>
+                            <a href="colors.html" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-colors">Colors</a>
+                            <a href="options.html" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-options">Options</a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- ABOUT -->
+                <li class="mobile-nav-item" data-comment="mobile-nav-li-about">
+                    <button class="mobile-nav-section-btn" data-comment="mobile-nav-btn-about" aria-expanded="false">
+                        About
+                        <i class="ri-arrow-down-s-line mobile-nav-chevron" data-comment="mobile-nav-chevron-about"></i>
+                    </button>
+                    <div class="mobile-nav-sub" data-comment="mobile-nav-sub-about">
+                        <div class="mobile-nav-sub-group" data-comment="mobile-nav-subgroup-company">
+                            <span class="mobile-nav-sub-title" data-comment="mobile-nav-sub-title-company">Company</span>
+                            <a href="about.html" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-about">About Company</a>
+                            <a href="testimonials.html" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-testimonials">Testimonials</a>
+                            <a href="gallery.html" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-gallery">Gallery</a>
+                            <a href="partners.html" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-partners">Our Partners</a>
+                        </div>
+                        <div class="mobile-nav-sub-group" data-comment="mobile-nav-subgroup-product-info">
+                            <span class="mobile-nav-sub-title" data-comment="mobile-nav-sub-title-product-info">Product Info</span>
+                            <a href="care-guide.html" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-care-guide">Care Guide</a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- BUYING PROCESS -->
+                <li class="mobile-nav-item" data-comment="mobile-nav-li-buying">
+                    <button class="mobile-nav-section-btn" data-comment="mobile-nav-btn-buying" aria-expanded="false">
+                        Buying Process
+                        <i class="ri-arrow-down-s-line mobile-nav-chevron" data-comment="mobile-nav-chevron-buying"></i>
+                    </button>
+                    <div class="mobile-nav-sub" data-comment="mobile-nav-sub-buying">
+                        <div class="mobile-nav-sub-group" data-comment="mobile-nav-subgroup-financing">
+                            <span class="mobile-nav-sub-title" data-comment="mobile-nav-sub-title-financing">Financing</span>
+                            <a href="rent-to-own.html" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-rto">Rent-To-Own Program</a>
+                            <a href="#" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-ncu">Northern Credit Union <i class="ri-arrow-right-up-line"></i></a>
+                            <a href="#" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-byf">Back Yard Finance <i class="ri-arrow-right-up-line"></i></a>
+                            <a href="#" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-uf">Upgrade Finance <i class="ri-arrow-right-up-line"></i></a>
+                            <a href="#" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-jmoney">J-Money Financing <i class="ri-arrow-right-up-line"></i></a>
+                        </div>
+                        <div class="mobile-nav-sub-group" data-comment="mobile-nav-subgroup-process">
+                            <span class="mobile-nav-sub-title" data-comment="mobile-nav-sub-title-process">Process</span>
+                            <a href="site-preparation.html" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-site-prep">Site Preparation</a>
+                            <a href="delivery.html" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-delivery">Delivery</a>
+                            <a href="warranty.html" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-warranty">Warranty</a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Direct links -->
                 <li data-comment="mobile-nav-li-contact"><a href="contact.html" data-comment="mobile-nav-link-contact">Contact</a></li>
+
             </ul>
 
             <hr class="mobile-nav-divider" data-comment="mobile-nav-divider" />
@@ -1296,10 +1393,10 @@
 
             <!-- Icon actions -->
             <div class="mobile-nav-actions" data-comment="mobile-nav-actions">
-                <a href="cart.html" class="nav-icon-btn" data-comment="mobile-nav-cart-btn" title="Cart" aria-label="Open cart" style="flex:1; border-radius:9px; border:1.5px solid var(--color-border); background:var(--color-bg);">
+                <a href="cart.html" class="nav-icon-btn" data-comment="mobile-nav-cart-btn" title="Cart" aria-label="Open cart" style="flex:1; border-radius:8px; border:1.5px solid var(--color-border); background:var(--color-bg);">
                     <i class="ri-shopping-bag-line" data-comment="mobile-nav-cart-icon"></i>
                 </a>
-                <a href="account.html" class="nav-icon-btn" data-comment="mobile-nav-account-btn" title="My Account" aria-label="My Account" style="flex:1; border-radius:9px; border:1.5px solid var(--color-border); background:var(--color-bg);">
+                <a href="account.html" class="nav-icon-btn" data-comment="mobile-nav-account-btn" title="My Account" aria-label="My Account" style="flex:1; border-radius:8px; border:1.5px solid var(--color-border); background:var(--color-bg);">
                     <i class="ri-user-line" data-comment="mobile-nav-account-icon"></i>
                 </a>
             </div>
@@ -1318,8 +1415,28 @@
     initMegaMenus();
     initScroll();
     initHamburger();
+    initMobileAccordion();
     initSearch();
     updateCartBadge(el);
+  }
+
+  function initMobileAccordion() {
+    document.querySelectorAll('.mobile-nav-section-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var item = btn.closest('.mobile-nav-item');
+        var isOpen = item.classList.contains('is-open');
+        // close all
+        document.querySelectorAll('.mobile-nav-item.is-open').forEach(function(openItem) {
+          openItem.classList.remove('is-open');
+          openItem.querySelector('.mobile-nav-section-btn').setAttribute('aria-expanded', 'false');
+        });
+        // open clicked (unless it was already open)
+        if (!isOpen) {
+          item.classList.add('is-open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
   }
 
   function initMegaMenus() {

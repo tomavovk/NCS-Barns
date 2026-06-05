@@ -161,7 +161,7 @@
         gap: 10px;
         text-decoration: none;
         flex-shrink: 0;
-        margin-right: 36px;
+        margin-right: 20px;
     }
 
     .nav-logo-img {
@@ -172,9 +172,9 @@
     }
 
     .nav-logo-name {
-        font-size: 17px;
+        font-size: 14px;
         font-weight: 600;
-        color: var(--color-dark);
+        color: var(--color-burgundy);
         letter-spacing: -0.3px;
         white-space: nowrap;
     }
@@ -236,9 +236,10 @@
         background: var(--color-bg);
         border: 1.5px solid transparent;
         border-radius: 9px;
+        overflow: hidden;
         padding: 7px 13px;
         transition: border-color var(--t-fast), background var(--t-fast);
-        width: 260px;
+        width: 200px;
     }
     .nav-search:focus-within {
         border-color: var(--color-burgundy);
@@ -899,9 +900,9 @@
     .mobile-nav { position: fixed; top: 0; right: 0; width: 300px; height: 100%; background: #ffffff; z-index: 1600; transform: translateX(100%); transition: transform 0.3s ease; padding: 24px; display: flex; flex-direction: column; box-shadow: -4px 0 32px rgba(0,0,0,0.12); overflow-y: auto; }
     .mobile-nav.is-open { transform: translateX(0); }
     .mobile-nav-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; flex-shrink: 0; }
-    .mobile-nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-    .mobile-nav-logo-img { height: 32px; width: auto; }
-    .mobile-nav-logo-name { font-size: 16px; font-weight: 600; color: var(--color-dark); letter-spacing: -0.3px; }
+    .mobile-nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex: 1; min-width: 0; margin-right: 8px; }
+    .mobile-nav-logo-img { height: 32px; width: auto; filter: invert(1); }
+    .mobile-nav-logo-name { font-size: 13px; font-weight: 600; color: var(--color-dark); letter-spacing: -0.3px; white-space: normal; line-height: 1.3; }
     .mobile-nav-close { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: none; background: none; cursor: pointer; border-radius: 8px; color: var(--color-dark); font-size: 20px; transition: background var(--t-fast), color var(--t-fast); flex-shrink: 0; }
     .mobile-nav-close:hover { background: var(--color-bg-hover); color: var(--color-burgundy); }
     .mobile-nav-links { list-style: none; flex: 1; overflow-y: auto; }
@@ -929,7 +930,7 @@
     /* ─────────────────────────────────────────
        RESPONSIVE
     ───────────────────────────────────────── */
-    @media (max-width: 1024px) {
+    @media (max-width: 1280px) {
         .nav-search { display: none; }
         .nav-mega { display: none; }
         .nav-links { display: none; }
@@ -1471,7 +1472,7 @@
             .footer-top { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr 1.4fr; gap: 48px; padding-bottom: 52px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 52px; }
             .footer-brand-logo { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; text-decoration: none; margin-bottom: 16px; }
             .footer-brand-logo img { width: 50%; height: auto; filter: brightness(0) invert(1) opacity(0.5); }
-            .footer-brand-name { font-size: 16px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+            .footer-brand-name { font-size: 13px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
             .footer-brand-desc { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.65; max-width: 220px; }
             .footer-col-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 18px; }
             .footer-links { list-style: none; display: flex; flex-direction: column; gap: 11px; }
@@ -1632,7 +1633,7 @@
                         alt="NCS Barns"
                         class="nav-logo-img"
                         data-comment="nav-logo-img" />
-                    <span class="nav-logo-name" data-comment="nav-logo-name">NCS Barns</span>
+                    <span class="nav-logo-name" data-comment="nav-logo-name">North Country Storage Barns</span>
                 </a>
 
                 <!-- ── Main links ── -->
@@ -1708,12 +1709,6 @@
                                             <li data-comment="nav-mega-li-modular-homes">
                                                 <a href="catalog.html?category=Log+Homes" class="nav-mega-link" data-comment="nav-mega-link-modular-homes">Modular Log Homes</a>
                                             </li>
-                                            <li data-comment="nav-mega-li-garages">
-                                                <a href="catalog.html?category=Garages" class="nav-mega-link" data-comment="nav-mega-link-garages">Garages</a>
-                                            </li>
-                                            <li data-comment="nav-mega-li-bill-lake">
-                                                <a href="https://www.billlakehomes.com/" target="_blank" rel="noopener noreferrer" class="nav-mega-link" data-comment="nav-mega-link-bill-lake">Bill Lake Homes <i class="ri-arrow-right-up-line" data-comment="nav-mega-link-bill-lake-arrow"></i></a>
-                                            </li>
                                         </ul>
                                     </div>
 
@@ -1782,6 +1777,9 @@
                                             </li>
                                             <li data-comment="nav-mega-li-dealers">
                                                 <a href="partners.html" class="nav-mega-link" data-comment="nav-mega-link-dealers">Our Partners</a>
+                                            </li>
+                                            <li data-comment="nav-mega-li-blog">
+                                                <a href="blog.html" class="nav-mega-link" data-comment="nav-mega-link-blog">Blog</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -1952,7 +1950,7 @@
             <div class="mobile-nav-header" data-comment="mobile-nav-header">
                 <a href="home.html" class="mobile-nav-logo" data-comment="mobile-nav-logo">
                     <img src="assets/Logo.png" alt="NCS Barns" class="mobile-nav-logo-img" data-comment="mobile-nav-logo-img" />
-                    <span class="mobile-nav-logo-name" data-comment="mobile-nav-logo-name">NCS Barns</span>
+                    <span class="mobile-nav-logo-name" data-comment="mobile-nav-logo-name">North Country Storage Barns</span>
                 </a>
                 <button class="mobile-nav-close" id="mobileNavClose" data-comment="mobile-nav-close" aria-label="Close navigation">
                     <i class="ri-close-line"></i>
@@ -1988,8 +1986,6 @@
                             <span class="mobile-nav-sub-title" data-comment="mobile-nav-sub-title-homes">Homes &amp; Garages</span>
                             <a href="custom-built-homes.html" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-custom-homes">Custom Built Homes</a>
                             <a href="catalog.html?category=Log+Homes" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-log-homes">Modular Log Homes</a>
-                            <a href="catalog.html?category=Garages" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-garages">Garages</a>
-                            <a href="https://www.billlakehomes.com/" target="_blank" rel="noopener" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-bill-lake">Bill Lake Homes <i class="ri-arrow-right-up-line"></i></a>
                         </div>
                         <div class="mobile-nav-sub-group" data-comment="mobile-nav-subgroup-options">
                             <span class="mobile-nav-sub-title" data-comment="mobile-nav-sub-title-options">Options</span>
@@ -2012,6 +2008,7 @@
                             <a href="testimonials.html" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-testimonials">Testimonials</a>
                             <a href="gallery.html" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-gallery">Gallery</a>
                             <a href="partners.html" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-partners">Our Partners</a>
+                            <a href="blog.html" class="mobile-nav-sub-link" data-comment="mobile-nav-sub-link-blog">Blog</a>
                         </div>
                         <div class="mobile-nav-sub-group" data-comment="mobile-nav-subgroup-product-info">
                             <span class="mobile-nav-sub-title" data-comment="mobile-nav-sub-title-product-info">Product Info</span>
@@ -2538,38 +2535,38 @@
                     <div data-comment="footer-brand">
                         <a href="home.html" class="footer-brand-logo" data-comment="footer-brand-logo">
                             <img src="assets/Logo.png" alt="NCS Barns" data-comment="footer-brand-img" />
-                            <span class="footer-brand-name" data-comment="footer-brand-name">NCS Barns</span>
+                            <span class="footer-brand-name" data-comment="footer-brand-name">North Country Storage Barns</span>
                         </a>
                         <p class="footer-brand-desc" data-comment="footer-brand-desc">Handcrafted quality structures for the North Country — family owned &amp; operated since 1993.</p>
                     </div>
                     <div data-comment="footer-col-products">
                         <p class="footer-col-label" data-comment="footer-col-products-label">Products</p>
                         <ul class="footer-links" data-comment="footer-links-products">
-                            <li data-comment="footer-link-li-sheds"><a href="#" data-comment="footer-link-sheds">Sheds</a></li>
-                            <li data-comment="footer-link-li-gazebos"><a href="#" data-comment="footer-link-gazebos">Gazebos &amp; Pergolas</a></li>
-                            <li data-comment="footer-link-li-hunting"><a href="#" data-comment="footer-link-hunting">Hunting Blinds</a></li>
-                            <li data-comment="footer-link-li-play"><a href="#" data-comment="footer-link-play">Play Structures</a></li>
-                            <li data-comment="footer-link-li-furniture"><a href="#" data-comment="footer-link-furniture">Furniture</a></li>
-                            <li data-comment="footer-link-li-homes"><a href="#" data-comment="footer-link-homes">Homes &amp; Garages</a></li>
+                            <li data-comment="footer-link-li-sheds"><a href="catalog.html?category=Sheds" data-comment="footer-link-sheds">Sheds</a></li>
+                            <li data-comment="footer-link-li-gazebos"><a href="catalog.html?category=Gazebos" data-comment="footer-link-gazebos">Gazebos &amp; Pergolas</a></li>
+                            <li data-comment="footer-link-li-hunting"><a href="catalog.html?category=Hunting+Blinds" data-comment="footer-link-hunting">Hunting Blinds</a></li>
+                            <li data-comment="footer-link-li-play"><a href="catalog.html?category=Play+Structures" data-comment="footer-link-play">Play Structures</a></li>
+                            <li data-comment="footer-link-li-furniture"><a href="catalog.html?category=Indoor+Furniture" data-comment="footer-link-furniture">Furniture</a></li>
+                            <li data-comment="footer-link-li-homes"><a href="custom-built-homes.html" data-comment="footer-link-homes">Homes &amp; Garages</a></li>
                         </ul>
                     </div>
                     <div data-comment="footer-col-company">
                         <p class="footer-col-label" data-comment="footer-col-company-label">Company</p>
                         <ul class="footer-links" data-comment="footer-links-company">
-                            <li data-comment="footer-link-li-about"><a href="#" data-comment="footer-link-about">About Us</a></li>
-                            <li data-comment="footer-link-li-testimonials"><a href="#" data-comment="footer-link-testimonials">Testimonials</a></li>
-                            <li data-comment="footer-link-li-gallery"><a href="#" data-comment="footer-link-gallery">Gallery</a></li>
-                            <li data-comment="footer-link-li-delivery"><a href="#" data-comment="footer-link-delivery">Delivery &amp; Relocation</a></li>
+                            <li data-comment="footer-link-li-about"><a href="about.html" data-comment="footer-link-about">About Us</a></li>
+                            <li data-comment="footer-link-li-blog"><a href="blog.html" data-comment="footer-link-blog">Blog</a></li>
+                            <li data-comment="footer-link-li-testimonials"><a href="testimonials.html" data-comment="footer-link-testimonials">Testimonials</a></li>
+                            <li data-comment="footer-link-li-gallery"><a href="gallery.html" data-comment="footer-link-gallery">Gallery</a></li>
+                            <li data-comment="footer-link-li-delivery"><a href="delivery.html" data-comment="footer-link-delivery">Delivery &amp; Relocation</a></li>
                         </ul>
                     </div>
                     <div data-comment="footer-col-buying">
                         <p class="footer-col-label" data-comment="footer-col-buying-label">Buying Process</p>
                         <ul class="footer-links" data-comment="footer-links-buying">
-                            <li data-comment="footer-link-li-rto"><a href="#" data-comment="footer-link-rto">Rent-To-Own</a></li>
-                            <li data-comment="footer-link-li-financing"><a href="#" data-comment="footer-link-financing">Financing Options</a></li>
-                            <li data-comment="footer-link-li-siteprep"><a href="#" data-comment="footer-link-siteprep">Site Preparation</a></li>
-                            <li data-comment="footer-link-li-warranty"><a href="#" data-comment="footer-link-warranty">Warranty</a></li>
-                            <li data-comment="footer-link-li-dealers"><a href="#" data-comment="footer-link-dealers">Dealers</a></li>
+                            <li data-comment="footer-link-li-rto"><a href="rent-to-own.html" data-comment="footer-link-rto">Rent-To-Own</a></li>
+                            <li data-comment="footer-link-li-siteprep"><a href="site-preparation.html" data-comment="footer-link-siteprep">Site Preparation</a></li>
+                            <li data-comment="footer-link-li-warranty"><a href="warranty.html" data-comment="footer-link-warranty">Warranty</a></li>
+                            <li data-comment="footer-link-li-dealers"><a href="partners.html" data-comment="footer-link-dealers">Our Partners</a></li>
                         </ul>
                     </div>
                     <div data-comment="footer-col-contact">

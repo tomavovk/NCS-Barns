@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>NCS Barns — About Us</title>
+        <title>How to Choose the Right Shed Size — NCS Barns Blog</title>
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -956,7 +956,6 @@
             }
 
             :root {
-                /* Colors */
                 --color-burgundy:       #8B1A2A;
                 --color-burgundy-dark:  #6D1420;
                 --color-dark:           #1C1F24;
@@ -966,17 +965,13 @@
                 --color-bg:             #F8F6F4;
                 --color-bg-hover:       #F4F1EE;
                 --color-bg-menu:        #FAFAF8;
-                --color-white:          #fff;
 
-                /* Typography */
                 --font-ui: 'Inter', sans-serif;
 
-                /* Layout */
                 --nav-height: 72px;
                 --max-width:  1440px;
                 --page-px:    40px;
 
-                /* Transitions */
                 --t-fast: 0.15s ease;
                 --t-med:  0.22s ease;
             }
@@ -987,670 +982,221 @@
                 color: var(--color-dark);
             }
 
-            /* ─────────────────────────────────────────
-               GLOBAL UTILITIES
-            ───────────────────────────────────────── */
-            .section-inner {
+            /* ─── PAGE WRAPPER ─── */
+            .sp-page {
                 max-width: var(--max-width);
                 margin: 0 auto;
                 padding: 0 var(--page-px);
+                padding-top: 48px;
+                padding-bottom: 96px;
             }
-            .section-eyebrow {
-                font-family: 'Roboto Mono', monospace;
-                font-size: 11px;
-                font-weight: 700;
-                letter-spacing: 1.2px;
-                text-transform: uppercase;
-                color: var(--color-burgundy);
-                margin-bottom: 12px;
-            }
-            .section-heading {
-                font-size: clamp(28px, 3vw, 40px);
-                font-weight: 700;
-                letter-spacing: -0.8px;
+
+            /* ─── PAGE TITLE ─── */
+            .sp-page-title {
+                font-size: clamp(28px, 3vw, 38px);
+                font-weight: 600;
+                letter-spacing: -0.02em;
+                color: var(--color-dark);
                 line-height: 1.15;
-                color: var(--color-dark);
-            }
-            .section-body {
-                font-size: 16px;
-                line-height: 1.75;
-                color: var(--color-gray);
+                margin-bottom: 28px;
             }
 
-            /* Buttons */
-            .btn-primary {
-                display: inline-flex;
-                align-items: center;
-                gap: 8px;
-                padding: 13px 24px;
-                background: var(--color-burgundy);
-                color: #fff;
-                font-size: 14px;
-                font-weight: 600;
-                border-radius: 10px;
-                border: none;
-                cursor: pointer;
-                text-decoration: none;
-                transition: background var(--t-fast);
-            }
-            .btn-primary:hover { background: var(--color-burgundy-dark); }
-
-            .btn-outline {
-                display: inline-flex;
-                align-items: center;
-                gap: 8px;
-                padding: 13px 24px;
-                background: transparent;
-                color: var(--color-dark);
-                font-size: 14px;
-                font-weight: 600;
-                border-radius: 10px;
-                border: 1.5px solid var(--color-border);
-                cursor: pointer;
-                text-decoration: none;
-                transition: border-color var(--t-fast), background var(--t-fast);
-            }
-            .btn-outline:hover { border-color: var(--color-dark); background: var(--color-bg-hover); }
-
-            /* ─────────────────────────────────────────
-               PAGE HERO
-            ───────────────────────────────────────── */
-            /* ─────────────────────────────────────────
-               PAGE HERO (photo)
-            ───────────────────────────────────────── */
-            .page-hero-section {
-                padding: 12px var(--page-px) 0;
-            }
-            .page-hero-wrap {
-                position: relative;
-                border-radius: 20px;
+            /* ─── HERO IMAGE ─── */
+            .sp-hero-img {
+                width: 100%;
+                border-radius: 16px;
                 overflow: hidden;
-                height: clamp(360px, 44vw, 560px);
-                background: var(--color-dark);
+                margin-bottom: 48px;
             }
-            .page-hero-bg {
-                position: absolute;
-                inset: 0;
+
+            .sp-hero-img img {
                 width: 100%;
-                height: 100%;
+                height: 420px;
                 object-fit: cover;
-                object-position: center 40%;
-            }
-            .page-hero-overlay {
-                position: absolute;
-                inset: 0;
-                background: linear-gradient(
-                    to top,
-                    rgba(10,8,7,0.72) 0%,
-                    rgba(10,8,7,0.28) 55%,
-                    transparent 100%
-                );
-            }
-            .page-hero-content {
-                position: absolute;
-                inset: 0;
-                display: flex;
-                flex-direction: column;
-                justify-content: flex-end;
-                padding: 44px 48px;
-            }
-            .page-hero-eyebrow {
-                font-size: 11px;
-                font-weight: 700;
-                letter-spacing: 1.4px;
-                text-transform: uppercase;
-                color: rgba(255,255,255,0.55);
-                margin-bottom: 12px;
-            }
-            .page-hero-heading {
-                font-size: clamp(32px, 4.5vw, 60px);
-                font-weight: 800;
-                letter-spacing: -2px;
-                line-height: 1.06;
-                color: #fff;
-                margin-bottom: 16px;
-                max-width: 680px;
-            }
-            .page-hero-sub {
-                font-size: 16px;
-                line-height: 1.65;
-                color: rgba(255,255,255,0.65);
-                max-width: 500px;
+                display: block;
             }
 
-            /* ─────────────────────────────────────────
-               CONTACT CARDS
-            ───────────────────────────────────────── */
-            .contact-strip {
-                padding: 12px var(--page-px) 0;
-            }
-            .contact-strip-inner {
-                max-width: var(--max-width);
-                margin: 0 auto;
+            /* ─── EDITORIAL TWO-COL ─── */
+            .sp-section {
                 display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 12px;
-            }
-            .cs-item {
-                display: flex;
-                align-items: center;
-                gap: 16px;
-                padding: 24px 28px;
-                background: #F2EFEC;
-                border-radius: 14px;
-            }
-            .cs-icon {
-                width: 44px;
-                height: 44px;
-                border-radius: 10px;
-                background: rgba(139,26,42,0.1);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-shrink: 0;
-            }
-            .cs-icon i { font-size: 20px; color: var(--color-burgundy); }
-            .cs-label {
-                font-size: 11px;
-                font-weight: 600;
-                letter-spacing: 1px;
-                text-transform: uppercase;
-                color: var(--color-gray-light);
-                margin-bottom: 4px;
-            }
-            .cs-value {
-                font-size: 15px;
-                font-weight: 600;
-                color: var(--color-dark);
-                line-height: 1.5;
-            }
-            .cs-value a {
-                color: inherit;
-                text-decoration: none;
-            }
-            .cs-value a:hover { color: var(--color-burgundy); }
-
-            /* ─────────────────────────────────────────
-               OUR STORY
-            ───────────────────────────────────────── */
-            .story-section {
-                padding: 96px 0;
-            }
-            .story-inner {
-                max-width: var(--max-width);
-                margin: 0 auto;
-                padding: 0 var(--page-px);
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 80px;
-                align-items: start;
-            }
-            .story-left {
-                position: sticky;
-                top: calc(var(--nav-height) + 32px);
-            }
-            .story-heading {
-                font-size: clamp(30px, 3.5vw, 48px);
-                font-weight: 800;
-                letter-spacing: -1.5px;
-                line-height: 1.1;
-                color: var(--color-dark);
-                margin-bottom: 20px;
-            }
-            .story-subhead {
-                font-size: 15px;
-                line-height: 1.7;
-                color: var(--color-gray);
-                margin-bottom: 32px;
-            }
-            .story-sig {
-                display: flex;
-                align-items: center;
-                gap: 14px;
-                padding: 18px 20px;
-                background: var(--color-white);
-                border: 1px solid var(--color-border);
-                border-radius: 14px;
-            }
-            .story-sig-avatar {
-                width: 44px;
-                height: 44px;
-                border-radius: 50%;
-                background: var(--color-burgundy);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-shrink: 0;
-            }
-            .story-sig-avatar i { font-size: 20px; color: rgba(255,255,255,0.9); }
-            .story-sig-name {
-                font-size: 14px;
-                font-weight: 600;
-                color: var(--color-dark);
-            }
-            .story-sig-title {
-                font-size: 12px;
-                color: var(--color-gray-light);
-                margin-top: 2px;
-            }
-            .story-right {
-                display: flex;
-                flex-direction: column;
-                gap: 24px;
-            }
-            .story-para {
-                font-size: 16px;
-                line-height: 1.8;
-                color: var(--color-gray);
-            }
-            .story-para:first-child {
-                font-size: 17px;
-                color: var(--color-dark);
-                font-weight: 500;
-                line-height: 1.7;
-            }
-            .story-highlight {
-                padding: 24px 28px;
-                background: var(--color-white);
-                border: 1px solid var(--color-border);
-                border-left: 3px solid var(--color-burgundy);
-                border-radius: 0 12px 12px 0;
-                font-size: 15px;
-                line-height: 1.7;
-                color: var(--color-gray);
-                font-style: italic;
-            }
-
-            /* ─────────────────────────────────────────
-               VIDEO BLOCK
-            ───────────────────────────────────────── */
-            .video-section {
-                padding: 0 var(--page-px) 96px;
-            }
-            .video-inner {
-                max-width: var(--max-width);
-                margin: 0 auto;
-            }
-            .video-wrap {
-                position: relative;
-                border-radius: 24px;
-                overflow: hidden;
-                background: var(--color-dark);
-                aspect-ratio: 16 / 7;
-                cursor: pointer;
-            }
-            .video-thumb {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                opacity: 0.55;
-                transition: opacity 0.3s ease;
-            }
-            .video-wrap:hover .video-thumb { opacity: 0.45; }
-            .video-overlay {
-                position: absolute;
-                inset: 0;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: 18px;
-            }
-            .video-play-btn {
-                width: 80px;
-                height: 80px;
-                border-radius: 50%;
-                background: rgba(255,255,255,0.95);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                transition: transform 0.2s ease, background 0.2s ease;
-                border: none;
-                cursor: pointer;
-            }
-            .video-play-btn i {
-                font-size: 32px;
-                color: var(--color-burgundy);
-                margin-left: 4px;
-            }
-            .video-wrap:hover .video-play-btn {
-                transform: scale(1.08);
-                background: #fff;
-            }
-            .video-caption {
-                font-size: 14px;
-                font-weight: 500;
-                color: rgba(255,255,255,0.7);
-                letter-spacing: 0.3px;
-            }
-            /* iframe player (hidden until play) */
-            .video-iframe-wrap {
-                position: absolute;
-                inset: 0;
-                display: none;
-            }
-            .video-iframe-wrap iframe {
-                width: 100%;
-                height: 100%;
-                border: none;
-            }
-
-            /* ─────────────────────────────────────────
-               LOCATIONS + MAP
-            ───────────────────────────────────────── */
-            .locations-section {
-                padding: 96px 0;
-                background: var(--color-white);
+                grid-template-columns: 320px 1fr;
+                gap: 64px;
+                padding: 56px 0;
                 border-top: 1px solid var(--color-border);
+            }
+
+            .sp-section:last-of-type {
                 border-bottom: 1px solid var(--color-border);
             }
-            .locations-inner {
-                max-width: var(--max-width);
-                margin: 0 auto;
-                padding: 0 var(--page-px);
+
+            /* Left column */
+            .sp-col-label {
+                padding-top: 4px;
             }
-            .locations-header {
-                margin-bottom: 48px;
+
+            .sp-section-heading {
+                font-size: clamp(22px, 2.4vw, 30px);
+                font-weight: 700;
+                letter-spacing: -0.025em;
+                color: var(--color-dark);
+                line-height: 1.2;
             }
-            .locations-grid {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 0;
-                border: 1px solid var(--color-border);
-                border-radius: 20px;
-                overflow: hidden;
-                margin-bottom: 48px;
+
+            .sp-section-label {
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                color: var(--color-gray-light);
             }
-            .loc-card {
-                padding: 36px 32px;
-                border-right: 1px solid var(--color-border);
-                transition: background var(--t-fast);
+
+            /* Right column */
+            .sp-col-content {
+                display: flex;
+                flex-direction: column;
+                gap: 28px;
             }
-            .loc-card:last-child { border-right: none; }
-            .loc-card:hover { background: var(--color-bg); }
-            .loc-tag {
+
+            /* Sub-headings within right col */
+            .sp-sub-heading {
+                font-size: 16px;
+                font-weight: 650;
+                color: var(--color-dark);
+                letter-spacing: -0.01em;
+                margin-bottom: 8px;
+            }
+
+            .sp-body {
+                font-size: 15px;
+                line-height: 1.7;
+                color: var(--color-gray);
+            }
+
+            /* Step item */
+            .sp-step {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .sp-step-chip {
                 display: inline-flex;
                 align-items: center;
                 gap: 6px;
                 font-size: 11px;
                 font-weight: 700;
-                letter-spacing: 1px;
+                letter-spacing: 0.08em;
                 text-transform: uppercase;
                 color: var(--color-burgundy);
-                background: #F3E6E8;
-                padding: 4px 10px;
-                border-radius: 20px;
-                margin-bottom: 20px;
+                margin-bottom: 4px;
             }
-            .loc-name {
-                font-size: 22px;
-                font-weight: 700;
-                letter-spacing: -0.4px;
-                color: var(--color-dark);
-                margin-bottom: 16px;
+
+            .sp-step-chip::before {
+                content: '';
+                display: inline-block;
+                width: 16px;
+                height: 2px;
+                background: var(--color-burgundy);
+                border-radius: 2px;
             }
-            .loc-detail {
+
+            /* Checklist */
+            .sp-checklist {
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .sp-checklist li {
                 display: flex;
                 align-items: flex-start;
                 gap: 10px;
-                margin-bottom: 12px;
-            }
-            .loc-detail:last-of-type { margin-bottom: 24px; }
-            .loc-detail i {
-                font-size: 16px;
-                color: var(--color-gray-light);
-                margin-top: 1px;
-                flex-shrink: 0;
-            }
-            .loc-detail-text {
-                font-size: 14px;
+                font-size: 15px;
                 line-height: 1.6;
                 color: var(--color-gray);
             }
-            .loc-detail-text a {
+
+            .sp-checklist li i {
+                font-size: 16px;
                 color: var(--color-burgundy);
-                text-decoration: none;
-                font-weight: 500;
+                margin-top: 2px;
+                flex-shrink: 0;
             }
-            .loc-detail-text a:hover { text-decoration: underline; }
-            .loc-directions {
+
+            /* Image placeholder */
+            .sp-img-placeholder {
+                width: 100%;
+                border-radius: 12px;
+                overflow: hidden;
+                background: #EDE9E5;
+                border: 1.5px dashed var(--color-border);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                aspect-ratio: 16 / 9;
+                color: var(--color-gray-light);
+                font-size: 13px;
+                font-weight: 500;
+                letter-spacing: 0.04em;
+                gap: 8px;
+            }
+
+            .sp-img-placeholder i {
+                font-size: 20px;
+            }
+
+            /* Image block */
+            .sp-img-block {
+                width: 100%;
+                border-radius: 12px;
+                overflow: hidden;
+                margin: 0;
+            }
+
+            .sp-img-block img {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 16 / 9;
+                object-fit: cover;
+                display: block;
+            }
+
+            .sp-img-block figcaption {
+                font-size: 12px;
+                color: var(--color-gray-light);
+                margin-top: 8px;
+                padding-left: 2px;
+            }
+
+            .sp-img-block figcaption a {
+                color: var(--color-gray-light);
+                text-decoration: underline;
+            }
+
+            /* CTA button */
+            .sp-cta {
                 display: inline-flex;
                 align-items: center;
-                gap: 6px;
-                font-size: 13px;
-                font-weight: 600;
-                color: var(--color-dark);
-                text-decoration: none;
-                transition: color var(--t-fast);
-            }
-            .loc-directions:hover { color: var(--color-burgundy); }
-
-            /* Hours card */
-            .hours-bar {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 16px;
-            }
-            .hours-card {
-                background: #F2EFEC;
-                border-radius: 16px;
-                padding: 28px 28px;
-                display: flex;
-                align-items: center;
-                gap: 16px;
-            }
-            .hours-icon {
-                width: 44px;
-                height: 44px;
+                gap: 8px;
+                padding: 13px 24px;
+                background: var(--color-burgundy);
+                color: #fff;
                 border-radius: 10px;
-                background: rgba(139,26,42,0.1);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-shrink: 0;
-            }
-            .hours-icon i { font-size: 20px; color: var(--color-burgundy); }
-            .hours-day {
-                font-size: 12px;
+                font-size: 14px;
                 font-weight: 600;
-                letter-spacing: 0.5px;
-                color: var(--color-gray-light);
-                text-transform: uppercase;
-                margin-bottom: 4px;
-            }
-            .hours-time {
-                font-size: 16px;
-                font-weight: 700;
-                color: var(--color-dark);
-                letter-spacing: -0.3px;
-            }
-
-            /* ─────────────────────────────────────────
-               CONTACT FORM
-            ───────────────────────────────────────── */
-            .form-section {
-                padding: 96px 0;
-            }
-            .form-inner {
-                max-width: var(--max-width);
-                margin: 0 auto;
-                padding: 0 var(--page-px);
-                display: grid;
-                grid-template-columns: 5fr 7fr;
-                gap: 80px;
-                align-items: start;
-            }
-            .form-left {
-                position: sticky;
-                top: calc(var(--nav-height) + 32px);
-            }
-            .form-left-heading {
-                font-size: clamp(26px, 3vw, 38px);
-                font-weight: 800;
-                letter-spacing: -1px;
-                line-height: 1.15;
-                color: var(--color-dark);
-                margin-bottom: 16px;
-            }
-            .form-left-body {
-                font-size: 15px;
-                line-height: 1.75;
-                color: var(--color-gray);
-                margin-bottom: 36px;
-            }
-            .form-contact-links {
-                display: flex;
-                flex-direction: column;
-                gap: 12px;
-            }
-            .fcl-item {
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                padding: 14px 16px;
-                background: var(--color-white);
-                border: 1px solid var(--color-border);
-                border-radius: 12px;
                 text-decoration: none;
-                transition: border-color var(--t-fast), background var(--t-fast);
-            }
-            .fcl-item:hover { border-color: var(--color-burgundy); background: var(--color-bg); }
-            .fcl-icon {
-                width: 36px;
-                height: 36px;
-                border-radius: 8px;
-                background: #F3E6E8;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-shrink: 0;
-            }
-            .fcl-icon i { font-size: 16px; color: var(--color-burgundy); }
-            .fcl-label {
-                font-size: 11px;
-                font-weight: 600;
-                letter-spacing: 0.5px;
-                text-transform: uppercase;
-                color: var(--color-gray-light);
-                margin-bottom: 2px;
-            }
-            .fcl-value {
-                font-size: 14px;
-                font-weight: 600;
-                color: var(--color-dark);
+                letter-spacing: -0.01em;
+                transition: background var(--t-fast), transform var(--t-fast);
+                align-self: flex-start;
             }
 
-            /* Form */
-            .contact-form {
-                background: var(--color-white);
-                border: 1px solid var(--color-border);
-                border-radius: 20px;
-                padding: 40px 40px;
-            }
-            .form-row {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 16px;
-                margin-bottom: 16px;
-            }
-            .form-group {
-                display: flex;
-                flex-direction: column;
-                gap: 6px;
-                margin-bottom: 16px;
-            }
-            .form-group:last-of-type { margin-bottom: 0; }
-            .form-label {
-                font-size: 13px;
-                font-weight: 600;
-                color: var(--color-dark);
-            }
-            .form-input,
-            .form-select,
-            .form-textarea {
-                font-family: var(--font-ui);
-                font-size: 14px;
-                color: var(--color-dark);
-                background: var(--color-bg);
-                border: 1.5px solid var(--color-border);
-                border-radius: 10px;
-                padding: 12px 14px;
-                outline: none;
-                transition: border-color var(--t-fast);
-                width: 100%;
-            }
-            .form-input::placeholder,
-            .form-textarea::placeholder { color: var(--color-gray-light); }
-            .form-input:focus,
-            .form-select:focus,
-            .form-textarea:focus { border-color: var(--color-burgundy); background: #fff; }
-            .form-select { appearance: none; cursor: pointer; }
-            .form-select-wrap {
-                position: relative;
-            }
-            .form-select-wrap::after {
-                content: '';
-                position: absolute;
-                right: 14px;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 0;
-                height: 0;
-                border-left: 5px solid transparent;
-                border-right: 5px solid transparent;
-                border-top: 6px solid var(--color-gray-light);
-                pointer-events: none;
-            }
-            .form-textarea {
-                resize: vertical;
-                min-height: 130px;
-            }
-            .form-submit-row {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                margin-top: 28px;
-                gap: 16px;
-            }
-            .form-note {
-                font-size: 12px;
-                color: var(--color-gray-light);
-                line-height: 1.5;
-                max-width: 220px;
+            .sp-cta:hover {
+                background: var(--color-burgundy-dark);
+                transform: translateY(-1px);
             }
 
-            /* Success state */
-            .form-success {
-                display: none;
-                text-align: center;
-                padding: 48px 24px;
-            }
-            .form-success-icon {
-                width: 64px;
-                height: 64px;
-                border-radius: 50%;
-                background: #E8F5E9;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin: 0 auto 20px;
-            }
-            .form-success-icon i { font-size: 28px; color: #2E7D32; }
-            .form-success-heading {
-                font-size: 20px;
-                font-weight: 700;
-                color: var(--color-dark);
-                margin-bottom: 10px;
-            }
-            .form-success-body {
-                font-size: 14px;
-                line-height: 1.7;
-                color: var(--color-gray);
-            }
-
-            /* ─────────────────────────────────────────
-               FOOTER
-            ───────────────────────────────────────── */
+            /* ─── FOOTER ─── */
             .footer-root { background: #000; color: #fff; padding: 72px var(--page-px) 40px; }
             .footer-inner { max-width: var(--max-width); margin: 0 auto; }
             .footer-top { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr 1.4fr; gap: 48px; padding-bottom: 52px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 52px; }
@@ -1659,73 +1205,64 @@
             .footer-brand-name { font-size: 13px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
             .footer-brand-desc { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.65; max-width: 220px; }
             .footer-col-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 18px; }
-            .footer-links { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+            .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
             .footer-links a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
             .footer-links a:hover { color: #fff; }
-            .footer-contact-item { font-size: 14px; color: rgba(255,255,255,0.65); margin-bottom: 10px; display: flex; align-items: flex-start; gap: 8px; }
-            .footer-contact-item svg { width: 15px; height: 15px; stroke: rgba(255,255,255,0.35); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; margin-top: 1px; }
-            .footer-contact-item a { color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-contact-item { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+            .footer-contact-item svg { width: 15px; height: 15px; stroke: rgba(255,255,255,0.35); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+            .footer-contact-item a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
             .footer-contact-item a:hover { color: #fff; }
             .footer-locations { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 32px; }
             .footer-loc-name { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 6px; }
             .footer-loc-addr { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.55; margin-bottom: 8px; }
             .footer-loc-phone { font-size: 13px; color: rgba(255,255,255,0.45); }
             .footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-            .footer-copy-row { display: flex; align-items: center; gap: 20px; }
-            .footer-copy { font-size: 13px; color: rgba(255,255,255,0.35); }
-            .footer-legal-link { font-size: 13px; color: rgba(255,255,255,0.35); text-decoration: none; transition: color var(--t-fast); }
-            .footer-legal-link:hover { color: rgba(255,255,255,0.7); }
+            .footer-copy-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+            .footer-copy { font-size: 13px; color: rgba(255,255,255,0.3); }
+            .footer-legal-link { font-size: 13px; color: rgba(255,255,255,0.3); text-decoration: none; transition: color var(--t-fast); }
+            .footer-legal-link:hover { color: #fff; }
             .footer-socials { display: flex; gap: 10px; }
-            .footer-social-btn { width: 36px; height: 36px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; text-decoration: none; transition: border-color var(--t-fast), background var(--t-fast); }
+            .footer-social-btn { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid rgba(255,255,255,0.15); text-decoration: none; transition: border-color var(--t-fast), background var(--t-fast); }
             .footer-social-btn:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.08); }
             .footer-social-btn i { font-size: 17px; color: rgba(255,255,255,0.6); }
 
-            /* ─────────────────────────────────────────
-               RESPONSIVE
-            ───────────────────────────────────────── */
-            @media (max-width: 1024px) { /* lg */
-                :root { --page-px: 24px; }
-                .story-inner { grid-template-columns: 1fr; gap: 40px; }
-                .story-left { position: static; }
-                .form-inner { grid-template-columns: 1fr; gap: 48px; }
-                .form-left { position: static; }
-                .locations-grid { grid-template-columns: 1fr; border-radius: 16px; }
-                .loc-card { border-right: none; border-bottom: 1px solid var(--color-border); }
-                .loc-card:last-child { border-bottom: none; }
-                .hours-bar { grid-template-columns: 1fr; gap: 10px; }
-                .contact-strip-inner { grid-template-columns: 1fr; }
-                .cs-item { padding: 20px 0; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
-                .cs-item:last-child { border-bottom: none; }
-                .cs-item:nth-child(2) { padding-left: 0; }
-                .footer-top { grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
-                .footer-top > div:first-child { grid-column: 1 / -1; }
+            /* ─── RESPONSIVE ─── */
+            @media (max-width: 900px) {
+                .sp-section {
+                    grid-template-columns: 1fr;
+                    gap: 28px;
+                }
+
+                .sp-section-heading {
+                    font-size: clamp(20px, 5vw, 26px);
+                }
             }
 
-            @media (max-width: 768px) { /* md */
-                :root { --page-px: 20px; --nav-height: 64px; }
-                .page-hero { padding: 48px var(--page-px) 40px; }
-                .story-section { padding: 64px 0; }
-                .video-section { padding: 0 var(--page-px) 64px; }
-                .video-wrap { aspect-ratio: 16 / 9; }
-                .locations-section { padding: 64px 0; }
-                .form-section { padding: 64px 0; }
-                .contact-form { padding: 28px 24px; }
-                .form-row { grid-template-columns: 1fr; }
-                .footer-top { grid-template-columns: 1fr 1fr; gap: 28px; }
-                .footer-locations { grid-template-columns: 1fr; }
-                .footer-locations > div { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
-                .footer-locations > div:last-child { border-bottom: none; }
+            @media (max-width: 768px) {
+                .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+                .footer-top > div:first-child { grid-column: 1/-1; }
+                .footer-locations { grid-template-columns: 1fr; gap: 20px; }
                 .footer-bottom { flex-direction: column; align-items: flex-start; gap: 16px; }
-                .hours-bar { grid-template-columns: 1fr 1fr; }
             }
 
-            @media (max-width: 640px) { /* sm */
-                :root { --page-px: 16px; }
-                .page-hero-heading { letter-spacing: -1.5px; }
-                .form-submit-row { flex-direction: column; align-items: stretch; }
-                .form-submit-row .btn-primary { justify-content: center; }
-                .footer-top { grid-template-columns: 1fr; }
-                .hours-bar { grid-template-columns: 1fr; }
+            @media (max-width: 640px) {
+                :root {
+                    --page-px: 20px;
+                }
+
+                .sp-page {
+                    padding-top: calc(var(--nav-height) + 32px);
+                    padding-bottom: 64px;
+                }
+
+                .sp-hero-img img {
+                    height: 240px;
+                }
+
+                .sp-section {
+                    padding: 36px 0;
+                    gap: 20px;
+                }
             }
         
 
@@ -1799,9 +1336,59 @@
             border-radius: var(--radius-control);
         }
 
+
+            /* ─── BLOG POST ─── */
+            .post-breadcrumb {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 13px;
+                color: var(--color-gray-light);
+                margin-bottom: 28px;
+            }
+            .post-breadcrumb a {
+                color: var(--color-gray-light);
+                text-decoration: none;
+                transition: color 0.15s;
+            }
+            .post-breadcrumb a:hover { color: var(--color-dark); }
+            .post-breadcrumb i { font-size: 14px; }
+            .post-header {
+                margin-bottom: 32px;
+                display: flex;
+                flex-direction: column;
+                gap: 14px;
+            }
+            .post-category {
+                display: inline-flex;
+                align-items: center;
+                padding: 3px 10px;
+                background: #F0E9EA;
+                color: var(--color-burgundy);
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 0.07em;
+                text-transform: uppercase;
+                border-radius: 20px;
+                align-self: flex-start;
+            }
+            .post-header .sp-page-title { margin-bottom: 0; }
+            .post-meta {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                font-size: 13px;
+                color: var(--color-gray-light);
+            }
+            .post-meta span {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            }
     </style>
     </head>
     <body>
+
         <!-- ── TOPBAR ── -->
         <div class="nav-topbar" data-comment="nav-topbar">
             <div class="nav-topbar-inner" data-comment="nav-topbar-inner">
@@ -2268,396 +1855,212 @@
 
         </nav><!-- /mobile-nav -->
 
-        <main data-comment="main-content">
+                <main class="sp-page" data-comment="post-page">
 
-            <!-- ════════════════════════════════
-                 PAGE HERO
-            ════════════════════════════════ -->
-            <section class="page-hero-section" data-comment="page-hero-section">
-                <div class="page-hero-wrap" data-comment="page-hero-wrap">
-                    <img src="assets/About us hero.jpeg" alt="North Country Storage Barns" class="page-hero-bg" data-comment="page-hero-bg" />
-                    <div class="page-hero-overlay" data-comment="page-hero-overlay"></div>
-                    <div class="page-hero-content" data-comment="page-hero-content">
-                        <p class="page-hero-eyebrow" data-comment="page-hero-eyebrow">About Us</p>
-                        <h1 class="page-hero-heading" data-comment="page-hero-heading">Family owned &amp;<br>operated since 1993</h1>
-                        <p class="page-hero-sub" data-comment="page-hero-sub">Three generations of craftsmanship, three locations across New York State — and the same quality you've trusted for over 30 years.</p>
-                    </div>
-                </div>
-            </section>
+            <!-- Breadcrumb -->
+            <nav class="post-breadcrumb" data-comment="post-breadcrumb" aria-label="Breadcrumb">
+                <a href="home.html" data-comment="post-breadcrumb-home">Home</a>
+                <i class="ri-arrow-right-s-line"></i>
+                <a href="blog.html" data-comment="post-breadcrumb-blog">Blog</a>
+                <i class="ri-arrow-right-s-line"></i>
+                <span data-comment="post-breadcrumb-current">How to Choose the Right Shed Size</span>
+            </nav>
 
-            <!-- ════════════════════════════════
-                 QUICK CONTACT STRIP
-            ════════════════════════════════ -->
-            <div class="contact-strip" data-comment="contact-strip">
-                <div class="contact-strip-inner" data-comment="contact-strip-inner">
-                    <div class="cs-item" data-comment="cs-item-phone">
-                        <div class="cs-icon" data-comment="cs-icon-phone"><i class="ri-phone-line" data-comment="cs-phone-icon"></i></div>
-                        <div data-comment="cs-phone-text">
-                            <div class="cs-label" data-comment="cs-phone-label">Main Number</div>
-                            <div class="cs-value" data-comment="cs-phone-value"><a href="tel:3156420209">(315) 642-0209</a></div>
-                        </div>
-                    </div>
-                    <div class="cs-item" data-comment="cs-item-email">
-                        <div class="cs-icon" data-comment="cs-icon-email"><i class="ri-mail-line" data-comment="cs-email-icon"></i></div>
-                        <div data-comment="cs-email-text">
-                            <div class="cs-label" data-comment="cs-email-label">Email Us</div>
-                            <div class="cs-value" data-comment="cs-email-value"><a href="mailto:sales@ncsbarns.com">sales@ncsbarns.com</a></div>
-                        </div>
-                    </div>
-                    <div class="cs-item" data-comment="cs-item-hours">
-                        <div class="cs-icon" data-comment="cs-icon-hours"><i class="ri-time-line" data-comment="cs-hours-icon"></i></div>
-                        <div data-comment="cs-hours-text">
-                            <div class="cs-label" data-comment="cs-hours-label">Hours</div>
-                            <div class="cs-value" data-comment="cs-hours-value">Mon–Fri 8:30AM–4:30PM · Sat 9AM–2PM</div>
-                        </div>
-                    </div>
+            <!-- Post header -->
+            <div class="post-header" data-comment="post-header">
+                <span class="post-category" data-comment="post-category">Buying Guide</span>
+                <h1 class="sp-page-title" data-comment="post-title">How to Choose the Right Shed Size for Your Property</h1>
+                <div class="post-meta" data-comment="post-meta">
+                    <span data-comment="post-meta-date"><i class="ri-calendar-line"></i> May 15, 2026</span>
+                    <span data-comment="post-meta-read"><i class="ri-time-line"></i> 5 min read</span>
                 </div>
             </div>
 
-            <!-- ════════════════════════════════
-                 OUR STORY
-            ════════════════════════════════ -->
-            <section class="story-section" data-comment="story-section">
-                <div class="story-inner" data-comment="story-inner">
-                    <div class="story-left" data-comment="story-left">
-                        <p class="section-eyebrow" data-comment="story-eyebrow">Our Story</p>
-                        <h2 class="story-heading" data-comment="story-heading">Family owned &amp; operated since 1993</h2>
-                        <p class="story-subhead" data-comment="story-subhead">What started with a few young Martin boys has grown into three companies providing income and work for about forty area residents.</p>
-                        <div class="story-sig" data-comment="story-sig">
-                            <div class="story-sig-avatar" data-comment="story-sig-avatar"><i class="ri-user-3-line" data-comment="story-sig-avatar-icon"></i></div>
-                            <div data-comment="story-sig-info">
-                                <div class="story-sig-name" data-comment="story-sig-name">Luke, Titus &amp; Reuben Martin</div>
-                                <div class="story-sig-title" data-comment="story-sig-title">Owners &amp; Operators, North Country Storage Barns</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="story-right" data-comment="story-right">
-                        <p class="story-para" data-comment="story-para-1">We would like to express our thankfulness for your support since 1993. Our journey of a quality product delivered and served with excellence has made us what we are today. We thank you for your patronage and our Lord and Savior Jesus Christ for his guidance at work and in our homes.</p>
-                        <p class="story-para" data-comment="story-para-2">In 1993, North Country Storage Barns started as a family-owned and operated shed business. We started out as a very small operation with a few siblings within the Martin family. It was a rough road and a large undertaking in the Northern New York area. Over time, locations were added to widen the reach of the company. Today, we have three locations in New York State and service dealers across the Saint Lawrence River in Canada.</p>
-                        <div class="story-highlight" data-comment="story-highlight">Through the years, some of the Martins have left the immediate area to pursue other aspirations. Luke, Titus, and Reuben still reside in the immediate area and own and operate North Country Storage Barns.</div>
-                        <p class="story-para" data-comment="story-para-3">The ever-increasing need for quality-built sheds has caused us to expand our workforce. Now over 30 years later, we have a wide range of product offerings — and the sheds are still manufactured with the same mark of excellence as they were at our inception. Materials have changed and better tools have improved production speed, but the quality you have come to rely upon has not changed.</p>
-                        <p class="story-para" data-comment="story-para-4">Furniture, gifts, modular homes, and swing sets have now become a huge part of the company. These products are handcrafted by Amish craftsmen in the Lancaster County, PA area and parts of Ohio. If you visit, you'll be able to take a stroll outdoors to look through our many sheds, vehicle storage units, gazebos, playsets, outdoor furniture, birdhouses &amp; feeders, lawn ornaments, and more!</p>
-                        <p class="story-para" data-comment="story-para-5">Inside all three of our locations, you can browse through and order from any of our many catalogs if you don't see just the perfect item in the showroom. Feel free to sit down with a friendly salesperson who's ready to guide you through designing your next custom-made structure!</p>
-                    </div>
+            <!-- Hero image -->
+            <figure class="sp-hero-img" data-comment="post-hero-img">
+                <img
+                    src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&auto=format&fit=crop&q=80"
+                    alt="Wooden storage shed on a green lawn surrounded by trees"
+                    loading="eager"
+                    width="1600"
+                    height="672"
+                    data-comment="post-hero-img-el"
+                />
+            </figure>
+
+            <!-- Section 1: Why size matters -->
+            <section class="sp-section" data-comment="post-section-1">
+                <div class="sp-col-label" data-comment="post-section-1-label">
+                    <h2 class="sp-section-heading" data-comment="post-section-1-heading">Why Getting the Size Right Matters</h2>
+                </div>
+                <div class="sp-col-content" data-comment="post-section-1-content">
+                    <p class="sp-body" data-comment="post-s1-p1">
+                        Buying a shed that is too small is the single most common mistake our customers make. Within a year or two, they have outgrown it and are already thinking about a second structure. Going too big has its own drawbacks: wasted space, higher upfront cost, and zoning complications that could have been avoided.
+                    </p>
+                    <p class="sp-body" data-comment="post-s1-p2">
+                        The good news is that choosing the right size does not require a tape measure or a floor plan. It requires an honest look at what you own, what you plan to store, and how your property is configured.
+                    </p>
+                    <ul class="sp-checklist" data-comment="post-s1-checklist">
+                        <li data-comment="post-s1-c1"><i class="ri-check-line"></i><span>A shed that is slightly larger than you think you need is almost always the right call</span></li>
+                        <li data-comment="post-s1-c2"><i class="ri-check-line"></i><span>Check local zoning rules before choosing a footprint larger than 200 sq ft</span></li>
+                        <li data-comment="post-s1-c3"><i class="ri-check-line"></i><span>Consider clearance for a riding mower, not just storage bins</span></li>
+                        <li data-comment="post-s1-c4"><i class="ri-check-line"></i><span>Account for a workbench or shelving if you plan to use it as a workspace</span></li>
+                    </ul>
                 </div>
             </section>
 
-            <!-- ════════════════════════════════
-                 VIDEO BLOCK
-            ════════════════════════════════ -->
-            <section class="video-section" data-comment="video-section">
-                <div class="video-inner" data-comment="video-inner">
-                    <div class="video-wrap" id="videoWrap" data-comment="video-wrap">
+            <!-- Section 2: Size guide -->
+            <section class="sp-section" data-comment="post-section-2">
+                <div class="sp-col-label" data-comment="post-section-2-label">
+                    <h2 class="sp-section-heading" data-comment="post-section-2-heading">Common Sizes and What Fits Inside</h2>
+                </div>
+                <div class="sp-col-content" data-comment="post-section-2-content">
+
+                    <div class="sp-step" data-comment="post-step-1">
+                        <span class="sp-step-chip" data-comment="post-step-1-chip">8 &times; 10 (80 sq ft)</span>
+                        <h3 class="sp-sub-heading" data-comment="post-step-1-heading">Great for bikes, lawn tools, and seasonal gear</h3>
+                        <p class="sp-body" data-comment="post-step-1-body">
+                            This is the most popular starter size. It comfortably holds two bicycles, a push mower, a wheelbarrow, and a wall of shelving for smaller items. It will not fit a riding mower. If you have a half-acre or larger yard, consider stepping up.
+                        </p>
+                    </div>
+
+                    <div class="sp-step" data-comment="post-step-2">
+                        <span class="sp-step-chip" data-comment="post-step-2-chip">10 &times; 12 (120 sq ft)</span>
+                        <h3 class="sp-sub-heading" data-comment="post-step-2-heading">A riding mower fits — barely</h3>
+                        <p class="sp-body" data-comment="post-step-2-body">
+                            With a standard 6-foot door, a compact riding mower will fit. You also have space for garden beds, hand tools, and outdoor furniture cushions. This is the sweet spot for most residential properties under one acre.
+                        </p>
+                    </div>
+
+                    <div class="sp-step" data-comment="post-step-3">
+                        <span class="sp-step-chip" data-comment="post-step-3-chip">12 &times; 16 (192 sq ft)</span>
+                        <h3 class="sp-sub-heading" data-comment="post-step-3-heading">The homeowner who wants it all</h3>
+                        <p class="sp-body" data-comment="post-step-3-body">
+                            Two mowers, a workbench, deep shelving, and room to move around. If you do any woodworking, auto maintenance, or homesteading, this is where comfort begins. Check your local zoning — structures over 144 sq ft may require a permit.
+                        </p>
+                    </div>
+
+                    <!-- Photo block -->
+                    <figure class="sp-img-block" data-comment="post-section-2-img">
                         <img
-                            src="https://img.youtube.com/vi/mftCWEujvQc/maxresdefault.jpg"
-                            alt="NCS Barns Video"
-                            class="video-thumb"
-                            data-comment="video-thumb" />
-                        <div class="video-overlay" data-comment="video-overlay">
-                            <button class="video-play-btn" id="videoPlayBtn" data-comment="video-play-btn" aria-label="Play video">
-                                <i class="ri-play-fill" data-comment="video-play-icon"></i>
-                            </button>
-                            <span class="video-caption" data-comment="video-caption">Watch Our Story</span>
-                        </div>
-                        <div class="video-iframe-wrap" id="videoIframeWrap" data-comment="video-iframe-wrap">
-                            <iframe
-                                data-comment="video-iframe"
-                                id="videoIframe"
-                                src=""
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen>
-                            </iframe>
-                        </div>
-                    </div>
+                            src="https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=1200&auto=format&fit=crop&q=80"
+                            alt="Interior of a well-organized storage shed with shelving and tools"
+                            loading="lazy"
+                            width="1200"
+                            height="675"
+                            data-comment="post-section-2-img-el"
+                        />
+                        <figcaption data-comment="post-section-2-img-caption">A 12&times;16 interior with a workbench, overhead loft, and open floor space for equipment.</figcaption>
+                    </figure>
+
                 </div>
             </section>
 
-            <!-- ════════════════════════════════
-                 THREE LOCATIONS
-            ════════════════════════════════ -->
-            <section class="locations-section" data-comment="locations-section">
-                <div class="locations-inner" data-comment="locations-inner">
-                    <div class="locations-header" data-comment="locations-header">
-                        <p class="section-eyebrow" data-comment="locations-eyebrow">Our Three Locations</p>
-                        <h2 class="section-heading" data-comment="locations-heading">Find us in New York State</h2>
-                    </div>
-
-                    <div class="locations-grid" data-comment="locations-grid">
-                        <!-- Philadelphia -->
-                        <div class="loc-card" data-comment="loc-card-philadelphia">
-                            <div class="loc-tag" data-comment="loc-tag-philadelphia"><i class="ri-map-pin-2-fill" data-comment="loc-tag-philadelphia-icon"></i> Philadelphia</div>
-                            <h3 class="loc-name" data-comment="loc-name-philadelphia">Philadelphia, NY</h3>
-                            <div class="loc-detail" data-comment="loc-detail-philadelphia-addr">
-                                <i class="ri-map-pin-line" data-comment="loc-addr-philadelphia-icon"></i>
-                                <span class="loc-detail-text" data-comment="loc-addr-philadelphia-text">32660 US Route 11<br>Philadelphia, New York 13673</span>
-                            </div>
-                            <div class="loc-detail" data-comment="loc-detail-philadelphia-phone">
-                                <i class="ri-phone-line" data-comment="loc-phone-philadelphia-icon"></i>
-                                <span class="loc-detail-text" data-comment="loc-phone-philadelphia-text"><a href="tel:3156420209">(315) 642-0209</a></span>
-                            </div>
-                            <div class="loc-detail" data-comment="loc-detail-philadelphia-hours">
-                                <i class="ri-time-line" data-comment="loc-hours-philadelphia-icon"></i>
-                                <span class="loc-detail-text" data-comment="loc-hours-philadelphia-text">Mon–Fri 8:30AM–4:30PM<br>Sat 9AM–2PM · Sun Closed</span>
-                            </div>
-                            <a href="https://maps.google.com/?q=32660+US+Route+11+Philadelphia+NY" target="_blank" class="loc-directions" data-comment="loc-directions-philadelphia">
-                                <i class="ri-navigation-line" data-comment="loc-directions-philadelphia-icon"></i> Get Directions
-                            </a>
-                        </div>
-
-                        <!-- Yorkville -->
-                        <div class="loc-card" data-comment="loc-card-yorkville">
-                            <div class="loc-tag" data-comment="loc-tag-yorkville"><i class="ri-map-pin-2-fill" data-comment="loc-tag-yorkville-icon"></i> Yorkville</div>
-                            <h3 class="loc-name" data-comment="loc-name-yorkville">Yorkville, NY</h3>
-                            <div class="loc-detail" data-comment="loc-detail-yorkville-addr">
-                                <i class="ri-map-pin-line" data-comment="loc-addr-yorkville-icon"></i>
-                                <span class="loc-detail-text" data-comment="loc-addr-yorkville-text">317 Oriskany Blvd<br>Yorkville, New York</span>
-                            </div>
-                            <div class="loc-detail" data-comment="loc-detail-yorkville-phone">
-                                <i class="ri-phone-line" data-comment="loc-phone-yorkville-icon"></i>
-                                <span class="loc-detail-text" data-comment="loc-phone-yorkville-text"><a href="tel:3157930726">(315) 793-0726</a></span>
-                            </div>
-                            <div class="loc-detail" data-comment="loc-detail-yorkville-hours">
-                                <i class="ri-time-line" data-comment="loc-hours-yorkville-icon"></i>
-                                <span class="loc-detail-text" data-comment="loc-hours-yorkville-text">Mon–Fri 8:30AM–4:30PM<br>Sat 9AM–2PM · Sun Closed</span>
-                            </div>
-                            <a href="https://maps.google.com/?q=317+Oriskany+Blvd+Yorkville+NY" target="_blank" class="loc-directions" data-comment="loc-directions-yorkville">
-                                <i class="ri-navigation-line" data-comment="loc-directions-yorkville-icon"></i> Get Directions
-                            </a>
-                        </div>
-
-                        <!-- Sandy Creek -->
-                        <div class="loc-card" data-comment="loc-card-sandycreek">
-                            <div class="loc-tag" data-comment="loc-tag-sandycreek"><i class="ri-map-pin-2-fill" data-comment="loc-tag-sandycreek-icon"></i> Sandy Creek</div>
-                            <h3 class="loc-name" data-comment="loc-name-sandycreek">Sandy Creek / Pulaski, NY</h3>
-                            <div class="loc-detail" data-comment="loc-detail-sandycreek-addr">
-                                <i class="ri-map-pin-line" data-comment="loc-addr-sandycreek-icon"></i>
-                                <span class="loc-detail-text" data-comment="loc-addr-sandycreek-text">5780 US Route 11<br>Pulaski, New York</span>
-                            </div>
-                            <div class="loc-detail" data-comment="loc-detail-sandycreek-phone">
-                                <i class="ri-phone-line" data-comment="loc-phone-sandycreek-icon"></i>
-                                <span class="loc-detail-text" data-comment="loc-phone-sandycreek-text"><a href="tel:3153872092">(315) 387-2092</a></span>
-                            </div>
-                            <div class="loc-detail" data-comment="loc-detail-sandycreek-hours">
-                                <i class="ri-time-line" data-comment="loc-hours-sandycreek-icon"></i>
-                                <span class="loc-detail-text" data-comment="loc-hours-sandycreek-text">Mon–Fri 8:30AM–4:30PM<br>Sat 9AM–2PM · Sun Closed</span>
-                            </div>
-                            <a href="https://maps.google.com/?q=5780+US+Route+11+Pulaski+NY" target="_blank" class="loc-directions" data-comment="loc-directions-sandycreek">
-                                <i class="ri-navigation-line" data-comment="loc-directions-sandycreek-icon"></i> Get Directions
-                            </a>
-                        </div>
-                    </div>
+            <!-- Section 3: CTA -->
+            <section class="sp-section" data-comment="post-section-3">
+                <div class="sp-col-label" data-comment="post-section-3-label">
+                    <span class="sp-section-label" data-comment="post-section-3-label-text">Next Step</span>
                 </div>
-            </section>
-
-            <!-- ════════════════════════════════
-                 CONTACT FORM
-            ════════════════════════════════ -->
-            <section class="form-section" data-comment="form-section">
-                <div class="form-inner" data-comment="form-inner">
-                    <!-- Left copy -->
-                    <div class="form-left" data-comment="form-left">
-                        <p class="section-eyebrow" data-comment="form-eyebrow">Send a Message</p>
-                        <h2 class="form-left-heading" data-comment="form-left-heading">Have a question or want to get started?</h2>
-                        <p class="form-left-body" data-comment="form-left-body">Fill out the form and one of our friendly team members will get back to you as soon as possible — usually within one business day.</p>
-                        <div class="form-contact-links" data-comment="form-contact-links">
-                            <a href="tel:3156420209" class="fcl-item" data-comment="fcl-phone">
-                                <div class="fcl-icon" data-comment="fcl-phone-icon"><i class="ri-phone-line" data-comment="fcl-phone-ri"></i></div>
-                                <div data-comment="fcl-phone-text">
-                                    <div class="fcl-label" data-comment="fcl-phone-label">Phone</div>
-                                    <div class="fcl-value" data-comment="fcl-phone-value">(315) 642-0209</div>
-                                </div>
-                            </a>
-                            <a href="mailto:sales@ncsbarns.com" class="fcl-item" data-comment="fcl-email">
-                                <div class="fcl-icon" data-comment="fcl-email-icon"><i class="ri-mail-line" data-comment="fcl-email-ri"></i></div>
-                                <div data-comment="fcl-email-text">
-                                    <div class="fcl-label" data-comment="fcl-email-label">Email</div>
-                                    <div class="fcl-value" data-comment="fcl-email-value">sales@ncsbarns.com</div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Form -->
-                    <div class="contact-form" data-comment="contact-form-card">
-                        <div id="formBody" data-comment="form-body">
-                            <div class="form-row" data-comment="form-row-name">
-                                <div class="form-group" data-comment="form-group-firstname">
-                                    <label class="form-label" data-comment="form-label-firstname" for="firstName">First Name</label>
-                                    <input class="form-input" data-comment="form-input-firstname" type="text" id="firstName" placeholder="John" />
-                                </div>
-                                <div class="form-group" data-comment="form-group-lastname">
-                                    <label class="form-label" data-comment="form-label-lastname" for="lastName">Last Name</label>
-                                    <input class="form-input" data-comment="form-input-lastname" type="text" id="lastName" placeholder="Smith" />
-                                </div>
-                            </div>
-                            <div class="form-row" data-comment="form-row-contact">
-                                <div class="form-group" data-comment="form-group-email">
-                                    <label class="form-label" data-comment="form-label-email" for="email">Email Address</label>
-                                    <input class="form-input" data-comment="form-input-email" type="email" id="email" placeholder="john@example.com" />
-                                </div>
-                                <div class="form-group" data-comment="form-group-phone">
-                                    <label class="form-label" data-comment="form-label-phone" for="phone">Phone Number</label>
-                                    <input class="form-input" data-comment="form-input-phone" type="tel" id="phone" placeholder="(315) 000-0000" />
-                                </div>
-                            </div>
-                            <div class="form-group" data-comment="form-group-location">
-                                <label class="form-label" data-comment="form-label-location" for="location">Nearest Location</label>
-                                <div class="form-select-wrap" data-comment="form-select-wrap-location">
-                                    <select class="form-select" data-comment="form-select-location" id="location">
-                                        <option value="" data-comment="form-option-location-placeholder">Select a location…</option>
-                                        <option value="philadelphia" data-comment="form-option-location-philadelphia">Philadelphia, NY</option>
-                                        <option value="yorkville" data-comment="form-option-location-yorkville">Yorkville, NY</option>
-                                        <option value="sandycreek" data-comment="form-option-location-sandycreek">Sandy Creek / Pulaski, NY</option>
-                                        <option value="unsure" data-comment="form-option-location-unsure">Not sure yet</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group" data-comment="form-group-subject">
-                                <label class="form-label" data-comment="form-label-subject" for="subject">What can we help you with?</label>
-                                <div class="form-select-wrap" data-comment="form-select-wrap-subject">
-                                    <select class="form-select" data-comment="form-select-subject" id="subject">
-                                        <option value="" data-comment="form-option-subject-placeholder">Select a topic…</option>
-                                        <option value="shed" data-comment="form-option-subject-shed">Sheds &amp; Storage</option>
-                                        <option value="gazebo" data-comment="form-option-subject-gazebo">Gazebos &amp; Pergolas</option>
-                                        <option value="playstructure" data-comment="form-option-subject-play">Play Structures</option>
-                                        <option value="furniture" data-comment="form-option-subject-furniture">Outdoor Furniture</option>
-                                        <option value="rto" data-comment="form-option-subject-rto">Rent-To-Own / Financing</option>
-                                        <option value="delivery" data-comment="form-option-subject-delivery">Delivery &amp; Relocation</option>
-                                        <option value="custom" data-comment="form-option-subject-custom">Custom Build / Quote</option>
-                                        <option value="other" data-comment="form-option-subject-other">Other</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group" data-comment="form-group-message">
-                                <label class="form-label" data-comment="form-label-message" for="message">Message</label>
-                                <textarea class="form-textarea" data-comment="form-textarea-message" id="message" placeholder="Tell us a bit about what you're looking for…"></textarea>
-                            </div>
-                            <div class="form-submit-row" data-comment="form-submit-row">
-                                <p class="form-note" data-comment="form-note">We'll respond within one business day. Your info is never shared.</p>
-                                <button type="button" class="btn-primary" data-comment="form-submit-btn" id="formSubmitBtn">
-                                    <i class="ri-send-plane-line" data-comment="form-submit-icon"></i> Send Message
-                                </button>
-                            </div>
-                        </div>
-                        <!-- Success state (shown after submit) -->
-                        <div class="form-success" id="formSuccess" data-comment="form-success">
-                            <div class="form-success-icon" data-comment="form-success-icon"><i class="ri-checkbox-circle-line" data-comment="form-success-check"></i></div>
-                            <h3 class="form-success-heading" data-comment="form-success-heading">Message sent!</h3>
-                            <p class="form-success-body" data-comment="form-success-body">Thanks for reaching out. One of our team members will be in touch with you soon.</p>
-                        </div>
-                    </div>
+                <div class="sp-col-content" data-comment="post-section-3-content">
+                    <p class="sp-body" data-comment="post-s3-p1">
+                        Still unsure which size is right for you? Our team has helped thousands of North Country homeowners figure out exactly what they need. Stop by any of our three locations or give us a call and we will walk you through it in minutes.
+                    </p>
+                    <a href="contact.html" class="sp-cta" data-comment="post-cta">
+                        Talk to Our Team
+                        <i class="ri-arrow-right-line"></i>
+                    </a>
                 </div>
             </section>
 
         </main>
 
-        <!-- ════════════════════════════════
-             FOOTER
-        ════════════════════════════════ -->
-        <footer class="footer-root" data-comment="about-footer">
-            <div class="footer-inner" data-comment="about-footer-inner">
-                <div class="footer-top" data-comment="about-footer-top">
-                    <div data-comment="about-footer-brand">
-                        <a href="home.html" class="footer-brand-logo" data-comment="about-footer-brand-logo">
-                            <img src="assets/Logo.png" alt="NCS Barns" data-comment="about-footer-brand-logo-image" />
-                            <span class="footer-brand-name" data-comment="about-footer-brand-logo-name">NCS Barns</span>
+
+        <footer class="footer-root" data-comment="del-footer-root">
+            <div class="footer-inner" data-comment="del-footer-inner">
+                <div class="footer-top" data-comment="del-footer-top">
+                    <div data-comment="del-footer-brand">
+                        <a href="home.html" class="footer-brand-logo" data-comment="del-footer-brand-logo">
+                            <img src="assets/Logo.png" alt="NCS Barns" data-comment="del-footer-brand-img" />
+                            <span class="footer-brand-name" data-comment="del-footer-brand-name">NCS Barns</span>
                         </a>
-                        <p class="footer-brand-desc" data-comment="about-footer-brand-desc">Handcrafted quality structures for the North Country — family owned &amp; operated since 1993.</p>
+                        <p class="footer-brand-desc" data-comment="del-footer-brand-desc">Handcrafted quality structures for the North Country — family owned &amp; operated since 1993.</p>
                     </div>
-                    <div data-comment="about-footer-col-products">
-                        <p class="footer-col-label" data-comment="about-footer-col-products-label">Products</p>
-                        <ul class="footer-links" data-comment="about-footer-links-products">
-                            <li><a href="catalog.html?category=Sheds" data-comment="about-footer-link-sheds">Sheds</a></li>
-                            <li><a href="catalog.html?category=Gazebos" data-comment="about-footer-link-gazebos">Gazebos &amp; Pergolas</a></li>
-                            <li><a href="catalog.html?category=Hunting+Blinds" data-comment="about-footer-link-hunting">Hunting Blinds</a></li>
-                            <li><a href="catalog.html?category=Play+Structures" data-comment="about-footer-link-play">Play Structures</a></li>
-                            <li><a href="catalog.html?category=Indoor+Furniture" data-comment="about-footer-link-furniture">Furniture</a></li>
-                            <li><a href="custom-built-homes.html" data-comment="about-footer-link-homes">Homes &amp; Garages</a></li>
+                    <div data-comment="del-footer-col-products">
+                        <p class="footer-col-label" data-comment="del-footer-products-label">Products</p>
+                        <ul class="footer-links" data-comment="del-footer-products-links">
+                            <li data-comment="del-fli-sheds"><a href="catalog.html?category=Sheds" data-comment="del-fl-sheds">Sheds</a></li>
+                            <li data-comment="del-fli-gazebos"><a href="catalog.html?category=Gazebos" data-comment="del-fl-gazebos">Gazebos &amp; Pergolas</a></li>
+                            <li data-comment="del-fli-hunting"><a href="catalog.html?category=Hunting+Blinds" data-comment="del-fl-hunting">Hunting Blinds</a></li>
+                            <li data-comment="del-fli-play"><a href="catalog.html?category=Play+Structures" data-comment="del-fl-play">Play Structures</a></li>
+                            <li data-comment="del-fli-furniture"><a href="catalog.html?category=Outdoor+Furniture" data-comment="del-fl-furniture">Furniture</a></li>
+                            <li data-comment="del-fli-homes"><a href="custom-built-homes.html" data-comment="del-fl-homes">Homes &amp; Garages</a></li>
                         </ul>
                     </div>
-                    <div data-comment="about-footer-col-company">
-                        <p class="footer-col-label" data-comment="about-footer-col-company-label">Company</p>
-                        <ul class="footer-links" data-comment="about-footer-links-company">
-                            <li><a href="about.html" data-comment="about-footer-link-about">About Us</a></li>
-                            <li><a href="testimonials.html" data-comment="about-footer-link-testimonials">Testimonials</a></li>
-                            <li><a href="gallery.html" data-comment="about-footer-link-gallery">Gallery</a></li>
-                            <li><a href="delivery.html" data-comment="about-footer-link-delivery">Delivery &amp; Relocation</a></li>
+                    <div data-comment="del-footer-col-company">
+                        <p class="footer-col-label" data-comment="del-footer-company-label">Company</p>
+                        <ul class="footer-links" data-comment="del-footer-company-links">
+                            <li data-comment="del-fli-about"><a href="about.html" data-comment="del-fl-about">About Us</a></li>
+                            <li data-comment="del-fli-blog"><a href="blog.html" data-comment="del-fl-blog">Blog</a></li>
+                            <li data-comment="del-fli-testimonials"><a href="testimonials.html" data-comment="del-fl-testimonials">Testimonials</a></li>
+                            <li data-comment="del-fli-gallery"><a href="gallery.html" data-comment="del-fl-gallery">Gallery</a></li>
+                            <li data-comment="del-fli-delivery"><a href="delivery.html" data-comment="del-fl-delivery">Delivery &amp; Relocation</a></li>
                         </ul>
                     </div>
-                    <div data-comment="about-footer-col-buying">
-                        <p class="footer-col-label" data-comment="about-footer-col-buying-label">Buying Process</p>
-                        <ul class="footer-links" data-comment="about-footer-links-buying">
-                            <li><a href="rent-to-own.html" data-comment="about-footer-link-rto">Rent-To-Own</a></li>
-                            <li><a href="site-preparation.html" data-comment="about-footer-link-siteprep">Site Preparation</a></li>
-                            <li><a href="warranty.html" data-comment="about-footer-link-warranty">Warranty</a></li>
-                            <li><a href="partners.html" data-comment="about-footer-link-dealers">Our Partners</a></li>
+                    <div data-comment="del-footer-col-buying">
+                        <p class="footer-col-label" data-comment="del-footer-buying-label">Buying Process</p>
+                        <ul class="footer-links" data-comment="del-footer-buying-links">
+                            <li data-comment="del-fli-rto"><a href="rent-to-own.html" data-comment="del-fl-rto">Rent-To-Own</a></li>
+                            <li data-comment="del-fli-siteprep"><a href="site-preparation.html" data-comment="del-fl-siteprep">Site Preparation</a></li>
+                            <li data-comment="del-fli-warranty"><a href="warranty.html" data-comment="del-fl-warranty">Warranty</a></li>
+                            <li data-comment="del-fli-dealers"><a href="partners.html" data-comment="del-fl-dealers">Our Partners</a></li>
                         </ul>
                     </div>
-                    <div data-comment="about-footer-col-contact">
-                        <p class="footer-col-label" data-comment="about-footer-col-contact-label">Contact</p>
-                        <div class="footer-contact-item" data-comment="about-footer-contact-phone">
-                            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l1.64-1.64a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                            <a href="tel:3156420209" data-comment="about-footer-contact-phone-link">(315) 642-0209</a>
+                    <div data-comment="del-footer-col-contact">
+                        <p class="footer-col-label" data-comment="del-footer-contact-label">Contact</p>
+                        <div class="footer-contact-item" data-comment="del-footer-phone">
+                            <svg viewBox="0 0 24 24" data-comment="del-footer-phone-icon"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l1.64-1.64a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <a href="tel:3156420209" data-comment="del-footer-phone-link">(315) 642-0209</a>
                         </div>
-                        <div class="footer-contact-item" data-comment="about-footer-contact-email">
-                            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                            <a href="mailto:sales@ncsbarns.com" data-comment="about-footer-contact-email-link">sales@ncsbarns.com</a>
+                        <div class="footer-contact-item" data-comment="del-footer-email">
+                            <svg viewBox="0 0 24 24" data-comment="del-footer-email-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            <a href="mailto:sales@ncsbarns.com" data-comment="del-footer-email-link">sales@ncsbarns.com</a>
                         </div>
                     </div>
                 </div>
-                <div class="footer-locations" data-comment="about-footer-locations">
-                    <div data-comment="about-footer-loc-philadelphia">
-                        <p class="footer-loc-name" data-comment="about-footer-loc-philadelphia-name">Philadelphia</p>
-                        <p class="footer-loc-addr" data-comment="about-footer-loc-philadelphia-addr">32660 US Route 11<br>Philadelphia, NY 13673</p>
-                        <p class="footer-loc-phone" data-comment="about-footer-loc-philadelphia-phone">(315) 642-0209</p>
+                <div class="footer-locations" data-comment="del-footer-locations">
+                    <div data-comment="del-footer-loc-phila">
+                        <p class="footer-loc-name" data-comment="del-footer-loc-phila-name">Philadelphia</p>
+                        <p class="footer-loc-addr" data-comment="del-footer-loc-phila-addr">32660 US Route 11<br>Philadelphia, NY 13673</p>
+                        <p class="footer-loc-phone" data-comment="del-footer-loc-phila-phone">(315) 642-0209</p>
                     </div>
-                    <div data-comment="about-footer-loc-yorkville">
-                        <p class="footer-loc-name" data-comment="about-footer-loc-yorkville-name">Yorkville</p>
-                        <p class="footer-loc-addr" data-comment="about-footer-loc-yorkville-addr">317 Oriskany Blvd<br>Yorkville, NY</p>
-                        <p class="footer-loc-phone" data-comment="about-footer-loc-yorkville-phone">(315) 793-0726</p>
+                    <div data-comment="del-footer-loc-york">
+                        <p class="footer-loc-name" data-comment="del-footer-loc-york-name">Yorkville</p>
+                        <p class="footer-loc-addr" data-comment="del-footer-loc-york-addr">317 Oriskany Blvd<br>Yorkville, NY</p>
+                        <p class="footer-loc-phone" data-comment="del-footer-loc-york-phone">(315) 793-0726</p>
                     </div>
-                    <div data-comment="about-footer-loc-sandycreek">
-                        <p class="footer-loc-name" data-comment="about-footer-loc-sandycreek-name">Sandy Creek</p>
-                        <p class="footer-loc-addr" data-comment="about-footer-loc-sandycreek-addr">5780 US Route 11<br>Pulaski, NY 13142</p>
-                        <p class="footer-loc-phone" data-comment="about-footer-loc-sandycreek-phone">(315) 387-2092</p>
+                    <div data-comment="del-footer-loc-sandy">
+                        <p class="footer-loc-name" data-comment="del-footer-loc-sandy-name">Sandy Creek</p>
+                        <p class="footer-loc-addr" data-comment="del-footer-loc-sandy-addr">5780 US Route 11<br>Pulaski, NY 13142</p>
+                        <p class="footer-loc-phone" data-comment="del-footer-loc-sandy-phone">(315) 387-2092</p>
                     </div>
                 </div>
-                <div class="footer-bottom" data-comment="about-footer-bottom">
-                    <div class="footer-copy-row" data-comment="about-footer-copy-row">
-                        <p class="footer-copy" data-comment="about-footer-copy">Copyright&copy; 2024 North Country Storage Barns LLC. All rights reserved.</p>
-                        <a href="privacy.html" class="footer-legal-link" href="privacy.html" class="footer-legal-link" data-comment="about-footer-privacy">Privacy Policy</a>
-                        <a href="terms.html" class="footer-legal-link" data-comment="about-footer-terms">Terms &amp; Conditions</a>
+                <div class="footer-bottom" data-comment="del-footer-bottom">
+                    <div class="footer-copy-row" data-comment="del-footer-copy-row">
+                        <p class="footer-copy" data-comment="del-footer-copy">Copyright&copy; 2024 North Country Storage Barns LLC. All rights reserved.</p>
+                        <a href="privacy.html" class="footer-legal-link" href="privacy.html" class="footer-legal-link" data-comment="del-footer-privacy">Privacy Policy</a>
+                        <a href="terms.html" class="footer-legal-link" data-comment="del-footer-terms">Terms &amp; Conditions</a>
                     </div>
-                    <div class="footer-socials" data-comment="about-footer-socials">
-                        <a href="https://www.tiktok.com/@northcountrystoragebarns" target="_blank" class="footer-social-btn" aria-label="TikTok" data-comment="about-footer-social-tiktok"><i class="ri-tiktok-fill"></i></a>
-                        <a href="https://www.facebook.com/ifyouneedmeillbeinmyshed/" target="_blank" class="footer-social-btn" aria-label="Facebook" data-comment="about-footer-social-facebook"><i class="ri-facebook-fill"></i></a>
-                        <a href="https://www.instagram.com/northcountrystoragebarns/" target="_blank" class="footer-social-btn" aria-label="Instagram" data-comment="about-footer-social-instagram"><i class="ri-instagram-fill"></i></a>
-                        <a href="#" target="_blank" class="footer-social-btn" aria-label="Google" data-comment="about-footer-social-google"><i class="ri-google-fill"></i></a>
+                    <div class="footer-socials" data-comment="del-footer-socials">
+                        <a href="https://www.tiktok.com/@northcountrystoragebarns" target="_blank" class="footer-social-btn" data-comment="del-footer-tiktok" aria-label="TikTok"><i class="ri-tiktok-fill" data-comment="del-footer-tiktok-icon"></i></a>
+                        <a href="https://www.facebook.com/ifyouneedmeillbeinmyshed/" target="_blank" class="footer-social-btn" data-comment="del-footer-facebook" aria-label="Facebook"><i class="ri-facebook-fill" data-comment="del-footer-facebook-icon"></i></a>
+                        <a href="https://www.instagram.com/northcountrystoragebarns/" target="_blank" class="footer-social-btn" data-comment="del-footer-instagram" aria-label="Instagram"><i class="ri-instagram-fill" data-comment="del-footer-instagram-icon"></i></a>
+                        <a href="#" class="footer-social-btn" data-comment="del-footer-google" aria-label="Google"><i class="ri-google-fill" data-comment="del-footer-google-icon"></i></a>
                     </div>
                 </div>
             </div>
         </footer>
 
-        <script>
-            // Video play
-            const videoWrap = document.getElementById('videoWrap');
-            const videoPlayBtn = document.getElementById('videoPlayBtn');
-            const videoIframeWrap = document.getElementById('videoIframeWrap');
-            const videoIframe = document.getElementById('videoIframe');
-
-            videoPlayBtn.addEventListener('click', function () {
-                videoIframe.src = 'https://www.youtube.com/embed/mftCWEujvQc?autoplay=1';
-                videoIframeWrap.style.display = 'block';
-                videoWrap.querySelector('.video-overlay').style.display = 'none';
-                videoWrap.querySelector('.video-thumb').style.display = 'none';
-            });
-
-            // Contact form submit (mock)
-            document.getElementById('formSubmitBtn').addEventListener('click', function () {
-                document.getElementById('formBody').style.display = 'none';
-                document.getElementById('formSuccess').style.display = 'block';
-            });
-        
+    <script>
 
   // ── Nav JS (inlined from nav.js) ──
   (function() {
@@ -2801,5 +2204,5 @@
   }
   })();
 </script>
-    </body>
+</body>
 </html>
