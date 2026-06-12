@@ -3181,6 +3181,10 @@
                 document.getElementById('pdPriceOld').style.display = '';
                 document.getElementById('pdPriceOld').textContent = '$' + p.price.toLocaleString();
             }
+            if (p.category === 'Sheds') {
+                const dp = Math.round(ep * 0.2);
+                document.getElementById('pdPriceNote').textContent = 'Sheds require 20% downpayment — $' + dp.toLocaleString() + ' due today';
+            }
             document.getElementById('pdDesc').textContent = detail.desc;
 
             /* floor plans tab */
@@ -3396,7 +3400,14 @@
                 priceEl.textContent = '$' + parseInt(btn.dataset.price).toLocaleString();
                 priceEl.classList.remove('is-sale');
                 const noteEl = document.getElementById('pdPriceNote');
-                if (noteEl) noteEl.textContent = 'Price for selected size — subject to change due to lumber market';
+                if (noteEl) {
+                    if (currentProduct && currentProduct.category === 'Sheds') {
+                        const dp = Math.round(parseInt(btn.dataset.price) * 0.2);
+                        noteEl.textContent = 'Sheds require 20% downpayment — $' + dp.toLocaleString() + ' due today';
+                    } else {
+                        noteEl.textContent = 'Price for selected size — subject to change due to lumber market';
+                    }
+                }
             }
 
             /* update floor plan in gallery */

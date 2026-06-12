@@ -1609,6 +1609,13 @@ a {
     font-weight: 600;
 }
 
+.summary-metric-note {
+    padding-top: 10px;
+    border-top: 1px solid var(--color-border);
+    font-size: 13px;
+    color: var(--color-gray);
+}
+
 .payment-list {
     display: flex;
     flex-direction: column;
@@ -2997,9 +3004,9 @@ a {
 
         <script>
             const ORDER_ITEMS = [
-                { title: 'Lofted Barn Shed 12×24', qty: 1, price: 12870, note: 'Charcoal siding · Philadelphia lot' },
-                { title: 'Vinyl Pergola 12×16', qty: 1, price: 8950, note: 'On-site assembly included' },
-                { title: 'Outdoor Dining Set', qty: 2, price: 3780, note: 'Ships with structure delivery' },
+                { title: 'Lofted Barn Shed 12×24', qty: 1, price: 12870, note: 'Charcoal siding · Philadelphia lot', category: 'Sheds' },
+                { title: 'Vinyl Pergola 12×16', qty: 1, price: 8950, note: 'On-site assembly included', category: 'Gazebos' },
+                { title: 'Outdoor Dining Set', qty: 2, price: 3780, note: 'Ships with structure delivery', category: 'Outdoor Furniture' },
             ];
 
             const PAYMENT_METHODS = [
@@ -3042,6 +3049,12 @@ a {
                 `).join('');
             }
 
+            function getShedsDownpayment() {
+                return ORDER_ITEMS
+                    .filter(item => item.category === 'Sheds')
+                    .reduce((sum, item) => sum + Math.round(item.price * 0.2), 0);
+            }
+
             function renderSummaryMetrics() {
                 const metrics = [
                     { label: 'Cart total', value: fmt(getCartTotal()) },
@@ -3055,8 +3068,13 @@ a {
 
                 metrics.push({ label: 'Estimated total', value: fmt(getGrandTotal()), total: true });
 
+                const shedsDP = getShedsDownpayment();
+                if (shedsDP > 0) {
+                    metrics.push({ label: 'Sheds downpayment due today (20%)', value: fmt(shedsDP), note: true });
+                }
+
                 document.getElementById('checkoutSummaryMetrics').innerHTML = metrics.map((metric, index) => `
-                    <div class="summary-metric${metric.total ? ' summary-metric-total' : ''}" data-comment="checkout-summary-metric-${index + 1}">
+                    <div class="summary-metric${metric.total ? ' summary-metric-total' : ''}${metric.note ? ' summary-metric-note' : ''}" data-comment="checkout-summary-metric-${index + 1}">
                         <span data-comment="checkout-summary-metric-label-${index + 1}">${metric.label}</span>
                         <strong data-comment="checkout-summary-metric-value-${index + 1}">${metric.value}</strong>
                     </div>
