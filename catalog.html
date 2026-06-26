@@ -644,6 +644,7 @@
     }
     .btn-primary:hover { background: var(--color-burgundy-dark); transform: translateY(-1px); }
     .nav-customize-btn { padding: 8px 14px !important; font-size: 13px !important; border-radius: 8px !important; min-height: unset !important; width: auto !important; justify-content: unset !important; }
+    .nav-see-all-btn { padding: 8px 16px !important; font-size: 13px !important; border-radius: 8px !important; }
     .btn-outline {
         background: transparent;
         color: var(--color-dark);
@@ -1821,6 +1822,7 @@
                                     <span class="nav-mega-eyebrow" data-comment="nav-mega-eyebrow">
                                         Explore NCS Barns
                                     </span>
+                                    <a href="categories.html" class="btn-primary nav-see-all-btn" data-comment="nav-mega-see-all">See all categories</a>
                                 </div>
 
                                 <div class="nav-mega-cols" data-comment="nav-mega-cols">
@@ -2567,6 +2569,7 @@
            STATE
         ═══════════════════════════════════════════════ */
         let activeCategory = null;  /* product category string or null = all */
+        let activeSubcategory = null;  /* style string when arriving from a subcategory folder */
         let currentView    = 'grid';
 
         /* ═══════════════════════════════════════════════
@@ -2575,6 +2578,7 @@
         function init() {
             const params  = new URLSearchParams(window.location.search);
             const catSlug = params.get('category');
+            const subSlug = params.get('subcategory');
 
             if (catSlug) {
                 activeCategory = CAT_SLUG_MAP[catSlug] || decodeURIComponent(catSlug).replace(/\+/g, ' ');
@@ -2592,6 +2596,34 @@
             }
 
             buildStyleFilter();
+
+            /* ── Subcategory: reflect as a pre-selected Style filter + nested breadcrumb ── */
+            if (subSlug) {
+                activeSubcategory = decodeURIComponent(subSlug).replace(/\+/g, ' ');
+
+                document.querySelectorAll('[data-filter="style"]').forEach(el => {
+                    if (el.value === activeSubcategory) el.checked = true;
+                });
+
+                document.getElementById('catTitle').textContent = activeSubcategory;
+                document.title = 'NCS Barns — ' + activeSubcategory;
+                document.getElementById('catSubtitle').textContent =
+                    'Browse our ' + activeSubcategory.toLowerCase() + ' collection';
+
+                const bc = document.querySelector('.cat-breadcrumb');
+                if (bc && activeCategory) {
+                    const displayName = CAT_MAP[activeCategory] || activeCategory;
+                    bc.innerHTML =
+                        '<a href="home.html" data-comment="cat-breadcrumb-home">Home</a>' +
+                        '<span class="cat-breadcrumb-sep" data-comment="cat-breadcrumb-sep1">›</span>' +
+                        '<a href="categories.html" data-comment="cat-breadcrumb-allcats">All Categories</a>' +
+                        '<span class="cat-breadcrumb-sep" data-comment="cat-breadcrumb-sep2b">›</span>' +
+                        '<a href="categories.html?cat=' + encodeURIComponent(activeCategory) + '" data-comment="cat-breadcrumb-category">' + displayName + '</a>' +
+                        '<span class="cat-breadcrumb-sep" data-comment="cat-breadcrumb-sep3">›</span>' +
+                        '<span class="cat-breadcrumb-current" data-comment="cat-breadcrumb-current">' + activeSubcategory + '</span>';
+                }
+            }
+
             applyFilters();
         }
 

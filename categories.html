@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>NCS Barns — Order Status</title>
+        <title>NCS Barns — All Categories</title>
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -13,6 +13,7 @@
         <link
             href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
             rel="stylesheet" />
+
         <style>
         /* ── Nav styles (inlined from nav.js) ── */
 /* ─────────────────────────────────────────
@@ -947,1200 +948,747 @@
     }
         /* ── End nav styles ── */
 
-:root {
-    --color-burgundy: #8B1A2A;
-    --color-burgundy-dark: #6D1420;
-    --color-dark: #1C1F24;
-    --color-gray: #514C4A;
-    --color-gray-light: #9A9390;
-    --color-border: #E6E2DD;
-    --color-bg: #F8F6F4;
-    --color-bg-hover: #F4F1EE;
-    --color-panel: #F2EFEC;
-    --color-success: #2E8B57;
-    --color-success-soft: rgba(46, 139, 87, 0.12);
-    --color-error: #B34747;
-    --color-error-soft: rgba(179, 71, 71, 0.12);
-    --font-ui: 'Inter', sans-serif;
-    --nav-height: 72px;
-    --max-width: 1440px;
-    --page-px: 40px;
-    --radius-lg: 20px;
-    --radius-md: 14px;
-    --radius-sm: 10px;
-    --t-fast: 0.15s ease;
-    --t-med: 0.22s ease;
-}
-
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
-
-html,
-body {
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: var(--font-ui);
-    background: var(--color-bg);
-    color: var(--color-dark);
-}
-
-a {
-    color: inherit;
-}
-
-.section-inner {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 0 var(--page-px);
-}
-
-.btn-primary,
-.btn-outline,
-.btn-outline-dark {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    min-height: 48px;
-    padding: 12px 22px;
-    border-radius: 999px;
-    font-family: var(--font-ui);
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: -0.1px;
-    text-decoration: none;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background var(--t-fast), border-color var(--t-fast), color var(--t-fast), transform var(--t-fast);
-}
-
-.btn-primary {
-    background: var(--color-burgundy);
-    color: #fff;
-    border: 1.5px solid var(--color-burgundy);
-}
-
-.btn-primary:hover {
-    background: var(--color-burgundy-dark);
-    border-color: var(--color-burgundy-dark);
-    transform: translateY(-1px);
-}
-
-.btn-outline,
-.btn-outline-dark {
-    background: transparent;
-    color: var(--color-dark);
-    border: 1.5px solid var(--color-border);
-}
-
-.btn-outline:hover,
-.btn-outline-dark:hover {
-    border-color: var(--color-dark);
-    background: var(--color-bg-hover);
-}
-
-.page-shell {
-    padding: 36px 0 96px;
-}
-
-.page-header {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    margin-bottom: 24px;
-}
-
-.page-kicker {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: var(--color-burgundy);
-}
-
-.page-title {
-    font-size: clamp(22px, 2.8vw, 34px);
-    font-weight: 600;
-    letter-spacing: -0.8px;
-    line-height: 1.1;
-    margin: 0;
-}
-
-.page-title-accent {
-    color: inherit;
-    font-weight: 600;
-}
-
-.page-subtitle {
-    max-width: 640px;
-    margin: 0;
-    font-size: 16px;
-    line-height: 1.7;
-    color: var(--color-gray);
-}
-
-.flow-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1.55fr) minmax(320px, 0.9fr);
-    gap: 24px;
-    align-items: start;
-}
-
-.flow-main,
-.flow-sidebar {
-    min-width: 0;
-}
-
-.panel {
-    background: #fff;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-}
-
-.panel-soft {
-    background: var(--color-panel);
-    border: none;
-}
-
-.panel-pad {
-    padding: 28px;
-}
-
-.panel-title {
-    margin: 0 0 16px;
-    font-size: 17px;
-    font-weight: 600;
-    letter-spacing: -0.2px;
-}
-
-.panel-subtitle {
-    margin: 0 0 24px;
-    font-size: 14px;
-    line-height: 1.6;
-    color: var(--color-gray);
-}
-
-.cart-list {
-    display: flex;
-    flex-direction: column;
-}
-
-.cart-row {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--color-border);
-}
-
-.cart-row:first-child {
-    padding-top: 0;
-}
-
-.cart-row:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-}
-
-.cart-row-end {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-shrink: 0;
-    padding-top: 2px;
-}
-
-.cart-product {
-    display: grid;
-    grid-template-columns: 72px minmax(0, 1fr);
-    gap: 14px;
-    flex: 1;
-    min-width: 0;
-}
-
-.cart-product-image {
-    width: 72px;
-    height: 72px;
-    border-radius: 10px;
-    object-fit: cover;
-    display: block;
-    background: var(--color-panel);
-}
-
-.cart-product-title {
-    margin: 0 0 4px;
-    font-size: 15px;
-    font-weight: 600;
-    letter-spacing: -0.2px;
-}
-
-.cart-product-meta,
-.cart-option-text,
-.summary-line-note,
-.status-copy {
-    font-size: 12px;
-    line-height: 1.5;
-    color: var(--color-gray);
-}
-
-.cart-option-list {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    margin-top: 6px;
-}
-
-.cart-option-row {
-    display: flex;
-    gap: 4px;
-}
-
-.cart-option-label {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--color-gray-light);
-}
-
-.cart-money,
-.cart-total-money {
-    font-size: 15px;
-    font-weight: 600;
-    letter-spacing: -0.2px;
-    white-space: nowrap;
-}
-
-.cart-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.icon-link,
-.text-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    border: none;
-    background: none;
-    padding: 0;
-    cursor: pointer;
-    font: inherit;
-    color: var(--color-dark);
-    text-decoration: none;
-}
-
-.text-link {
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.icon-link:hover,
-.text-link:hover {
-    color: var(--color-burgundy);
-}
-
-.qty-control {
-    display: inline-flex;
-    align-items: center;
-    border: 1.5px solid var(--color-border);
-    border-radius: 999px;
-    overflow: hidden;
-    background: #fff;
-}
-
-.qty-btn {
-    width: 38px;
-    height: 38px;
-    border: none;
-    background: transparent;
-    color: var(--color-dark);
-    cursor: pointer;
-    font-size: 18px;
-}
-
-.qty-btn:hover {
-    background: var(--color-bg-hover);
-}
-
-.qty-value {
-    min-width: 34px;
-    text-align: center;
-    font-size: 15px;
-    font-weight: 600;
-}
-
-.summary-card {
-    position: sticky;
-    top: calc(var(--nav-height) + 24px);
-}
-
-.summary-block + .summary-block {
-    margin-top: 24px;
-    padding-top: 24px;
-    border-top: 1px solid var(--color-border);
-}
-
-.summary-list {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-}
-
-.summary-item {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-}
-
-.summary-item-title {
-    margin: 0 0 4px;
-    font-size: 15px;
-    font-weight: 600;
-}
-
-.summary-item-meta {
-    margin: 0;
-    font-size: 13px;
-    color: var(--color-gray);
-}
-
-.summary-total {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 16px;
-}
-
-.summary-total-label {
-    font-size: 16px;
-    color: var(--color-gray);
-}
-
-.summary-total-value {
-    font-size: 26px;
-    font-weight: 600;
-    letter-spacing: -0.6px;
-}
-
-.summary-title {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 600;
-    letter-spacing: -0.3px;
-}
-
-.summary-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.summary-note {
-    margin: 0;
-    font-size: 13px;
-    line-height: 1.6;
-    color: var(--color-gray);
-}
-
-.empty-state {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    padding: 72px 24px;
-    text-align: center;
-}
-
-.empty-state-icon {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--color-panel);
-    color: var(--color-burgundy);
-    font-size: 30px;
-}
-
-.empty-state-title {
-    margin: 0;
-    font-size: 24px;
-    font-weight: 600;
-}
-
-.empty-state-copy {
-    max-width: 420px;
-    margin: 0;
-    font-size: 15px;
-    line-height: 1.7;
-    color: var(--color-gray);
-}
-
-.step-strip {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 28px;
-}
-
-.step-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    min-height: 42px;
-    padding: 0 16px;
-    border-radius: 999px;
-    border: 1.5px solid var(--color-border);
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--color-gray);
-    background: #fff;
-}
-
-.step-chip.is-active {
-    border-color: var(--color-burgundy);
-    color: var(--color-dark);
-    background: var(--color-bg-hover);
-}
-
-.step-chip.is-complete {
-    color: var(--color-dark);
-}
-
-.step-chip-number {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--color-panel);
-    font-size: 12px;
-}
-
-.stack {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px 16px;
-}
-
-.field,
-.field-full {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.field-full {
-    grid-column: 1 / -1;
-}
-
-.field-label {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--color-dark);
-}
-
-.field-input,
-.field-select,
-.field-textarea {
-    width: 100%;
-    min-height: 48px;
-    padding: 12px 14px;
-    border-radius: 12px;
-    border: 1.5px solid #D5CFC7;
-    background: #fff;
-    color: var(--color-dark);
-    font: inherit;
-    transition: border-color var(--t-fast), box-shadow var(--t-fast), background var(--t-fast);
-}
-
-.field-textarea {
-    min-height: 110px;
-    resize: vertical;
-    line-height: 1.55;
-}
-
-.field-input::placeholder,
-.field-textarea::placeholder {
-    color: var(--color-gray-light);
-}
-
-.field-input:focus,
-.field-select:focus,
-.field-textarea:focus {
-    outline: none;
-    border-color: var(--color-burgundy);
-    box-shadow: 0 0 0 3px rgba(139, 26, 42, 0.1);
-}
-
-.field-error {
-    display: none;
-    font-size: 12px;
-    color: var(--color-error);
-}
-
-.field.has-error .field-input,
-.field.has-error .field-select,
-.field.has-error .field-textarea,
-.field-full.has-error .field-input,
-.field-full.has-error .field-select,
-.field-full.has-error .field-textarea {
-    border-color: var(--color-error);
-    background: rgba(179, 71, 71, 0.03);
-}
-
-.field.has-error .field-error,
-.field-full.has-error .field-error {
-    display: block;
-}
-
-.toggle-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    min-height: 24px;
-    margin-bottom: 20px;
-}
-
-.toggle-row input {
-    width: 18px;
-    height: 18px;
-    accent-color: var(--color-burgundy);
-}
-
-.callout {
-    display: flex;
-    gap: 10px;
-    padding: 14px 16px;
-    border-radius: 14px;
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-.callout-success {
-    background: var(--color-success-soft);
-    color: #216744;
-}
-
-.callout-error {
-    background: var(--color-error-soft);
-    color: #8D3C3C;
-}
-
-.summary-line-list {
-    display: flex;
-    flex-direction: column;
-}
-
-.summary-line {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 12px 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-}
-
-.summary-line:last-child {
-    border-bottom: none;
-}
-
-.summary-line-title {
-    font-size: 15px;
-    font-weight: 600;
-}
-
-.summary-line-sub {
-    margin-top: 4px;
-    font-size: 13px;
-    color: var(--color-gray);
-}
-
-.promo-row {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 10px;
-}
-
-.promo-feedback {
-    display: none;
-    align-items: center;
-    gap: 8px;
-    margin-top: 10px;
-    font-size: 13px;
-    color: var(--color-success);
-}
-
-.promo-feedback.is-visible {
-    display: inline-flex;
-}
-
-.summary-metrics {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-}
-
-.summary-metric {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    font-size: 15px;
-}
-
-.summary-metric-total {
-    padding-top: 14px;
-    border-top: 1px solid var(--color-border);
-    font-size: 17px;
-    font-weight: 600;
-}
-
-.payment-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.payment-option {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    min-height: 78px;
-    padding: 18px 20px;
-    border-radius: 16px;
-    border: 1.5px solid var(--color-border);
-    background: #fff;
-    cursor: pointer;
-}
-
-.payment-option.is-selected {
-    border-color: var(--color-burgundy);
-    box-shadow: 0 0 0 3px rgba(139, 26, 42, 0.08);
-}
-
-.payment-radio {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    border: 1.5px solid var(--color-gray-light);
-    position: relative;
-    flex-shrink: 0;
-}
-
-.payment-option.is-selected .payment-radio {
-    border-color: var(--color-burgundy);
-}
-
-.payment-option.is-selected .payment-radio::after {
-    content: '';
-    position: absolute;
-    inset: 4px;
-    border-radius: 50%;
-    background: var(--color-burgundy);
-}
-
-.payment-card {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    min-width: 0;
-    flex: 1;
-}
-
-.payment-card-badge {
-    min-width: 52px;
-    height: 32px;
-    border-radius: 8px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.8px;
-    color: #fff;
-    background: linear-gradient(135deg, #2A5BD7, #1944A5);
-}
-
-.payment-card-badge.mastercard {
-    background: linear-gradient(135deg, #FF5F00, #EB001B);
-}
-
-.payment-card-copy {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.payment-card-title {
-    font-size: 15px;
-    font-weight: 600;
-}
-
-.payment-card-note {
-    font-size: 13px;
-    color: var(--color-gray);
-}
-
-.payment-option-tag {
-    font-size: 13px;
-    color: var(--color-gray-light);
-}
-
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    background: rgba(12, 10, 10, 0.35);
-    backdrop-filter: blur(5px);
-    z-index: 1200;
-}
-
-.modal-overlay.is-open {
-    display: flex;
-}
-
-.modal-card {
-    width: min(100%, 760px);
-    background: var(--color-dark);
-    color: #fff;
-    border-radius: 24px;
-    padding: 30px;
-    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
-}
-
-.modal-title {
-    margin: 0 0 24px;
-    font-size: 36px;
-    font-weight: 600;
-    letter-spacing: -1px;
-}
-
-.modal-grid {
-    display: grid;
-    grid-template-columns: 1fr 112px;
-    gap: 16px;
-}
-
-.modal-card .field-label {
-    color: rgba(255, 255, 255, 0.9);
-}
-
-.modal-card .field-input {
-    border-color: rgba(255, 255, 255, 0.28);
-    background: rgba(255, 255, 255, 0.02);
-    color: #fff;
-}
-
-.modal-card .field-input::placeholder {
-    color: rgba(255, 255, 255, 0.5);
-}
-
-.modal-card .field-input:focus {
-    border-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08);
-}
-
-.modal-actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-top: 26px;
-}
-
-.modal-card .btn-outline-dark {
-    color: #fff;
-    border-color: rgba(255, 255, 255, 0.28);
-}
-
-.modal-card .btn-outline-dark:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.65);
-}
-
-.status-wrap {
-    min-height: 900px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.status-card {
-    max-width: 960px;
-    text-align: center;
-}
-
-.status-eyebrow {
-    margin: 0 0 18px;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 1.1px;
-    text-transform: uppercase;
-    color: var(--color-burgundy);
-}
-
-.status-title {
-    margin: 0 0 18px;
-    font-size: clamp(28px, 3.5vw, 44px);
-    font-weight: 600;
-    line-height: 1.05;
-    letter-spacing: -1px;
-}
-
-.status-accent {
-    color: inherit;
-    font-weight: 600;
-}
-
-.status-summary {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    padding: 26px 0;
-    border-top: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
-    margin: 30px 0;
-}
-
-.status-order {
-    font-size: 18px;
-    font-weight: 600;
-}
-
-.status-price {
-    font-size: 22px;
-    font-weight: 600;
-    letter-spacing: -0.6px;
-}
-
-.footer-root {
-    background: #000;
-    color: #fff;
-    padding: 72px var(--page-px) 40px;
-}
-
-.footer-inner {
-    max-width: var(--max-width);
-    margin: 0 auto;
-}
-
-.footer-top {
-    display: grid;
-    grid-template-columns: 1.8fr 1fr 1fr 1fr 1.4fr;
-    gap: 48px;
-    padding-bottom: 52px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 52px;
-}
-
-.footer-brand-logo {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    text-decoration: none;
-    margin-bottom: 16px;
-}
-
-.footer-brand-logo img {
-    width: 60%;
-    height: auto;
-    filter: brightness(0) invert(1);
-}
-
-.footer-brand-name {
-    font-size: 13px;
-    font-weight: 700;
-    color: #fff;
-    letter-spacing: -0.3px;
-}
-
-.footer-brand-desc,
-.footer-loc-addr,
-.footer-loc-phone,
-.footer-copy,
-.footer-legal-link,
-.footer-contact-item,
-.footer-contact-item a,
-.footer-links a {
-    color: rgba(255, 255, 255, 0.65);
-}
-
-.footer-brand-desc {
-    font-size: 14px;
-    line-height: 1.65;
-    max-width: 220px;
-}
-
-.footer-col-label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.35);
-    margin-bottom: 18px;
-}
-
-.footer-links {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 11px;
-    padding: 0;
-    margin: 0;
-}
-
-.footer-links a,
-.footer-legal-link,
-.footer-contact-item a {
-    text-decoration: none;
-    transition: color var(--t-fast);
-}
-
-.footer-links a:hover,
-.footer-legal-link:hover,
-.footer-contact-item a:hover {
-    color: #fff;
-}
-
-.footer-contact-item {
-    font-size: 14px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-}
-
-.footer-contact-item svg {
-    width: 15px;
-    height: 15px;
-    stroke: rgba(255, 255, 255, 0.35);
-    stroke-width: 2;
-    fill: none;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    flex-shrink: 0;
-    margin-top: 1px;
-}
-
-.footer-locations {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
-    padding-bottom: 40px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 32px;
-}
-
-.footer-loc-name {
-    font-size: 13px;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 6px;
-}
-
-.footer-loc-addr {
-    font-size: 13px;
-    line-height: 1.55;
-    margin-bottom: 8px;
-}
-
-.footer-loc-phone {
-    font-size: 13px;
-}
-
-.footer-bottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-}
-
-.footer-copy-row {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.footer-copy,
-.footer-legal-link {
-    font-size: 13px;
-}
-
-.footer-socials {
-    display: flex;
-    gap: 10px;
-}
-
-.footer-social-btn {
-    width: 38px;
-    height: 38px;
-    border-radius: 9px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    transition: border-color var(--t-fast), background var(--t-fast);
-}
-
-.footer-social-btn:hover {
-    border-color: rgba(255, 255, 255, 0.4);
-    background: rgba(255, 255, 255, 0.08);
-}
-
-.footer-social-btn i {
-    font-size: 17px;
-    color: rgba(255, 255, 255, 0.6);
-}
-
-@media (max-width: 1100px) {
-    :root {
-        --page-px: 24px;
-    }
-
-    .flow-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .summary-card {
-        position: static;
-    }
-
-    .footer-top {
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 32px;
-    }
-
-    .footer-top > div:first-child {
-        grid-column: 1 / -1;
-    }
-}
-
-@media (max-width: 768px) {
-    :root {
-        --page-px: 20px;
-        --nav-height: 64px;
-    }
-
-    .page-shell {
-        padding: 28px 0 72px;
-    }
-
-    .page-title {
-        letter-spacing: -1.4px;
-    }
-
-    .panel-pad {
-        padding: 22px;
-    }
-
-    .cart-table thead {
-        display: none;
-    }
-
-    .cart-table,
-    .cart-table tbody,
-    .cart-table tr,
-    .cart-table td {
-        display: block;
-        width: 100%;
-    }
-
-    .cart-table tr {
-        padding: 18px 0;
-        border-bottom: 1px solid var(--color-border);
-    }
-
-    .cart-table td {
-        padding: 8px 0;
-        border: none;
-    }
-
-    .form-grid,
-    .modal-grid,
-    .modal-actions {
-        grid-template-columns: 1fr;
-    }
-
-    .footer-top {
-        grid-template-columns: 1fr 1fr;
-        gap: 28px;
-    }
-
-    .footer-top > div:first-child {
-        grid-column: 1 / -1;
-    }
-
-    .footer-locations {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .footer-bottom {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 16px;
-    }
-}
-
-@media (max-width: 640px) {
-    :root {
-        --page-px: 16px;
-    }
-
-    .cart-product {
-        grid-template-columns: 72px minmax(0, 1fr);
-        gap: 14px;
-    }
-
-    .cart-product-image {
-        width: 72px;
-        height: 72px;
-    }
-
-    .promo-row {
-        grid-template-columns: 1fr;
-    }
-
-    .payment-option {
-        align-items: flex-start;
-    }
-
-    .status-summary {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .footer-root {
-        padding: 48px var(--page-px) 32px;
-    }
-
-    .footer-top {
-        grid-template-columns: 1fr;
-        gap: 24px;
-    }
-}
-
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            :root {
+                --color-burgundy:      #8B1A2A;
+                --color-burgundy-dark: #6D1420;
+                --color-dark:          #1C1F24;
+                --color-gray:          #52575F;
+                --color-gray-light:    #9EA4AD;
+                --color-border:        #E6E2DD;
+                --color-bg:            #F8F6F4;
+                --color-bg-hover:      #F4F1EE;
+                --color-bg-menu:       #FAFAF8;
+
+                --font-ui: 'Inter', sans-serif;
+
+                --nav-height: 72px;
+                --max-width:  1440px;
+                --page-px:    40px;
+
+                --t-fast: 0.15s ease;
+                --t-med:  0.22s ease;
+            }
+
+            html { overflow-x: clip; }
+            body {
+                font-family: var(--font-ui);
+                background: var(--color-bg);
+                color: var(--color-dark);
+                overflow-x: hidden;
+            }
+
+            /* ─────────────────────────────────────────
+               GLOBAL UTILITIES
+            ───────────────────────────────────────── */
+            .page-inner {
+                max-width: var(--max-width);
+                margin: 0 auto;
+                padding: 0 var(--page-px);
+            }
+
+            .btn-primary {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                padding: 11px 20px;
+                border-radius: 9px;
+                font-family: var(--font-ui);
+                font-size: 13.5px;
+                font-weight: 600;
+                background: var(--color-burgundy);
+                color: #fff;
+                border: none;
+                cursor: pointer;
+                text-decoration: none;
+                transition: background var(--t-fast), transform var(--t-fast);
+                white-space: nowrap;
+            }
+            .btn-primary:hover { background: var(--color-burgundy-dark); transform: translateY(-1px); }
+
+            /* ─────────────────────────────────────────
+               PAGE HEADER
+            ───────────────────────────────────────── */
+            .cat-header {
+                background: #fff;
+                border-bottom: 1px solid var(--color-border);
+                padding: 26px 0 22px;
+            }
+
+            .cat-breadcrumb {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                margin-bottom: 10px;
+                font-size: 13px;
+                color: var(--color-gray-light);
+                flex-wrap: nowrap;
+                overflow: hidden;
+            }
+            .cat-breadcrumb a {
+                color: var(--color-gray-light);
+                text-decoration: none;
+                transition: color var(--t-fast);
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+            .cat-breadcrumb a:hover { color: var(--color-burgundy); }
+            .cat-breadcrumb-sep { font-size: 11px; opacity: 0.6; flex-shrink: 0; }
+            .cat-breadcrumb-current {
+                color: var(--color-dark);
+                font-weight: 500;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .cat-title {
+                font-size: clamp(22px, 2.5vw, 32px);
+                font-weight: 700;
+                color: var(--color-dark);
+                letter-spacing: -0.6px;
+                margin-bottom: 4px;
+            }
+
+            .cat-subtitle {
+                font-size: 14px;
+                color: var(--color-gray-light);
+            }
+
+            .cat-header-inner {
+                display: flex;
+                align-items: flex-end;
+                justify-content: space-between;
+                gap: 20px;
+            }
+            .cat-header-inner > div:first-child {
+                min-width: 0;
+                flex: 1;
+            }
+
+            /* ─────────────────────────────────────────
+               BODY LAYOUT  (sidebar + main)
+            ───────────────────────────────────────── */
+            .cat-body {
+                padding: 32px 0 80px;
+            }
+
+            .cat-layout {
+                display: flex;
+                gap: 28px;
+                align-items: flex-start;
+            }
+
+            /* ─────────────────────────────────────────
+               SIDEBAR
+            ───────────────────────────────────────── */
+            .cat-sidebar {
+                width: 248px;
+                flex-shrink: 0;
+                position: sticky;
+                top: calc(var(--nav-height) + 20px);
+            }
+
+            .sidebar-clear-btn {
+                display: block;
+                width: 100%;
+                margin-top: 12px;
+                padding: 10px;
+                background: #fff;
+                border: 1.5px solid var(--color-border);
+                border-radius: 8px;
+                font-family: var(--font-ui);
+                font-size: 13px;
+                font-weight: 500;
+                color: var(--color-gray);
+                cursor: pointer;
+                text-align: center;
+                transition: border-color var(--t-fast), color var(--t-fast);
+            }
+            .sidebar-clear-btn:hover { border-color: var(--color-burgundy); color: var(--color-burgundy); }
+
+            /* Filter group card */
+            .filter-group {
+                background: #fff;
+                border: 1.5px solid var(--color-border);
+                border-radius: 12px;
+                margin-bottom: 8px;
+                overflow: hidden;
+            }
+
+            .filter-group-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 13px 15px;
+                cursor: pointer;
+                user-select: none;
+                transition: background var(--t-fast);
+            }
+            .filter-group-header:hover { background: var(--color-bg-hover); }
+
+            .filter-group-title {
+                font-size: 13px;
+                font-weight: 600;
+                color: var(--color-dark);
+            }
+
+            .fg-chevron {
+                width: 15px;
+                height: 15px;
+                stroke: var(--color-gray-light);
+                stroke-width: 2;
+                fill: none;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                flex-shrink: 0;
+                transition: transform var(--t-fast);
+            }
+            .filter-group.is-open .fg-chevron { transform: rotate(180deg); }
+
+            .filter-group-body {
+                padding: 2px 15px 13px;
+                display: none;
+            }
+            .filter-group.is-open .filter-group-body { display: block; }
+
+            /* Checkboxes */
+            .filter-check-list {
+                display: flex;
+                flex-direction: column;
+                gap: 7px;
+            }
+
+            .filter-check-item {
+                display: flex;
+                align-items: center;
+                gap: 9px;
+                cursor: pointer;
+            }
+            .filter-check-item input[type="checkbox"] {
+                width: 15px;
+                height: 15px;
+                border-radius: 4px;
+                accent-color: var(--color-burgundy);
+                cursor: pointer;
+                flex-shrink: 0;
+            }
+            .filter-check-label {
+                font-size: 13px;
+                color: var(--color-gray);
+                line-height: 1.3;
+                cursor: pointer;
+                transition: color var(--t-fast);
+            }
+            .filter-check-item:hover .filter-check-label { color: var(--color-dark); }
+
+            /* Price inputs */
+            .price-inputs {
+                display: flex;
+                gap: 8px;
+                align-items: center;
+                margin-top: 2px;
+            }
+            .price-input-wrap { flex: 1; position: relative; }
+            .price-input-symbol {
+                position: absolute;
+                left: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 12px;
+                color: var(--color-gray-light);
+                pointer-events: none;
+            }
+            .price-input {
+                width: 100%;
+                padding: 8px 8px 8px 20px;
+                border: 1.5px solid var(--color-border);
+                border-radius: 8px;
+                font-family: var(--font-ui);
+                font-size: 13px;
+                color: var(--color-dark);
+                background: var(--color-bg);
+                outline: none;
+                transition: border-color var(--t-fast);
+            }
+            .price-input:focus { border-color: var(--color-burgundy); }
+            .price-range-dash {
+                font-size: 13px;
+                color: var(--color-gray-light);
+                flex-shrink: 0;
+            }
+
+            /* ─────────────────────────────────────────
+               MAIN AREA
+            ───────────────────────────────────────── */
+            .cat-main { flex: 1; min-width: 0; }
+
+            /* Toolbar */
+            .cat-toolbar {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 16px;
+                margin-bottom: 20px;
+            }
+
+            .toolbar-count {
+                font-size: 14px;
+                color: var(--color-gray);
+            }
+            .toolbar-count strong { color: var(--color-dark); font-weight: 600; }
+
+            .toolbar-right {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .sort-wrap { position: relative; flex-shrink: 0; }
+            .sort-select {
+                appearance: none;
+                background: #fff;
+                border: 1.5px solid var(--color-border);
+                border-radius: 8px;
+                padding: 8px 32px 8px 12px;
+                font-family: var(--font-ui);
+                font-size: 13px;
+                color: var(--color-dark);
+                cursor: pointer;
+                outline: none;
+                transition: border-color var(--t-fast);
+                max-width: 160px;
+            }
+            .sort-select:focus { border-color: var(--color-burgundy); }
+            .sort-chevron {
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                pointer-events: none;
+                width: 14px;
+                height: 14px;
+                stroke: var(--color-gray-light);
+                stroke-width: 2;
+                fill: none;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+            }
+
+            .view-btns { display: flex; gap: 2px; }
+            .view-btn {
+                width: 34px;
+                height: 34px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: 1.5px solid var(--color-border);
+                border-radius: 7px;
+                background: #fff;
+                cursor: pointer;
+                color: var(--color-gray-light);
+                transition: all var(--t-fast);
+                font-size: 16px;
+            }
+            .view-btn.is-active { border-color: var(--color-dark); color: var(--color-dark); background: var(--color-bg-hover); }
+            .view-btn:hover:not(.is-active) { background: var(--color-bg-hover); }
+
+            /* Active filter chips */
+            .active-chips {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 6px;
+                min-height: 0;
+            }
+            .active-chips:not(:empty) {
+                margin-bottom: 16px;
+            }
+            .active-chip {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                padding: 5px 8px 5px 11px;
+                background: #fff;
+                border: 1.5px solid var(--color-border);
+                border-radius: 100px;
+                font-size: 12px;
+                font-weight: 500;
+                color: var(--color-dark);
+            }
+            .active-chip-x {
+                background: none;
+                border: none;
+                cursor: pointer;
+                color: var(--color-gray-light);
+                font-size: 15px;
+                padding: 0;
+                line-height: 1;
+                display: flex;
+                align-items: center;
+                transition: color var(--t-fast);
+            }
+            .active-chip-x:hover { color: var(--color-dark); }
+
+            /* ─────────────────────────────────────────
+               PRODUCT GRID & CARDS
+            ───────────────────────────────────────── */
+            .cat-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+
+            .pc-card {
+                display: flex;
+                flex-direction: column;
+                background: #fff;
+                border: 1.5px solid var(--color-border);
+                border-radius: 14px;
+                overflow: hidden;
+                cursor: pointer;
+                transition: border-color var(--t-fast), box-shadow var(--t-fast), transform var(--t-fast);
+            }
+            .pc-card:hover {
+                border-color: #ccc;
+                box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+                transform: translateY(-2px);
+            }
+
+            .pc-card-img-wrap {
+                position: relative;
+                aspect-ratio: 4/3;
+                overflow: hidden;
+                background: var(--color-bg-hover);
+                border-radius: 12px 12px 0 0 !important;
+            }
+            .pc-card-img-wrap img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+                transition: transform 0.35s ease;
+            }
+            .pc-card:hover .pc-card-img-wrap img { transform: scale(1.04); }
+
+            .pc-badge {
+                position: absolute;
+                top: 11px;
+                left: 11px;
+                padding: 4px 9px;
+                border-radius: 6px;
+                font-size: 10px;
+                font-weight: 700;
+                letter-spacing: 0.4px;
+                text-transform: uppercase;
+                color: #fff;
+                background: var(--color-burgundy);
+            }
+            .pc-badge--gray  { background: #52575F; }
+            .pc-badge--green { background: #1a7f4b; }
+            .pc-badge--dark  { background: #1C1F24; }
+
+            .pc-card-body {
+                padding: 15px 16px 16px;
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+            }
+            .pc-card-cat {
+                font-size: 10.5px;
+                font-weight: 500;
+                color: var(--color-gray-light);
+                text-transform: uppercase;
+                letter-spacing: 0.6px;
+                margin-bottom: 5px;
+            }
+            .pc-card-name {
+                font-size: 14.5px;
+                font-weight: 600;
+                color: var(--color-dark);
+                line-height: 1.3;
+                margin-bottom: 11px;
+                flex: 1;
+            }
+            .pc-price-row {
+                display: flex;
+                align-items: baseline;
+                gap: 7px;
+                margin-bottom: 13px;
+            }
+            .pc-price {
+                font-size: 18px;
+                font-weight: 700;
+                color: var(--color-dark);
+                letter-spacing: -0.3px;
+            }
+            .pc-price.is-sale { color: var(--color-burgundy); }
+            .pc-price-old {
+                font-size: 13px;
+                color: var(--color-gray-light);
+                text-decoration: line-through;
+            }
+
+            .pc-card-btn {
+                display: block;
+                width: 100%;
+                padding: 10px 16px;
+                background: transparent;
+                color: var(--color-burgundy);
+                border: 1.5px solid var(--color-burgundy);
+                border-radius: 8px;
+                font-family: var(--font-ui);
+                font-size: 13px;
+                font-weight: 600;
+                cursor: pointer;
+                text-align: center;
+                text-decoration: none;
+                transition: background var(--t-fast), color var(--t-fast);
+            }
+            .pc-card-btn:hover { background: var(--color-burgundy); color: #fff; }
+
+            /* Empty state */
+            .cat-empty {
+                grid-column: 1 / -1;
+                text-align: center;
+                padding: 72px 20px;
+            }
+            .cat-empty-icon {
+                font-size: 44px;
+                color: var(--color-border);
+                margin-bottom: 14px;
+                line-height: 1;
+            }
+            .cat-empty-title {
+                font-size: 18px;
+                font-weight: 600;
+                color: var(--color-dark);
+                margin-bottom: 8px;
+            }
+            .cat-empty-sub {
+                font-size: 14px;
+                color: var(--color-gray-light);
+                margin-bottom: 24px;
+            }
+
+            /* ─────────────────────────────────────────
+               FOOTER
+            ───────────────────────────────────────── */
+            .footer-root { background: #000; color: #fff; padding: 72px var(--page-px) 40px; }
+            .footer-inner { max-width: var(--max-width); margin: 0 auto; }
+            .footer-top { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr 1.4fr; gap: 48px; padding-bottom: 52px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 52px; }
+            .footer-brand-logo { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; text-decoration: none; margin-bottom: 16px; }
+            .footer-brand-logo img { width: 60%; height: auto; filter: brightness(0) invert(1); }
+            .footer-brand-name { font-size: 13px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+            .footer-brand-desc { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.65; max-width: 220px; }
+            .footer-col-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 18px; }
+            .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+            .footer-links a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-links a:hover { color: #fff; }
+            .footer-contact-item { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+            .footer-contact-item svg { width: 15px; height: 15px; stroke: rgba(255,255,255,0.35); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+            .footer-contact-item a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color var(--t-fast); }
+            .footer-contact-item a:hover { color: #fff; }
+            .footer-locations { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 32px; }
+            .footer-loc-name { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+            .footer-loc-addr { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.55; margin-bottom: 8px; }
+            .footer-loc-phone { font-size: 13px; color: rgba(255,255,255,0.45); }
+            .footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+            .footer-copy-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+            .footer-copy { font-size: 13px; color: rgba(255,255,255,0.3); }
+            .footer-legal-link { font-size: 13px; color: rgba(255,255,255,0.3); text-decoration: none; transition: color var(--t-fast); }
+            .footer-legal-link:hover { color: #fff; }
+            .footer-socials { display: flex; gap: 10px; }
+            .footer-social-btn { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid rgba(255,255,255,0.15); text-decoration: none; transition: border-color var(--t-fast), background var(--t-fast); }
+            .footer-social-btn:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.08); }
+            .footer-social-btn i { font-size: 17px; color: rgba(255,255,255,0.6); }
+
+            /* ─────────────────────────────────────────
+               RESPONSIVE
+            ───────────────────────────────────────── */
+            @media (min-width: 1280px) { /* xl — 3 cols */
+                .cat-grid { grid-template-columns: repeat(3, 1fr); }
+            }
+
+            @media (max-width: 1100px) {
+                .cat-layout { gap: 20px; }
+                .cat-sidebar { width: 220px; }
+            }
+
+            /* ─────────────────────────────────────────
+               FILTER DRAWER (mobile / tablet ≤ 1024px)
+            ───────────────────────────────────────── */
+            /* Overlay */
+            .filter-drawer-overlay {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0,0.4);
+                z-index: 1099;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.25s ease;
+            }
+            .filter-drawer-overlay.is-open {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            /* Drawer header (only shown in drawer mode) */
+            .filter-drawer-header {
+                display: none;
+                align-items: center;
+                justify-content: space-between;
+                padding: 16px 20px;
+                border-bottom: 1px solid var(--color-border);
+                position: sticky;
+                top: 0;
+                background: #fff;
+                z-index: 1;
+                flex-shrink: 0;
+            }
+            .filter-drawer-title {
+                font-size: 16px;
+                font-weight: 600;
+                color: var(--color-dark);
+                letter-spacing: -0.2px;
+            }
+            .filter-drawer-close {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 44px;
+                height: 44px;
+                border: none;
+                background: none;
+                cursor: pointer;
+                border-radius: 8px;
+                font-size: 20px;
+                color: var(--color-dark);
+                transition: background var(--t-fast);
+            }
+            .filter-drawer-close:hover { background: var(--color-bg-hover); }
+
+            /* Mobile Filters trigger button */
+            .mobile-filters-btn {
+                display: none;
+                align-items: center;
+                gap: 8px;
+                padding: 10px 16px;
+                background: #fff;
+                border: 1.5px solid var(--color-border);
+                border-radius: 9px;
+                font-family: var(--font-ui);
+                font-size: 14px;
+                font-weight: 500;
+                color: var(--color-dark);
+                cursor: pointer;
+                transition: border-color var(--t-fast), color var(--t-fast);
+            }
+            .mobile-filters-btn:hover { border-color: var(--color-burgundy); color: var(--color-burgundy); }
+            .mobile-filters-btn i { font-size: 16px; }
+            .mobile-filters-btn-badge {
+                display: none;
+                align-items: center;
+                justify-content: center;
+                width: 18px;
+                height: 18px;
+                background: var(--color-burgundy);
+                color: #fff;
+                font-size: 11px;
+                font-weight: 700;
+                border-radius: 50%;
+            }
+            .mobile-filters-btn-badge.has-count { display: flex; }
+
+            /* Mobile toolbar row */
+            .mobile-toolbar-row {
+                display: none;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
+                margin-bottom: 16px;
+            }
+            .mobile-toolbar-count {
+                font-size: 13px;
+                color: var(--color-gray);
+            }
+            .mobile-toolbar-count strong { color: var(--color-dark); font-weight: 600; }
+
+            @media (max-width: 1024px) {
+                /* Hide desktop sidebar, show drawer overlay + button */
+                .filter-drawer-overlay { display: block; }
+                .filter-drawer-header { display: flex; }
+                .mobile-filters-btn { display: flex; }
+                .mobile-toolbar-row { display: flex; }
+
+                /* Sidebar becomes a right-side drawer */
+                .cat-sidebar {
+                    position: fixed;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    width: 320px;
+                    max-width: 90vw;
+                    height: 100%;
+                    background: #fff;
+                    z-index: 1100;
+                    overflow-y: auto;
+                    transform: translateX(110%);
+                    transition: transform 0.28s cubic-bezier(0.25,0.46,0.45,0.94);
+                    box-shadow: -4px 0 32px rgba(0,0,0,0.14);
+                    display: flex;
+                    flex-direction: column;
+                    padding: 0;
+                    width: 320px;
+                }
+                .cat-sidebar.is-open { transform: translateX(0); }
+
+                /* Sidebar inner padding */
+                .sidebar-filters-grid {
+                    padding: 16px 20px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0;
+                    flex: 1;
+                }
+                .filter-group { margin-bottom: 8px; }
+
+                /* Clear button inside drawer */
+                .sidebar-clear-btn { margin: 0 20px 20px; width: calc(100% - 40px); }
+
+                /* Desktop toolbar hidden — mobile one shows */
+                .cat-toolbar { display: none; }
+
+                /* Grid takes full width (no sidebar) */
+                .cat-layout { gap: 0; }
+                .cat-grid { grid-template-columns: repeat(2, 1fr); }
+            }
+
+            @media (max-width: 768px) {
+                :root { --page-px: 20px; }
+                .cat-grid { grid-template-columns: repeat(2, 1fr); }
+                .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+                .footer-top > div:first-child { grid-column: 1/-1; }
+                .footer-locations { grid-template-columns: 1fr; gap: 20px; }
+                .footer-bottom { flex-direction: column; align-items: flex-start; gap: 16px; }
+            }
+
+            @media (max-width: 480px) {
+                :root { --page-px: 16px; }
+                .footer-top { grid-template-columns: 1fr; }
+            }
+
+            @media (max-width: 374px) {
+                .cat-grid { grid-template-columns: 1fr; }
+            }
         
 
         /* ── Radius overrides ── */
@@ -2213,9 +1761,84 @@ a {
             border-radius: var(--radius-control);
         }
 
+        /* ─────────────────────────────────────────
+           CATEGORY FOLDER BROWSE  (categories.html)
+        ───────────────────────────────────────── */
+        .cats-body {
+            padding: 40px 0 80px;
+        }
+        .cats-intro {
+            margin-bottom: 28px;
+        }
+        .cats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+        .fcard {
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            border: 1.5px solid var(--color-border);
+            border-radius: 14px;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+            transition: border-color var(--t-fast), box-shadow var(--t-fast), transform var(--t-fast);
+        }
+        .fcard:hover {
+            border-color: #ccc;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+        .fcard-img-wrap {
+            aspect-ratio: 16 / 10;
+            overflow: hidden;
+            background: var(--color-bg-hover);
+            border-radius: 12px 12px 0 0 !important;
+        }
+        .fcard-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.35s ease;
+        }
+        .fcard:hover .fcard-img { transform: scale(1.04); }
+        .fcard-body {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 18px 20px 19px;
+        }
+        .fcard-title {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            color: var(--color-dark);
+            line-height: 1.25;
+        }
+        .fcard-arrow {
+            flex-shrink: 0;
+            font-size: 20px;
+            color: var(--color-burgundy);
+            transition: transform var(--t-fast);
+        }
+        .fcard:hover .fcard-arrow { transform: translateX(3px); }
+
+        @media (max-width: 1024px) {
+            .cats-grid { grid-template-columns: repeat(2, 1fr); gap: 22px; }
+        }
+        @media (max-width: 640px) {
+            .cats-grid { grid-template-columns: 1fr; gap: 18px; }
+        }
+
     </style>
     </head>
     <body>
+
         <!-- ── TOPBAR ── -->
         <div class="nav-topbar" data-comment="nav-topbar">
             <div class="nav-topbar-inner" data-comment="nav-topbar-inner">
@@ -2683,157 +2306,353 @@ a {
 
         </nav><!-- /mobile-nav -->
 
-        <main class="page-shell status-wrap" data-comment="status-main">
-            <div class="section-inner" data-comment="status-shell">
-                <section class="status-card" data-comment="status-card">
-                    <p class="status-eyebrow" id="statusEyebrow" data-comment="status-eyebrow">Status</p>
-                    <h1 class="status-title" id="statusTitle" data-comment="status-title">
-                        <span id="statusLead" data-comment="status-title-lead">Success</span>
-                    </h1>
-                    <p class="status-copy" id="statusCopy" data-comment="status-copy">Order update.</p>
-
-                    <div class="status-summary" id="statusSummary" data-comment="status-summary">
-                        <div data-comment="status-summary-order">
-                            <div class="status-order" id="statusOrderNumber" data-comment="status-order-number">#NC-12458 · 4 line items</div>
-                            <p class="status-copy" id="statusOrderNote" data-comment="status-order-note">Including delivery coordination and accessory selections.</p>
-                        </div>
-                        <div class="status-price" id="statusPrice" data-comment="status-price">$28,390</div>
-                    </div>
-
-                    <div class="summary-actions" style="max-width:320px;margin:0 auto" id="statusActions" data-comment="status-actions">
-                        <a href="home.html" class="btn-primary" id="statusPrimaryAction" data-comment="status-primary-action">
-                            <i class="ri-store-2-line" data-comment="status-primary-action-icon"></i> Continue Browsing
-                        </a>
-                    </div>
-                </section>
+        <!-- ════════════════════════════════
+             PAGE HEADER
+        ════════════════════════════════ -->
+        <div class="cat-header" data-comment="cat-header">
+            <div class="page-inner cat-header-inner" data-comment="cat-header-inner">
+                <div data-comment="cat-header-left">
+                    <nav class="cat-breadcrumb" id="catsBreadcrumb" data-comment="cat-breadcrumb" aria-label="Breadcrumb">
+                        <!-- populated by JS -->
+                    </nav>
+                    <h1 class="cat-title" id="catsTitle" data-comment="cat-title">All Categories</h1>
+                    <p class="cat-subtitle" id="catsSubtitle" data-comment="cat-subtitle">Browse everything we build, by category</p>
+                </div>
             </div>
-        </main>
+        </div>
 
-        <footer class="footer-root" data-comment="footer-root">
-            <div class="footer-inner" data-comment="footer-inner">
-                <div class="footer-top" data-comment="footer-top">
-                    <div data-comment="footer-brand">
-                        <a href="home.html" class="footer-brand-logo" data-comment="footer-brand-logo">
-                            <img src="assets/Logo.png" alt="NCS Barns" data-comment="footer-brand-img" />
-                            <span class="footer-brand-name" data-comment="footer-brand-name">North Country Storage Barns</span>
+        <!-- ════════════════
+             BODY  (category folder grid)
+        ════════════════ -->
+        <div class="cats-body" data-comment="categories-body">
+            <div class="page-inner" data-comment="categories-body-inner">
+                <div class="cats-grid" id="catsGrid" data-comment="categories-grid">
+                    <!-- populated by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ════════════════════════════════
+             FOOTER
+        ════════════════════════════════ -->
+        <footer class="footer-root" data-comment="cat-footer-root">
+            <div class="footer-inner" data-comment="cat-footer-inner">
+                <div class="footer-top" data-comment="cat-footer-top">
+                    <div data-comment="cat-footer-brand">
+                        <a href="home.html" class="footer-brand-logo" data-comment="cat-footer-brand-logo">
+                            <img src="assets/Logo.png" alt="NCS Barns" data-comment="cat-footer-brand-img" />
+                            <span class="footer-brand-name" data-comment="cat-footer-brand-name">NCS Barns</span>
                         </a>
-                        <p class="footer-brand-desc" data-comment="footer-brand-desc">Handcrafted quality structures for the North Country — family owned &amp; operated since 1993.</p>
+                        <p class="footer-brand-desc" data-comment="cat-footer-brand-desc">Handcrafted quality structures for the North Country — family owned &amp; operated since 1993.</p>
                     </div>
-                    <div data-comment="footer-col-products">
-                        <p class="footer-col-label" data-comment="footer-col-products-label">Products</p>
-                        <ul class="footer-links" data-comment="footer-links-products">
-                            <li data-comment="footer-link-li-sheds"><a href="catalog.html?category=Sheds" data-comment="footer-link-sheds">Sheds</a></li>
-                            <li data-comment="footer-link-li-gazebos"><a href="catalog.html?category=Gazebos" data-comment="footer-link-gazebos">Gazebos &amp; Pergolas</a></li>
-                            <li data-comment="footer-link-li-hunting"><a href="catalog.html?category=Hunting+Blinds" data-comment="footer-link-hunting">Hunting Blinds</a></li>
-                            <li data-comment="footer-link-li-play"><a href="catalog.html?category=Play+Structures" data-comment="footer-link-play">Play Structures</a></li>
-                            <li data-comment="footer-link-li-furniture"><a href="catalog.html?category=Indoor+Furniture" data-comment="footer-link-furniture">Furniture</a></li>
-                            <li data-comment="footer-link-li-homes"><a href="custom-built-homes.html" data-comment="footer-link-homes">Homes &amp; Garages</a></li>
+                    <div data-comment="cat-footer-col-products">
+                        <p class="footer-col-label" data-comment="cat-footer-products-label">Products</p>
+                        <ul class="footer-links" data-comment="cat-footer-products-links">
+                            <li data-comment="cat-fli-sheds"><a href="catalog.html?category=Sheds" data-comment="cat-fl-sheds">Sheds</a></li>
+                            <li data-comment="cat-fli-gazebos"><a href="catalog.html?category=Gazebos" data-comment="cat-fl-gazebos">Gazebos &amp; Pergolas</a></li>
+                            <li data-comment="cat-fli-hunting"><a href="catalog.html?category=Hunting+Blinds" data-comment="cat-fl-hunting">Hunting Blinds</a></li>
+                            <li data-comment="cat-fli-play"><a href="catalog.html?category=Play+Structures" data-comment="cat-fl-play">Play Structures</a></li>
+                            <li data-comment="cat-fli-furniture"><a href="catalog.html?category=Outdoor+Furniture" data-comment="cat-fl-furniture">Furniture</a></li>
+                            <li data-comment="cat-fli-homes"><a href="custom-built-homes.html" data-comment="cat-fl-homes">Homes &amp; Garages</a></li>
                         </ul>
                     </div>
-                    <div data-comment="footer-col-company">
-                        <p class="footer-col-label" data-comment="footer-col-company-label">Company</p>
-                        <ul class="footer-links" data-comment="footer-links-company">
-                            <li data-comment="footer-link-li-about"><a href="about.html" data-comment="footer-link-about">About Us</a></li>
-                            <li data-comment="footer-link-li-blog"><a href="blog.html" data-comment="footer-link-blog">Blog</a></li>
-                            <li data-comment="footer-link-li-testimonials"><a href="testimonials.html" data-comment="footer-link-testimonials">Testimonials</a></li>
-                            <li data-comment="footer-link-li-gallery"><a href="gallery.html" data-comment="footer-link-gallery">Gallery</a></li>
-                            <li data-comment="footer-link-li-delivery"><a href="delivery.html" data-comment="footer-link-delivery">Delivery &amp; Relocation</a></li>
+                    <div data-comment="cat-footer-col-company">
+                        <p class="footer-col-label" data-comment="cat-footer-company-label">Company</p>
+                        <ul class="footer-links" data-comment="cat-footer-company-links">
+                            <li data-comment="cat-fli-about"><a href="about.html" data-comment="cat-fl-about">About Us</a></li>
+                            <li data-comment="cat-fli-blog"><a href="blog.html" data-comment="cat-fl-blog">Blog</a></li>
+                            <li data-comment="cat-fli-testimonials"><a href="testimonials.html" data-comment="cat-fl-testimonials">Testimonials</a></li>
+                            <li data-comment="cat-fli-gallery"><a href="gallery.html" data-comment="cat-fl-gallery">Gallery</a></li>
+                            <li data-comment="cat-fli-delivery"><a href="delivery.html" data-comment="cat-fl-delivery">Delivery &amp; Relocation</a></li>
                         </ul>
                     </div>
-                    <div data-comment="footer-col-buying">
-                        <p class="footer-col-label" data-comment="footer-col-buying-label">Buying Process</p>
-                        <ul class="footer-links" data-comment="footer-links-buying">
-                            <li data-comment="footer-link-li-rto"><a href="rent-to-own.html" data-comment="footer-link-rto">Rent-To-Own</a></li>
-                            <li data-comment="footer-link-li-siteprep"><a href="site-preparation.html" data-comment="footer-link-siteprep">Site Preparation</a></li>
-                            <li data-comment="footer-link-li-warranty"><a href="warranty.html" data-comment="footer-link-warranty">Warranty</a></li>
-                            <li data-comment="footer-link-li-dealers"><a href="partners.html" data-comment="footer-link-dealers">Our Partners</a></li>
+                    <div data-comment="cat-footer-col-buying">
+                        <p class="footer-col-label" data-comment="cat-footer-buying-label">Buying Process</p>
+                        <ul class="footer-links" data-comment="cat-footer-buying-links">
+                            <li data-comment="cat-fli-rto"><a href="rent-to-own.html" data-comment="cat-fl-rto">Rent-To-Own</a></li>
+                            <li data-comment="cat-fli-siteprep"><a href="site-preparation.html" data-comment="cat-fl-siteprep">Site Preparation</a></li>
+                            <li data-comment="cat-fli-warranty"><a href="warranty.html" data-comment="cat-fl-warranty">Warranty</a></li>
+                            <li data-comment="cat-fli-dealers"><a href="partners.html" data-comment="cat-fl-dealers">Our Partners</a></li>
                         </ul>
                     </div>
-                    <div data-comment="footer-col-contact">
-                        <p class="footer-col-label" data-comment="footer-col-contact-label">Contact</p>
-                        <div class="footer-contact-item" data-comment="footer-contact-phone">
-                            <svg viewBox="0 0 24 24" data-comment="footer-contact-phone-icon"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l1.64-1.64a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                            <a href="tel:3156420209" data-comment="footer-contact-phone-link">(315) 642-0209</a>
+                    <div data-comment="cat-footer-col-contact">
+                        <p class="footer-col-label" data-comment="cat-footer-contact-label">Contact</p>
+                        <div class="footer-contact-item" data-comment="cat-footer-phone">
+                            <svg viewBox="0 0 24 24" data-comment="cat-footer-phone-icon"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l1.64-1.64a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <a href="tel:3156420209" data-comment="cat-footer-phone-link">(315) 642-0209</a>
                         </div>
-                        <div class="footer-contact-item" data-comment="footer-contact-email">
-                            <svg viewBox="0 0 24 24" data-comment="footer-contact-email-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                            <a href="mailto:sales@ncsbarns.com" data-comment="footer-contact-email-link">sales@ncsbarns.com</a>
+                        <div class="footer-contact-item" data-comment="cat-footer-email">
+                            <svg viewBox="0 0 24 24" data-comment="cat-footer-email-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            <a href="mailto:sales@ncsbarns.com" data-comment="cat-footer-email-link">sales@ncsbarns.com</a>
                         </div>
                     </div>
                 </div>
-                <div class="footer-locations" data-comment="footer-locations">
-                    <div data-comment="footer-loc-philadelphia">
-                        <p class="footer-loc-name" data-comment="footer-loc-philadelphia-name">Philadelphia</p>
-                        <p class="footer-loc-addr" data-comment="footer-loc-philadelphia-addr">32660 US Route 11<br />Philadelphia, NY 13673</p>
-                        <p class="footer-loc-phone" data-comment="footer-loc-philadelphia-phone">(315) 642-0209</p>
+                <div class="footer-locations" data-comment="cat-footer-locations">
+                    <div data-comment="cat-footer-loc-phila">
+                        <p class="footer-loc-name" data-comment="cat-footer-loc-phila-name">Philadelphia</p>
+                        <p class="footer-loc-addr" data-comment="cat-footer-loc-phila-addr">32660 US Route 11<br>Philadelphia, NY 13673</p>
+                        <p class="footer-loc-phone" data-comment="cat-footer-loc-phila-phone">(315) 642-0209</p>
                     </div>
-                    <div data-comment="footer-loc-yorkville">
-                        <p class="footer-loc-name" data-comment="footer-loc-yorkville-name">Yorkville</p>
-                        <p class="footer-loc-addr" data-comment="footer-loc-yorkville-addr">317 Oriskany Blvd<br />Yorkville, NY</p>
-                        <p class="footer-loc-phone" data-comment="footer-loc-yorkville-phone">(315) 793-0726</p>
+                    <div data-comment="cat-footer-loc-york">
+                        <p class="footer-loc-name" data-comment="cat-footer-loc-york-name">Yorkville</p>
+                        <p class="footer-loc-addr" data-comment="cat-footer-loc-york-addr">317 Oriskany Blvd<br>Yorkville, NY</p>
+                        <p class="footer-loc-phone" data-comment="cat-footer-loc-york-phone">(315) 793-0726</p>
                     </div>
-                    <div data-comment="footer-loc-sandycreek">
-                        <p class="footer-loc-name" data-comment="footer-loc-sandycreek-name">Sandy Creek</p>
-                        <p class="footer-loc-addr" data-comment="footer-loc-sandycreek-addr">5780 US Route 11<br />Pulaski, NY 13142</p>
-                        <p class="footer-loc-phone" data-comment="footer-loc-sandycreek-phone">(315) 387-2092</p>
+                    <div data-comment="cat-footer-loc-sandy">
+                        <p class="footer-loc-name" data-comment="cat-footer-loc-sandy-name">Sandy Creek</p>
+                        <p class="footer-loc-addr" data-comment="cat-footer-loc-sandy-addr">5780 US Route 11<br>Pulaski, NY 13142</p>
+                        <p class="footer-loc-phone" data-comment="cat-footer-loc-sandy-phone">(315) 387-2092</p>
                     </div>
                 </div>
-                <div class="footer-bottom" data-comment="footer-bottom">
-                    <div class="footer-copy-row" data-comment="footer-copy-row">
-                        <p class="footer-copy" data-comment="footer-copy">Copyright&copy; 2024 North Country Storage Barns LLC. All rights reserved.</p>
-                        <a href="privacy.html" class="footer-legal-link" href="privacy.html" class="footer-legal-link" data-comment="footer-link-privacy">Privacy Policy</a>
-                        <a href="terms.html" class="footer-legal-link" data-comment="footer-link-terms">Terms &amp; Conditions</a>
+                <div class="footer-bottom" data-comment="cat-footer-bottom">
+                    <div class="footer-copy-row" data-comment="cat-footer-copy-row">
+                        <p class="footer-copy" data-comment="cat-footer-copy">&copy; 2026 North Country Storage Barns. All rights reserved.</p>
+                        <a href="privacy.html" class="footer-legal-link" data-comment="cat-footer-privacy">Privacy Policy</a>
+                        <a href="terms.html" class="footer-legal-link" data-comment="cat-footer-terms">Terms &amp; Conditions</a>
                     </div>
-                    <div class="footer-socials" data-comment="footer-socials">
-                        <a href="https://www.tiktok.com/@northcountrystoragebarns" target="_blank" class="footer-social-btn" data-comment="footer-social-tiktok" aria-label="TikTok"><i class="ri-tiktok-fill" data-comment="footer-social-tiktok-icon"></i></a>
-                        <a href="https://www.facebook.com/ifyouneedmeillbeinmyshed/" target="_blank" class="footer-social-btn" data-comment="footer-social-facebook" aria-label="Facebook"><i class="ri-facebook-fill" data-comment="footer-social-facebook-icon"></i></a>
-                        <a href="https://www.instagram.com/northcountrystoragebarns/" target="_blank" class="footer-social-btn" data-comment="footer-social-instagram" aria-label="Instagram"><i class="ri-instagram-fill" data-comment="footer-social-instagram-icon"></i></a>
-                        <a href="https://www.google.com/search?q=north+country+storage+barns" target="_blank" class="footer-social-btn" data-comment="footer-social-google" aria-label="Google"><i class="ri-google-fill" data-comment="footer-social-google-icon"></i></a>
+                    <div class="footer-socials" data-comment="cat-footer-socials">
+                        <a href="https://www.tiktok.com/@northcountrystoragebarns" target="_blank" class="footer-social-btn" data-comment="cat-footer-tiktok" aria-label="TikTok"><i class="ri-tiktok-fill" data-comment="cat-footer-tiktok-icon"></i></a>
+                        <a href="https://www.facebook.com/ifyouneedmeillbeinmyshed/" target="_blank" class="footer-social-btn" data-comment="cat-footer-facebook" aria-label="Facebook"><i class="ri-facebook-fill" data-comment="cat-footer-facebook-icon"></i></a>
+                        <a href="https://www.instagram.com/northcountrystoragebarns/" target="_blank" class="footer-social-btn" data-comment="cat-footer-instagram" aria-label="Instagram"><i class="ri-instagram-fill" data-comment="cat-footer-instagram-icon"></i></a>
+                        <a href="#" class="footer-social-btn" data-comment="cat-footer-google" aria-label="Google"><i class="ri-google-fill" data-comment="cat-footer-google-icon"></i></a>
                     </div>
                 </div>
             </div>
         </footer>
 
         <script>
+        /* ═══════════════════════════════════════════════
+           PRODUCT DATA
+        ═══════════════════════════════════════════════ */
+        const PRODUCTS = [
+            /* ── SHEDS ── */
+            { id:1,  name:'Classic Barn',             category:'Sheds',             style:'Gambrel',      price:2200,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80' },
+            { id:2,  name:'Lofted Barn',              category:'Sheds',             style:'Lofted Barn',  price:3800,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=600&q=80' },
+            { id:3,  name:'A-Frame Shed',             category:'Sheds',             style:'A-Frame',      price:3100,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80' },
+            { id:4,  name:'Cabin Shed',               category:'Sheds',             style:'Cabin',        price:6400,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=600&q=80' },
+            { id:5,  name:'Ranch Shed',               category:'Sheds',             style:'Ranch',        price:8900,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80' },
+            /* ── GAZEBOS / PERGOLAS / PAVILIONS ── */
+            { id:6,  name:'Cedar Gazebo',             category:'Gazebos',           style:'Gazebo',       price:3200,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80' },
+            { id:7,  name:'Vinyl Pergola',            category:'Gazebos',           style:'Pergola',      price:3800,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&q=80' },
+            { id:8,  name:'Wood Pavilion',            category:'Gazebos',           style:'Pavilion',     price:5600,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80' },
+            { id:9,  name:'Screen Gazebo',            category:'Gazebos',           style:'Gazebo',       price:3500,  sale:3100, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80' },
+            { id:10, name:'Corner Pergola',           category:'Gazebos',           style:'Pergola',      price:2900,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&q=80' },
+            /* ── HUNTING BLINDS ── */
+            { id:11, name:'Tower Blind',              category:'Hunting Blinds',    style:'Tower',        price:1400,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&q=80' },
+            { id:12, name:'Elevated Blind',           category:'Hunting Blinds',    style:'Elevated',     price:1900,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&q=80' },
+            { id:13, name:'Box Blind',                category:'Hunting Blinds',    style:'Box',          price:1200,  sale:999,  rto:false, instock:true,  img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&q=80' },
+            /* ── PLAY STRUCTURES ── */
+            { id:14, name:'Adventure Playset',        category:'Play Structures',   style:'Playset',      price:2200,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=600&q=80' },
+            { id:15, name:'Deluxe Swing Set',         category:'Play Structures',   style:'Swing Set',    price:3400,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=600&q=80' },
+            { id:16, name:'Sandbox Playset',          category:'Play Structures',   style:'Sandbox',      price:1800,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=600&q=80' },
+            { id:17, name:'Premium Fort & Slide Set', category:'Play Structures',   style:'Fort',         price:4100,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=600&q=80' },
+            /* ── ANIMAL STRUCTURES ── */
+            { id:18, name:'Chicken Coop',             category:'Animal Structures', style:'Coop',         price:680,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=600&q=80' },
+            { id:19, name:'Dog Kennel',               category:'Animal Structures', style:'Kennel',       price:950,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=600&q=80' },
+            { id:20, name:'Horse Loafing Shed',       category:'Animal Structures', style:'Loafing Shed', price:4800,  sale:null, rto:true,  instock:true,  img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80' },
+            /* ── INDOOR FURNITURE ── */
+            { id:21, name:'Barnwood Coffee Table',    category:'Indoor Furniture',  style:'Table',        price:480,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=600&q=80' },
+            { id:22, name:'Log Bed Frame',            category:'Indoor Furniture',  style:'Bed Frame',    price:890,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=600&q=80' },
+            { id:23, name:'Adirondack End Table',     category:'Indoor Furniture',  style:'Table',        price:220,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=600&q=80' },
+            { id:24, name:'Rustic Bookshelf',         category:'Indoor Furniture',  style:'Storage',      price:340,   sale:295,  rto:false, instock:true,  img:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80' },
+            /* ── OUTDOOR FURNITURE ── */
+            { id:25, name:'Classic Adirondack Chair', category:'Outdoor Furniture', style:'Chair',        price:285,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1592078615290-033ee584e267?w=600&q=80' },
+            { id:26, name:'Cedar Picnic Table',       category:'Outdoor Furniture', style:'Table',        price:520,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1597208751520-49ca90e8c28e?w=600&q=80' },
+            { id:27, name:'Porch Swing',              category:'Outdoor Furniture', style:'Swing',        price:440,   sale:380,  rto:false, instock:true,  img:'https://images.unsplash.com/photo-1597208751520-49ca90e8c28e?w=600&q=80' },
+            { id:28, name:'Cedar Bench',              category:'Outdoor Furniture', style:'Bench',        price:290,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1592078615290-033ee584e267?w=600&q=80' },
+            { id:29, name:'Outdoor Bar Table Set',    category:'Outdoor Furniture', style:'Table',        price:680,   sale:null, rto:false, instock:false, img:'https://images.unsplash.com/photo-1597208751520-49ca90e8c28e?w=600&q=80' },
+            /* ── DECOR & MORE ── */
+            { id:30, name:'Barn Star Decor',          category:'Decor & More',      style:'Decor',        price:45,    sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&q=80' },
+            { id:31, name:'Wooden Planter Box',       category:'Decor & More',      style:'Planter',      price:95,    sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&q=80' },
+            { id:32, name:'Rustic Mailbox Post',      category:'Decor & More',      style:'Mailbox',      price:185,   sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&q=80' },
+            /* ── RETURNED RENTALS ── */
+            { id:33, name:'Returned Classic Barn',    category:'Returned Rentals',  style:'Gambrel',      price:1800,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80' },
+            { id:34, name:'Returned Lofted Barn',     category:'Returned Rentals',  style:'Lofted Barn',  price:2900,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=600&q=80' },
+            { id:35, name:'Returned A-Frame Shed',    category:'Returned Rentals',  style:'A-Frame',      price:1500,  sale:null, rto:false, instock:true,  img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80' },
+            /* ── LOG HOMES ── */
+            { id:36, name:'Chalet',                   category:'Log Homes',         style:'Chalet',            price:89500,  sale:null, rto:true, instock:true, img:'assets/Log homes/Chalet.png' },
+            { id:37, name:'Mountaineer',              category:'Log Homes',         style:'Mountaineer',       price:112000, sale:null, rto:true, instock:true, img:'assets/Log homes/Mountaineer.png' },
+            { id:38, name:'Mountaineer Deluxe',       category:'Log Homes',         style:'Mountaineer Deluxe',price:134500, sale:null, rto:true, instock:true, img:'assets/Log homes/Mountaineer Deluxe.png' },
+            { id:39, name:'Musketeer',                category:'Log Homes',         style:'Musketeer',         price:67000,  sale:null, rto:true, instock:true, img:'assets/Log homes/Musketeer.png' },
+            { id:40, name:'Pioneer',                  category:'Log Homes',         style:'Pioneer',           price:98000,  sale:null, rto:true, instock:true, img:'assets/Log homes/Pioneer.png' },
+            { id:41, name:'Settler',                  category:'Log Homes',         style:'Settler',           price:74500,  sale:null, rto:true, instock:true, img:'assets/Log homes/Settler.png' },
+            { id:42, name:'Frontier',                 category:'Log Homes',         style:'Frontier',          price:85000,  sale:null, rto:true, instock:true, img:'assets/Log homes/Frontier.png' },
+            { id:43, name:'Alpine',                   category:'Log Homes',         style:'Alpine',            price:145000, sale:null, rto:true, instock:true, img:'assets/Log homes/Alpine.png' },
+            /* ── GARAGES ── */
+            { id:44, name:'Standard Garage',          category:'Garages',           style:'Standard',     price:18500, sale:null, rto:false, instock:false, img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80' },
+            { id:45, name:'Cottage Garage',           category:'Garages',           style:'Cottage',      price:22400, sale:null, rto:false, instock:false, img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80' },
+            { id:46, name:'Gambrel Garage',           category:'Garages',           style:'Gambrel',      price:24100, sale:null, rto:false, instock:false, img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80' },
+        ];
+
+        /* ═══════════════════════════════════════════════
+           CATEGORY URL → display name map
+        ═══════════════════════════════════════════════ */
+        const CAT_MAP = {
+            'Sheds':              'Sheds',
+            'Gazebos':            'Gazebos / Pergolas / Pavilions',
+            'Hunting Blinds':     'Hunting Blinds',
+            'Play Structures':    'Play Structures',
+            'Animal Structures':  'Animal Structures',
+            'Indoor Furniture':   'Indoor Furniture',
+            'Outdoor Furniture':  'Outdoor Furniture',
+            'Decor & More':       'Decor &amp; More',
+            'Returned Rentals':   'Returned Rentals',
+            'Custom Homes':       'Custom Built Homes',
+            'Modular Log Homes':  'Modular Log Homes',
+            'Log Homes':          'Log Homes',
+            'Garages':            'Garages',
+        };
+
+        /* ── map URL ?category= param to PRODUCTS.category value ── */
+        const CAT_SLUG_MAP = {
+            'Sheds':             'Sheds',
+            'Gazebos':           'Gazebos',
+            'Hunting+Blinds':    'Hunting Blinds',
+            'Hunting Blinds':    'Hunting Blinds',
+            'Play+Structures':   'Play Structures',
+            'Play Structures':   'Play Structures',
+            'Animal+Structures': 'Animal Structures',
+            'Animal Structures': 'Animal Structures',
+            'Indoor+Furniture':  'Indoor Furniture',
+            'Indoor Furniture':  'Indoor Furniture',
+            'Outdoor+Furniture': 'Outdoor Furniture',
+            'Outdoor Furniture': 'Outdoor Furniture',
+            'Decor':             'Decor & More',
+            'Returned+Rentals':  'Returned Rentals',
+            'Returned Rentals':  'Returned Rentals',
+            'Log+Homes':         'Log Homes',
+            'Log Homes':         'Log Homes',
+            'Garages':           'Garages',
+        };
+
+        /* ═══════════════════════════════════════════════
+           CATEGORY TREE  (derived from PRODUCTS — style = subcategory)
+        ═══════════════════════════════════════════════ */
+        /* top-level categories in display order */
+        const CATEGORY_ORDER = [
+            'Sheds', 'Gazebos', 'Hunting Blinds', 'Play Structures',
+            'Animal Structures', 'Indoor Furniture', 'Outdoor Furniture',
+            'Decor & More', 'Returned Rentals', 'Log Homes', 'Garages',
+        ];
+
+        /* placeholder images — reuse the Home “Explore Our Products” visuals */
+        const CAT_IMG = {
+            'Sheds':             'assets/Products/Visual Sheds.png',
+            'Gazebos':           'assets/Products/Visual Gazebos & Pergolas.png',
+            'Hunting Blinds':    'assets/Products/Visual Hunting Blinds.png',
+            'Play Structures':   'assets/Products/Visual Play Structures.png',
+            'Animal Structures': 'assets/Products/Visual Animal Structures.png',
+            'Indoor Furniture':  'assets/Products/Furniture.png',
+            'Outdoor Furniture': 'assets/Products/Furniture.png',
+            'Decor & More':      'assets/Products/Furniture.png',
+            'Returned Rentals':  'assets/Products/Visual Returned Rentals.png',
+            'Log Homes':         'assets/Products/Homes & Garages.png',
+            'Garages':           'assets/Products/Homes & Garages.png',
+        };
+
+        function topCategories() {
+            return CATEGORY_ORDER.filter(c => PRODUCTS.some(p => p.category === c));
+        }
+        function subcategoriesOf(cat) {
+            return [...new Set(PRODUCTS.filter(p => p.category === cat).map(p => p.style).filter(Boolean))];
+        }
+        /* placeholder image for a subcategory — reuse the parent category visual */
+        function subImg(cat, sub) {
+            return CAT_IMG[cat] || '';
+        }
+        function displayCat(cat) { return CAT_MAP[cat] || cat; }
+
+        /* ═══════════════════════════════════════════════
+           RENDER
+        ═══════════════════════════════════════════════ */
+        function init() {
             const params = new URLSearchParams(window.location.search);
-            const status = params.get('status') === 'error' ? 'error' : 'success';
+            const catParam = params.get('cat');
+            const cat = catParam ? decodeURIComponent(catParam).replace(/\+/g, ' ') : null;
 
-            const config = {
-                success: {
-                    eyebrow: 'Status',
-                    title: 'Success',
-                    accent: 'Complete',
-                    copy: 'Order placed.',
-                    order: '#NC-12458 · 4 line items',
-                    note: 'Including delivery coordination and accessory selections.',
-                    price: '$28,170',
-                    actionLabel: 'Continue Browsing',
-                    actionHref: 'home.html',
-                    actionIcon: 'ri-store-2-line',
-                },
-                error: {
-                    eyebrow: 'Status',
-                    title: 'Error',
-                    accent: 'Failed',
-                    copy: 'Try again.',
-                    order: 'Payment attempt was not completed',
-                    note: 'Your saved cart is still available in checkout.',
-                    price: 'Needs attention',
-                    actionLabel: 'Reload Checkout',
-                    actionHref: 'checkout.html?step=payment',
-                    actionIcon: 'ri-refresh-line',
-                },
-            };
+            if (cat && topCategories().includes(cat)) {
+                renderSubcategories(cat);
+            } else {
+                renderCategories();
+            }
+        }
 
-            const current = config[status];
-            document.getElementById('statusEyebrow').textContent = current.eyebrow;
-            document.getElementById('statusLead').textContent = current.title;
-            document.getElementById('statusCopy').innerHTML = current.copy;
-            document.getElementById('statusOrderNumber').textContent = current.order;
-            document.getElementById('statusOrderNote').textContent = current.note;
-            document.getElementById('statusPrice').textContent = current.price;
-            document.getElementById('statusPrimaryAction').href = current.actionHref;
-            document.getElementById('statusPrimaryAction').innerHTML = `<i class="${current.actionIcon}" data-comment="status-primary-action-icon"></i> ${current.actionLabel}`;
+        /* ── Breadcrumb ── */
+        function renderBreadcrumb(segments) {
+            /* segments: [{label, href|null}] — last item is current */
+            const bc = document.getElementById('catsBreadcrumb');
+            const parts = [];
+            segments.forEach((seg, idx) => {
+                const n = idx + 1;
+                if (seg.href) {
+                    parts.push(`<a href="${seg.href}" data-comment="categories-bc-${n}">${seg.label}</a>`);
+                } else {
+                    parts.push(`<span class="cat-breadcrumb-current" data-comment="categories-bc-${n}">${seg.label}</span>`);
+                }
+                if (idx < segments.length - 1) {
+                    parts.push(`<span class="cat-breadcrumb-sep" data-comment="categories-bc-sep-${n}">›</span>`);
+                }
+            });
+            bc.innerHTML = parts.join('');
+        }
+
+        /* ── Folder card ── */
+        function folderCard(n, href, title, img) {
+            return `
+                <a class="fcard" href="${href}" data-comment="categories-card-${n}">
+                    <div class="fcard-img-wrap" data-comment="categories-card-${n}-img-wrap">
+                        <img src="${img}" alt="${title}" class="fcard-img" loading="lazy" data-comment="categories-card-${n}-img" />
+                    </div>
+                    <div class="fcard-body" data-comment="categories-card-${n}-body">
+                        <h3 class="fcard-title" data-comment="categories-card-${n}-title">${title}</h3>
+                        <i class="ri-arrow-right-line fcard-arrow" data-comment="categories-card-${n}-arrow"></i>
+                    </div>
+                </a>`;
+        }
+
+        /* ── Level 0: all categories ── */
+        function renderCategories() {
+            document.title = 'NCS Barns — All Categories';
+            document.getElementById('catsTitle').textContent = 'All Categories';
+            document.getElementById('catsSubtitle').textContent = 'Browse everything we build, by category';
+            renderBreadcrumb([
+                { label: 'Home', href: 'home.html' },
+                { label: 'All Categories', href: null },
+            ]);
+
+            const cats = topCategories();
+            document.getElementById('catsGrid').innerHTML = cats.map((c, i) =>
+                folderCard(i + 1, `categories.html?cat=${encodeURIComponent(c)}`, displayCat(c), CAT_IMG[c] || '')
+            ).join('');
+        }
+
+        /* ── Level 1: subcategories of a category ── */
+        function renderSubcategories(cat) {
+            const name = displayCat(cat);
+            document.title = 'NCS Barns — ' + name;
+            document.getElementById('catsTitle').textContent = name;
+            document.getElementById('catsSubtitle').textContent = 'Choose a subcategory in ' + name;
+            renderBreadcrumb([
+                { label: 'Home', href: 'home.html' },
+                { label: 'All Categories', href: 'categories.html' },
+                { label: name, href: null },
+            ]);
+
+            const subs = subcategoriesOf(cat);
+            document.getElementById('catsGrid').innerHTML = subs.map((sub, i) =>
+                folderCard(
+                    i + 1,
+                    `catalog.html?category=${encodeURIComponent(cat)}&subcategory=${encodeURIComponent(sub)}`,
+                    sub,
+                    subImg(cat, sub)
+                )
+            ).join('');
+        }
+
+        /* ═══════════════════════════════════════════════
+           BOOT
+        ═══════════════════════════════════════════════ */
+        document.addEventListener('DOMContentLoaded', init);
         
 
   // ── Nav JS (inlined from nav.js) ──
